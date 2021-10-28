@@ -18,5 +18,34 @@ const body = {
     NumberOfPassengers: {children: 50, adults: 78}
 }
 
-const flight = new Flight(body)
-flight.save()
+const body1 = {
+    FirstName: "Mohamed",
+    LastName: 'Abdelhamid',
+    Admin: false,
+    Email: 'mo@gmail.com',
+    HomeAddress: 'Cairo',
+    TelephoneNumbers: ['01003202027'],
+    Username: 'moAhmed',
+    Password: 'mohamedahmed',
+    CountryCode: '12321',
+    PassportNumber: '2344532'
+}
+
+const id = async () => {
+    const userId = (await User.find({_id: "617ae39d75f5e23f35fe57c6"}))[0]._id
+    const flightId = (await Flight.find({}))[0]._id
+    console.log(userId, flightId)
+    const body = {
+        User: userId,
+        Flight: flightId,
+        ReservationNumber: '12321',
+        TotalPrice: 100,
+        NumberOfSeats: {children: 3, adults: 6},
+        FlightNumber: 21,
+        Seats: ['A1', 'C3']
+    }
+    const booking = new Booking(body)
+    booking.save()
+}
+// const user = new User(body1)
+// user.save()

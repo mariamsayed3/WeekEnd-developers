@@ -23,8 +23,8 @@ const bookingSchema = new Schema({
     type: Object, // for adults and children
     required: true,
   },
-  Flightnumber: {
-    type: String,
+  FlightNumber: {
+    type: Number,
     required: true
   },
   Seats: {

@@ -21,11 +21,12 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    validate:{
+    lowercase: true,
+    validate: {
         validator: (value) => validator.isEmail(value)
     }
   },
-  HomeAdress: {
+  HomeAddress: {
     type: String,
     required: true
   },
