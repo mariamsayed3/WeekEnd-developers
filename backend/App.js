@@ -6,12 +6,13 @@ const databaseName = process.env.DATABASE_NAME
 const databaseUsername = process.env.DATABASE_USERNAME 
 const databasePassword = process.env.DATABASE_PASSWORD
 const clusterName = process.env.CLUSTER
-
+const cors = require('cors')
 const User = require('./models/User')
 const Flight = require('./models/Flight')
-
 const express = require("express")
 const app = express();
+app.use(cors({origin: ['http://localhost:3000']}));
+app.use(cors());
 app.use('/admin',AdminRouter)
 app.use(express.json())
 const port = process.env.PORT || "8000";
