@@ -6,7 +6,6 @@ const databaseUsername = process.env.DATABASE_USERNAME
 const databasePassword = process.env.DATABASE_PASSWORD
 const clusterName = process.env.CLUSTER
 
-
 const connect = async () => {
     try{
         await mongoose.connect(
@@ -23,9 +22,3 @@ const connect = async () => {
     }
 }
 connect()
-
-
-
-
-
-
