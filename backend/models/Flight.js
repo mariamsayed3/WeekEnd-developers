@@ -33,7 +33,12 @@ const flightSchema = new Schema({
   Seats:{
     type: Array,
     required: true
+  },
+  NumberOfPassengers: {
+    type: Object,
+    required: true
   }
+
 });
 
 const Flight = mongoose.model('Flight', flightSchema)
