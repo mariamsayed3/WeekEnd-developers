@@ -22,4 +22,14 @@ const connect = async () => {
         console.log(err)
     }
 }
+<<<<<<< HEAD
 connect()
+=======
+connect()
+
+
+
+
+
+
+>>>>>>> 4328728b1f2aa24dd01fe9df611fe28453f03ece
