@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import {useParams} from "react-router-dom";
-import {Alert,Button, Form, Input, DatePicker,} from 'antd';
+import {Alert,Button, Form, Input, DatePicker,Cascader, InputNumber} from 'antd';
 require ('dotenv').config()
 
 
@@ -11,6 +11,11 @@ function UpdateFlight() {
     const id = "617adf4639bec94174c87305"
     const [form] = Form.useForm();
     const [flight, setFlight] = useState(null)
+    const [componentSize, setComponentSize] = useState('default');
+
+  const onFormLayoutChange = ({ size }) => {
+    setComponentSize(size);
+  };
     // const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -38,82 +43,82 @@ function UpdateFlight() {
         }
       };
     
-      return(
-        <div>
+      // return(
+      //   <div>
 
-        <Form form={form} name="Update Flight">
-            <Form.Item
-              name="FlightNumber"
-              label="FlightNumber"
-            >
-              <Input placeholder="Please input flight number"/>
-            </Form.Item>
+      //   <Form form={form} name="Update Flight">
+      //       <Form.Item
+      //         name="FlightNumber"
+      //         label="FlightNumber"
+      //       >
+      //         <Input placeholder="Please input flight number"/>
+      //       </Form.Item>
 
-            <Form.Item
-              name="departure_date"
-              label="departure_date"
-            >
-             <DatePicker />
-             </Form.Item>
+      //       <Form.Item
+      //         name="departure_date"
+      //         label="departure_date"
+      //       >
+      //        <DatePicker />
+      //        </Form.Item>
 
-             <Form.Item
-              name="arrival_date"
-              label="arrival_date"
-            >
-             <DatePicker />
-            </Form.Item>
+      //        <Form.Item
+      //         name="arrival_date"
+      //         label="arrival_date"
+      //       >
+      //        <DatePicker />
+      //       </Form.Item>
 
-            <Form.Item
-              name="departure_airport"
-              label="departure_airport"
-            >
-              <Input placeholder="Please"/>
-            </Form.Item>
+      //       <Form.Item
+      //         name="departure_airport"
+      //         label="departure_airport"
+      //       >
+      //         <Input placeholder="Please"/>
+      //       </Form.Item>
 
-            <Form.Item
-              name="arrival_airport"
-              label="arrival_airport"
+      //       <Form.Item
+      //         name="arrival_airport"
+      //         label="arrival_airport"
 
-            >
-              <Input placeholder="Please"/>
-            </Form.Item>
+      //       >
+      //         <Input placeholder="Please"/>
+      //       </Form.Item>
 
-            <Form.Item
-              name="economy_seats"
-              label="economy_seats"
-            >
-              <Input placeholder="Please"/>
-            </Form.Item>
+      //       <Form.Item
+      //         name="economy_seats"
+      //         label="economy_seats"
+      //       >
+      //         <Input placeholder="Please"/>
+      //       </Form.Item>
 
-            <Form.Item
-              name="economy_price"
-              label="economy_price"
-            >
-              <Input placeholder="Please"/>
-            </Form.Item>
+      //       <Form.Item
+      //         name="economy_price"
+      //         label="economy_price"
+      //       >
+      //         <Input placeholder="Please"/>
+      //       </Form.Item>
 
-            <Form.Item
-              name="business_seats"
-              label="business_seats"
-            >
-              <Input placeholder="Please"/>
-            </Form.Item>
+      //       <Form.Item
+      //         name="business_seats"
+      //         label="business_seats"
+      //       >
+      //         <Input placeholder="Please"/>
+      //       </Form.Item>
 
-            <Form.Item
-              name="business_price"
-              label="business_price"
-            >
-              <Input placeholder="Please"/>
-            </Form.Item>
+      //       <Form.Item
+      //         name="business_price"
+      //         label="business_price"
+      //       >
+      //         <Input placeholder="Please"/>
+      //       </Form.Item>
  
-            {/* {error && <Alert message={error} type="error" /> } */}
-                <div style={{textAlign:'center'}}>
-                  <Button type="primary" onClick={onSubmit} style={{ marginTop: '40px', width: '150px'}}>
-                    Update Flight
-                  </Button>
-                  </div>
-          </Form>
-        </div>
-      )
+      //       {/* {error && <Alert message={error} type="error" /> } */}
+      //           <div style={{textAlign:'center'}}>
+      //             <Button type="primary" onClick={onSubmit} style={{ marginTop: '40px', width: '150px'}}>
+      //               Update Flight
+      //             </Button>
+      //             </div>
+      //     </Form>
+      //   </div>
+      // )
 }
 export default UpdateFlight    
