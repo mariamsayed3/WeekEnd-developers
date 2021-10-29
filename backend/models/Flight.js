@@ -6,21 +6,53 @@ const flightSchema = new Schema({
     type: String,
     required: true,
   },
-  Departure: {
-    type: Object,
+  DepartureTime: {
+    type: Date,
     required: true,
   },
-  Arrival: {
-    type: Object,
+  ArrivalTime: {
+    type: Date,
     required: true
   },
-  EconomyClass: {
-    type: Object,
+  DepartureAirport: {
+    type: String,
     required: true,
   },
-  BusinessClass: {
-    type: Object,
-    required: true
+  ArrivalAirport: {
+    type: String,
+    required: true,
+  },
+  DepartureTerminal: {
+    type: String,
+    required: true,
+  },
+  ArrivalTerminal: {
+    type: String,
+    required: true,
+  },
+  EconomyTotalSeats: {
+    type: Number,
+    required: true,
+  },
+  EconomyAvailableSeats: {
+    type: Number,
+    required: true,
+  },
+  EconomyPrice: {
+    type: Number,
+    required: true,
+  },
+  BusinessTotalSeats: {
+    type: Number,
+    required: true,
+  },
+  BusinessAvailableSeats: {
+    type: Number,
+    required: true,
+  },
+  BusinessPrice: {
+    type: Number,
+    required: true,
   },
   TripDuration: {
     type: Object,
@@ -33,8 +65,12 @@ const flightSchema = new Schema({
   Seats:{
     type: Array,
     required: true
+  },
+  NumberOfPassengers: {
+    type: Object,
+    required: true
   }
-});
+})
 
 const Flight = mongoose.model('Flight', flightSchema)
 module.exports = Flight
