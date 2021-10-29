@@ -1,10 +1,28 @@
 require('./db/db')
 require('dotenv').config();
 const mongoose = require('mongoose')
-
+const AdminRouter = require ('./routes/Admin')
+const Booking = require('./models/Booking')
+const cors = require('cors')
 const User = require('./models/User')
 const Flight = require('./models/Flight')
-const Booking = require('./models/Booking')
+const express = require("express")
+const app = express();
+app.use(cors({origin: ['http://localhost:3000']}));
+app.use(cors());
+app.use('/admin',AdminRouter)
+app.use(express.json())
+const port = process.env.PORT || "8000";
+app.get("/Home", (req, res) => {
+    res.status(200).send("You have everything installed !");
+  });
+
+app.listen(port, () => {
+    console.log(`Listening to requests on http://localhost:${port}`);
+  });
+
+
+
 
 const body = {
     FlightNumber: "1234",
