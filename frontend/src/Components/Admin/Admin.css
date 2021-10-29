@@ -1,0 +1,10 @@
+.updateCard{
+    width:60%;
+    margin: 3% auto;
+    box-shadow: 5px 4px 20px 0 #706a6b9d;
+    transition: 0.3s;
+  }
+
+.updateForm{
+    margin: 0 auto;
+}    

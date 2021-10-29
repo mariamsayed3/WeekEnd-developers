@@ -1,37 +1,38 @@
-import {useState, useEffect} from 'react';
 import axios from 'axios';
+import 'antd/dist/antd.css';
 import {useParams} from "react-router-dom";
-import {Alert,Button, Form, Input, DatePicker,} from 'antd';
+import {Button, Form, Input, DatePicker, Card, Row, Col} from 'antd';
+import './Admin.css';
 require ('dotenv').config()
 
 
 
 function UpdateFlight() {
-    console.log(process.env.URL)
-    const id = "617adf4639bec94174c87305"
+    const id = "617bbcf6edf4585cfd4a5cca"
     const [form] = Form.useForm();
-    const [flight, setFlight] = useState(null)
-    // const [error, setError] = useState(null);
 
-    useEffect(() => {
-      
-        if(flight){
-            const {FlightNumber,Departure,Arrival,EconomyClass,BusinessClass,}=flight
-            const {date: departure_date, airport: departure_airport} = Departure
-            const {date: arrival_date, airport: arrival_airport } = Arrival
-            const {available_seats: economy_seats,price: economy_price} = EconomyClass
-            const {available_seats: business_seats, price: business_price} = BusinessClass
-            form.setFieldsValue({
-                FlightNumber,departure_date ,departure_airport, arrival_date, arrival_airport,
-                economy_seats, economy_price, business_seats, business_price });
-          }
-      },[flight]);
+    const getFlight = async () =>{
+      const {data} = await axios.get (`http://localhost:8000/admin/get_flight/${id}`);
+      console.log(data)
+      if(data){
+          const {FlightNumber,DepartureAirport,ArrivalAirport, EconomyAvailableSeats,EconomyPrice, BusinessAvailableSeats, BusinessPrice }=data
+
+          form.setFieldsValue({FlightNumber, DepartureAirport,ArrivalAirport, EconomyAvailableSeats,EconomyPrice, BusinessAvailableSeats, BusinessPrice  });
+        }
+      }
+      getFlight()
+  
 
     const onSubmit = async () => {
 
         try {
           const values = await form.validateFields();
-          console.log(values)
+          if (values.DepartureTime) values.DepartureTime = new Date(Date.parse(values.DepartureTime)) 
+          if (values.ArrivalTime) values.ArrivalTime = new Date(Date.parse(values.ArrivalTime))
+          if (values.EconomyAvailableSeats) values.EconomyAvailableSeats = parseInt(values.EconomyAvailableSeats)
+          if (values.EconomyPrice) values.EconomyPrice = parseInt(values.EconomyPrice)
+          if (values.BusinessAvailableSeats) values.BusinessAvailableSeats = parseInt(values.BusinessAvailableSeats)
+          if (values.BusinessPrice) values.BusinessPrice = parseInt(values.BusinessPrice)
           await axios.patch (`http://localhost:8000/admin/update_flight/${id}`, values);
         } catch (e) {
           console.log(e)
@@ -40,79 +41,101 @@ function UpdateFlight() {
     
       return(
         <div>
+          <Card className='updateCard'>
 
-        <Form form={form} name="Update Flight">
-            <Form.Item
-              name="FlightNumber"
-              label="FlightNumber"
-            >
-              <Input placeholder="Please input flight number"/>
-            </Form.Item>
+          <div className='updateForm'> 
+          <Form form={form} name="Update Flight" >
+                <Row gutter={16,8}>
+                  <Col span={8}>
+                    <Form.Item
+                      name="FlightNumber"
+                      label="FlightNumber"
+                    >
+                      <Input/>
+                    </Form.Item>
+                </Col>
+                  <Col span={8}>
+                    <Form.Item
+                      name="DepartureTime"
+                      label="Departure Time"
+                    >
+                    <DatePicker />
+                    </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                    <Form.Item
+                      name="ArrivalTime"
+                      label="Arrival Time"
+                    >
+                    <DatePicker />
+                    </Form.Item>
+                    </Col>
+                </Row>
 
-            <Form.Item
-              name="departure_date"
-              label="departure_date"
-            >
-             <DatePicker />
-             </Form.Item>
+                <Row gutter={16,8}>
+                  <Col span={12}>
+                    <Form.Item
+                      name="DepartureAirport"
+                      label="Departure Airport"
+                    >
+                      <Input/>
+                    </Form.Item>
+                </Col>
+                <Col span={12}>
+                    <Form.Item
+                      name="ArrivalAirport"
+                      label="Arrival Airport"
+                    >
+                      <Input/>
+                    </Form.Item>
+                </Col>
+                </Row>
+                <Row gutter={8,8}> 
+                  <Col span={12}>
+                    <Form.Item
+                      name="EconomyAvailableSeats"
+                      label="Economy Class Available Seats"
+                    >
+                      <Input placeholder="Please"/>
+                    </Form.Item>
+                  </Col>
+                  <Col span={12}>
+                    <Form.Item
+                      name="EconomyPrice"
+                      label="Economy Class Price"
+                    >
+                      <Input/>
+                    </Form.Item>
+                  </Col>
+                  </Row>
 
-             <Form.Item
-              name="arrival_date"
-              label="arrival_date"
-            >
-             <DatePicker />
-            </Form.Item>
-
-            <Form.Item
-              name="departure_airport"
-              label="departure_airport"
-            >
-              <Input placeholder="Please"/>
-            </Form.Item>
-
-            <Form.Item
-              name="arrival_airport"
-              label="arrival_airport"
-
-            >
-              <Input placeholder="Please"/>
-            </Form.Item>
-
-            <Form.Item
-              name="economy_seats"
-              label="economy_seats"
-            >
-              <Input placeholder="Please"/>
-            </Form.Item>
-
-            <Form.Item
-              name="economy_price"
-              label="economy_price"
-            >
-              <Input placeholder="Please"/>
-            </Form.Item>
-
-            <Form.Item
-              name="business_seats"
-              label="business_seats"
-            >
-              <Input placeholder="Please"/>
-            </Form.Item>
-
-            <Form.Item
-              name="business_price"
-              label="business_price"
-            >
-              <Input placeholder="Please"/>
-            </Form.Item>
- 
-            {/* {error && <Alert message={error} type="error" /> } */}
-                <div style={{textAlign:'center'}}>
-                  <Button type="primary" onClick={onSubmit} style={{ marginTop: '40px', width: '150px'}}>
-                    Update Flight
-                  </Button>
-                  </div>
-          </Form>
+                  <Row gutter={8,8}> 
+                    <Col span={12}>
+                      <Form.Item
+                        name="BusinessAvailableSeats"
+                        label="Business Class Available Seats"
+                      >
+                        <Input/>
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item
+                        name="BusinessPrice"
+                        label="Business Class Price"
+                      >
+                        <Input/>
+                      </Form.Item>
+                    </Col>  
+                  </Row>
+                {/* {error && <Alert message={error} type="error" /> } */}
+                    <div style={{textAlign:'center'}}>
+                      <Button type="primary" onClick={onSubmit} style={{ marginTop: '40px', width: '150px'}}>
+                        Update Flight
+                      </Button>
+                      </div>
+              </Form>
+              </div>
+          </Card>
         </div>
       )
 }
