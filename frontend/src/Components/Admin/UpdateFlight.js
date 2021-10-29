@@ -1,7 +1,8 @@
 import axios from 'axios';
 import 'antd/dist/antd.css';
 import {useParams} from "react-router-dom";
-import {Button, Form, Input, DatePicker} from 'antd';
+import {Button, Form, Input, DatePicker, Card, Row, Col} from 'antd';
+import './Admin.css';
 require ('dotenv').config()
 
 
@@ -12,6 +13,7 @@ function UpdateFlight() {
 
     const getFlight = async () =>{
       const {data} = await axios.get (`http://localhost:8000/admin/get_flight/${id}`);
+      console.log(data)
       if(data){
           const {FlightNumber,DepartureAirport,ArrivalAirport, EconomyAvailableSeats,EconomyPrice, BusinessAvailableSeats, BusinessPrice }=data
 
@@ -39,79 +41,101 @@ function UpdateFlight() {
     
       return(
         <div>
+          <Card className='updateCard'>
 
-        <Form form={form} name="Update Flight">
-            <Form.Item
-              name="FlightNumber"
-              label="FlightNumber"
-            >
-              <Input />
-            </Form.Item>
+          <div className='updateForm'> 
+          <Form form={form} name="Update Flight" >
+                <Row gutter={16,8}>
+                  <Col span={8}>
+                    <Form.Item
+                      name="FlightNumber"
+                      label="FlightNumber"
+                    >
+                      <Input/>
+                    </Form.Item>
+                </Col>
+                  <Col span={8}>
+                    <Form.Item
+                      name="DepartureTime"
+                      label="Departure Time"
+                    >
+                    <DatePicker />
+                    </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                    <Form.Item
+                      name="ArrivalTime"
+                      label="Arrival Time"
+                    >
+                    <DatePicker />
+                    </Form.Item>
+                    </Col>
+                </Row>
 
-            <Form.Item
-              name="DepartureTime"
-              label="Departure Time"
-            >
-             <DatePicker />
-             </Form.Item>
+                <Row gutter={16,8}>
+                  <Col span={12}>
+                    <Form.Item
+                      name="DepartureAirport"
+                      label="Departure Airport"
+                    >
+                      <Input/>
+                    </Form.Item>
+                </Col>
+                <Col span={12}>
+                    <Form.Item
+                      name="ArrivalAirport"
+                      label="Arrival Airport"
+                    >
+                      <Input/>
+                    </Form.Item>
+                </Col>
+                </Row>
+                <Row gutter={8,8}> 
+                  <Col span={12}>
+                    <Form.Item
+                      name="EconomyAvailableSeats"
+                      label="Economy Class Available Seats"
+                    >
+                      <Input placeholder="Please"/>
+                    </Form.Item>
+                  </Col>
+                  <Col span={12}>
+                    <Form.Item
+                      name="EconomyPrice"
+                      label="Economy Class Price"
+                    >
+                      <Input/>
+                    </Form.Item>
+                  </Col>
+                  </Row>
 
-             <Form.Item
-              name="ArrivalTime"
-              label="Arrival Time"
-            >
-             <DatePicker />
-            </Form.Item>
-
-            <Form.Item
-              name="DepartureAirport"
-              label="Departure Airport"
-            >
-              <Input/>
-            </Form.Item>
-
-            <Form.Item
-              name="ArrivalAirport"
-              label="Arrival Airport"
-
-            >
-              <Input/>
-            </Form.Item>
-
-            <Form.Item
-              name="EconomyAvailableSeats"
-              label="Economy Class Available Seats"
-            >
-              <Input placeholder="Please"/>
-            </Form.Item>
-
-            <Form.Item
-              name="EconomyPrice"
-              label="Economy Class Price"
-            >
-              <Input/>
-            </Form.Item>
-
-            <Form.Item
-              name="Busines AvailableSeats"
-              label="Business Class Available Seats"
-            >
-              <Input/>
-            </Form.Item>
-
-            <Form.Item
-              name="BusinessPrice"
-              label="Business Class Price"
-            >
-              <Input/>
-            </Form.Item>
- 
-            {/* {error && <Alert message={error} type="error" /> } */}
-                <div style={{textAlign:'center'}}>
-                  <Button type="primary" onClick={onSubmit} style={{ marginTop: '40px', width: '150px'}}>
-                    Update Flight
-                  </Button>
-                  </div>
-          </Form>
+                  <Row gutter={8,8}> 
+                    <Col span={12}>
+                      <Form.Item
+                        name="BusinessAvailableSeats"
+                        label="Business Class Available Seats"
+                      >
+                        <Input/>
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item
+                        name="BusinessPrice"
+                        label="Business Class Price"
+                      >
+                        <Input/>
+                      </Form.Item>
+                    </Col>  
+                  </Row>
+                {/* {error && <Alert message={error} type="error" /> } */}
+                    <div style={{textAlign:'center'}}>
+                      <Button type="primary" onClick={onSubmit} style={{ marginTop: '40px', width: '150px'}}>
+                        Update Flight
+                      </Button>
+                      </div>
+              </Form>
+              </div>
+          </Card>
         </div>
       )
 }
