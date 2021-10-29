@@ -1,12 +1,8 @@
 import axios from 'axios';
 import 'antd/dist/antd.css';
 import {useParams} from "react-router-dom";
-<<<<<<< HEAD
-import {Alert,Button, Form, Input, DatePicker,Cascader, InputNumber} from 'antd';
-=======
 import {Button, Form, Input, DatePicker, Card, Row, Col} from 'antd';
 import './Admin.css';
->>>>>>> 7332c0fccf5376f79c3f60ee2421f0ec0dcc630d
 require ('dotenv').config()
 
 
@@ -14,16 +10,6 @@ require ('dotenv').config()
 function UpdateFlight() {
     const id = "617bbcf6edf4585cfd4a5cca"
     const [form] = Form.useForm();
-<<<<<<< HEAD
-    const [flight, setFlight] = useState(null)
-    const [componentSize, setComponentSize] = useState('default');
-
-  const onFormLayoutChange = ({ size }) => {
-    setComponentSize(size);
-  };
-    // const [error, setError] = useState(null);
-=======
->>>>>>> 7332c0fccf5376f79c3f60ee2421f0ec0dcc630d
 
     const getFlight = async () =>{
       const {data} = await axios.get (`http://localhost:8000/admin/get_flight/${id}`);
