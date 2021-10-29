@@ -70,7 +70,3 @@ const id = async () => {
 
 // const user = new User(body1)
 // user.save()
-
-// const flight = new Flight(body)
-// flight.save()
-
