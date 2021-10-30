@@ -10,7 +10,7 @@ function App() {
           {/* <PrivateRouteAdmin path='/admin/update_flight/:FlightID' component={UpdateFlight}/>   */}
           {/* <UpdateFlight /> */}
           {/* <CreateFlight /> */}
-          <EditUser/>
+          <CreateFlight/>
     </Router>
     
   );

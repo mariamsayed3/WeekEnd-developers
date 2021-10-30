@@ -6,7 +6,7 @@ import { Button, Form, Input, Row, Col, DatePicker, Card, TimePicker } from 'ant
 require('dotenv').config('../../.env')
 
 const getTripDuration = (from, to) => {
-  const fromTime = from.split(':')
+  const fromTime = from.split(':') 
   const toTime = to.split(':')
 
   let fromHours = parseInt(fromTime[0])
@@ -92,7 +92,7 @@ function CreateFlight() {
           </Form.Item>
 
           <Row gutter={16, 8}>
-            <Col span={10}>
+            <Col span={8}>
               <Form.Item
                 name="DepartureDate"
                 label="Departure Date"
@@ -101,35 +101,13 @@ function CreateFlight() {
                 <DatePicker/>
               </Form.Item>
             </Col>
-            <Col span={10}>
+            <Col span={8}>
               <Form.Item
                 name="ArrivalDate"
                 label="Arrival Date"
                 rules={[{ required: true, message: 'Please enter the arrival date' }]}
               >
                 <DatePicker/>
-              </Form.Item>
-            </Col>
-          </Row>
-
-          <Row gutter={16, 8}>
-            <Col span={8}>
-              <Form.Item
-                name="DepartureAirport"
-                label="Departure Airport"
-                rules={[{ required: true, message: 'Please enter the departure airport' }]}
-              >
-                <Input placeholder="Departure Airport" />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item
-                name="ArrivalAirport"
-                label="Arrival Airport"
-                rules={[{ required: true, message: 'Please enter the arrival airport' }]}
-              >
-                <Input placeholder="Arrival Airport" />
-                
               </Form.Item>
             </Col>
             <Col span={8}>
@@ -144,7 +122,30 @@ function CreateFlight() {
           </Row>
 
           <Row gutter={16, 8}>
-            <Col span={10}>
+            <Col span={12}>
+              <Form.Item
+                name="DepartureAirport"
+                label="Departure Airport"
+                rules={[{ required: true, message: 'Please enter the departure airport' }]}
+              >
+                <Input placeholder="Departure Airport" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="ArrivalAirport"
+                label="Arrival Airport"
+                rules={[{ required: true, message: 'Please enter the arrival airport' }]}
+              >
+                <Input placeholder="Arrival Airport" />
+                
+              </Form.Item>
+            </Col>
+            
+          </Row>
+
+          <Row gutter={16, 8}>
+            <Col span={12}>
               <Form.Item
                 name="DepartureTerminal"
                 label="Departure Terminal"
@@ -153,7 +154,7 @@ function CreateFlight() {
                 <Input placeholder="Departure Terminal" />
               </Form.Item>
             </Col>
-            <Col span={10}>
+            <Col span={12}>
               <Form.Item
                 name="ArrivalTerminal"
                 label="Arrival Terminal"
@@ -163,23 +164,22 @@ function CreateFlight() {
               </Form.Item>
             </Col>
           </Row>
-
+          
           <Row gutter={16, 14}>
             <div>
               <h4>Economy Class Section</h4>
-              <Col span={14}>
+              <Col span={12}>
                 <Form.Item
                   name="EconomyTotalSeats"
-                  label="Number of Economy Seats"
+                  label="Economy Class Seats"
                   rules={[{ required: true, message: 'Please enter a number' }]}
                 >
                   <Input placeholder="Please specify the number" />
                 </Form.Item>
-              </Col>
-              <Col span={10}>
+              
                 <Form.Item
                   name="EconomyPrice"
-                  label="Economy Seat Price"
+                  label="Economy Class Seat Price"
                   rules={[{ required: true, message: 'Please enter a price' }]}
                 >
                   <Input placeholder="price" />
@@ -188,16 +188,15 @@ function CreateFlight() {
             </div>
             <div>
               <h4>Business Class Section</h4>
-              <Col span={14}>
+              <Col span={12}>
                 <Form.Item
                   name="BusinessTotalSeats"
-                  label="Number of Business Class Seats"
+                  label="Business Class Seats"
                   rules={[{ required: true, message: 'Please enter a number' }]}
                 >
                   <Input placeholder="Please specify the number" />
                 </Form.Item>
-              </Col>
-              <Col span={12}>
+              
                 <Form.Item
                   name="BusinessPrice"
                   label="Business Class Seat Price"

@@ -22,6 +22,10 @@ const flightSchema = new Schema({
     type: String,
     required: true
   },
+  TripDuration: {
+    type: String,
+    required: true
+  },
   DepartureAirport: {
     type: String,
     required: true,
@@ -61,10 +65,6 @@ const flightSchema = new Schema({
   BusinessPrice: {
     type: Number,
     required: true,
-  },
-  TripDuration: {
-    type: Object,
-    required: true
   },
   AllowedBaggage: {
     type: Number,
