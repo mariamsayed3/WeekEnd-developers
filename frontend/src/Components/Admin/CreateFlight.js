@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import 'antd/dist/antd.css';
+import './Admin.css';
 import { useParams } from "react-router-dom";
 import { Button, Modal, Form, Input, Row, Col, DatePicker, Radio, Card } from 'antd';
 import { Mongoose } from 'mongoose';
@@ -49,7 +50,7 @@ function CreateFlight() {
 
   return (
     <div>
-      <Card className="card" style={{ width: '60%', margin: '3% auto' }}>
+      <Card className="updateCard">
         <Form form={form} onSubmit={Create} name="Create Flight">
           <Form.Item
             name="FlightNumber"
