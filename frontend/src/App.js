@@ -1,14 +1,14 @@
 import {BrowserRouter as Router, Switch,} from 'react-router-dom'
 import './App.css';
 import UpdateFlight from './Components/Admin/UpdateFlight'
+import CreateFlight from './Components/Admin/CreateFlight'
 
 function App() {
   return (
     <Router>
-        <Switch>
           {/* <PrivateRouteAdmin path='/admin/update_flight/:FlightID' component={UpdateFlight}/>   */}
-          <UpdateFlight />
-        </Switch>
+          {/* <UpdateFlight /> */}
+          <CreateFlight />
     </Router>
     
   );
