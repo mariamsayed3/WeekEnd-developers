@@ -6,12 +6,20 @@ const flightSchema = new Schema({
     type: String,
     required: true,
   },
-  DepartureTime: {
+  DepartureDate: {
     type: Date,
     required: true,
   },
-  ArrivalTime: {
+  ArrivalDate: {
     type: Date,
+    required: true
+  },
+  DepartureTime: {
+    type: String,
+    required: true
+  },
+  ArrivalTime: {
+    type: String,
     required: true
   },
   DepartureAirport: {
@@ -69,7 +77,7 @@ const flightSchema = new Schema({
   NumberOfPassengers: {
     type: Object,
     required: true
-  }
+  },
 })
 
 const Flight = mongoose.model('Flight', flightSchema)
