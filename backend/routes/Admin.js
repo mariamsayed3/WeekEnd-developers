@@ -8,4 +8,8 @@ router.get('/get_flight/:flightID', controllers.getFlight)
 
 router.patch('/update_flight/:flightID', controllers.updateFlight)
 
+router.post('/create_flight',controllers.createFlight)
+
+router.patch('/edit_user/:UserID',controllers.EditUser)
+
 module.exports = router
