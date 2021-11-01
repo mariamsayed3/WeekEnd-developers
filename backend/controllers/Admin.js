@@ -40,7 +40,7 @@ exports.updateFlight = async (req, res) => {
     });
   }
 
-  exports.EditUser = async (req,res) => {
+  exports.EditUser = async (req,res) => { //should be moved to user.controllers
     const UserID = req.params.UserID
     const condition = {id:UserID}
     User.updateOne(condition, req.body,(error,result)=> {
