@@ -75,7 +75,7 @@ exports.deleteFlight = async (req, res) => {
   });
   const avaliableBookingFlights = await Booking.find(deletedBookingCondition);
   if (avaliableBookingFlights.length != 0) {
-    Booking.deleteOne(deletedBookingCondition, function (err) {
+    Booking.deleteMany(deletedBookingCondition, function (err) {
       if (err) {
         console.log(err);
       } else {
