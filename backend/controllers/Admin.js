@@ -64,7 +64,7 @@ exports.EditUser = async (req, res) => {
 
 exports.deleteFlight = async (req, res) => {
   const flight_ID = req.params.flightID;
-  const deletedCondition = { id: flight_ID };
+  const deletedCondition = { _id: flight_ID };
   const deletedBookingCondition = { Flight: flight_ID };
   Flight.deleteOne(deletedCondition, function (err) {
     if (err) {

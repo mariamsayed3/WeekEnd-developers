@@ -17,13 +17,11 @@ export default function AdminEdits() {
   }, []);
 
   return (
-    <div style={{ display: "flex", flexDirection: "row", "flex-wrap": "wrap" }}>
+    <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
       {flights &&
         flights.map((flight) => {
           let id = flight._id;
-          console.log("_id");
-          console.log(id);
-          return <FlightDetails idkey={id} myFlight={flight} />;
+          return <FlightDetails idkey={id} myFlight={flight} key={id} />;
         })}
     </div>
   );

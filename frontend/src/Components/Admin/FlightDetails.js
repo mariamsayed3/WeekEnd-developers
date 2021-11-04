@@ -3,6 +3,7 @@ import "antd/dist/antd.css";
 import { Popconfirm, message } from "antd";
 import axios from "axios";
 import "../../Styles/flightcard.scss";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 class FlightDetails extends Component {
   refreshPage() {
@@ -33,7 +34,7 @@ class FlightDetails extends Component {
     const { myFlight, idkey } = this.props;
     return (
       <div id="cards">
-        <figure class="card card--normal">
+        <figure className="card card--normal">
           {/* <div class="card__image-container">
             <img
               src="https://cdn.bulbagarden.net/upload/thumb/e/e2/133Eevee.png/1200px-133Eevee.png"
@@ -41,11 +42,11 @@ class FlightDetails extends Component {
               class="card__image"
             />
           </div> */}
-          <figcaption class="card__caption">
+          <figcaption className="card__caption">
             {/* <h1 class="card__name"></h1> */}
             {/* <h3 class="card__type">Business</h3> */}
 
-            <table class="card__stats">
+            <table className="card__stats">
               <tbody>
                 <tr>
                   <th>Flight Number</th>
@@ -63,8 +64,19 @@ class FlightDetails extends Component {
               </tbody>
             </table>
 
-            <div class="card__abilities">
-              <button>Update</button>
+            <div className="card__abilities">
+              <Link className="active" to="">
+                Update
+              </Link>
+              <Link
+                className="active"
+                to={{
+                  pathname: `/ViewDetails`,
+                  state: { flight: myFlight },
+                }}
+              >
+                View
+              </Link>
               <Popconfirm
                 title="Are you sure to delete this flight?"
                 onConfirm={() => {
