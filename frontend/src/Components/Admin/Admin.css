@@ -1,0 +1,17 @@
+.updateCard {
+  width: 80%;
+  margin: 10% auto;
+  background-color: rgba(255, 250, 250);
+  border-color: transparent;
+  border-radius: 50px;
+  box-shadow: 5px 4px 40px #ffffff;
+  transition: 0.3s;
+}
+
+.updateForm {
+  margin: 0 auto;
+}
+.spanstyle {
+  font-weight: bold;
+  color: rgb(83, 137, 145);
+}
