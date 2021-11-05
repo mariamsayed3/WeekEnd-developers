@@ -12,8 +12,6 @@ class FlightDetails extends Component {
   }
   handleClick(key) {
     try {
-      console.log("ana al id");
-      console.log(key);
       let res = async () => {
         await axios.delete(
           `http://localhost:8000/admin/delete_flight/${key}`,

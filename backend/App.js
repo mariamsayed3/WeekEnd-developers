@@ -2,6 +2,8 @@ require('./db/db')
 require('dotenv').config();
 const mongoose = require('mongoose')
 const AdminRouter = require ('./routes/Admin')
+const GeneralRouter = require('./routes/General')
+
 const cors = require('cors')
 const User = require('./models/User')
 const Flight = require('./models/Flight')
@@ -11,6 +13,7 @@ const app = express();
 app.use(cors({origin: ['http://localhost:3000']}));
 app.use(cors());
 app.use('/admin',AdminRouter)
+app.use(GeneralRouter)
 app.use(express.json())
 const port = process.env.PORT || "8000";
 app.get("/Home", (req, res) => {
