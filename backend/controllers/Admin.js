@@ -73,14 +73,11 @@ exports.deleteFlight = async (req, res) => {
       console.log("success");
     }
   });
-  const avaliableBookingFlights = await Booking.find(deletedBookingCondition);
-  if (avaliableBookingFlights.length != 0) {
-    Booking.deleteMany(deletedBookingCondition, function (err) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("success");
-      }
-    });
-  }
+  Booking.deleteMany(deletedBookingCondition, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("success");
+    }
+  });
 };
