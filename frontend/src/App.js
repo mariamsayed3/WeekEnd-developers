@@ -3,6 +3,7 @@ import './App.css';
 import UpdateFlight from './Components/Admin/UpdateFlight'
 import CreateFlight from './Components/Admin/CreateFlight'
 import EditUser from './Components/Admin/EditUser'
+import ViewCurrentFlights from './Components/Admin/ViewCurrentFlights'
 
 function App() {
   return (
@@ -10,7 +11,8 @@ function App() {
           {/* <PrivateRouteAdmin path='/admin/update_flight/:FlightID' component={UpdateFlight}/>   */}
           {/* <UpdateFlight /> */}
           {/* <CreateFlight /> */}
-          <EditUser/>
+          {/* <EditUser/> */}
+          <ViewCurrentFlights />
     </Router>
     
   );

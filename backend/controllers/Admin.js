@@ -1,6 +1,7 @@
 
 const Flight = require('../models/Flight')
 const User = require('../models/User')
+const Booking = require('../models/Booking')
 
 exports.getFlight = async (req, res) => {
   const flightID = req.params.flightID
@@ -52,6 +53,17 @@ exports.updateFlight = async (req, res) => {
         res.json(result);
       }
     });
+}
+
+exports.ViewCurrentFlights = async (req,res) => {
+  const UserID = req.params.UserID
+  Booking.findById(UserID,  (error,result)=> {
+    if (error) {
+      res.send(error);
+    } else {
+      res.json(result);
+    }
+  });
 }
 
   

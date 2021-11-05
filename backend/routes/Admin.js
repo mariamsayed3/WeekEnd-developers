@@ -12,4 +12,6 @@ router.post('/create_flight',controllers.createFlight)
 
 router.patch('/edit_user/:UserID',controllers.EditUser)
 
+router.get('/get_current_flights/:UserID',controllers.ViewCurrentFlights)
+
 module.exports = router
