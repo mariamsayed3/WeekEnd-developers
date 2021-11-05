@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt')
 const User = require('../models/User')
 const createToken = require('../middleware/Token')
 const jwt = require('jsonwebtoken')
+const validator = require('validator')
+
 exports.register = async (req, res) => {
     const { Username, Email } = req.body
     const user = await User.findOne({ $or: [{ Username }, { Email }]})
@@ -22,8 +24,12 @@ exports.register = async (req, res) => {
 }
 
 exports.login = async (req, res) => {
-    const { Username, Email, Password } = req.body
-    const condition = Username ? { Username } : { Email }
+    const { Username, Password } = req.body
+    let condition
+    if(validator.isEmail(Username))
+        condition = {Email: Username}
+    else
+        condition = { Username }
     const user = await User.findOne(condition)
     if(!user)
         return res.status(400).json(`The provided username or email is incorrect.`)
