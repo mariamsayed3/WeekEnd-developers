@@ -64,7 +64,7 @@ exports.EditUser = async (req, res) => {
 
 exports.deleteFlight = async (req, res) => {
   const flight_ID = req.params.flightID;
-  const deletedCondition = { id: flight_ID };
+  const deletedCondition = { _id: flight_ID };
   const deletedBookingCondition = { Flight: flight_ID };
   Flight.deleteOne(deletedCondition, function (err) {
     if (err) {
@@ -75,7 +75,7 @@ exports.deleteFlight = async (req, res) => {
   });
   const avaliableBookingFlights = await Booking.find(deletedBookingCondition);
   if (avaliableBookingFlights.length != 0) {
-    Booking.deleteOne(deletedBookingCondition, function (err) {
+    Booking.deleteMany(deletedBookingCondition, function (err) {
       if (err) {
         console.log(err);
       } else {
