@@ -9,8 +9,8 @@ function App() {
     <Router>
           {/* <PrivateRouteAdmin path='/admin/update_flight/:FlightID' component={UpdateFlight}/>   */}
           {/* <UpdateFlight /> */}
-          {/* <CreateFlight /> */}
-          <EditUser/>
+          <CreateFlight />
+          {/* <EditUser/> */}
     </Router>
     
   );
