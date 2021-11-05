@@ -3,7 +3,7 @@ import axios from 'axios';
 import 'antd/dist/antd.css';
 import './Admin.css';
 import { useParams } from "react-router-dom";
-import { Button, Modal, Form, Input, Row, Col, DatePicker, Radio, Card } from 'antd';
+import { Button, message, Form, Input, Row, Col, DatePicker, Card } from 'antd';
 import { Mongoose } from 'mongoose';
 import '../../Styles/background.scss';
 
@@ -44,6 +44,9 @@ function CreateFlight() {
       values.TripDuration = getTimeHours(values.ArrivalTime - values.DepartureTime)
       values.NumberOfPassengers = 0
       await axios.post(`http://localhost:8000/admin/create_flight`, values);
+      message
+                .loading('Action in progress..', 2.5)
+                .then(() => message.success('Flight Created Succesfully', 3));
     }
     catch (e) {
       console.log(e);
