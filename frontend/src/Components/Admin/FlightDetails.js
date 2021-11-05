@@ -2,18 +2,15 @@ import { Component } from "react";
 import "antd/dist/antd.css";
 import { Popconfirm, message } from "antd";
 import axios from "axios";
-import "../../Styles/flightcard.scss";
+import "../../styles/flightcard.scss";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
 class FlightDetails extends Component {
   refreshPage() {
     window.location.reload(false);
-    // message.success("deleted");
   }
   handleClick(key) {
     try {
-      console.log("ana al id");
-      console.log(key);
       let res = async () => {
         await axios.delete(
           `http://localhost:8000/admin/delete_flight/${key}`,
@@ -35,17 +32,7 @@ class FlightDetails extends Component {
     return (
       <div id="cards">
         <figure className="card card--normal">
-          {/* <div class="card__image-container">
-            <img
-              src="https://cdn.bulbagarden.net/upload/thumb/e/e2/133Eevee.png/1200px-133Eevee.png"
-              alt="Eevee"
-              class="card__image"
-            />
-          </div> */}
           <figcaption className="card__caption">
-            {/* <h1 class="card__name"></h1> */}
-            {/* <h3 class="card__type">Business</h3> */}
-
             <table className="card__stats">
               <tbody>
                 <tr>
