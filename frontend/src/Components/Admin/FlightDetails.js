@@ -2,7 +2,7 @@ import { Component } from "react";
 import "antd/dist/antd.css";
 import { Popconfirm, message } from "antd";
 import axios from "axios";
-import "../../styles/flightcard.scss";
+import "../../Styles/flightcard.scss";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
 class FlightDetails extends Component {
