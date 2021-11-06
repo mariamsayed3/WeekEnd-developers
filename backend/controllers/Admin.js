@@ -63,6 +63,7 @@ exports.EditUser = async (req, res) => {
 };
 
 exports.deleteFlight = async (req, res) => {
+  console.log("Hi")
   const flight_ID = req.params.flightID;
   const deletedCondition = { _id: flight_ID };
   const deletedBookingCondition = { Flight: flight_ID };

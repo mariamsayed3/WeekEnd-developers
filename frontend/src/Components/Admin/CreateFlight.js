@@ -1,10 +1,11 @@
 import axios from 'axios';
 import 'antd/dist/antd.css';
 import './Admin.css';
+import moment from 'moment'
 import { useParams } from "react-router-dom";
 import { Button, message, Form, Input, Row, Col, DatePicker, Card,TimePicker  } from 'antd';
 import '../../Styles/background.scss';
-
+const { RangePicker } = DatePicker;
 require('dotenv').config('../../.env')
 
 const getTripDuration = (from, to) => {
@@ -33,23 +34,52 @@ const getTripDuration = (from, to) => {
   return `${diffHours}:${diffMinutes}`
 }
 
+function range(start, end) {
+  const result = [];
+  for (let i = start; i < end; i++) {
+    result.push(i);
+  }
+  return result;
+}
+
+function disabledDate(current) {
+  // Can not select days before today and today
+  return current && current < moment().endOf('day');
+}
+
+function disabledRangeTime(_, type) {
+  if (type === 'start') {
+    return {
+      disabledHours: () => range(0, 60).splice(24, 20),
+      disabledMinutes: () => range(30, 60).splice(60, 60),
+      disabledSeconds: () => [55, 56],
+    };
+  }
+  return {
+    disabledHours: () => range(0, 60).splice(20, 4),
+    disabledMinutes: () => range(0, 31),
+    disabledSeconds: () => [55, 56],
+  };
+}
 
 function CreateFlight() {
   const [form] = Form.useForm();
   const Create = async () => {
     try {
       const values = await form.validateFields();
+      console.log(values)
       values.DepartureDate = new Date(Date.parse(values.DepartureDate))
       values.ArrivalDate = new Date(Date.parse(values.ArrivalDate))
-      values.EconomyTotalSeats = parseInt(values.EconomyTotalSeats)
       values.EconomyPrice = parseInt(values.EconomyPrice)
-      values.BusinessTotalSeats = parseInt(values.BusinessTotalSeats)
       values.BusinessPrice = parseInt(values.BusinessPrice)
+      values.FirstClassPrice = parseInt(values.FirstClassPrice)
       values.AllowedBaggage = parseInt(values.AllowedBaggage)
-      values.EconomyAvailableSeats = values.EconomyTotalSeats
-      values.BusinessAvailableSeats = values.BusinessTotalSeats
-      values.Seats = parseInt(values.EconomyTotalSeats) + parseInt(values.BusinessTotalSeats)
-
+      values.EconomyAvailableSeats = parseInt(values.EconomyTotalSeats)
+      values.BusinessAvailableSeats = parseInt(values.BusinessTotalSeats)
+      values.FirstClassAvailableSeats = parseInt(values.FirstClassTotalSeats)
+      values.BusinessSeats = new Array(parseInt(values.BusinessTotalSeats)).fill(false);
+      values.EconomySeats = new Array(parseInt(values.EconomyTotalSeats)).fill(false);
+      values.FirstClassSeats = new Array(parseInt(values.FirstClassTotalSeats)).fill(false);
       const departureTimeHours = (values.TripDuration[0]._d.getHours()+'').length == 1 ?
        '0' + values.TripDuration[0]._d.getHours():
         values.TripDuration[0]._d.getHours()
@@ -99,25 +129,29 @@ function CreateFlight() {
           </Form.Item>
 
           <Row gutter={16, 8}>
-            <Col span={8}>
+          <Col span={12}>
               <Form.Item
                 name="DepartureDate"
-                label="Departure Date"
-                rules={[{ required: true, message: 'Please enter the departure date' }]}
+                label="Departure Date and Arrival Date"
+                rules={[{ required: true, message: 'Please enter the date' }]}
               >
-                <DatePicker/>
+                <RangePicker
+                width='60%'
+      disabledDate={disabledDate}
+      disabledTime={disabledRangeTime}
+      // showTime={{
+      //   hideDisabledOptions: true,
+      //   defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('11:59:59', 'HH:mm:ss')],
+      // }}
+      ranges={{
+        Today: [moment(), moment()],
+      }}
+      format="YYYY-MM-DD"
+    />
               </Form.Item>
             </Col>
-            <Col span={8}>
-              <Form.Item
-                name="ArrivalDate"
-                label="Arrival Date"
-                rules={[{ required: true, message: 'Please enter the arrival date' }]}
-              >
-                <DatePicker/>
-              </Form.Item>
-            </Col>
-            <Col span={8}>
+            
+             <Col span={12}>
             <Form.Item
                 name="TripDuration"
                 label="Trip Duration"
@@ -187,6 +221,26 @@ function CreateFlight() {
                 <Form.Item
                   name="EconomyPrice"
                   label="Economy Class Seat Price"
+                  rules={[{ required: true, message: 'Please enter a price' }]}
+                >
+                  <Input placeholder="price" />
+                </Form.Item>
+              </Col>
+            </div>
+            <div>
+              <h4>First Class Section</h4>
+              <Col span={12}>
+                <Form.Item
+                  name="FirstClassTotalSeats"
+                  label="First Class Class Seats"
+                  rules={[{ required: true, message: 'Please enter a number' }]}
+                >
+                  <Input placeholder="Please specify the number" />
+                </Form.Item>
+              
+                <Form.Item
+                  name="FirstClassPrice"
+                  label="First Class Seat Price"
                   rules={[{ required: true, message: 'Please enter a price' }]}
                 >
                   <Input placeholder="price" />

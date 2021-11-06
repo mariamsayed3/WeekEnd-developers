@@ -1,19 +1,34 @@
-import { useState } from 'react'
+import  { useState , useContext} from 'react'
 import { Form, Input, Button, Checkbox, Alert } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { Redirect } from 'react-router';
+import  { UserContext } from '../../Context';
 
 const Login = () => {
+
   const [error, setError] = useState(null)
+  console.log(useContext(UserContext))
+  const {FirstName, setAdmin,setFirstName,setLastName,setToken, setEmail} =useContext(UserContext);
 
   const onFinish = async (values) => {
     const {Username, Password} = values
     try{
-        const {data} = await axios.post(`${process.env.REACT_APP_BACKEND}/login`, {Username, Password})
-        console.log(data.Token) // context
-        setError(false)
-    }catch{
+        console.log(process.env.REACT_APP_BACKEND)
+        const {data} = await axios.post(`http://localhost:8000/login`, {Username, Password})
+        console.log(data)
+        console.log(FirstName)
+        let user = {FirstName: data.FirstName, LastName: data.LastName, Token: data.Token, Email: data.Email, Admin: data.Admin }
+        sessionStorage.setItem("user", JSON.stringify(user));
+        // setFirstName(data.FirstName)
+        // setLastName(data.LastName)
+        // setToken(data.Token)
+        // setEmail(data.Email)
+        // setAdmin(data.Admin)
+         setError(false)
+        
+    }catch(err){
+        console.log(err)
         setError(true)
     }
   };
