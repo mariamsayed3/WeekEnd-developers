@@ -70,7 +70,15 @@ const flightSchema = new Schema({
     type: Number,
     required: true
   },
-  Seats:{
+  BusinessSeats:{
+    type: Array,
+    required: true
+  },
+  EconomySeats:{
+    type: Array,
+    required: true
+  },
+  FirstClassSeats:{
     type: Array,
     required: true
   },

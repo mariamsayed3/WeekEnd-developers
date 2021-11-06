@@ -11,6 +11,10 @@ const bookingSchema = new Schema({
     type: ObjectId,
     required: true,
   },
+  FlightNumber: {
+    type: String,
+    required: true,
+  },
   ReservationNumber: {
     type: String,
     required: true,
@@ -19,16 +23,12 @@ const bookingSchema = new Schema({
     type: Number,
     required: true,
   },
-  NumberOfSeats: {
-    type: Object, // for adults and children
-    required: true,
-  },
   FlightNumber: {
     type: Number,
     required: true
   },
   Seats: {
-    type: Array,
+    type: Object,
     required: true
   },
 });

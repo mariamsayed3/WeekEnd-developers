@@ -4,6 +4,7 @@ import UpdateFlight from "./Components/Admin/UpdateFlight";
 import CreateFlight from "./Components/Admin/CreateFlight";
 import EditUser from "./Components/Admin/EditUser";
 import AdminEdits from "./Components/Admin/AdminEdits";
+import CancelReservation from './Components/User/CancelReservation'
 
 
 
@@ -12,8 +13,9 @@ function App() {
     <Router>
       {/* <PrivateRouteAdmin path='/admin/update_flight/:FlightID' component={UpdateFlight}/>   */}
       {/* <UpdateFlight /> */}
-      {/* <CreateFlight /> */}
-      <AdminEdits />
+       {/* <CreateFlight /> 
+      <AdminEdits /> */}
+      <CancelReservation />
     </Router>
   );
 }

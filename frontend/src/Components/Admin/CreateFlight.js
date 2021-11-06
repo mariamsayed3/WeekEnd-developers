@@ -46,8 +46,10 @@ function CreateFlight() {
       values.AllowedBaggage = parseInt(values.AllowedBaggage)
       values.EconomyAvailableSeats = values.EconomyTotalSeats
       values.BusinessAvailableSeats = values.BusinessTotalSeats
-      values.Seats = parseInt(values.EconomyTotalSeats) + parseInt(values.BusinessTotalSeats)
-
+      values.BusinessSeats = new Array(50).fill(false);
+      values.EconomySeats = new Array(50).fill(false);
+      values.FirstClassSeats = new Array(50).fill(false);
+      
       const departureTimeHours = (values.TripDuration[0]._d.getHours()+'').length == 1 ?
        '0' + values.TripDuration[0]._d.getHours():
         values.TripDuration[0]._d.getHours()
