@@ -57,11 +57,13 @@ exports.updateFlight = async (req, res) => {
 
 exports.ViewCurrentFlights = async (req,res) => {
   const UserID = req.params.UserID
-  console.log("hi")
-  Booking.findById(UserID, (error,result)=> {
+  const condition = {id:UserID}
+  Booking.find(condition, (error,result)=> {
     if (error) {
+      console.log("error:",error)
       res.send(error);
     } else {
+      console.log("result:",result)
       res.json(result);
     }
   });
