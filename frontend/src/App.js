@@ -27,14 +27,7 @@ function App() {
         <Route path="/admin/update_flight" exact component={UpdateFlight}/>
         <Route path="/admin/flights" exact component={AdminEdits}/>
         <Route path="/admin/view_details" exact component={ViewDetails}/>
-          {/* <Route path="/ViewDetails" exact component={ViewDetails} />
-          <Route path="/" exact component={AdminEdits} /> */}
-          {/* <PrivateRouteAdmin path='/admin/update_flight/:FlightID' component={UpdateFlight}/>   */}
-          {/* <UpdateFlight /> */}
-          {/* <CreateFlight /> */}
-          {/* <AdminEdits /> */}
-          {/* <ViewDetails /> */}
-          {/* <Register/> */}
+       
         
       
       </Switch>
