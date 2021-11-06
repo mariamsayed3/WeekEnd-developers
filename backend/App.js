@@ -2,37 +2,42 @@ require('./db/db')
 require('dotenv').config();
 const mongoose = require('mongoose')
 const AdminRouter = require ('./routes/Admin')
-const Booking = require('./models/Booking')
+const GeneralRouter = require('./routes/General')
+
 const cors = require('cors')
 const User = require('./models/User')
 const Flight = require('./models/Flight')
+const Booking = require('./models/Booking')
 const express = require("express")
 const app = express();
 app.use(cors({origin: ['http://localhost:3000']}));
 app.use(cors());
 app.use('/admin',AdminRouter)
+app.use(GeneralRouter)
 app.use(express.json())
 const port = process.env.PORT || "8000";
 app.get("/Home", (req, res) => {
     res.status(200).send("You have everything installed !");
   });
 
-app.listen(port, () => {
-    console.log(`Listening to requests on http://localhost:${port}`);
-  });
-
-
-
-
+app.listen(port, () => console.log(`Listening to requests on http://localhost:${port}`));
 const body = {
     FlightNumber: "1234",
-    Departure: {date: new Date(Date.now()), terminal: 'A1', Airport: 'Cairo'},
-    Arrival: {date: new Date(Date.now()), terminal: 'B1', Airport: 'Berlin'},
-    EconomyClass: {seats: 100, price: 20},
-    BusinessClass: {seats: 100, price: 20},
-    TripDuration: {hr: 4, min: 30},
+    DepartureTime: new Date(Date.now()),
+    DepartureTerminal: 'A1',
+    DepartureAirport: 'Cairo',
+    ArrivalTime: new Date(Date.now()),
+    ArrivalTerminal: 'C3',
+    ArrivalAirport: 'Berkin',
+    EconomyAvailableSeats: 100,
+    EconomyTotalSeats: 200,
+    EconomyPrice: 50,
+    BusinessAvailableSeats: 100,
+    BusinessTotalSeats: 200,
+    BusinessPrice: 50,
+    TripDuration: {hours: 4, min: 30},
     AllowedBaggage: 2,
-    Seats: 200,
+    Seats: [],
     NumberOfPassengers: {children: 50, adults: 78}
 }
 
@@ -65,5 +70,6 @@ const id = async () => {
     const booking = new Booking(body)
     booking.save()
 }
+
 // const user = new User(body1)
 // user.save()
