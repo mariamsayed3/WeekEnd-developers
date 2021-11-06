@@ -2,7 +2,9 @@ import axios from 'axios';
 import 'antd/dist/antd.css';
 import './Admin.css';
 import { useParams } from "react-router-dom";
-import { Button, Form, Input, Row, Col, DatePicker, Card, TimePicker } from 'antd';
+import { Button, message, Form, Input, Row, Col, DatePicker, Card,TimePicker  } from 'antd';
+import '../../Styles/background.scss';
+
 require('dotenv').config('../../.env')
 
 const getTripDuration = (from, to) => {
@@ -72,6 +74,9 @@ function CreateFlight() {
       values.NumberOfPassengers = 0
     
       await axios.post(`http://localhost:8000/admin/create_flight`, values);
+      message
+                .loading('Action in progress..', 2.5)
+                .then(() => message.success('Flight Created Succesfully', 3));
     }
     catch (e) {
       console.log(e);
@@ -80,7 +85,9 @@ function CreateFlight() {
 
   return (
     <div>
-      <Card className="updateCard">
+      <Card title="Add a New Flight to the System"
+       headStyle={{fontSize: '20px',color:'white',background:'#034f84'}}
+       className="updateCard">
         <Form form={form} onSubmit={Create} name="Create Flight">
           <Form.Item
             name="FlightNumber"
@@ -217,7 +224,7 @@ function CreateFlight() {
           </Form.Item>
 
           <div style={{ textAlign: 'center' }}>
-            <Button type="primary" onClick={Create} style={{ marginTop: '40px', width: '150px' }}>
+            <Button type="primary" onClick={Create} style={{background: '#034f84', borderColor: '#034f84',marginTop: '40px', width: '150px' }}>
               Create Flight
             </Button>
           </div>
