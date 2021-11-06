@@ -12,7 +12,6 @@ const FlightDetails = () => {
   useEffect (()=>{
     const getFlight = async () =>{
       const {data} = await axios.get (`http://localhost:8000/admin/get_flight/${id}`);
-      console.log(data)
       setFlight(data)
       }
   

@@ -102,3 +102,8 @@ dist
 
 # TernJS port file
 .tern-port
+<<<<<<< HEAD
+=======
+
+.DS_Store
+>>>>>>> af937c9de44c81328f591aa74d335830ca227909
