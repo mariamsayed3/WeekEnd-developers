@@ -9,7 +9,6 @@ import Login from "./Components/General/Login";
 import Register from "./Components/General/Register";
 import dotenv from 'dotenv'
 import Home from "./Components/General/Home";
-import PrivateRouteAdmin from './Router/PrivateRouteAdmin'
 import Unauthorized from './Components/General/Unauthorized'
 dotenv.config()
 
@@ -17,8 +16,6 @@ function App() {
   return (
     <Router>
       <Switch>
-
-       
         <Route path="/home" exact component={Home} />
         <Route path="/login" exact component={Login} />
         <Route path="/unauthorized" exact component={Unauthorized} />
@@ -27,9 +24,6 @@ function App() {
         <Route path="/admin/update_flight" exact component={UpdateFlight}/>
         <Route path="/admin/flights" exact component={AdminEdits}/>
         <Route path="/admin/view_details" exact component={ViewDetails}/>
-       
-        
-      
       </Switch>
     </Router>
   );

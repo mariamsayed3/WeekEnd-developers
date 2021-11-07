@@ -27,10 +27,8 @@ exports.updateFlight = async (req, res) => {
   const condition = { id: flightID };
   Flight.updateOne(condition, req.body, (error, result) => {
     if (error) {
-      console.log("error", error);
       res.send(error);
     } else {
-      console.log("result", result);
       res.json(result);
     }
   });
@@ -63,7 +61,6 @@ exports.EditUser = async (req, res) => {
 };
 
 exports.deleteFlight = async (req, res) => {
-  console.log("Hi")
   const flight_ID = req.params.flightID;
   const deletedCondition = { _id: flight_ID };
   const deletedBookingCondition = { Flight: flight_ID };

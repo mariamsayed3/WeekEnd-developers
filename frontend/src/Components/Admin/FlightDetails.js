@@ -37,14 +37,28 @@ class FlightDetails extends Component {
                   <th>Flight Number</th>
                   <td>{myFlight.FlightNumber}</td>
                 </tr>
+
+                <tr>
+                  <th>From</th>
+                  <td>{myFlight.DepartureAirport}</td>
+                </tr>
+
+                
+                <tr>
+                  <th>To</th>
+                  <td>{myFlight.ArrivalAirport}</td>
+                </tr>
+
+                
+
                 <tr>
                   <th>Departure Time</th>
-                  <td>{myFlight.DepartureDate}</td>
+                  <td>{myFlight.DepartureDate.slice(0,10)}</td>
                 </tr>
 
                 <tr>
                   <th>Arrival Time</th>
-                  <td>{myFlight.ArrivalDate}</td>
+                  <td>{myFlight.ArrivalDate.slice(0,10)}</td>
                 </tr>
               </tbody>
             </table>

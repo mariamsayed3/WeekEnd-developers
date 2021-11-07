@@ -2,13 +2,12 @@ import axios from 'axios';
 import 'antd/dist/antd.css';
 import './Admin.css';
 import moment from 'moment'
-import { useParams } from "react-router-dom";
 import { Button, message, Form, Input, Row, Col, DatePicker, Card,TimePicker  } from 'antd';
 import '../../Styles/background.scss';
 const { RangePicker } = DatePicker;
 require('dotenv').config('../../.env')
 
-const getTripDuration = (from, to) => {
+export const getTripDuration = (from, to) => {
   const fromTime = from.split(':') 
   const toTime = to.split(':')
 
@@ -62,14 +61,16 @@ function disabledRangeTime(_, type) {
   };
 }
 
+
+
+
 function CreateFlight() {
   const [form] = Form.useForm();
   const Create = async () => {
     try {
       const values = await form.validateFields();
-      console.log(values)
-      values.DepartureDate = new Date(Date.parse(values.DepartureDate))
-      values.ArrivalDate = new Date(Date.parse(values.ArrivalDate))
+      values.ArrivalDate = new Date(Date.parse(values.DepartureDate[1]._d))
+      values.DepartureDate = new Date(Date.parse(values.DepartureDate[0]._d))
       values.EconomyPrice = parseInt(values.EconomyPrice)
       values.BusinessPrice = parseInt(values.BusinessPrice)
       values.FirstClassPrice = parseInt(values.FirstClassPrice)
@@ -110,6 +111,9 @@ function CreateFlight() {
     }
     catch (e) {
       console.log(e);
+      message
+      .loading('Action in progress..', 2.5)
+      .then(() => message.error('Something went wrong please try again.', 3));
     }
   }
 
@@ -137,17 +141,13 @@ function CreateFlight() {
               >
                 <RangePicker
                 width='60%'
-      disabledDate={disabledDate}
-      disabledTime={disabledRangeTime}
-      // showTime={{
-      //   hideDisabledOptions: true,
-      //   defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('11:59:59', 'HH:mm:ss')],
-      // }}
-      ranges={{
-        Today: [moment(), moment()],
-      }}
-      format="YYYY-MM-DD"
-    />
+                disabledDate={disabledDate}
+                disabledTime={disabledRangeTime}
+                ranges={{
+                  Today: [moment(), moment()],
+                }}
+                format="YYYY-MM-DD"
+              />
               </Form.Item>
             </Col>
             
