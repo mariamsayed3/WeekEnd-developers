@@ -2,9 +2,10 @@ import { Component } from "react";
 import "antd/dist/antd.css";
 import { Popconfirm, message } from "antd";
 import axios from "axios";
+import { FaPlaneDeparture, FaPlaneArrival } from 'react-icons/fa';
 import "../../Styles/flightcard.scss";
 import { BrowserRouter as Router, Link } from "react-router-dom";
-
+import FlightDetailsPopup from '../General/FlightDetailsPopup'
 class FlightDetails extends Component {
   refreshPage() {
     window.location.reload(false);
@@ -21,20 +22,22 @@ class FlightDetails extends Component {
       console.log(err);
     }
   }
-  cancel(e) {
-    console.log(e);
-    message.error("Click on No");
-  }
+  // cancel(e) {
+  //   console.log(e);
+  //   message.error("Click on No");
+  // }
   render() {
     const { myFlight, idkey } = this.props;
+    console.log(myFlight)
     return (
       <div id="cards">
         <figure className="card card--normal">
           <figcaption className="card__caption">
             <table className="card__stats">
               <tbody>
+              <FaPlaneDeparture/> 
                 <tr>
-                  <th>Flight Number</th>
+                   Flight Number
                   <td>{myFlight.FlightNumber}</td>
                 </tr>
 
@@ -72,7 +75,7 @@ class FlightDetails extends Component {
                 Update
               </Link>
 
-              <Link
+              {/* <Link
                 className="active"
                 to={{
                   pathname: '/admin/view_details',
@@ -80,13 +83,14 @@ class FlightDetails extends Component {
                 }}
               >
                 View
-              </Link>
+              </Link> */}
+               { myFlight && <FlightDetailsPopup flight={myFlight}/>}
               <Popconfirm
                 title="Are you sure you want to delete this flight?"
                 onConfirm={() => {
                   this.handleClick(idkey);
                 }}
-                onCancel={this.cancel}
+                // onCancel={this.cancel}
                 cancelText="No"
                 okText="Yes"
               >
