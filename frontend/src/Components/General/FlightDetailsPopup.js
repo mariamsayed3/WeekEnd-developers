@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Button, Row, Col , Divider} from 'antd';
 import { FaPlaneDeparture, FaPlaneArrival } from 'react-icons/fa';
 import { AiOutlineFieldNumber, AiFillDollarCircle, AiOutlineDollarCircle } from 'react-icons/ai';
-import axios from 'axios';
+
 
 const FlightDetailsPopup = (props) => {
   const [visible, setVisible] = useState(false);
@@ -36,6 +36,13 @@ const FlightDetailsPopup = (props) => {
          
              <p><b>  <AiOutlineFieldNumber/> Trip Duration: </b> {flight.TripDuration}</p>
           </Col>
+          <Col  span={6}>
+             <p><b>   Departure Time: {flight.DepartureTime} </b> </p>
+              
+          </Col>
+          <Col  span={6}>
+          <p><b>   Arrival Time: {flight.ArrivalTime} </b> </p>
+          </Col>
         </Row>
         <Divider />
         <Row gutter={64,64}>
@@ -56,6 +63,7 @@ const FlightDetailsPopup = (props) => {
              <p><b>   Departure Date </b> </p>
              <p> {flight.DepartureDate}</p>
           </Col>
+          
 
         </Row>
         <Divider />

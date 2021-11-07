@@ -5,8 +5,6 @@ import FlightDetails from "./FlightDetails";
 import "antd/dist/antd.css";
 import "../../Styles/search.scss";
 import {
-  Slider,
-  InputNumber,
   Form,
   Input,
   DatePicker,
@@ -19,11 +17,11 @@ export default function AdminEdits() {
   const [flightNumber, setFlightNumber] = useState("");
   const [depDate, setDepDate] = useState("");
   const [arrDate, setArrDate] = useState("");
-  const [economySeats, setEconomySeats] = useState(1);
-  const [businessSeats, setBusinessSeats] = useState(1);
-  const [firstSeats, setFirstSeats] = useState(1);
-  const [baggage, setBaggage] = useState(10);
-  const [price, setPrice] = useState(10000);
+  const [economySeats] = useState(1);
+  const [businessSeats] = useState(1);
+  const [firstSeats] = useState(1);
+  const [baggage] = useState(10);
+  const [price] = useState(10000);
   const [depAirport, setDepAirport] = useState("");
   const [depTerminal, setDepTerminal] = useState("");
   const [arrAirport, setArrAirport] = useState("");
@@ -36,7 +34,6 @@ export default function AdminEdits() {
       const { data } = await axios.get(
         "http://localhost:8000/admin/get_all_flights"
       );
-      console.log(data)
       setFlights(data);
     };
     getFlights();
@@ -46,44 +43,43 @@ export default function AdminEdits() {
     let arr;
     if (filteredFlights.length === 0) arr = flights;
     else arr = filteredFlights;
-    if (flightNumber != "") {
+    if (flightNumber !== "") {
       setFilteredFlights(
         arr.filter((flight) => {
-          console.log(flight)
         return flight.FlightNumber.toLowerCase().includes(flightNumber.toLowerCase())}
         )
       );
     }
-    if (depDate != "") {
+    if (depDate !== "") {
       setFilteredFlights(
         arr.filter((flight) =>
           flight.DepartureDate.substring(0,10).includes(depDate)
         )
       );
     }
-    if (arrDate != "") {
+    if (arrDate !== "") {
       setFilteredFlights(
         arr.filter((flight) =>
           flight.ArrivalDate.substring(0,10).includes(arrDate)
         )
       );
     }
-    if (depAirport != "") {
+    if (depAirport !== "") {
       setFilteredFlights(
         arr.filter((flight) => flight.DepartureAirport.toLowerCase().includes(depAirport.toLowerCase()))
       );
     }
-    if (arrAirport != "") {
+    if (arrAirport !== "") {
       setFilteredFlights(
         arr.filter((flight) => flight.ArrivalAirport.toLowerCase().includes(arrAirport.toLowerCase()))
       );
     }
-    if (depTerminal != "") {
+    if (depTerminal !== "") {
       setFilteredFlights(
         arr.filter((flight) => flight.DepartureTerminal.toLowerCase().includes(depTerminal.toLowerCase()))
       );
     }
-    if (arrTerminal != "") {
+    if (arrTerminal !== "") {
       setFilteredFlights(
         arr.filter((flight) => flight.ArrivalTerminal.toLowerCase().includes(arrTerminal.toLowerCase()))
       );
@@ -143,7 +139,7 @@ export default function AdminEdits() {
                 <Form.Item name="DepartureDate" label="Departure Date">
                   <DatePicker
                     onChange={(date, dateString) => {
-                      dateString != ""
+                      dateString !== ""
                         ? setDepDate(dateString)
                         : setDepDate("");
                     }}
@@ -267,7 +263,6 @@ export default function AdminEdits() {
       <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
         {filteredFlights.map((flight) => {
           let id = flight._id;
-          console.log(id)
           return <FlightDetails idkey={id} myFlight={flight} key={id} />;
         })}
       </div>

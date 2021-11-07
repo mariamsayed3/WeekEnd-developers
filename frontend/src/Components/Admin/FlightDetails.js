@@ -1,6 +1,6 @@
 import { Component } from "react";
 import "antd/dist/antd.css";
-import { Popconfirm, message } from "antd";
+import { Popconfirm } from "antd";
 import axios from "axios";
 import { FaPlaneDeparture, FaPlaneArrival } from 'react-icons/fa';
 import "../../Styles/flightcard.scss";
@@ -13,22 +13,16 @@ class FlightDetails extends Component {
   handleClick(key) {
     try {
       let res = async () => {
-        console.log("Delete")
         await axios.delete(`http://localhost:8000/admin/delete_flight/${key}`, key);
       };
       res();
       this.refreshPage();
     } catch (err) {
-      console.log(err);
+     
     }
   }
-  // cancel(e) {
-  //   console.log(e);
-  //   message.error("Click on No");
-  // }
   render() {
     const { myFlight, idkey } = this.props;
-    console.log(myFlight)
     return (
       <div id="cards">
         <figure className="card card--normal">
@@ -46,14 +40,10 @@ class FlightDetails extends Component {
                   <td>{myFlight.DepartureAirport}</td>
                 </tr>
 
-                
                 <tr>
                   <th>To</th>
                   <td>{myFlight.ArrivalAirport}</td>
                 </tr>
-
-                
-
                 <tr>
                   <th>Departure Time</th>
                   <td>{myFlight.DepartureDate.slice(0,10)}</td>
