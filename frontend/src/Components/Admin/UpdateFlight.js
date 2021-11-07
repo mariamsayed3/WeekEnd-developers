@@ -2,7 +2,7 @@
 import axios from 'axios';
 import 'antd/dist/antd.css';
 import {useParams, useLocation} from "react-router-dom";
-import {Button, Form, Input, DatePicker, Card, Row, Col} from 'antd';
+import {Button, message, Form, Input, DatePicker, Card, Row, Col} from 'antd';
 import './Admin.css';
 require ('dotenv').config()
 
@@ -11,8 +11,8 @@ require ('dotenv').config()
 function UpdateFlight() {
   const location = useLocation()
   const { state } = location
-    console.log(location)
-    const id ="1"
+    console.log(state.id)
+    const id = state.id
     const [form] = Form.useForm();
 
     const getFlight = async () =>{
@@ -37,10 +37,14 @@ function UpdateFlight() {
           if (values.EconomyPrice) values.EconomyPrice = parseInt(values.EconomyPrice)
           if (values.BusinessAvailableSeats) values.BusinessAvailableSeats = parseInt(values.BusinessAvailableSeats)
           if (values.BusinessPrice) values.BusinessPrice = parseInt(values.BusinessPrice)
-          await axios.patch (`http://localhost:8000/admin/update_flight/${id}`, values);
-        } catch (e) {
-          console.log(e)
-        }
+    
+              await axios.patch (`http://localhost:8000/admin/update_flight/${id}`, values);
+              message
+              .loading('Action in progress..', 2.5)
+              .then(() => message.success('Flight Updated Succesfully', 3));
+          } catch (e) {
+            message.success('Flight Created Succesfully', 3);
+          }
       };
     
       return(
