@@ -30,7 +30,6 @@ function UpdateFlight() {
 
         try {
           const values = await form.validateFields();
-          console.log(values)
           if (values.DepartureDate) values.DepartureDate = new Date(Date.parse(values.DepartureDate._d)) 
           if (values.ArrivalDate) values.ArrivalDate = new Date(Date.parse(values.ArrivalDate._d))
           if (values.EconomyAvailableSeats) values.EconomyAvailableSeats = parseInt(values.EconomyAvailableSeats)

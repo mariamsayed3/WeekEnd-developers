@@ -5,8 +5,6 @@ import "./Admin.css";
 
 class ViewDetails extends Component {
   render() {
-    console.log("ana gwa");
-    console.log(this.props.location.state.flight);
     const { flight } = this.props.location.state;
     return (
       <div>

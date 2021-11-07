@@ -8,17 +8,13 @@ import  { UserContext } from '../../Context';
 const Login = () => {
 
   const [error, setError] = useState(null)
-  console.log(useContext(UserContext))
   const {FirstName, setAdmin,setFirstName,setLastName,setToken, setEmail} =useContext(UserContext);
 
   const onFinish = async (values) => {
     const {Password} = values
     const Username = values.Username.toLowerCase();
     try{
-        console.log(process.env.REACT_APP_BACKEND)
         const {data} = await axios.post(`http://localhost:8000/login`, {Username, Password})
-        console.log(data)
-        console.log(FirstName)
         let user = {FirstName: data.FirstName, LastName: data.LastName, Token: data.Token, Email: data.Email, Admin: data.Admin }
         sessionStorage.setItem("user", JSON.stringify(user));
         // setFirstName(data.FirstName)
@@ -29,7 +25,6 @@ const Login = () => {
          setError(false)
         
     }catch(err){
-        console.log(err)
         setError(true)
     }
   };
