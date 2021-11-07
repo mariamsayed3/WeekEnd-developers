@@ -12,10 +12,8 @@ class FlightDetails extends Component {
   handleClick(key) {
     try {
       let res = async () => {
-        await axios.delete(
-          `http://localhost:8000/admin/delete_flight/${key}`,
-          key
-        );
+        console.log("Delete")
+        await axios.delete(`http://localhost:8000/admin/delete_flight/${key}`, key);
       };
       res();
       this.refreshPage();
@@ -52,20 +50,25 @@ class FlightDetails extends Component {
             </table>
 
             <div className="card__abilities">
-              <Link className="active" to="">
+              <Link className="active"  to={{
+                  pathname: "/admin/update_flight",
+                  state: {id: idkey}
+                 
+                }} >
                 Update
               </Link>
+
               <Link
                 className="active"
                 to={{
-                  pathname: `/ViewDetails`,
+                  pathname: '/admin/view_details',
                   state: { flight: myFlight },
                 }}
               >
                 View
               </Link>
               <Popconfirm
-                title="Are you sure to delete this flight?"
+                title="Are you sure you want to delete this flight?"
                 onConfirm={() => {
                   this.handleClick(idkey);
                 }}
@@ -73,7 +76,7 @@ class FlightDetails extends Component {
                 cancelText="No"
                 okText="Yes"
               >
-                <a href="#">Delete</a>
+                <a > Delete </a>
               </Popconfirm>
             </div>
           </figcaption>

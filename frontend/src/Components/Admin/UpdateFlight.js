@@ -1,6 +1,7 @@
+
 import axios from 'axios';
 import 'antd/dist/antd.css';
-import {useParams} from "react-router-dom";
+import {useParams, useLocation} from "react-router-dom";
 import {Button, Form, Input, DatePicker, Card, Row, Col} from 'antd';
 import './Admin.css';
 require ('dotenv').config()
@@ -8,7 +9,10 @@ require ('dotenv').config()
 
 
 function UpdateFlight() {
-    const id = "617bbcf6edf4585cfd4a5cca"
+  const location = useLocation()
+  const { state } = location
+    console.log(location)
+    const id ="1"
     const [form] = Form.useForm();
 
     const getFlight = async () =>{

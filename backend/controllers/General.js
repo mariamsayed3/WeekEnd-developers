@@ -39,5 +39,9 @@ exports.login = async (req, res) => {
     return res.send({
         message: 'User logged in successfully!',
         Token: token,
+        Email: user.Email,
+        FirstName: user.FirstName,
+        LastName: user.LastName,
+        Admin: user.Admin
     })
 }
