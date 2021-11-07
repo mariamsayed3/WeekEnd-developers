@@ -8,7 +8,8 @@ const Login = () => {
   const [error, setError] = useState(null)
 
   const onFinish = async (values) => {
-    const {Username, Password} = values
+    const {Password} = values
+    const Username = values.Username.toLowerCase();
     try{
         const {data} = await axios.post(`${process.env.REACT_APP_BACKEND}/login`, {Username, Password})
         console.log(data.Token) // context

@@ -23,7 +23,7 @@ function App() {
           <Route path="/" exact component={AdminEdits} /> */}
           {/* <PrivateRouteAdmin path='/admin/update_flight/:FlightID' component={UpdateFlight}/>   */}
           {/* <UpdateFlight /> */}
-          {/* <CreateFlight /> */}
+          <CreateFlight />
           {/* <AdminEdits /> */}
           {/* <ViewDetails /> */}
           {/* <Register/> */}
