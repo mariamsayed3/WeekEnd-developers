@@ -11,7 +11,6 @@ require ('dotenv').config()
 function UpdateFlight() {
   const location = useLocation()
   const { state } = location
-    console.log(state.id)
     const id = state.id
     const [form] = Form.useForm();
 
