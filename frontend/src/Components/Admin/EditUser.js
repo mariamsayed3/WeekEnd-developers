@@ -18,7 +18,9 @@ function EditUser() {
                 .loading('Action in progress..', 2.5)
                 .then(() => message.success('Information Updated', 3));
         } catch (e) {
-            console.log(e)
+            message
+                .loading('Action in progress..', 2.5)
+                .then(() => message.error('Something went wrong.', 3));
         }
     }
 

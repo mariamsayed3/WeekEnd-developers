@@ -1,10 +1,11 @@
 import { Component } from "react";
 import "antd/dist/antd.css";
-import { Popconfirm, message } from "antd";
+import { Popconfirm } from "antd";
 import axios from "axios";
+import { FaPlaneDeparture, FaPlaneArrival } from 'react-icons/fa';
 import "../../Styles/flightcard.scss";
 import { BrowserRouter as Router, Link } from "react-router-dom";
-
+import FlightDetailsPopup from '../General/FlightDetailsPopup'
 class FlightDetails extends Component {
   refreshPage() {
     window.location.reload(false);
@@ -12,18 +13,13 @@ class FlightDetails extends Component {
   handleClick(key) {
     try {
       let res = async () => {
-        console.log("Delete")
         await axios.delete(`http://localhost:8000/admin/delete_flight/${key}`, key);
       };
       res();
       this.refreshPage();
     } catch (err) {
-      console.log(err);
+     
     }
-  }
-  cancel(e) {
-    console.log(e);
-    message.error("Click on No");
   }
   render() {
     const { myFlight, idkey } = this.props;
@@ -33,8 +29,9 @@ class FlightDetails extends Component {
           <figcaption className="card__caption">
             <table className="card__stats">
               <tbody>
+              <FaPlaneDeparture/> 
                 <tr>
-                  <th>Flight Number</th>
+                   Flight Number
                   <td>{myFlight.FlightNumber}</td>
                 </tr>
 
@@ -43,14 +40,10 @@ class FlightDetails extends Component {
                   <td>{myFlight.DepartureAirport}</td>
                 </tr>
 
-                
                 <tr>
                   <th>To</th>
                   <td>{myFlight.ArrivalAirport}</td>
                 </tr>
-
-                
-
                 <tr>
                   <th>Departure Time</th>
                   <td>{myFlight.DepartureDate.slice(0,10)}</td>
@@ -72,7 +65,7 @@ class FlightDetails extends Component {
                 Update
               </Link>
 
-              <Link
+              {/* <Link
                 className="active"
                 to={{
                   pathname: '/admin/view_details',
@@ -80,13 +73,14 @@ class FlightDetails extends Component {
                 }}
               >
                 View
-              </Link>
+              </Link> */}
+               { myFlight && <FlightDetailsPopup flight={myFlight}/>}
               <Popconfirm
                 title="Are you sure you want to delete this flight?"
                 onConfirm={() => {
                   this.handleClick(idkey);
                 }}
-                onCancel={this.cancel}
+                // onCancel={this.cancel}
                 cancelText="No"
                 okText="Yes"
               >

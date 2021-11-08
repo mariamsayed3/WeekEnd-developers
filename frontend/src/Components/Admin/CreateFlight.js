@@ -110,7 +110,6 @@ function CreateFlight() {
                 .then(() => message.success('Flight Created Succesfully', 3));
     }
     catch (e) {
-      console.log(e);
       message
       .loading('Action in progress..', 2.5)
       .then(() => message.error('Something went wrong please try again.', 3));

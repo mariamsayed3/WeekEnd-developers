@@ -57,7 +57,6 @@ const body1 = {
 const id = async () => {
     const userId = (await User.find({_id: "617ae39d75f5e23f35fe57c6"}))[0]._id
     const flightId = (await Flight.find({}))[0]._id
-    console.log(userId, flightId)
     const body = {
         User: userId,
         Flight: flightId,
