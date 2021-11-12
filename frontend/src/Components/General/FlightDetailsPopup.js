@@ -2,26 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Button, Row, Col , Divider} from 'antd';
 import { FaPlaneDeparture, FaPlaneArrival } from 'react-icons/fa';
 import { AiOutlineFieldNumber, AiFillDollarCircle, AiOutlineDollarCircle } from 'react-icons/ai';
-import axios from 'axios';
 
-const FlightDetails = () => {
-  const id = "617e9b5c7f9ded543af599ba"
+
+const FlightDetailsPopup = (props) => {
   const [visible, setVisible] = useState(false);
-  const [flight, setFlight] = useState(false);
+  const [flight, setFlight] = useState({});
   
   useEffect (()=>{
-    const getFlight = async () =>{
-      const {data} = await axios.get (`http://localhost:8000/admin/get_flight/${id}`);
-      setFlight(data)
-      }
-  
-    getFlight()
+    setFlight(props.flight)
   },[])
   
   return (
     <>
-      <Button type="primary" onClick={() => setVisible(true)}>
-        View Flight Details
+      <Button type="link" onClick={() => setVisible(true)}>
+        View Details
       </Button>
 
       <Modal
@@ -37,6 +31,17 @@ const FlightDetails = () => {
           <Col>
          
              <p><b>  <AiOutlineFieldNumber/> Flight Number: </b> {flight.FlightNumber}</p>
+          </Col>
+          <Col>
+         
+             <p><b>  <AiOutlineFieldNumber/> Trip Duration: </b> {flight.TripDuration}</p>
+          </Col>
+          <Col  span={6}>
+             <p><b>   Departure Time: {flight.DepartureTime} </b> </p>
+              
+          </Col>
+          <Col  span={6}>
+          <p><b>   Arrival Time: {flight.ArrivalTime} </b> </p>
           </Col>
         </Row>
         <Divider />
@@ -55,57 +60,68 @@ const FlightDetails = () => {
              <p> {flight.DepartureTerminal}</p>
           </Col>
           <Col  span={12}>
-             <p><b>   Departure Date and Time: </b> </p>
+             <p><b>   Departure Date </b> </p>
              <p> {flight.DepartureDate}</p>
           </Col>
+          
 
         </Row>
         <Divider />
         <Row gutter={64,64}>
           <Col span={6}>
-             <p><b> <FaPlaneArrival /> Airport: </b> </p>
+             <p><b> <FaPlaneArrival /> Arrival Airport: </b> </p>
              <p> {flight.ArrivalAirport}</p>
           </Col>
           <Col span={6}>
-             <p><b>Departure Terminal:  </b> </p>
-             <p> {flight.DepartureTerminal}</p>
+             <p><b>Arrival Terminal:  </b> </p>
+             <p> {flight.ArrivalTerminal}</p>
           </Col>
           <Col span={12}>
-             <p><b>Arrival Date and Time: </b> </p>
+             <p><b>Arrival Date </b> </p>
              <p> {flight.ArrivalDate}</p>
           </Col>
-
         </Row>
-
         <Divider />
         <Row gutter={64,64}>
           <Col span={12}>
+             <p><b>  <AiFillDollarCircle/>  <AiFillDollarCircle/>  First Class Seat Price: </b> </p>
+             <p> {flight.FirstClassPrice} LE</p>
+          </Col>
+    
+          <Col span={12}>
+             <p><b>Available First Class Seats </b> </p>
+             <p> {flight.FirstClassAvailableSeats} Seats </p>
+          </Col>
+
+        </Row>
+        <Row gutter={64,64}>
+          <Col span={12}>
              <p><b>  <AiFillDollarCircle/> Business Seat Price: </b> </p>
-             <p> {flight.BusinessPrice}</p>
+             <p> {flight.BusinessPrice} LE</p>
           </Col>
     
           <Col span={12}>
              <p><b>Available Business Seats </b> </p>
-             <p> {flight.BusinessAvailableSeats}</p>
+             <p> {flight.BusinessAvailableSeats} Seats</p>
           </Col>
 
         </Row>
         <Row gutter={64,64}>
           <Col span={12}>
              <p><b> <AiOutlineDollarCircle />  Economy Seat Price: </b> </p>
-             <p> {flight.EconomyPrice}</p>
+             <p> {flight.EconomyPrice} LE</p>
           </Col>
     
           <Col span={12}>
              <p><b>Available Economy Seats </b> </p>
-             <p> {flight.EconomyAvailableSeats}</p>
+             <p> {flight.EconomyAvailableSeats} Seats</p>
           </Col>
 
         </Row>
-        
+       
       </Modal>
     </>
   );
 };
 
-export default FlightDetails
+export default FlightDetailsPopup

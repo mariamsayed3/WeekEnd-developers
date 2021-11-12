@@ -5,8 +5,6 @@ import FlightDetails from "./FlightDetails";
 import "antd/dist/antd.css";
 import "../../Styles/search.scss";
 import {
-  Slider,
-  InputNumber,
   Form,
   Input,
   DatePicker,
@@ -19,11 +17,11 @@ export default function AdminEdits() {
   const [flightNumber, setFlightNumber] = useState("");
   const [depDate, setDepDate] = useState("");
   const [arrDate, setArrDate] = useState("");
-  const [economySeats, setEconomySeats] = useState(1);
-  const [businessSeats, setBusinessSeats] = useState(1);
-  const [firstSeats, setFirstSeats] = useState(1);
-  const [baggage, setBaggage] = useState(1);
-  const [price, setPrice] = useState(0.0);
+  const [economySeats] = useState(1);
+  const [businessSeats] = useState(1);
+  const [firstSeats] = useState(1);
+  const [baggage] = useState(10);
+  const [price] = useState(10000);
   const [depAirport, setDepAirport] = useState("");
   const [depTerminal, setDepTerminal] = useState("");
   const [arrAirport, setArrAirport] = useState("");
@@ -45,51 +43,63 @@ export default function AdminEdits() {
     let arr;
     if (filteredFlights.length === 0) arr = flights;
     else arr = filteredFlights;
-    if (flightNumber != "") {
+    if (flightNumber !== "") {
       setFilteredFlights(
-        arr.filter((flight) => flight.FlightNumber.toLowerCase().includes(flightNumber.toLowerCase()))
-      );
-    }
-    if (depDate != "") {
-      setFilteredFlights(
-        arr.filter((flight) =>
-          flight.DepartureDate.includes(new Date(Date.parse(depDate)))
+        arr.filter((flight) => {
+        return flight.FlightNumber.toLowerCase().includes(flightNumber.toLowerCase())}
         )
       );
     }
-    if (arrDate != "") {
+    if (depDate !== "") {
       setFilteredFlights(
         arr.filter((flight) =>
-          flight.ArrivalDate.includes(new Date(Date.parse(arrDate)))
+          flight.DepartureDate.substring(0,10).includes(depDate)
         )
       );
     }
-    if (depAirport != "") {
+    if (arrDate !== "") {
+      setFilteredFlights(
+        arr.filter((flight) =>
+          flight.ArrivalDate.substring(0,10).includes(arrDate)
+        )
+      );
+    }
+    if (depAirport !== "") {
       setFilteredFlights(
         arr.filter((flight) => flight.DepartureAirport.toLowerCase().includes(depAirport.toLowerCase()))
       );
     }
-    if (arrAirport != "") {
+    if (arrAirport !== "") {
       setFilteredFlights(
         arr.filter((flight) => flight.ArrivalAirport.toLowerCase().includes(arrAirport.toLowerCase()))
       );
     }
-    if (depTerminal != "") {
+    if (depTerminal !== "") {
       setFilteredFlights(
-        arr.filter((flight) => flight.DepartureTerminal.includes(depTerminal.toLowerCase()))
+        arr.filter((flight) => flight.DepartureTerminal.toLowerCase().includes(depTerminal.toLowerCase()))
       );
     }
-    if (arrTerminal != "") {
+    if (arrTerminal !== "") {
       setFilteredFlights(
-        arr.filter((flight) => flight.ArrivalTerminal.includes(arrTerminal))
+        arr.filter((flight) => flight.ArrivalTerminal.toLowerCase().includes(arrTerminal.toLowerCase()))
       );
     }
 
-    arr.filter((flight) => flight.EconomyTotalSeats >= economySeats);
-    arr.filter((flight) => flight.BusinessTotalSeats >= businessSeats);
-    // arr.filter((flight) => flight.FirstTotalSeats >= firstSeats); //first??
-    arr.filter((flight) => flight.AllowedBaggag >= baggage);
-    arr.filter((flight) => flight.price >= price);
+
+    // setFilteredFlights(
+    //   arr.filter((flight) => {
+    //     return flight.AllowedBaggage >= baggage
+    //   })
+    //   );
+
+    // setFilteredFlights(
+    // arr.filter((flight) =>{ 
+    //  return flight.BusinessPrice <= price || 
+    //  flight.EconomyPrice <= price || 
+    //  flight.FirstClassPrice <= price 
+    // }) );
+
+   
   }, [
     flights,
     flightNumber,
@@ -129,7 +139,7 @@ export default function AdminEdits() {
                 <Form.Item name="DepartureDate" label="Departure Date">
                   <DatePicker
                     onChange={(date, dateString) => {
-                      dateString != ""
+                      dateString !== ""
                         ? setDepDate(dateString)
                         : setDepDate("");
                     }}
@@ -148,87 +158,11 @@ export default function AdminEdits() {
                 </Form.Item>
               </Col>
             </Row>
-            <Row>
-              <Col span={20}>
-                <Form.Item name="economy" label="Economy">
-                  <Slider
-                    min={50} //see min and max
-                    max={400}
-                    onChange={(value) => {
-                      setEconomySeats(value);
-                    }}
-                    value={typeof economySeats === "number" ? economySeats : 0}
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={2}>
-                <InputNumber
-                  min={50}
-                  max={400}
-                  style={{margin: "0 10px", width: "50px"}}
-                  value={economySeats}
-                  onChange={(value) => {
-                    setEconomySeats(value);
-                  }}
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col span={15}>
-                <Form.Item name="business" label="Business">
-                  <Slider
-                    min={1}
-                    max={20}
-                    onChange={(value) => {
-                      setBusinessSeats(value);
-                    }}
-                    value={
-                      typeof businessSeats === "number" ? businessSeats : 0
-                    }
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={2}>
-                <InputNumber
-                  min={1}
-                  max={20}
-                  style={{ margin: "0 10px", width: "50px"}}
-                  value={businessSeats}
-                  onChange={(value) => {
-                    setBusinessSeats(value);
-                  }}
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col span={15}>
-                <Form.Item name="first" label="First">
-                  <Slider
-                    min={1}
-                    max={10}
-                    onChange={(value) => {
-                      setFirstSeats(value);
-                    }}
-                    value={typeof firstSeats === "number" ? firstSeats : 0}
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={2}>
-                <InputNumber
-                  min={1}
-                  max={20}
-                  style={{margin: "0 10px", width: "50px"}}
-                  value={firstSeats}
-                  onChange={(value) => {
-                    setFirstSeats(value);
-                  }}
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col span={15}>
+            {/* <Row> */}
+              {/* <Col span={15}>
                 <Form.Item name="baggage" label="Baggage">
                   <Slider
+                    defaultValue={10}
                     min={1}
                     max={10}
                     onChange={(value) => {
@@ -237,8 +171,8 @@ export default function AdminEdits() {
                     value={typeof baggage === "number" ? baggage : 0}
                   />
                 </Form.Item>
-              </Col>
-              <Col span={2}>
+              </Col> */}
+              {/* <Col span={2}>
                 <InputNumber
                   min={1}
                   max={20}
@@ -249,17 +183,19 @@ export default function AdminEdits() {
                   }}
                 />
               </Col>
-            </Row>
-            <Row>
+            </Row> */}
+            {/* <Row>
               <Col span={20}>
                 <Form.Item name="price" label="Price">
                   <Slider
+                    ي
+                    defaultValue={10000}
                     min={0}
                     max={10000} //max
                     onChange={(value) => {
                       setPrice(value);
                     }}
-                    value={typeof price === "number" ? price : 0}
+                    value={typeof price === "number" ? price :0}
                   />
                 </Form.Item>
               </Col>
@@ -274,7 +210,7 @@ export default function AdminEdits() {
                   }}
                 />
               </Col>
-            </Row>
+            </Row> */}
             <Row gutter={(16, 8)}>
               <Col span={25}>
                 <Form.Item name="DepartureAirport" label="Departure Airport">
@@ -326,7 +262,8 @@ export default function AdminEdits() {
       </Card>
       <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
         {filteredFlights.map((flight) => {
-          return <FlightDetails idkey={flight._id} myFlight={flight} />;
+          let id = flight._id;
+          return <FlightDetails idkey={id} myFlight={flight} key={id} />;
         })}
       </div>
     </div>

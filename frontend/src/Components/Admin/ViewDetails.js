@@ -5,8 +5,6 @@ import "./Admin.css";
 
 class ViewDetails extends Component {
   render() {
-    console.log("ana gwa");
-    console.log(this.props.location.state.flight);
     const { flight } = this.props.location.state;
     return (
       <div>
@@ -44,7 +42,7 @@ class ViewDetails extends Component {
                 <Divider type="horizontal" />
                 <span>ArrivalTerminal: {flight.ArrivalTerminal} </span>
                 <Divider type="horizontal" />
-                <span>EconomyTotalSeats: {flight.EconomyTotalSeats} </span>
+                <span>EconomyTotalSeats: {flight.EconomySeats.length} </span>
                 <Divider type="horizontal" />
                 <span>
                   EconomyAvailableSeats: {flight.EconomyAvailableSeats}
@@ -52,7 +50,7 @@ class ViewDetails extends Component {
                 <Divider type="horizontal" />
                 <span>EconomyPrice: {flight.EconomyPrice} </span>
                 <Divider type="horizontal" />
-                <span>BusinessTotalSeats: {flight.BusinessTotalSeats} </span>
+                <span>BusinessTotalSeats: {flight.BusinessSeats.length} </span>
                 <Divider type="horizontal" />
                 <span>
                   BusinessAvailableSeats: {flight.BusinessAvailableSeats}
@@ -60,9 +58,15 @@ class ViewDetails extends Component {
                 <Divider type="horizontal" />
                 <span>BusinessPrice: {flight.BusinessPrice} </span>
                 <Divider type="horizontal" />
-                <span>AllowedBaggage: {flight.AllowedBaggage} </span>
+                <span>First Class Total Seats: {flight.FirstClassSeats.length} </span>
                 <Divider type="horizontal" />
-                <span>Seats: {flight.Seats} </span>
+                <span>
+                First Class Available Seats: {flight.FirstClassAvailableSeats}
+                </span>
+                <Divider type="horizontal" />
+                <span>First Class Price: {flight.FirstClassPrice} </span>
+                <Divider type="horizontal" />
+                <span>AllowedBaggage: {flight.AllowedBaggage} </span>
                 <Divider type="horizontal" />
                 <span>NumberOfPassengers : {flight.NumberOfPassengers} </span>
               </div>

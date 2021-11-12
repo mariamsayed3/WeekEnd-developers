@@ -57,8 +57,10 @@ const Register = () => {
 
   const onFinish = async (values) => {
       values.Admin = false
+      values.Username = values.Username.toLowerCase()
+      values.Email = values.Email.toLowerCase()
       try{
-        await axios.post(`${process.env.REACT_APP_BACKEND}/register`, values)
+        await axios.post(`http://localhost:8000/register`, values)
         setError(false)
       }catch{
         setError(true)
