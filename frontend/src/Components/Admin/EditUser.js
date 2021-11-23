@@ -1,6 +1,6 @@
 import axios from 'axios';
 import 'antd/dist/antd.css';
-import { Button, Form, Input, DatePicker, Card, Row, Col } from 'antd';
+import { Button, Form, Input, Card, message} from 'antd';
 import './Admin.css';
 
 
@@ -14,14 +14,18 @@ function EditUser() {
         try {
             const values = await form.validateFields();
             await axios.patch (`http://localhost:8000/admin/edit_user/${id}`, values);
+            message
+            .loading('Action in progress..', 2.5)
+            .then(() => message.success('Information updated successfully!', 2.5))
         } catch (e) {
+            message.error('An error occurred');
             console.log(e)
         }
     }
 
     return (
         <div>
-            <Card style={{width:'40%'}} className='updateCard'>
+            <Card style={{width:'40%'}} title="Update Your Information" className='updateCard'>
                 <div>
                     <Form form={form} name="Edit User">
                         {/* <Row gutter={16, 8}>

@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'antd/dist/antd.css';
-import { Collapse, Descriptions, Button, Popover, Form, Input } from 'antd';
-import { Link } from 'react-router-dom';
-import Item from 'antd/lib/list/Item';
+import { Button, Form, Switch, Card } from 'antd';
+import { CloseOutlined, CheckOutlined, EditOutlined } from '@ant-design/icons';
 
 function ViewCurrentFlights() {
 
-    const id = "617ae39d75f5e23f35fe57c6"
-    const { Panel } = Collapse;
+    const id = "617ae39d75f5e23f35fe57c6" //needs to be removed
     const [Reservation, setReservation] = useState("");
     const [form] = Form.useForm();
+    const [Loading, setLoading] = useState(true);
+
+    const onChange = checked => {
+        setLoading(!checked);
+    };
 
     useEffect(() => {
         const getFlights = async () => {
@@ -23,90 +26,51 @@ function ViewCurrentFlights() {
     }, []);
     console.log(Reservation)
 
-    const onConfirm = async() => {
-        try{
-            const values = await form.validateFields();
-           // await axios.patch (`http://localhost:8000/admin/update_flight/${id}`, values);
-        }
-        catch(e){
-            console.log(e)
-        }
-    }
-    
+    // const onConfirm = async () => {
+    //     try {
+    //         const values = await form.validateFields();
+    //         // await axios.patch (`http://localhost:8000/admin/update_flight/${id}`, values);
+    //     }
+    //     catch (e) {
+    //         console.log(e)
+    //     }
+    // }
+
 
 
     return (
-        <Collapse accordion
-            bordered={false}
-            style={{
-                width: '60%',
-                margin: '3% auto',
-            }}>
+        <>
+            <Switch checked={!Loading} onChange={onChange}
+                style={{background:"#e7d1ff"}}
+                size="default"
+                checkedChildren={<CheckOutlined />}
+                unCheckedChildren={<CloseOutlined />} />
+            <Card
+                title="Current Reserved Flights"
+                style={{
+                    width: '60%',
+                }}
+                loading={Loading}>
 
-            {Reservation.map((booking) => {
-                return <Panel header="Reservation: ">
-                    <Descriptions
-                        bordered
-                        column={{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }}
-                        size='default'
-                        extra={
-                            <Popover style={{ width: 500 }}
-                                //content="Click to edit"
-                                title="Click to edit"
-                                trigger="hover"
-                            >
-                                <Popover
-                                    style={{ width: 500 }}
-                                    content={
-                                        <div>
-                                            <Form name="Edit Reservation">
-                                                <Form.Item
-                                                    name="ReservationNumber"
-                                                    label="Reservation Number"
-                                                >
-                                                    <Input />
-                                                </Form.Item>
-                                                <Form.Item
-                                                    name="TotalPrice"
-                                                    label="Total Price"
-                                                >
-                                                    <Input />
-                                                </Form.Item>
-                                                <Form.Item
-                                                    name="FlightNumber"
-                                                    label="Flight Number"
-                                                >
-                                                    <Input />
-                                                </Form.Item>
-                                                <Form.Item
-                                                    name="Seats"
-                                                    label="Seats"
-                                                >
-                                                    <Input />
-                                                </Form.Item>
-                                                <Button type="primary" onClick={onConfirm} style={{ marginTop: '5px', width: '150px' }}>
-                                                    Confirm
-                                                </Button>
-                                            </Form>
-                                        </div>
-                                    }
-                                    title="Click title"
-                                    trigger="click">
-                                    <Button type="primary">Edit</Button></Popover></Popover>}
+                {Reservation.map((booking) => {
+                    return <Card type="inner"
+                        title={"Reservation Number: "+ booking.ReservationNumber}
+                        headStyle={{background:"#e7d1ff"}}
+                        extra={<Button type="link" icon={<EditOutlined />} style={{ color:"black",marginTop: '5px', width: '100px' }}>
+                            Edit
+                         </Button>}
                     >
-                        <Descriptions.Item label="Reservation Number:">
-                            {booking.ReservationNumber}</Descriptions.Item>
-                        <Descriptions.Item label="Total Price:"
-                        >{booking.TotalPrice}</Descriptions.Item>
-                        <Descriptions.Item label="Flight Number:">{booking.FlightNumber}</Descriptions.Item>
-                        <Descriptions.Item label="Reserved Seats:">{booking.Seats.map((item, index) => {
+                        {/* <p><label>Reservation Number: </label>{booking.ReservationNumber}</p> */}
+                        <p><label>Total Price: </label>{booking.TotalPrice}</p>
+                        <p><label>Flight Number: </label>{booking.FlightNumber}</p>
+                        <p><label>Reserved Seats: </label>{booking.Seats.map((item, index) => {
                             return <li key={index}>{item}</li>
-                        })}</Descriptions.Item>
-                    </Descriptions>
-                </Panel>
-            })}
+                        })}</p>
+                    </Card>
+                })}
 
-        </Collapse>
+            </Card>
+        </>
     )
 }
 
