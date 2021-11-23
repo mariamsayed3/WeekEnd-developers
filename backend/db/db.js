@@ -13,7 +13,7 @@ const connect = async () => {
             {
                 useNewUrlParser: true,
                 useUnifiedTopology: true
-            }// comment
+            }
         )
         console.log('Connected successfully')
 

@@ -6,12 +6,24 @@ const flightSchema = new Schema({
     type: String,
     required: true,
   },
-  DepartureTime: {
+  DepartureDate: {
     type: Date,
     required: true,
   },
-  ArrivalTime: {
+  ArrivalDate: {
     type: Date,
+    required: true
+  },
+  DepartureTime: {
+    type: String,
+    required: true
+  },
+  ArrivalTime: {
+    type: String,
+    required: true
+  },
+  TripDuration: {
+    type: String,
     required: true
   },
   DepartureAirport: {
@@ -30,19 +42,11 @@ const flightSchema = new Schema({
     type: String,
     required: true,
   },
-  EconomyTotalSeats: {
-    type: Number,
-    required: true,
-  },
   EconomyAvailableSeats: {
     type: Number,
     required: true,
   },
   EconomyPrice: {
-    type: Number,
-    required: true,
-  },
-  BusinessTotalSeats: {
     type: Number,
     required: true,
   },
@@ -54,22 +58,52 @@ const flightSchema = new Schema({
     type: Number,
     required: true,
   },
-  TripDuration: {
-    type: Object,
-    required: true
+  FirstClassAvailableSeats: {
+    type: Number,
+    required: true,
+  },
+  FirstClassPrice: {
+    type: Number,
+    required: true,
   },
   AllowedBaggage: {
     type: Number,
     required: true
   },
-  Seats:{
-    type: Array,
-    required: true
-  },
   NumberOfPassengers: {
     type: Object,
     required: true
+  },
+  BusinessSeats:{
+    type: Array,
+    required: true
+  },
+  EconomySeats:{
+    type: Array,
+    required: true
+  },
+  FirstClassSeats:{
+    type: Array,
+    required: true
   }
+  // DestinationCountry:{
+  //   type: String,
+  //   required: true
+  // },
+
+  // DestinationCity:{
+  //   type: String,
+  //   required: true
+  // },
+
+  // ArrivalCountry:{
+  //   type: String,
+  //   required: true
+  // },
+  // ArrivalCity:{
+  //   type: String,
+  //   required: true
+  // },
 })
 
 const Flight = mongoose.model('Flight', flightSchema)
