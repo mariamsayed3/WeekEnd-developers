@@ -85,6 +85,18 @@ const flightSchema = new Schema({
   FirstClassSeats:{
     type: Array,
     required: true
+  },
+  Gate:{
+    type: String,
+    required: true
+  },
+  DepartureAirportCode:{
+    type: String,
+    required: true
+  },
+  ArrivalAirportCode:{
+    type: String,
+    required: true
   }
   // DestinationCountry:{
   //   type: String,
