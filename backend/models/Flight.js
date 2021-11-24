@@ -74,6 +74,10 @@ const flightSchema = new Schema({
     type: Object,
     required: true
   },
+  FirstClassSeats:{
+    type: Array,
+    required: true
+  },
   BusinessSeats:{
     type: Array,
     required: true
@@ -82,10 +86,7 @@ const flightSchema = new Schema({
     type: Array,
     required: true
   },
-  FirstClassSeats:{
-    type: Array,
-    required: true
-  },
+
   Gate:{
     type: String,
     required: true
