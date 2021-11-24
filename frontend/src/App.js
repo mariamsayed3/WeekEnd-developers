@@ -36,7 +36,7 @@ function App() {
         <Route path="/admin/update_flight" exact component={UpdateFlight}/>
         <Route path="/admin/flights" exact component={AdminEdits}/>
         <Route path="/admin/view_details" exact component={ViewDetails}/> */}
-        {/* <BoardingPass/> */}
+         <BoardingPass/> 
         <Navigation/>
         {/* <EditUser/> */}
       </Switch>

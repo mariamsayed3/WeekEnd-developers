@@ -67,6 +67,7 @@ exports.ViewCurrentFlights = async (req, res) => {
     } else {
       console.log("result:", result)
       res.json(result);
+      console.log("result:", error)
     }
   });
 }

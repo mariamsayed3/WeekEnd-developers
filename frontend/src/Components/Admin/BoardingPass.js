@@ -6,11 +6,9 @@ import { DingtalkOutlined } from '@ant-design/icons';
 import Boardingstyle from '../../Styles/Boardingstyle.scss'
 
 function BoardingPass() {
-
+    const Name = "Maryam Magdy"
     const id = "617ae39d75f5e23f35fe57c6" //needs to be removed
-    const [Reservation, setReservation] = useState({});
-    const [Information, setInformation] = useState("");
-    const InfoArray = [].concat(Information);
+    const [Reservation, setReservation] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
 
 
@@ -22,16 +20,6 @@ function BoardingPass() {
         getFlights();
     }, []);
 
-    useEffect(() => {
-        const getInfo = async () => {
-            const { data } = await axios.get(`http://localhost:8000/admin/get_user/${id}`);
-            setInformation(data);
-        };
-        getInfo();
-    }, []);
-
-    console.log(Reservation);
-
     const showModal = () => {
         setIsModalVisible(true);
     };
@@ -41,11 +29,14 @@ function BoardingPass() {
     };
 
     const handleCancel = () => {
+        
         setIsModalVisible(false);
     };
 
     return (
+        Reservation?
         <>
+          
             {Reservation.map((booking) => {
                 return <> <div className="boarding-pass" onClick={showModal}>
                     <header>
@@ -119,9 +110,9 @@ function BoardingPass() {
                         <div className="box">
                             <div className="passenger">
                                 <small>passenger</small>
-                                <strong>{InfoArray.map((user) => {
-                                    return <p>{user.FirstName} {user.LastName}</p>
-                                })}</strong>
+                                <strong>
+                                    <p>{Name}</p>
+                               </strong>
                             </div>
                             <div className="date">
                                 <small>Date</small>
@@ -227,7 +218,10 @@ function BoardingPass() {
                     </g>
                 </symbol>
             </svg>
+            
         </>
+        :
+        <> </>
     )
 }
 
