@@ -38,6 +38,7 @@ function App() {
         <Route path="/admin/view_details" exact component={ViewDetails}/> */}
         {/* <BoardingPass/> */}
         <Navigation/>
+        {/* <EditUser/> */}
       </Switch>
     
     </Router>

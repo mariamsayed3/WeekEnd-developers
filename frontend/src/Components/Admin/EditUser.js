@@ -3,6 +3,7 @@ import 'antd/dist/antd.css';
 import { Button, Form, Input, Card, message } from 'antd';
 import './Admin.css';
 import '../../Styles/background.scss';
+import Navigation from './Navigation.js'
 
 require('dotenv').config()
 
@@ -25,6 +26,8 @@ function EditUser() {
     }
 
     return (
+        <>
+        <Navigation/>
         <div>
             {/* <img src={Airplane} alt='val' /> */}
             <Card style={{ width: '60%' }} 
@@ -80,6 +83,7 @@ function EditUser() {
                 </div>
             </Card>
         </div>
+        </>
     )
 }
 

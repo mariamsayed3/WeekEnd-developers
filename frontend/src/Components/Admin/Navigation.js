@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Menu, PageHeader, Anchor, Input } from 'antd';
-import { EllipsisOutlined, HomeOutlined, AppstoreOutlined, UserOutlined, DingtalkOutlined } from '@ant-design/icons';
+import { EllipsisOutlined, HomeOutlined, AppstoreOutlined, UserOutlined, DingtalkOutlined, ProfileOutlined } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
 const { Link } = Anchor;
@@ -42,7 +42,9 @@ function Navigation() {
                     <Menu.Item key="setting:4">Option 4</Menu.Item>
                 </SubMenu>
                 <SubMenu key="more" icon={<EllipsisOutlined />}>
-                    <Menu.Item key="setting:5">Option 1</Menu.Item>
+                    <Menu.Item icon={<ProfileOutlined />} key="setting:5">Edit Profile
+                    <a href="/admin/edit_user"></a>
+                    </Menu.Item>
                     <Menu.Item key="setting:6">Option 2</Menu.Item>
                     <Menu.Item key="setting:7">Option 3</Menu.Item>
                     <Menu.Item key="setting:8">Option 4</Menu.Item>
