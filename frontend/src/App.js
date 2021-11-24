@@ -11,26 +11,13 @@ import dotenv from 'dotenv'
 import Home from "./Components/General/Home";
 import Unauthorized from './Components/General/Unauthorized'
 import AdminNavbar from './Components/Admin/Navbar'
-import RowOfSeats from './Components/User/Resevation/RowOfSeats'
 import ReserveSeats from './Components/User/Resevation/ReserveSeats'
-import FirstClassSeats from './Components/User/Resevation/FirstClassSeats';
 
 
 dotenv.config()
 const { Header } = Layout;
 
 function App() {
-
-  const seats = [
-    {number: 1, reserved: true},
-    {number: 2, reserved: true},
-    {number: 3, reserved: true},
-    {number: 4, reserved: true},
-    {number: 5, reserved: true},
-    {number: 6, reserved: false},
-    {number: 7, reserved: true},
-    {number: 8, reserved: true}]
-
   return (
     <Router>
         <Header>
@@ -46,12 +33,9 @@ function App() {
         <Route path="/admin/update_flight" exact component={UpdateFlight}/>
         <Route path="/admin/flights" exact component={AdminEdits}/>
         <Route path="/admin/view_details" exact component={ViewDetails}/>
+        
       </Switch>
-      {/* <RowOfSeats seats={seats}/> */}
-      <ReserveSeats/>
-      
-
-    
+      <ReserveSeats/>    
     </Router>
   );
 }

@@ -27,14 +27,15 @@ exports.register = async (req, res) => {
 
 exports.getFlight = async (req, res) => {
     const flightID = req.params.flightID;
-    Flight.findById(flightID, (error, result) => {
-      if (error) {
-        res.send(error);
-      } else {
-        res.json(result);
-      }
-    });
+    try{
+      const result = await Flight.findById(flightID)
+      res.send(result)
+    }catch(e){
+      res.send(e)
+    }
   };
+
+
 
 exports.login = async (req, res) => {
     const { Username, Password } = req.body
