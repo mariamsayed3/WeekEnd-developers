@@ -78,9 +78,19 @@ function CreateFlight() {
       values.EconomyAvailableSeats = parseInt(values.EconomyTotalSeats)
       values.BusinessAvailableSeats = parseInt(values.BusinessTotalSeats)
       values.FirstClassAvailableSeats = parseInt(values.FirstClassTotalSeats)
-      values.BusinessSeats = new Array(parseInt(values.BusinessTotalSeats)).fill(false);
-      values.EconomySeats = new Array(parseInt(values.EconomyTotalSeats)).fill(false);
-      values.FirstClassSeats = new Array(parseInt(values.FirstClassTotalSeats)).fill(false);
+      values.BusinessSeats = new Array(parseInt(values.BusinessTotalSeats))
+      values.EconomySeats = new Array(parseInt(values.EconomyTotalSeats))
+      values.FirstClassSeats = new Array(parseInt(values.FirstClassTotalSeats))
+      
+      for(let i = 0 ; i < values.BusinessSeats.length ; i++)
+        values.BusinessSeats[i] = {number: `B${i+1}`, reserved: false, type: null}
+
+      for(let i = 0 ; i < values.EconomySeats.length ; i++)
+        values.EconomySeats[i] = {number: `C${i+1}`, reserved: false, type: null}
+
+      for(let i = 0 ; i < values.FirstClassSeats.length ; i++)
+        values.FirstClassSeats[i] = {number: `A${i+1}`, reserved: false, type: null}
+      
       const departureTimeHours = (values.TripDuration[0]._d.getHours()+'').length == 1 ?
        '0' + values.TripDuration[0]._d.getHours():
         values.TripDuration[0]._d.getHours()
