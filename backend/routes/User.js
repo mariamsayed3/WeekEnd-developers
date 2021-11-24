@@ -2,6 +2,11 @@ const express = require("express");
 const controllers = require("../controllers/User");
 const router = new express.Router();
 
-router.get('/seats/:flightID', controllers.getSeats)
+router.use(express.json());
 
-module.exports = router
+router.patch("/cancel_reservation/:reservation_number", controllers.cancelReservation);
+
+router.post("/email_cancellation", controllers.notifyCancellation);
+
+
+module.exports = router;

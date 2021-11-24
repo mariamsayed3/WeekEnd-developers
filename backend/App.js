@@ -2,9 +2,8 @@ require('./db/db')
 require('dotenv').config();
 const mongoose = require('mongoose')
 const AdminRouter = require ('./routes/Admin')
-const GeneralRouter = require('./routes/General')
-const UserRouter = require('./routes/User')
-
+const UserRouter = require ('./routes/User')
+const GeneralRouter = require ('./routes/General')
 const cors = require('cors')
 const User = require('./models/User')
 const Flight = require('./models/Flight')
