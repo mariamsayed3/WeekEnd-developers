@@ -5,60 +5,57 @@ const Booking = require("../models/Booking");
 
 exports.cancelReservation = async (req, res) => {
   const reservation_number =  req.params.reservation_number;
+  
 
   //Find Booking
   const booking = await Booking.find({ReservationNumber:reservation_number});
+  console.log(booking)
+  
+  //Find flight & Update Seats
+  
+  console.log("booking", booking[0])
+  console.log(booking[0].Flight)
 
-  //Delete Booking
-  Booking.deleteOne({ReservationNumber:reservation_number}, function (error, result) {
-    if (error) {
-        res.send(error);
-      } else {
-        console.log(booking)
-        res.send(booking);
-      }
-  });
-//   //Find flight & Update Seats
 const flight = await Flight.findById(booking[0].Flight);
 
-const business_seats = flight.BusinessSeats 
-const business_children_booking = booking[0].Seats.Business.Children;
-if(business_children_booking.length >0){
-    for (let i=0; i<business_children_booking.length; i++){
-        business_seats[business_children_booking[i]] = false;
-    }
-}
-const business_adults_booking = booking[0].Seats.Business.Adults;
-if(business_adults_booking.length >0){
-    for (let i=0; i<business_adults_booking.length; i++){
-        business_seats[business_adults_booking[i]] = false;
-    }
-}
+const seats = booking[0].Seats
+let first_seats=0;
+let economy_seats=0;
+let business_seats=0;
+for (let seat of seats)
+  if (seat.charAt(0)==='A'){
+      const index = parseInt(seat.slice(1)) -1;
+      flight.FirstClassSeats[index].reserved = false;
+      first_seats++;
+  }
+  else if (seat.charAt(0)==='B'){
+      const index = parseInt(seat.slice(1)) -1;
+      flight.BusinessSeats[index].reserved = false;
+      business_seats++;
+  }
+  else{
+    const index = parseInt(seat.slice(1)) -1;
+    flight.EconomySeats[index].reserved = false;
+    economy_seats++;
+  }
 
-const economy_seats = flight.EconomySeats 
-const economy_children_booking = booking[0].Seats.Economy.Children;
-if(economy_children_booking.length >0){
-    for (let i=0; i<economy_children_booking.length; i++){
-        economy_seats[economy_children_booking[i]] = false;
-    }
-}
-const economy_adults_booking = booking[0].Seats.Economy.Adults;
-if(economy_adults_booking.length >0){
-    for (let i=0; i<economy_adults_booking.length; i++){
-        economy_seats[economy_adults_booking[i]] = false;
-    }
-}
 
-  const available_business_seats = booking[0].Seats.Business.Children.length + booking[0].Seats.Business.Adults.length;
-  const available_economy_seats = booking[0].Seats.Economy.Adults.length +  booking[0].Seats.Economy.Children.length;
-  
-  const filter = { _id: booking[0].Flight };
-  const update = {$inc : {'EconomyAvailableSeats' : available_economy_seats, 'BusinessAvailableSeats' : available_business_seats}, EconomySeats :economy_seats, BusinessSeats:business_seats };
-  let updated_flight = await Flight.findOneAndUpdate(filter, update);
+  let update = {$inc : {'EconomyAvailableSeats' : economy_seats, 'BusinessAvailableSeats': business_seats , 'FirstClassAvailableSeats': first_seats}, FirstClassSeats: flight.FirstClassSeats, EconomySeats :flight.EconomySeats, BusinessSeats:flight.BusinessSeats };
+  await Flight.findByIdAndUpdate( flight.id, update);
+
+    // Delete Booking
+    Booking.deleteOne({ReservationNumber:reservation_number}, function (error, result) {
+      if (error) {
+          res.send(error);
+        } else {
+          res.send(booking);
+        }
+    });
 }
 
 exports.notifyCancellation = async (req, res) => {
   const {ReservationNumber, email, TotalPrice, FlightNumber, Seats} = req.body
+  console.log(req.body)
     const subject = "United Airlines"
     const body = `  <h3> Hello </h3>
                         <h4> Please note that your reservation on flight number ${FlightNumber} has been succesfully cancelled. </h4>

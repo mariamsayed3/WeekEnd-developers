@@ -2,17 +2,18 @@ import { useState } from "react";
 import axios from 'axios';
 import 'antd/dist/antd.css';
 import {useParams} from "react-router-dom";
-import {Popconfirm, Form, Input, DatePicker, Card, Row, Col} from 'antd';
+import {Popconfirm} from 'antd';
 require ('dotenv').config()
 
 
 
 function CancelReservation() {
-    const reservation_no = "AA"
+ 
     const email ='allaaamr5876@gmail.com'
 
     const reservation = async () =>{
-      const {data} = await axios.patch (`http://localhost:8000/user/cancel_reservation/${reservation_no}`);
+      const {data} = await axios.patch (`http://localhost:8000/user/cancel_reservation/AA`);
+      console.log(data)
       const post = await axios({
         method: 'post',
         url: 'http://localhost:8000/user/email_cancellation',
@@ -21,10 +22,8 @@ function CancelReservation() {
           ...data[0]
         }
       });
-
       }
-      
-  
+
       return(
         <Popconfirm title="Are you sure you want to cancel your reservation？"  
         onConfirm={reservation}
