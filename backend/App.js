@@ -3,6 +3,7 @@ require('dotenv').config();
 const mongoose = require('mongoose')
 const AdminRouter = require ('./routes/Admin')
 const GeneralRouter = require('./routes/General')
+const UserRouter = require('./routes/User')
 
 const cors = require('cors')
 const User = require('./models/User')
@@ -13,6 +14,7 @@ const app = express();
 app.use(cors({origin: ['http://localhost:3000']}));
 app.use(cors());
 app.use('/admin',AdminRouter)
+app.use('/user',UserRouter)
 app.use(GeneralRouter)
 app.use(express.json())
 const port = process.env.PORT || "8000";

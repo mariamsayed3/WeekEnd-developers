@@ -8,7 +8,7 @@ import  { UserContext } from '../../Context';
 const Login = () => {
 
   const [error, setError] = useState(null)
-  const {FirstName, setAdmin,setFirstName,setLastName,setToken, setEmail} =useContext(UserContext);
+  const {FirstName, setAdmin,setFirstName,setLastName,setToken, setEmail} = useContext(UserContext);
 
   const onFinish = async (values) => {
     const {Password} = values
@@ -17,20 +17,24 @@ const Login = () => {
         const {data} = await axios.post(`http://localhost:8000/login`, {Username, Password})
         let user = {FirstName: data.FirstName, LastName: data.LastName, Token: data.Token, Email: data.Email, Admin: data.Admin }
         sessionStorage.setItem("user", JSON.stringify(user));
-        // setFirstName(data.FirstName)
-        // setLastName(data.LastName)
-        // setToken(data.Token)
-        // setEmail(data.Email)
-        // setAdmin(data.Admin)
-         setError(false)
+        setFirstName(data.FirstName)
+        setLastName(data.LastName)
+        setToken(data.Token)
+        setEmail(data.Email)
+        setAdmin(data.Admin)
         
+        setError(false)    
     }catch(err){
         setError(true)
     }
   };
 
-  if(error === false)
+
+  if(error === false){
+    console.log(FirstName)
     return <Redirect to="/home" />
+   
+}
 
   return (
     <div style={{width: '50%'}}>  
