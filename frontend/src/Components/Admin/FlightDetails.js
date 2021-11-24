@@ -1,80 +1,90 @@
 import { Component } from "react";
 import "antd/dist/antd.css";
-import { Popconfirm, message } from "antd";
+import { Popconfirm } from "antd";
 import axios from "axios";
+import { FaPlaneDeparture, FaPlaneArrival } from 'react-icons/fa';
 import "../../Styles/flightcard.scss";
-
+import { BrowserRouter as Router, Link } from "react-router-dom";
+import FlightDetailsPopup from '../General/FlightDetailsPopup'
 class FlightDetails extends Component {
   refreshPage() {
     window.location.reload(false);
-    // message.success("deleted");
   }
   handleClick(key) {
     try {
-      console.log("ana al id");
-      console.log(key);
       let res = async () => {
-        await axios.delete(
-          `http://localhost:8000/admin/delete_flight/${key}`,
-          key
-        );
+        await axios.delete(`http://localhost:8000/admin/delete_flight/${key}`, key);
       };
       res();
       this.refreshPage();
     } catch (err) {
-      console.log(err);
+     
     }
-  }
-  cancel(e) {
-    console.log(e);
-    message.error("Click on No");
   }
   render() {
     const { myFlight, idkey } = this.props;
     return (
       <div id="cards">
-        <figure class="card card--normal">
-          {/* <div class="card__image-container">
-            <img
-              src="https://cdn.bulbagarden.net/upload/thumb/e/e2/133Eevee.png/1200px-133Eevee.png"
-              alt="Eevee"
-              class="card__image"
-            />
-          </div> */}
-          <figcaption class="card__caption">
-            {/* <h1 class="card__name"></h1> */}
-            {/* <h3 class="card__type">Business</h3> */}
-
-            <table class="card__stats">
+        <figure className="card card--normal">
+          <figcaption className="card__caption">
+            <table className="card__stats">
               <tbody>
+              <FaPlaneDeparture/> 
                 <tr>
-                  <th>Flight Number</th>
+                   Flight Number
                   <td>{myFlight.FlightNumber}</td>
+                </tr>
+
+                <tr>
+                  <th>From</th>
+                  <td>{myFlight.DepartureAirport}</td>
+                </tr>
+
+                <tr>
+                  <th>To</th>
+                  <td>{myFlight.ArrivalAirport}</td>
                 </tr>
                 <tr>
                   <th>Departure Time</th>
-                  <td>{myFlight.DepartureDate}</td>
+                  <td>{myFlight.DepartureDate.slice(0,10)}</td>
                 </tr>
 
                 <tr>
                   <th>Arrival Time</th>
-                  <td>{myFlight.ArrivalDate}</td>
+                  <td>{myFlight.ArrivalDate.slice(0,10)}</td>
                 </tr>
               </tbody>
             </table>
 
-            <div class="card__abilities">
-              <button>Update</button>
+            <div className="card__abilities">
+              <Link className="active"  to={{
+                  pathname: "/admin/update_flight",
+                  state: {id: idkey}
+                 
+                }} >
+                Update
+              </Link>
+
+              {/* <Link
+                className="active"
+                to={{
+                  pathname: '/admin/view_details',
+                  state: { flight: myFlight },
+                }}
+              >
+                View
+              </Link> */}
+               { myFlight && <FlightDetailsPopup flight={myFlight}/>}
               <Popconfirm
-                title="Are you sure to delete this flight?"
+                title="Are you sure you want to delete this flight?"
                 onConfirm={() => {
                   this.handleClick(idkey);
                 }}
-                onCancel={this.cancel}
+                // onCancel={this.cancel}
                 cancelText="No"
                 okText="Yes"
               >
-                <a href="#">Delete</a>
+                <a > Delete </a>
               </Popconfirm>
             </div>
           </figcaption>
