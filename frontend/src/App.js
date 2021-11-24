@@ -11,6 +11,9 @@ import dotenv from 'dotenv'
 import Home from "./Components/General/Home";
 import Unauthorized from './Components/General/Unauthorized'
 import AdminNavbar from './Components/Admin/Navbar'
+import EditUser from './Components/Admin/EditUser'
+import BoardingPass from './Components/Admin/BoardingPass'
+import Navigation from './Components/Admin/Navigation'
 dotenv.config()
 const { Header } = Layout;
 
@@ -18,21 +21,24 @@ function App() {
   return (
     <Router>
 
-  
+{/*   
         <Header>
             <AdminNavbar />
-        </Header>
+        </Header> */}
       <Switch>
 
         {/* <FlightDetails /> */}
-        <Route path="/home" exact component={Home} />
+        {/* <Route path="/home" exact component={Home} />
         <Route path="/login" exact component={Login} />
         <Route path="/unauthorized" exact component={Unauthorized} />
         <Route path="/register" exact component={Register} />
         <Route path="/admin/create_flight" exact component={CreateFlight}/>
         <Route path="/admin/update_flight" exact component={UpdateFlight}/>
         <Route path="/admin/flights" exact component={AdminEdits}/>
-        <Route path="/admin/view_details" exact component={ViewDetails}/>
+        <Route path="/admin/view_details" exact component={ViewDetails}/> */}
+        {/* <BoardingPass/> */}
+        <Navigation/>
+        {/* <EditUser/> */}
       </Switch>
     
     </Router>
