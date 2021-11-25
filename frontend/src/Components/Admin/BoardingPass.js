@@ -4,14 +4,14 @@ import 'antd/dist/antd.css';
 import { Modal, Tag } from 'antd';
 import { DingtalkOutlined } from '@ant-design/icons';
 import Boardingstyle from '../../Styles/Boardingstyle.scss'
+import {Popconfirm, Button} from 'antd';
 
 function BoardingPass() {
-
+    const Name = "Maryam Magdy"
     const id = "617ae39d75f5e23f35fe57c6" //needs to be removed
-    const [Reservation, setReservation] = useState({});
-    const [Information, setInformation] = useState("");
-    const InfoArray = [].concat(Information);
+    const [Reservation, setReservation] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const email ='allaaamr5876@gmail.com'
 
 
     useEffect(() => {
@@ -22,30 +22,40 @@ function BoardingPass() {
         getFlights();
     }, []);
 
-    useEffect(() => {
-        const getInfo = async () => {
-            const { data } = await axios.get(`http://localhost:8000/admin/get_user/${id}`);
-            setInformation(data);
-        };
-        getInfo();
-    }, []);
+    const rnumber= 'AA';
 
-    console.log(Reservation);
-
+    const cancel_reservation = async () =>{
+        console.log("ahlan")
+        const {data} = await axios.patch (`http://localhost:8000/user/cancel_reservation/${rnumber}`);
+        const post = await axios({
+          method: 'post',
+          url: 'http://localhost:8000/user/email_cancellation',
+          data: {
+            email: email,
+            ...data[0]
+          }
+        });
+        }
+        
     const showModal = () => {
         setIsModalVisible(true);
     };
 
     const handleOk = () => {
+        console.log("Hi");
+       
         setIsModalVisible(false);
     };
 
     const handleCancel = () => {
+       
         setIsModalVisible(false);
     };
 
     return (
+        Reservation?
         <>
+          
             {Reservation.map((booking) => {
                 return <> <div className="boarding-pass" onClick={showModal}>
                     <header>
@@ -80,6 +90,7 @@ function BoardingPass() {
                             <div className="box">
                                 <small>Terminal</small>
                                 <strong>{booking.DepartureTerminal}</strong>
+                                
                             </div>
                             <div className="box">
                                 <small>Gate</small> {/* add gate in flight scheme */}
@@ -119,19 +130,23 @@ function BoardingPass() {
                         <div className="box">
                             <div className="passenger">
                                 <small>passenger</small>
-                                <strong>{InfoArray.map((user) => {
-                                    return <p>{user.FirstName} {user.LastName}</p>
-                                })}</strong>
+                                <strong>
+                                    <p>{Name}</p>
+                               </strong>
                             </div>
                             <div className="date">
                                 <small>Date</small>
                                 <strong>{booking.DepartureDate}</strong>
                             </div>
                         </div>
+                       
+                        
                         <svg className="qrcode">
                             <use href="#qrcode"></use>
                         </svg>
+                       
                     </section>
+                   
                 </div>
                     {/* <br></br> */}
                 </>
@@ -141,6 +156,12 @@ function BoardingPass() {
                 <p>Some contents...</p>
                 <p>Some contents...</p>
                 <p>Some contents...</p>
+                <Popconfirm title="Are you sure you want to cancel your reservation？"  
+                                    onConfirm={cancel_reservation}
+                                    okText="Yes" 
+                                    cancelText="No">
+                            <Button>Cancel Reservation</Button>
+                        </Popconfirm>
             </Modal>
 
             <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
@@ -227,7 +248,10 @@ function BoardingPass() {
                     </g>
                 </symbol>
             </svg>
+            
         </>
+        :
+        <> </>
     )
 }
 
