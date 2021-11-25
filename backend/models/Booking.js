@@ -11,6 +11,10 @@ const bookingSchema = new Schema({
     type: ObjectId,
     required: true,
   },
+  FlightNumber: {
+    type: String,
+    required: true,
+  },
   ReservationNumber: {
     type: String,
     required: true,
@@ -19,18 +23,62 @@ const bookingSchema = new Schema({
     type: Number,
     required: true,
   },
-  NumberOfSeats: {
-    type: Object, // for adults and children
-    required: true,
-  },
   FlightNumber: {
     type: Number,
     required: true
   },
   Seats: {
-    type: Array,
+    type: Object,
     required: true
   },
+  DepartureDate: {
+    type: Date,
+    required: true,
+  },
+  ArrivalDate: {
+    type: Date,
+    required: true
+  },
+  DepartureTime: {
+    type: String,
+    required: true
+  },
+  ArrivalTime: {
+    type: String,
+    required: true
+  },
+  TripDuration: {
+    type: String,
+    required: true
+  },
+  DepartureAirport: {
+    type: String,
+    required: true,
+  },
+  ArrivalAirport: {
+    type: String,
+    required: true,
+  },
+  DepartureTerminal: {
+    type: String,
+    required: true,
+  },
+  ArrivalTerminal: {
+    type: String,
+    required: true,
+  },
+  Gate:{
+    type: String,
+    required: true
+  },
+  DepartureAirportCode:{
+    type: String,
+    required: true
+  },
+  ArrivalAirportCode:{
+    type: String,
+    required: true
+  }
 });
 
 const Booking = mongoose.model('Booking', bookingSchema);

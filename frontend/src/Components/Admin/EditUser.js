@@ -3,6 +3,7 @@ import 'antd/dist/antd.css';
 import { Button, Form, Input, Card, message } from 'antd';
 import './Admin.css';
 import '../../Styles/background.scss';
+import Navigation from './Navigation.js'
 
 require('dotenv').config()
 
@@ -16,7 +17,7 @@ function EditUser() {
             await axios.patch(`http://localhost:8000/admin/edit_user/${id}`, values);
             message
                 .loading('Action in progress..', 2.5)
-                .then(() => message.success('Information Updated', 3));
+                .then(() => message.success('Information Updated successfully!', 3));
         } catch (e) {
             message
                 .loading('Action in progress..', 2.5)
@@ -25,6 +26,8 @@ function EditUser() {
     }
 
     return (
+        <>
+        <Navigation/>
         <div>
             {/* <img src={Airplane} alt='val' /> */}
             <Card style={{ width: '60%' }} 
@@ -80,6 +83,7 @@ function EditUser() {
                 </div>
             </Card>
         </div>
+        </>
     )
 }
 

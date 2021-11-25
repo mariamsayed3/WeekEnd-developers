@@ -10,8 +10,13 @@ router.patch("/update_flight/:flightID", controllers.updateFlight);
 
 router.post("/create_flight", controllers.createFlight);
 
-router.patch('/edit_user/:UserID',controllers.EditUser) //should be moved to user.routes
+router.patch('/edit_user/:UserID',controllers.EditUser); //should be moved to user.routes
 
+router.get('/get_current_flights/:UserID',controllers.ViewCurrentFlights);
+
+router.get('/get_user/:UserID',controllers.getUser);
+
+module.exports = router
 router.delete("/delete_flight/:flightID", controllers.deleteFlight);
 
 router.get("/get_all_flights", controllers.getAllFlights);
