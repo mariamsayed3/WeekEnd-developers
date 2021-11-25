@@ -14,7 +14,7 @@ import Unauthorized from './Components/General/Unauthorized'
 import AdminNavbar from './Components/Admin/Navbar'
 import PrivateRouteAdmin from './Router/PrivateRouteAdmin'
 import PrivateRouteUser from './Router/PrivateRouteUser'
-import BoardingPass from './Components/Admin/BoardingPass'
+import BoardingPass from './Components/User/BoardingPass'
 import ReserveSeats from './Components/User/Resevation/ReserveSeats'
 
 dotenv.config()
