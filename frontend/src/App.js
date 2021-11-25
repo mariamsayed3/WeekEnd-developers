@@ -42,7 +42,7 @@ function App() {
         {/* <Navigation/> */}
         {/* <EditUser/> */}
       </Switch>
-    
+
       {/* <ReserveSeats/>     */}
     </Router>
   );
