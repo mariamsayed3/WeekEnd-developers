@@ -35,8 +35,6 @@ exports.getFlight = async (req, res) => {
     }
   };
 
-
-
 exports.login = async (req, res) => {
     const { Username, Password } = req.body
     let condition

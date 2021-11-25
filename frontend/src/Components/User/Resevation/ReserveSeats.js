@@ -1,4 +1,4 @@
-import react, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import axios from 'axios'
 import Seats from './Seats'
 import ReservationData from './ReservationData'
@@ -51,7 +51,7 @@ const ReserveSeats = () => {
                             <small>Occupied</small>
                         </li>
                     </ul>
-                    <h5 className='subtitle'>First Class <b>{flight.FirstClassPrice}L.E</b></h5>
+                    <h5 className='subtitle'>First Class <b className="b">{flight.FirstClassPrice}L.E</b></h5>
                     <Seats 
                     selectedSeats={selectedSeats}
                     setSelectedSeats={setSelectedSeats}
@@ -60,7 +60,7 @@ const ReserveSeats = () => {
                     seats={flight.FirstClassSeats}
                       />
 
-                    <h5 className='subtitle'>Bussiness Class <b>{flight.BusinessPrice}L.E</b></h5>
+                    <h5 className='subtitle'>Bussiness Class <b className="b">{flight.BusinessPrice}L.E</b></h5>
                     <Seats 
                     selectedSeats={selectedSeats}
                     setSelectedSeats={setSelectedSeats}
@@ -68,7 +68,7 @@ const ReserveSeats = () => {
                     setNumberOfSeats={setBusinessSeats}
                     seats={flight.BusinessSeats}/>
 
-                    <h5 className='subtitle'>Economy Class <b>{flight.EconomyPrice}L.E</b></h5>
+                    <h5 className='subtitle'>Economy Class <b className="b">{flight.EconomyPrice}L.E</b></h5>
                     <Seats
                     selectedSeats={selectedSeats}
                     setSelectedSeats={setSelectedSeats}
@@ -80,7 +80,7 @@ const ReserveSeats = () => {
             </div>
             </div>
         </>
-            : <></>
+        : <></>
     )
 }
 

@@ -35,7 +35,7 @@ function App() {
         <Route path="/admin/view_details" exact component={ViewDetails}/>
         
       </Switch>
-      <ReserveSeats/>    
+      {/* <ReserveSeats/>     */}
     </Router>
   );
 }
