@@ -86,6 +86,37 @@ const flightSchema = new Schema({
     type: Array,
     required: true
   },
+
+  Gate:{
+    type: String,
+    required: true
+  },
+  DepartureAirportCode:{
+    type: String,
+    required: true
+  },
+  ArrivalAirportCode:{
+    type: String,
+    required: true
+  }
+  // DestinationCountry:{
+  //   type: String,
+  //   required: true
+  // },
+
+  // DestinationCity:{
+  //   type: String,
+  //   required: true
+  // },
+
+  // ArrivalCountry:{
+  //   type: String,
+  //   required: true
+  // },
+  // ArrivalCity:{
+  //   type: String,
+  //   required: true
+  // },
 })
 
 const Flight = mongoose.model('Flight', flightSchema)
