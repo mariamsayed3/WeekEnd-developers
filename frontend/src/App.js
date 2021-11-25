@@ -11,6 +11,9 @@ import dotenv from 'dotenv'
 import Home from "./Components/General/Home";
 import Unauthorized from './Components/General/Unauthorized'
 import AdminNavbar from './Components/Admin/Navbar'
+import PrivateRouteAdmin from './Router/PrivateRouteAdmin'
+import PrivateRouteUser from './Router/PrivateRouteUser'
+
 dotenv.config()
 const { Header } = Layout;
 
@@ -24,15 +27,18 @@ function App() {
         </Header>
       <Switch>
 
-        {/* <FlightDetails /> */}
         <Route path="/home" exact component={Home} />
         <Route path="/login" exact component={Login} />
         <Route path="/unauthorized" exact component={Unauthorized} />
         <Route path="/register" exact component={Register} />
-        <Route path="/admin/create_flight" exact component={CreateFlight}/>
-        <Route path="/admin/update_flight" exact component={UpdateFlight}/>
-        <Route path="/admin/flights" exact component={AdminEdits}/>
-        <Route path="/admin/view_details" exact component={ViewDetails}/>
+        
+        <PrivateRouteAdmin path="/admin/create_flight" exact component={CreateFlight}/>
+        <PrivateRouteAdmin path="/admin/update_flight" exact component={UpdateFlight}/>
+        <PrivateRouteAdmin path="/admin/flights" exact component={AdminEdits}/>
+        <PrivateRouteAdmin path="/admin/view_details" exact component={ViewDetails}/>
+
+        <PrivateRouteUser path="/my_reservations" exact component={BoardingPass}/>
+        <PrivateRouteUser path="/reserve_seats/:flight_id" exact component={ReserveSeats}/>
       </Switch>
     
     </Router>
