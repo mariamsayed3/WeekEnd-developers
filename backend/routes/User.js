@@ -8,5 +8,11 @@ router.patch("/cancel_reservation/:reservation_number", controllers.cancelReserv
 
 router.post("/email_cancellation", controllers.notifyCancellation);
 
+router.patch('/edit_user/:UserID',controllers.EditUser);
+
+router.get('/get_current_flights/:UserID',controllers.ViewCurrentFlights);
+
+router.get('/get_user/:UserID',controllers.getUser);
+
 
 module.exports = router;

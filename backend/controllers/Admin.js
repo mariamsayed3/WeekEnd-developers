@@ -43,52 +43,6 @@ exports.createFlight = async (req, res) => {
   });
 };
 
-exports.EditUser = async (req, res) => {
-  const UserID = req.params.UserID
-  const condition = { id: UserID }
-  User.updateOne(condition, req.body, (error, result) => {
-    if (error) {
-      console.log("error", error)
-      res.send(error);
-    } else {
-      console.log("result", result)
-      res.json(result);
-    }
-  });
-}
-
-exports.ViewCurrentFlights = async (req, res) => {
-  const UserID = req.params.UserID
-  const condition = { id: UserID }
-  Booking.find(condition, (error, result) => {
-    if (error) {
-      console.log("error:", error)
-      res.send(error);
-    } else {
-      console.log("result:", result)
-      res.json(result);
-      console.log("result:", error)
-    }
-  });
-}
-
-exports.getUser = async (req, res) => {
-  const UserID = req.params.UserID
-  const condition = { id: UserID }
-  User.findOne(condition, (error, result) => {
-    if (error) {
-      console.log("error:", error)
-      res.send(error);
-    }
-    else {
-      console.log("entered success")
-      console.log("result:", result)
-      res.json(result);
-    }
-  });
-}
-
-
 exports.deleteFlight = async (req, res) => {
   const flight_ID = req.params.flightID;
   const deletedCondition = { _id: flight_ID };
