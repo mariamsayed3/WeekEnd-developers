@@ -20,8 +20,8 @@ Body
   position: relative;
   top: 50%;
   float: left;
-  // right: 5%;
-  // transform: translate(5px);
+  margin-top: 10px;
+  margin-inline-start: 15px;
 }
 
 
@@ -80,7 +80,7 @@ Boarding Pass
 
       strong {
         font-size: 18px;
-        margin-right: 8px;
+        margin-right: -6px;
       }
 
     }
@@ -153,7 +153,8 @@ Boarding Pass
   --------------------*/
   .infos {
     display: flex;
-    border-top: 1px solid #2c394f;
+    // border-top: 1px solid #2c394f;
+    border-top: 1px solid  rgb(209, 187, 60);
 
     .places,
     .times {
@@ -178,7 +179,9 @@ Boarding Pass
 
     .places {
       background: #ffffff;
-      border-right: 1px solid #2c394f;
+      // border-right: 1px solid #2c394f;
+      border-right: 1px solid  rgb(209, 187, 60);
+
       
       small {
         color: #97A1AD;
@@ -208,7 +211,9 @@ Boarding Pass
   .strap {
     clear: both;
     position: relative;
-    border-top: 1px solid #2c394f;
+    // border-top: 1px solid #2c394f;
+    border-top: 1px solid  rgb(209, 187, 60);
+
 
     &::after {
       content: '';

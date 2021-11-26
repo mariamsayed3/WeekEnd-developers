@@ -9,20 +9,22 @@ import {UserContext} from '../../Context'
 
 
 function BoardingPass() {
+    const {Token} = useContext(UserContext)
     const Name = "Maryam Magdy"
-    const id = "617ae39d75f5e23f35fe57c6" //needs to be removed
     const [Reservation, setReservation] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const email ='allaaamr5876@gmail.com'
 
-
     useEffect(() => {
         const getFlights = async () => {
-            const { data } = await axios.get(`http://localhost:8000/admin/get_current_flights/${id}`);
+            const {data} = await axios.get(`http://localhost:8000/user/get_current_flights/${Token}`);
+            // console.log("data=",data);
             setReservation(data);
         };
         getFlights();
     }, []);
+
+    // console.log("Reservation=",Reservation)
 
     const rnumber= 'AA';
 
@@ -54,34 +56,50 @@ function BoardingPass() {
         setIsModalVisible(false);
     };
 
+    const getBoardingTime = (x) => {
+        if(parseInt(x[0]) == 0){
+            let z = 30 - parseInt(x[1]);
+            return  `23:${60-z}`;
+        }
+        let b = parseInt(x[0]) * 60 + parseInt(x[1]);
+        b = b - 30;
+        const hrs = parseInt(b/60);
+        const mins = b % 60;
+        x[0] = '0'+hrs;
+        x[1] = mins;
+        console.log(hrs);
+        console.log(mins);
+        return `${x[0]}:${x[1]}`;
+    }
+
     return (
         Reservation?
         <>
           
-            {Reservation.map((booking) => {
-                return <> <div className="boarding-pass" onClick={showModal}>
+            {Reservation.map(({Booking,Flight,User}) => {
+                return <div className="boarding-pass" onClick={showModal}>
                     <header>
                         { /*<svg class="logo">
                             <use href="#alitalia"></use>
                         </svg> */ }
                         <div className="logo">
-                            <Tag color={"transparent"} icon={<DingtalkOutlined />}><b>AirlineName</b></Tag>
+                            <Tag color={"transparent"} icon={<DingtalkOutlined />}><b>Jet Away</b></Tag>
                         </div>
                         <div className="flight">
                             <small>flight</small>
-                            <strong>{booking.FlightNumber}</strong>
+                            <strong>{Booking.FlightNumber}</strong>
                         </div>
                     </header>
                     <section className="cities">
                         <div className="city">
-                            <small>{booking.DepartureAirport}</small>
+                    <small>{Flight.DepartureAirport}</small>
 
-                            <strong>{booking.DepartureAirportCode}</strong> {/*add short name for the airport*/}
+                            <strong>{Flight.DepartureAirport.substring(0,3)}</strong> {/*add short name for the airport*/}
                         </div>
                         <div className="city">
-                            <small>{booking.ArrivalAirport}</small>
+                            <small>{Flight.ArrivalAirport}</small>
 
-                            <strong>{booking.ArrivalAirportCode}</strong>
+                            <strong>{Flight.ArrivalAirport.substring(0,3)}</strong>
                         </div>
                         <svg className="airplane">
                             <use href="#airplane"></use>
@@ -90,41 +108,38 @@ function BoardingPass() {
                     <section className="infos">
                         <div className="places">
                             <div className="box">
-                                <small>Terminal</small>
-                                <strong>{booking.DepartureTerminal}</strong>
+                                <small>Departure Terminal</small>
+                    <strong>{Flight.DepartureTerminal}</strong>
                                 
                             </div>
                             <div className="box">
-                                <small>Gate</small> {/* add gate in flight scheme */}
-                                <strong><em>{booking.Gate}</em></strong>
+                                <small>Arrival Terminal</small> 
+                                <strong>{Flight.ArrivalTerminal}</strong>
                             </div>
                             <div className="box">
-                                <small>Seat</small>
-                                <strong>{booking.Seats.map((item, index) => {
+                                <small>Seat/s</small>
+                                <strong>{Booking.Seats.map((item, index) => {
                                     return <label key={index}>{item} </label>
                                 })}</strong>
                             </div>
-                            {/* <div class="box">
-                                <small>Class</small> add class also
-                                <strong></strong>
-                            </div> */}
                         </div>
                         <div className="times">
                             <div className="box">
                                 <small>Boarding</small>
-                                <strong></strong>
+                        <strong>{getBoardingTime(Flight.DepartureTime.split(":"))}</strong>
+                        {/* {( parseInt((Flight.DepartureTime.split(":"))[0])*60 + parseInt((Flight.DepartureTime.split(":"))[1]) )-30 } */}
                             </div>
                             <div className="box">
                                 <small>Departure</small>
-                                <strong>{booking.DepartureTime}</strong>
+                                <strong>{Flight.DepartureTime}</strong>
                             </div>
                             <div className="box">
                                 <small>Duration</small>
-                                <strong>{booking.TripDuration}</strong>
+                        <strong>{Flight.TripDuration}</strong>
                             </div>
                             <div className="box">
                                 <small>Arrival</small>
-                                <strong>{booking.ArrivalTime}</strong>
+                                <strong>{Flight.ArrivalTime}</strong>
                             </div>
                         </div>
                     </section>
@@ -133,25 +148,20 @@ function BoardingPass() {
                             <div className="passenger">
                                 <small>passenger</small>
                                 <strong>
-                                    <p>{Name}</p>
+                            <p>{User.FirstName} {User.LastName}</p>
                                </strong>
                             </div>
                             <div className="date">
                                 <small>Date</small>
-                                <strong>{booking.DepartureDate}</strong>
+                                <strong>{Flight.DepartureDate.substring(0,10)}</strong>
                             </div>
-                        </div>
-                       
-                        
+                        </div> 
                         <svg className="qrcode">
                             <use href="#qrcode"></use>
                         </svg>
                        
                     </section>
-                   
                 </div>
-                    {/* <br></br> */}
-                </>
             })}
 
             <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
