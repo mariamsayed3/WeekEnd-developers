@@ -27,7 +27,7 @@ const Login = () => {
   };
 
   if(error === false)
-    return <Redirect to="/home" />
+    return <Redirect to="/" />
   
   return (
     <div style={{width: '50%'}}>  
