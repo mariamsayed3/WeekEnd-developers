@@ -1,6 +1,8 @@
 import '../../Styles/navbar.scss'
 import {GiAirplaneDeparture} from "react-icons/gi";
-function AdminNavbar (){
+
+function UserNavbar (){
+   
     return (
     <>
       <nav>
@@ -8,12 +10,14 @@ function AdminNavbar (){
         <label class="logo">Jet Away</label>
         <ul>
           <li><a href="/">Home</a></li>
-          <li><a href="/admin/flights">Available Flights</a></li>
-          <li><a href="/admin/create_flight">Create Flight</a></li>
+          <li><a href="">Available Flights</a></li>
+          <li><a href="/my_reservations">My Reservations</a></li>
           <li><a href="#">Contact us</a></li>
         </ul>
     </nav>
   </>
     )
+
 }
-export default AdminNavbar;
+
+export default UserNavbar;

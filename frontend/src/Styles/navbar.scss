@@ -20,24 +20,45 @@
 /*~~~~~~~~~~ Global setup ends ~~~~~~~~~~~~*/
 
 /*~~~~~~~~~~~~~~~~~~~~~~ Nav Bar starts ~~~~~~~~~~~~~~~~~~~~~~*/
+// nav {
+//   font-family: "Montserrat", sans-serif;
+//   background: linear-gradient(
+//     93deg,
+//     rgba(68, 179, 226, 1) 16%,
+//     rgba(94, 129, 207, 1) 55%
+//   );
+//   height: 60px;
+//   width: 100%;
+//   margin: 0px 0px 0px 0px;
+// }
+
 nav {
   font-family: "Montserrat", sans-serif;
-  background: linear-gradient(
-    93deg,
-    rgba(68, 179, 226, 1) 16%,
-    rgba(94, 129, 207, 1) 55%
-  );
+  //background: linear-gradient(93deg, rgb(6, 54, 75) 16%, rgb(31, 75, 170) 55%);
+  background: linear-gradient(93deg, rgb(4, 38, 53) 16%, rgb(31, 75, 170) 55%);
   height: 60px;
   width: 100%;
+  margin: 0px 0px 0px 0px;
 }
+
 label.logo {
   color: cornsilk;
   font-size: 35px;
   font-weight: bold;
   line-height: 60px;
   float: left;
-  margin-left: 40px;
+  margin-left: 5px;
 }
+.icon {
+  color: cornsilk;
+  font-size: 35px;
+  font-weight: bold;
+  line-height: 60px;
+  float: left;
+  margin-left: 40px;
+  margin-top: 15px;
+}
+
 nav ul {
   float: right;
   margin-right: 50px;
