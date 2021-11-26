@@ -4,7 +4,7 @@ import Seats from './Seats'
 import ReservationData from './ReservationData'
 import '../../../Styles/ReserveSeats.scss'
 
-const ReserveSeats = () => {
+const ReserveSeats = ({flightID}) => {
     const [flight, setFlight] = useState(null)
     const [FirstSeats, setFirstSeats] = useState(0)
     const [EconomySeats, setEconomySeats] = useState(0)
@@ -25,7 +25,6 @@ const ReserveSeats = () => {
             setPrice(FirstSeats*flight.FirstClassPrice + BusinessSeats*flight.BusinessPrice + EconomySeats*flight.EconomyPrice)
     },[FirstSeats, EconomySeats, BusinessSeats])
     
-
     return (
         flight ? 
         <>
@@ -33,7 +32,7 @@ const ReserveSeats = () => {
             
             <div className="plane">
                 <div className="cockpit">
-                <ReservationData price={price} totalSeats={FirstSeats+EconomySeats+BusinessSeats} price={price} />
+                <ReservationData from={"Barcelona"} to={'California'} totalSeats={FirstSeats+EconomySeats+BusinessSeats} price={price} />
                 </div>
                 <div className="exit exit--front fuselage"></div>
                 <div className="row-container body ">

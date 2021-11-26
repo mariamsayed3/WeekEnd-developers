@@ -10,7 +10,7 @@ router.patch("/update_flight/:flightID", controllers.updateFlight);
 
 router.post("/create_flight", controllers.createFlight);
 
-router.patch('/edit_user/:UserID',controllers.EditUser); //should be moved to user.routes
+router.patch('/edit_user/:UserID', controllers.EditUser); //should be moved to user.routes
 
 router.get('/get_current_flights/:UserID',controllers.ViewCurrentFlights);
 

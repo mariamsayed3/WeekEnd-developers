@@ -1,14 +1,13 @@
 import '../../../Styles/ReservationData.scss'
-const ReservationData = ({totalSeats, price}) => {
+const ReservationData = ({from, to ,totalSeats, price}) => {
 
     return (
-        <>
-
+    <>
     <div class='flight-card--details body1'>
         <div>
             <div class='bc-from'>
                 <span class='detail-code'>
-                    Barcelona
+                    {from}
                 </span>
             </div>
             <div class='bc-plane'>
@@ -16,7 +15,7 @@ const ReservationData = ({totalSeats, price}) => {
             </div>
             <div class='bc-to'>
                 <span class='detail-code'>
-                    California
+                    {to}
                 </span>
             </div>
         </div>

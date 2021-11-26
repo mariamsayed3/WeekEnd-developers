@@ -1,12 +1,12 @@
 const Flight = require("../models/Flight");
 const User = require("../models/User");
 const Booking = require("../models/Booking");
- const { sendEmail } = require('../utils/email');
+const { sendEmail } = require('../utils/email');
+const jwt = require('jsonwebtoken')
 
 exports.cancelReservation = async (req, res) => {
   const reservation_number =  req.params.reservation_number;
   
-
   //Find Booking
   const booking = await Booking.find({ReservationNumber:reservation_number});
   console.log(booking)
@@ -66,3 +66,56 @@ exports.notifyCancellation = async (req, res) => {
 
     res.status(200).send({ message: 'Email sent successfully!' })
 }
+
+exports.reserveFlight = async(req, res) => {
+  const flightID = req.params.flightID
+  const {id, Admin} = req
+  const{FlightNumber, TotalPrice, Seats} = req.body
+  if(Admin) return res.status(403).json('Unauthorized')
+
+  let ReservationNumber
+  while(true){
+    ReservationNumber = Math.floor(10000000 + Math.random() * 90000000) + '' // Random number of length 8
+    const found = await Booking.findOne({ReservationNumber})
+    if(!found) 
+      break
+  }
+  await Booking.create({User: id, Flight: flightID, ReservationNumber, FlightNumber, TotalPrice, Seats})
+  
+  let EconomyReservedSeats = 0, FirstReservedSeats = 0, BusinessReservedSeats = 0
+
+  const {FirstClassSeats, BusinessSeats, EconomySeats} = await Flight.findById(flightID)
+
+  for(let seat of Seats){
+    if(seat.charAt(0) === 'A'){
+      FirstReservedSeats++
+      FirstClassSeats[parseInt(seat.slice(1)) -1].reserved = true
+    } 
+    else if(seat.charAt(0) == 'B'){
+      BusinessReservedSeats++
+      BusinessSeats[parseInt(seat.slice(1)) -1].reserved = true
+    } 
+    else {
+      EconomyReservedSeats++
+      EconomySeats[parseInt(seat.slice(1)) -1].reserved = true
+    }
+  }
+  const update = {
+    $inc: {
+      EconomyAvailableSeats: -EconomyReservedSeats,
+      FirstClassAvailableSeats: -FirstReservedSeats,
+      BusinessAvailableSeats: -BusinessReservedSeats,
+    },
+    FirstClassSeats,
+    BusinessSeats,
+    EconomySeats
+  }
+  try{
+    await Flight.findByIdAndUpdate(flightID, update)
+    res.status(200).json({message: "Reservation done successfully"})
+  }catch(err){
+    res.status(200).json({message: "Error"})
+  }
+  
+}
+

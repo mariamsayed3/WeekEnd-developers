@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import 'antd/dist/antd.css';
 import { Modal, Tag } from 'antd';
 import { DingtalkOutlined } from '@ant-design/icons';
 import Boardingstyle from '../../Styles/Boardingstyle.scss'
 import {Popconfirm, Button} from 'antd';
+import {UserContext} from '../../Context'
+
 
 function BoardingPass() {
     const Name = "Maryam Magdy"
