@@ -7,7 +7,7 @@ const verify = async(req, res, next) => {
     }
     // console.log(Token)
     jwt.verify(Token, process.env.TOKEN_PASSWORD, (err, user) => {
-        if(err) if(err) return res.sendStatus(403)
+        if(err) return res.sendStatus(403)
         req.id = user.id
         req.Admin = user.Admin
         next()

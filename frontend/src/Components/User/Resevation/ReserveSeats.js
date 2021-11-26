@@ -4,7 +4,7 @@ import Seats from './Seats'
 import ReservationData from './ReservationData'
 import '../../../Styles/ReserveSeats.scss'
 
-const ReserveSeats = ({flightID}) => {
+const ReserveSeats = ({flightID, returnFlight}) => {
     const [flight, setFlight] = useState(null)
     const [FirstSeats, setFirstSeats] = useState(0)
     const [EconomySeats, setEconomySeats] = useState(0)
@@ -14,7 +14,7 @@ const ReserveSeats = ({flightID}) => {
     useEffect(() => {
         const getFlight = async () => {
           const { data } = await axios.get(
-            "http://localhost:8000/admin/get_flight/619e7b767e5f6cbca1e419cb"
+            "http://localhost:8000/admin/get_flight/619e5b03e877fda48de395e3"
           );
           setFlight(data);
         };
@@ -28,11 +28,11 @@ const ReserveSeats = ({flightID}) => {
     return (
         flight ? 
         <>
-        <div className="layout">
-            
+        <div>
+        {!returnFlight ? <h3  className='subtitle'>Departure Flight Seats</h3> : <h3 className='subtitle'>Return Flight Seats</h3>}
             <div className="plane">
                 <div className="cockpit">
-                <ReservationData from={"Barcelona"} to={'California'} totalSeats={FirstSeats+EconomySeats+BusinessSeats} price={price} />
+                <ReservationData returnFlight={returnFlight} from={flight.DepartureAirport} to={flight.ArrivalAirport} totalSeats={FirstSeats+EconomySeats+BusinessSeats} price={price} />
                 </div>
                 <div className="exit exit--front fuselage"></div>
                 <div className="row-container body ">
