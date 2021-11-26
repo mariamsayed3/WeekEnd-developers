@@ -43,6 +43,8 @@ function App() {
         
         <PrivateRouteUser path="/my_reservations" exact component={BoardingPass}/>
         <PrivateRouteUser path="/reserve_seats/:flight_id" exact component={ReserveSeats}/>
+
+        {/* <BoardingPass/> */}
       </Switch>
 
 

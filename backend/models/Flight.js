@@ -87,18 +87,18 @@ const flightSchema = new Schema({
     required: true
   },
 
-  Gate:{
-    type: String,
-    required: true
-  },
-  DepartureAirportCode:{
-    type: String,
-    required: true
-  },
-  ArrivalAirportCode:{
-    type: String,
-    required: true
-  }
+  // Gate:{
+  //   type: String,
+  //   required: true
+  // },
+  // DepartureAirportCode:{
+  //   type: String,
+  //   required: true
+  // },
+  // ArrivalAirportCode:{
+  //   type: String,
+  //   required: true
+  // }
   // DestinationCountry:{
   //   type: String,
   //   required: true

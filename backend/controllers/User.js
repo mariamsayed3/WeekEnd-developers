@@ -82,18 +82,24 @@ exports.EditUser = async (req, res) => {
 }
 
 exports.ViewCurrentFlights = async (req, res) => {
-  const UserID = req.params.UserID
-  const condition = { id: UserID }
-  Booking.find(condition, (error, result) => {
-    if (error) {
-      console.log("error:", error)
-      res.send(error);
-    } else {
-      console.log("result:", result)
-      res.json(result);
-      console.log("result:", error)
-    }
-  });
+  // console.log("hi")
+  const {id, Admin} = req
+  console.log("id=",id);
+  const condition = { User: id }
+  const output = []; //create an empty array
+  const bookings = await Booking.find(condition);
+  console.log(bookings);
+  // const condition2 = {id: id}
+  const user = await User.findById(id);
+  console.log(user)
+  // console.log(output.length);
+  // console.log(output);
+  for(let i=0;i<bookings.length;i++){
+    const flight = await Flight.findById(bookings[i].Flight);
+    output.push({Booking: bookings[i],Flight: flight,User: user});
+  }
+  console.log(output);
+  res.send(output)
 }
 
 exports.getUser = async (req, res) => {
