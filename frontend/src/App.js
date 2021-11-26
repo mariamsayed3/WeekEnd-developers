@@ -20,33 +20,37 @@ import { useContext } from 'react';
 import { UserContext } from './Context';
 import EmployeeNavbar from './Components/User/EmployeeNavbar';
 dotenv.config()
-const { Header } = Layout;
+const { Header, Content } = Layout;
 
 
 function App() {
   const {Admin} = useContext(UserContext)
   return (
-    <Router>
-        {/* <Header> */}
-          {Admin ? <AdminNavbar /> : <EmployeeNavbar/>}
-        {/* </Header>  */}
-      <Switch>
-        <Route path="/home" exact component={Home} />
-        <Route path="/login" exact component={Login} />
-        <Route path="/unauthorized" exact component={Unauthorized} />
-        <Route path="/register" exact component={Register} />
-        
-        <PrivateRouteAdmin path="/admin/create_flight" exact component={CreateFlight}/>
-        <PrivateRouteAdmin path="/admin/update_flight" exact component={UpdateFlight}/>
-        <PrivateRouteAdmin path="/admin/flights" exact component={AdminEdits}/>
-        <PrivateRouteAdmin path="/admin/view_details" exact component={ViewDetails}/>
-        
-        <PrivateRouteUser path="/my_reservations" exact component={BoardingPass}/>
-        <PrivateRouteUser path="/reserve_seats/:flight_id" exact component={ReserveSeats}/>
-      </Switch>
-
-
-    </Router>
+    <Layout style={{backgroundColor: 'white'}}>
+      <Router>
+          <Header style={{backgroundColor: 'white', padding: 0}} >
+            {Admin ? <AdminNavbar /> : <EmployeeNavbar/>}
+          </Header> 
+        <Content>
+          <Switch>
+            <Route path="/home" exact component={Home} />
+            <Route path="/login" exact component={Login} />
+            <Route path="/unauthorized" exact component={Unauthorized} />
+            <Route path="/register" exact component={Register} />
+            
+            <PrivateRouteAdmin path="/admin/create_flight" exact component={CreateFlight}/>
+            <PrivateRouteAdmin path="/admin/update_flight" exact component={UpdateFlight}/>
+            <PrivateRouteAdmin path="/admin/flights" exact component={AdminEdits}/>
+            <PrivateRouteAdmin path="/admin/view_details" exact component={ViewDetails}/>
+            
+            <PrivateRouteUser path="/my_reservations" exact component={BoardingPass}/>
+            <PrivateRouteUser path="/reserve_departure/:flight_id" exact component={ReserveSeats} />
+            <PrivateRouteUser path="/reserve_return/:flight_id" exact component={ReserveSeats} returnFlight={true}/>
+          </Switch>
+          </Content>
+          
+      </Router>
+    </Layout>
   );
 }
 

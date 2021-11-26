@@ -1,6 +1,14 @@
+import { Button, Popconfirm } from 'antd'
 import '../../../Styles/ReservationData.scss'
-const ReservationData = ({from, to ,totalSeats, price}) => {
+import { CheckOutlined } from '@ant-design/icons'
+import { Redirect } from 'react-router'
+import { Link, Route, useHistory } from 'react-router-dom'
 
+const ReservationData = ({from, to ,totalSeats, price, returnFlight}) => {
+    let history = useHistory()
+    const confirm = () => {
+       history.push('/new path')
+    }
     return (
     <>
     <div class='flight-card--details body1'>
@@ -19,7 +27,7 @@ const ReservationData = ({from, to ,totalSeats, price}) => {
                 </span>
             </div>
         </div>
-        <div>
+        
             <div class='flight-card-details--text layout2'>
                 <div class="margin">
                     <span class='text-hline'>
@@ -38,6 +46,29 @@ const ReservationData = ({from, to ,totalSeats, price}) => {
                     </span>
                 </div>
             </div>
+        
+        <div>
+            {
+            !returnFlight ?
+            
+                <Button style={{marginTop: '15px'}} type="primary" shape="round" icon={<CheckOutlined />} size="middle">
+                    <a style={{color: 'white'}} href="/reserve_return">Confirm and reserve return flight</a>
+                </Button>
+           
+            :
+            <Popconfirm  
+            title="Are you sure you want to confirm this reservation ?"
+            onConfirm={confirm}
+            // onCancel={cancel}
+            okText="Yes"
+            cancelText="No">
+                <Button style={{marginTop: '15px'}} type="primary" shape="round" icon={<CheckOutlined />} size="middle">
+                    
+                    Confirm Departure and Return Flights
+                    
+                </Button>
+            </Popconfirm>
+            }
         </div>
     
   </div>

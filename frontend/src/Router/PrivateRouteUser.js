@@ -2,11 +2,11 @@ import React, {useContext} from "react";
 import {Redirect, Route} from "react-router-dom";
 import {UserContext} from "../Context";
 
-const PrivateRouteUser= ({path, component: Component, ...rest}) => {
+const PrivateRouteUser= ({path, component: Component, returnFlight, ...rest}) => {
   const {Admin} = useContext(UserContext)
   return (
     <Route {...rest} path={path} render={() => {
-        return !Admin ? <Component/> : <Redirect to={'/unauthorized'}/>
+        return !Admin ? <Component returnFlight={returnFlight}/> : <Redirect to={'/unauthorized'}/>
     }}/>)
 
 
