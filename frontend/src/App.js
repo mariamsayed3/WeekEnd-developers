@@ -18,9 +18,11 @@ import BoardingPass from './Components/User/BoardingPass'
 import ReserveSeats from './Components/User/Resevation/ReserveSeats'
 import { useContext } from 'react';
 import { UserContext } from './Context';
-import EmployeeNavbar from './Components/User/EmployeeNavbar';
+import UserNavbar from './Components/User/UserNavbar';
+import NotFound from './Components/General/NotFound'
+
 dotenv.config()
-const { Header, Content } = Layout;
+const { Header, Content, Footer } = Layout;
 
 
 function App() {
@@ -29,11 +31,11 @@ function App() {
     <Layout style={{backgroundColor: 'white'}}>
       <Router>
           <Header style={{backgroundColor: 'white', padding: 0}} >
-            {Admin ? <AdminNavbar /> : <EmployeeNavbar/>}
+            {Admin ? <AdminNavbar /> : <UserNavbar/>}
           </Header> 
         <Content>
           <Switch>
-            <Route path="/home" exact component={Home} />
+            <Route path="/" exact component={Home} />
             <Route path="/login" exact component={Login} />
             <Route path="/unauthorized" exact component={Unauthorized} />
             <Route path="/register" exact component={Register} />
@@ -46,10 +48,18 @@ function App() {
             <PrivateRouteUser path="/my_reservations" exact component={BoardingPass}/>
             <PrivateRouteUser path="/reserve_departure/:flight_id" exact component={ReserveSeats} />
             <PrivateRouteUser path="/reserve_return/:flight_id" exact component={ReserveSeats} returnFlight={true}/>
+
+            <Route component={NotFound}/>
+
+
           </Switch>
           </Content>
           
       </Router>
+
+      <Footer>
+        
+      </Footer>
     </Layout>
   );
 }

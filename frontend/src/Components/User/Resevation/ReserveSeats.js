@@ -29,7 +29,7 @@ const ReserveSeats = ({flightID, returnFlight}) => {
         flight ? 
         <>
         <div>
-        {!returnFlight ? <h3 className='subtitle'>Departure Flight Seats</h3> : <h3 className='subtitle'>Return Flight Seats</h3>}
+        {!returnFlight ? <h3  className='subtitle'>Departure Flight Seats</h3> : <h3 className='subtitle'>Return Flight Seats</h3>}
             <div className="plane">
                 <div className="cockpit">
                 <ReservationData returnFlight={returnFlight} from={flight.DepartureAirport} to={flight.ArrivalAirport} totalSeats={FirstSeats+EconomySeats+BusinessSeats} price={price} />
