@@ -101,7 +101,6 @@ const Login = () => {
             </Form.Item>
             
             </Form>
-
             {error ? <Alert closable message="Wrong Username or Password" type="error" showIcon /> : null}
         </div>
     </div>
