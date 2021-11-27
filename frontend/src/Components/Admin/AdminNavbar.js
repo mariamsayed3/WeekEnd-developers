@@ -1,6 +1,16 @@
 import '../../Styles/navbar.scss'
 import {GiAirplaneDeparture} from "react-icons/gi";
+import { useContext } from 'react';
+import { UserContext } from '../../Context';
+import { useHistory } from 'react-router';
 function AdminNavbar (){
+   let history = useHistory()
+   const {setEmail} = useContext(UserContext) 
+   const logout = () => {
+    setEmail(null)
+    sessionStorage.removeItem('user')
+    history.push('/login')
+   }
     return (
     <>
       <nav>
@@ -11,6 +21,7 @@ function AdminNavbar (){
           <li><a href="/admin/flights">Available Flights</a></li>
           <li><a href="/admin/create_flight">Create Flight</a></li>
           <li><a href="#">Contact us</a></li>
+          <li><a onClick={logout} href="">Log out</a></li>
         </ul>
     </nav>
   </>

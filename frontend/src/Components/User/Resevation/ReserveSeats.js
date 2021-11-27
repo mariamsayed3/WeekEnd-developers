@@ -3,6 +3,8 @@ import axios from 'axios'
 import Seats from './Seats'
 import ReservationData from './ReservationData'
 import '../../../Styles/ReserveSeats.scss'
+import BoardingPass from '../BoardingPass'
+import ReturnCard from '../ReturnCard'
 
 const ReserveSeats = ({flightID, returnFlight}) => {
     const [flight, setFlight] = useState(null)
@@ -25,11 +27,22 @@ const ReserveSeats = ({flightID, returnFlight}) => {
             setPrice(FirstSeats*flight.FirstClassPrice + BusinessSeats*flight.BusinessPrice + EconomySeats*flight.EconomyPrice)
     },[FirstSeats, EconomySeats, BusinessSeats])
     
+    useEffect(() => {
+        const body = document.querySelector('body')
+        body.classList.add('seats')
+          return () => {
+            const body = document.querySelector('body')
+            body.classList.remove('seats')
+          }
+      },[])
+
+
     return (
         flight ? 
         <>
-        <div>
         {!returnFlight ? <h3  className='subtitle'>Departure Flight Seats</h3> : <h3 className='subtitle'>Return Flight Seats</h3>}
+        <div className="plane-container">
+            
             <div className="plane">
                 <div className="cockpit">
                 <ReservationData returnFlight={returnFlight} from={flight.DepartureAirport} to={flight.ArrivalAirport} totalSeats={FirstSeats+EconomySeats+BusinessSeats} price={price} />
@@ -77,8 +90,13 @@ const ReserveSeats = ({flightID, returnFlight}) => {
                 </div>
                 <div class="exit exit--front fuselage"></div>
             </div>
+            <div className="plane-card">
+                <ReturnCard />
             </div>
+
+        </div>
         </>
+        
         : <></>
     )
 }

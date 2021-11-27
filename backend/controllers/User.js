@@ -9,14 +9,10 @@ exports.cancelReservation = async (req, res) => {
   
   //Find Booking
   const booking = await Booking.find({ReservationNumber:reservation_number});
-  console.log(booking)
-  
-  //Find flight & Update Seats
-  
-  console.log("booking", booking[0])
-  console.log(booking[0].Flight)
 
-const flight = await Flight.findById(booking[0].Flight);
+  //Find flight & Update Seats
+
+  const flight = await Flight.findById(booking[0].Flight);
 
 const seats = booking[0].Seats
 let first_seats=0;
@@ -55,13 +51,11 @@ for (let seat of seats)
 
 exports.notifyCancellation = async (req, res) => {
   const {ReservationNumber, email, TotalPrice, FlightNumber, Seats} = req.body
-  console.log(req.body)
     const subject = "United Airlines"
     const body = `  <h3> Hello </h3>
                         <h4> Please note that your reservation on flight number ${FlightNumber} has been succesfully cancelled. </h4>
                         <h4> A totall of ${TotalPrice}L.E will be refunded to your account.</h4>
-                      `
-    console.log(body) 
+                      ` 
     sendEmail(email, subject, body);
 
     res.status(200).send({ message: 'Email sent successfully!' })
@@ -82,23 +76,15 @@ exports.EditUser = async (req, res) => {
 }
 
 exports.ViewCurrentFlights = async (req, res) => {
-  // console.log("hi")
   const {id, Admin} = req
-  console.log("id=",id);
   const condition = { User: id }
   const output = []; //create an empty array
   const bookings = await Booking.find(condition);
-  console.log(bookings);
-  // const condition2 = {id: id}
   const user = await User.findById(id);
-  console.log(user)
-  // console.log(output.length);
-  // console.log(output);
   for(let i=0;i<bookings.length;i++){
     const flight = await Flight.findById(bookings[i].Flight);
     output.push({Booking: bookings[i],Flight: flight,User: user});
   }
-  console.log(output);
   res.send(output)
 }
 
