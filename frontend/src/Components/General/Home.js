@@ -1,9 +1,12 @@
 import  { useState , useContext} from 'react'
 import  { UserContext } from '../../Context';
+import Clouds from '../General/Clouds'
 
  const Home = () => {
     const {FirstName, Admin, Email} = useContext(UserContext);
-    return <div>Home Page</div>
+    return (
+       <Clouds />
+    )
  }
 
 export default Home
