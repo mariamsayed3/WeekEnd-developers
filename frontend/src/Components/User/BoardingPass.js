@@ -92,12 +92,12 @@ function BoardingPass() {
                     </header>
                     <section className="cities">
                         <div className="city">
-                    <small>{Flight.DepartureCity}</small>
+                    <small>{Flight.DepartureAirport}</small>
 
-                            <strong>{Flight.DepartureCity.substring(0,3)}</strong> {/*add short name for the airport*/}
+                            <strong>{Flight.DepartureAirport.substring(0,3)}</strong> {/*add short name for the airport*/}
                         </div>
                         <div className="city">
-                            <small>{Flight.ArrivalCity}</small>
+                            <small>{Flight.ArrivalAirport}</small>
 
                             <strong>{Flight.ArrivalAirport.substring(0,3)}</strong>
                         </div>
