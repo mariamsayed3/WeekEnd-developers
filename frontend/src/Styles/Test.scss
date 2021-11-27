@@ -1,0 +1,27 @@
+.home-card {
+  color: red;
+  height: 100%;
+  background-color: rgb(129, 136, 233);
+  width: 50%;
+  float: right;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+#square {
+  -ms-transform: skew(-120deg); /* IE 9 */
+  -webkit-transform: skew(-120deg); /* Chrome, Safari, Opera */
+  transform: skew(-120deg); /* Standard syntax */
+  transform-origin: top right; /* Prevent the bottom from shifting */
+}
+
+.ant-layout {
+  height: 100% !important;
+}
+
+.ant-layout-content {
+  height: 100% !important;
+}

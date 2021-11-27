@@ -156,9 +156,5 @@ exports.reserveFlight = async(req, res) => {
   }catch(err){
     res.status(400).json({message: "Error"})
   }
-  
-  await 
-
-
 }
 
