@@ -1,4 +1,4 @@
-import "../../Styles/AvailableFlights.css";
+import "../../Styles/AvailableFlights.scss";
 import { useState } from "react";
 import { GiAirplaneDeparture } from "react-icons/gi";
 import { Link } from "react-router-dom";
@@ -61,16 +61,6 @@ const ReturnCard = (props) => {
 
                     <div class="port-seg">
                       <div class="flight-seg origin">
-                        <div class="time">{props.flight.DepartureTime}</div>
-                        <div class="port">
-                          {props.flight.DepartureAirport.substring(
-                            0,
-                            3
-                          ).toUpperCase()}
-                        </div>
-                        <div class="name">{`${props.flight.DepartureAirport}, ${props.flight.DepartureCountry}`}</div>
-                      </div>
-                      <div class="flight-seg destination">
                         <div class="time">{props.flight.ArrivalTime}</div>
                         <div class="port">
                           {props.flight.ArrivalAirport.substring(
@@ -79,6 +69,16 @@ const ReturnCard = (props) => {
                           ).toUpperCase()}
                         </div>
                         <div class="name">{`${props.flight.ArrivalAirport}, ${props.flight.ArrivalCountry}`}</div>
+                      </div>
+                      <div class="flight-seg destination">
+                        <div class="time">{props.flight.DepartureTime}</div>
+                        <div class="port">
+                          {props.flight.DepartureAirport.substring(
+                            0,
+                            3
+                          ).toUpperCase()}
+                        </div>
+                        <div class="name">{`${props.flight.DepartureAirport}, ${props.flight.DepartureCountry}`}</div>
                       </div>
                     </div>
                   </div>
