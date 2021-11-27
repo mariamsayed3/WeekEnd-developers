@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-//import "../../Styles/FlightSearch.scss";
-//import Ticket from "./Ticket";
 import DepartureCard from "./DepartureCard";
 import ReturnCard from "./ReturnCard";
-
+import UserFilter from "./UserFilter";
+import "../../Styles/UserFilter.scss";
 
 function AvailableFlights(props) {
-  
   //   const location = useLocation();
   //   const [searchCriteria, setSearchCriteria] = useState(
   //     location.state.search.searchCriteria
@@ -22,10 +20,9 @@ function AvailableFlights(props) {
 
   const [flights, setFlights] = useState([]);
 
-  if(isReturn){
+  if (isReturn) {
     //let x = searchCriteria.origin;
     //setSearchCriteria({ ...searchCriteria, origin: searchcriteria.destination, destination: x});
-    
   }
   useEffect(() => {
     const getFlights = async () => {
@@ -69,18 +66,18 @@ function AvailableFlights(props) {
   //   }, []);
 
   return (
-    <>
+    <div className="container">
       <div>
         {flights.map((flight) => {
           return (
             <>
-              {!isReturn && <DepartureCard flight={flight}/>}
-              {isReturn && <ReturnCard flight={flight}/>}
+              {!isReturn && <DepartureCard flight={flight} />}
+              {isReturn && <ReturnCard flight={flight} />}
             </>
           );
         })}
       </div>
-    </>
+    </div>
   );
 }
 

@@ -1,4 +1,4 @@
-import "../../Styles/AvailableFlights.css";
+import "../../Styles/AvailableFlights.scss";
 import { useState } from "react";
 import { GiAirplaneDeparture } from "react-icons/gi";
 import { Link } from "react-router-dom";
