@@ -1,0 +1,50 @@
+.login {
+  #root {
+    background-image: url("../Assets/login4.jpeg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+  }
+}
+
+.login-container {
+  width: 30%;
+  margin: 5% 35% 5%;
+  padding: 0% 10px 7%;
+  background-color: rgba(4, 38, 53, 0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 50px;
+  box-shadow: 5px 5px 5px black;
+}
+
+.form {
+}
+
+.text {
+  color: white;
+  font-size: 14px;
+}
+
+.login-logo {
+  font-family: "Montserrat", sans-serif;
+  color: cornsilk;
+  font-size: 70px;
+  font-weight: bold;
+  line-height: 60px;
+}
+.login-icon {
+  color: cornsilk;
+  font-weight: bold;
+  line-height: 60px;
+  margin-right: 10px;
+}
+
+.logo1 {
+  margin-top: 20%;
+  margin-bottom: 10%;
+}

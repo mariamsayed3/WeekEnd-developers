@@ -20,22 +20,23 @@ import { useContext } from 'react';
 import { UserContext } from './Context';
 import UserNavbar from './Components/User/UserNavbar';
 import NotFound from './Components/General/NotFound'
-
+import DepartureCard from './Components/User/DepartureCard'
+import ReturnCard from './Components/User/ReturnCard'
 dotenv.config()
 const { Header, Content, Footer } = Layout;
 
 
 function App() {
-  const {Admin} = useContext(UserContext)
+  const {Email, Admin} = useContext(UserContext)
   return (
-    <Layout style={{backgroundColor: 'white'}}>
+    <Layout style={{backgroundColor: 'rgba(1,1,1,0)'}}>
       <Router>
-          <Header style={{backgroundColor: 'white', padding: 0}} >
-            {Admin ? <AdminNavbar /> : <UserNavbar/>}
+          <Header style={{backgroundColor: 'rgba(1,1,1,0)', padding: 0}} >
+            {Email ? (Admin === true ? <AdminNavbar /> : <UserNavbar/>) : null}
           </Header> 
         <Content>
           <Switch>
-            <Route path="/" exact component={Home} />
+            {Email ? <Route path="/" exact component={Home} /> : <Route path="/" exact component={Login} />}
             <Route path="/login" exact component={Login} />
             <Route path="/unauthorized" exact component={Unauthorized} />
             <Route path="/register" exact component={Register} />
@@ -57,9 +58,9 @@ function App() {
           
       </Router>
 
-      <Footer>
+      {/* <Footer>
         
-      </Footer>
+      </Footer> */}
     </Layout>
   );
 }
