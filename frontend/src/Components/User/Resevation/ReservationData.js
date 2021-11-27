@@ -1,9 +1,8 @@
 import { Button, Popconfirm } from 'antd'
 import '../../../Styles/ReservationData.scss'
 import { CheckOutlined } from '@ant-design/icons'
-import { Redirect } from 'react-router'
-import { Link, Route, useHistory } from 'react-router-dom'
-
+import { useHistory } from 'react-router-dom'
+import ConfirmReservation from './ConfirmReservation'
 const ReservationData = ({from, to ,totalSeats, price, returnFlight}) => {
     let history = useHistory()
     const confirm = () => {
@@ -51,23 +50,12 @@ const ReservationData = ({from, to ,totalSeats, price, returnFlight}) => {
             {
             !returnFlight ?
             
-                <Button style={{marginTop: '15px'}} type="primary" shape="round" icon={<CheckOutlined />} size="middle">
+                <Button disabled={totalSeats === 0} style={{marginTop: '15px'}} type="primary" shape="round" icon={<CheckOutlined />} size="middle">
                     <a style={{color: 'white'}} href="/reserve_return">Confirm and reserve return flight</a>
                 </Button>
            
             :
-            <Popconfirm  
-            title="Are you sure you want to confirm this reservation ?"
-            onConfirm={confirm}
-            // onCancel={cancel}
-            okText="Yes"
-            cancelText="No">
-                <Button style={{marginTop: '15px'}} type="primary" shape="round" icon={<CheckOutlined />} size="middle">
-                    
-                    Confirm Departure and Return Flights
-                    
-                </Button>
-            </Popconfirm>
+            <ConfirmReservation totalSeats={totalSeats}/>
             }
         </div>
     

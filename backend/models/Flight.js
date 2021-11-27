@@ -86,7 +86,7 @@ const flightSchema = new Schema({
     type: Array,
     required: true
   },
-
+  
   // Gate:{
   //   type: String,
   //   required: true

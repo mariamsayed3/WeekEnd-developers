@@ -106,7 +106,7 @@ exports.getUser = async (req, res) => {
 exports.reserveFlight = async(req, res) => {
   const flightID = req.params.flightID
   const {id, Admin} = req
-  const{FlightNumber, TotalPrice, Seats} = req.body
+  const{FlightNumber, TotalPrice, Seats, Children} = req.body
   if(Admin) return res.status(403).json('Unauthorized')
 
   let ReservationNumber
@@ -116,7 +116,7 @@ exports.reserveFlight = async(req, res) => {
     if(!found) 
       break
   }
-  await Booking.create({User: id, Flight: flightID, ReservationNumber, FlightNumber, TotalPrice, Seats})
+  await Booking.create({User: id, Flight: flightID, ReservationNumber, FlightNumber, TotalPrice, Seats, Children})
   
   let EconomyReservedSeats = 0, FirstReservedSeats = 0, BusinessReservedSeats = 0
 
@@ -136,15 +136,18 @@ exports.reserveFlight = async(req, res) => {
       EconomySeats[parseInt(seat.slice(1)) -1].reserved = true
     }
   }
+  
   const update = {
     $inc: {
       EconomyAvailableSeats: -EconomyReservedSeats,
       FirstClassAvailableSeats: -FirstReservedSeats,
       BusinessAvailableSeats: -BusinessReservedSeats,
+      'NumberOfPassengers.Adults': Seats.length - Children,
+      'NumberOfPassengers.Children': Children
     },
     FirstClassSeats,
     BusinessSeats,
-    EconomySeats
+    EconomySeats,
   }
   try{
     await Flight.findByIdAndUpdate(flightID, update)

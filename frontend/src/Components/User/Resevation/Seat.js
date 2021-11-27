@@ -14,10 +14,7 @@ const Seat = ({seat, setNumberOfSeats, numberOfSeats, setSelectedSeats, selected
             chosenSeats.splice(index, 1)
             setSelectedSeats(chosenSeats)
         }
-           
-
         e.target.classList.toggle("selected")
-        
     } 
     return (seat.reserved ? <div key={seat.number} className="seat occupied"></div> 
     : 
