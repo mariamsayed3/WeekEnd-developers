@@ -7,6 +7,18 @@ import UserFilter from "./UserFilter";
 import "../../Styles/UserFilter.scss";
 
 function AvailableFlights(props) {
+  const [flights, setFlights] = useState([]);
+  const [filteredFlights, setFilteredFlights] = useState([]);
+
+  useEffect(() => {
+    const getFlights = async () => {
+      const { data } = await axios.get(
+        "http://localhost:8000/admin/get_all_flights"
+      );
+      setFlights(data);
+    };
+    getFlights();
+  }, []);
   const { state } = useLocation();
   let isReturn, ReturnFlight, FirstBooking;
   if (state) {
@@ -14,6 +26,59 @@ function AvailableFlights(props) {
     ReturnFlight = state.ReturnFlight;
     FirstBooking = state.FirstBooking;
   }
+
+  useEffect(() => {
+    let arr;
+    if (filteredFlights.length === 0) arr = flights;
+    else arr = filteredFlights;
+    //return flight filter ones coming from destintion to origin
+    if (state) {
+      console.log("return");
+      setFilteredFlights(
+        arr.filter((flight) => flight.Departure.includes(ReturnFlight.Arrival))
+      );
+      //arrival date is the new destination date if coming from home search
+      // if (searchCriteria.arrivalDate != "") {
+      //   setFilteredFlights(
+      //     arr.filter((flight) =>
+      //       flight.DepartureDate.includes(searchCriteria.ArrivalDate)
+      //     )
+      //   );
+      // }
+    } else {
+      console.log("departure");
+      //All available flights
+      setFilteredFlights(arr);
+      //home search flights
+      // if (searchCriteria.origin != "") {
+      //   setFilteredFlights(
+      //     arr.filter((flight) =>
+      //       flight.DepartureAirport.toLowerCase().includes(
+      //         searchCriteria.origin.toLowerCase()
+      //       )
+      //     )
+      //   );
+      // }
+      // if (searchCriteria.destination != "") {
+      //   setFilteredFlights(
+      //     arr.filter((flight) =>
+      //       flight.ArrivalAirport.toLowerCase().includes(
+      //         searchCriteria.destination.toLowerCase()
+      //       )
+      //     )
+      //   );
+      // }
+      // if (searchCriteria.travelDate != "") {
+      //   setFilteredFlights(
+      //     arr.filter((flight) =>
+      //       flight.DepartureDate.includes(searchCriteria.travelDate)
+      //     )
+      //   );
+      // }
+    }
+  }, [filteredFlights, flights]);
+
+  console.log(filteredFlights);
 
   //   const location = useLocation();
   //   const [searchCriteria, setSearchCriteria] = useState(
@@ -26,21 +91,6 @@ function AvailableFlights(props) {
   //const [isReturn, setReturn] = useState(false);
   //const returnFlight = location.state.returnFlight
 
-  const [flights, setFlights] = useState([]);
-
-  if (isReturn) {
-    //let x = searchCriteria.origin;
-    //setSearchCriteria({ ...searchCriteria, origin: searchcriteria.destination, destination: x});
-  }
-  useEffect(() => {
-    const getFlights = async () => {
-      const { data } = await axios.get(
-        "http://localhost:8000/admin/get_all_flights"
-      );
-      setFlights(data);
-    };
-    getFlights();
-  }, []);
   //   useEffect(() => {
   //     setFilteredFlights(flights);
   //     let arr;
@@ -78,7 +128,7 @@ function AvailableFlights(props) {
       <UserFilter />
 
       <div className="cards">
-        {flights.map((flight) => {
+        {filteredFlights.map((flight) => {
           return (
             <>
               {!isReturn && <DepartureCard flight={flight} />}
