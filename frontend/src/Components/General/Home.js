@@ -1,17 +1,15 @@
-import  { useState , useContext} from 'react'
+import  { useContext } from 'react'
 import  { UserContext } from '../../Context';
-import Clouds from '../General/Clouds'
-import '../../Styles/Test.scss'
+import '../../Styles/Home.scss'
 import HomeSearch from './HomeSearch'
 import logo from '../../Assets/logo.png'
 import { useHistory } from 'react-router';
 import cloud from '../../Assets/cloud.png'
-//import '../../Styles/Clouds.css'
 
  const Home = () => {
    let history = useHistory()
    const {setEmail} = useContext(UserContext) 
-    const {Admin} = useContext(UserContext);
+    const {Admin, Email} = useContext(UserContext);
     const logout = () => {
       setEmail(null)
       sessionStorage.removeItem('user')
@@ -20,8 +18,6 @@ import cloud from '../../Assets/cloud.png'
 
     return (
        <div>
-      {/* <div class="plane"><img src='https://pics.clipartpng.com/midle/Airplane_PNG_Clipart-421.png'/></div>  */}
-      
       <div class="container">
             
             <div class="box1">
@@ -40,7 +36,7 @@ import cloud from '../../Assets/cloud.png'
                  <a href= '/available_flights'> Flights</a>
                  <a href='my_reservations'> My Reservations</a>
                  <a> Contact Us</a>
-                 <a onClick={logout}> Logout</a>
+                 {Email ? <a onClick={logout}> Logout</a> : <a href="/login"> Login</a>}
                </div>}
                 </div>
                <div style={{display: 'flex', flexDirection: 'row'}}>
