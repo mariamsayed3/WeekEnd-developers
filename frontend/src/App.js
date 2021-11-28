@@ -23,6 +23,7 @@ import NotFound from "./Components/General/NotFound";
 import DepartureCard from "./Components/User/DepartureCard";
 import ReturnCard from "./Components/User/ReturnCard";
 import AvailableFlights from "./Components/User/AvailableFlights";
+import EditUser from "./Components/User/EditUser";
 dotenv.config();
 const { Header, Content, Footer } = Layout;
 
@@ -31,6 +32,7 @@ function App() {
   const path = window.location.pathname;
   console.log(path)
   const home =( path === '/' )|| (path === '/login')
+
   return (
     <Layout style={{ backgroundColor: "rgba(1,1,1,0)" }}>
       <Router>

@@ -31,7 +31,7 @@ function UserNavbar (){
           <li><a href="/available_flights">Available Flights</a></li>
           <li><a href="/my_reservations">My Reservations</a></li>
           <li><a href="#">Contact us</a></li>
-          <li><CgProfile className="profile" size="20"/><a onClick={handleModalOpen}>Profile</a></li>
+          <li><a onClick={handleModalOpen}>Profile</a></li>
           <li><a onClick={logout} href="">Log out</a></li>
         </ul>
     </nav>
