@@ -157,10 +157,11 @@ const DepartureCard = (props) => {
                     <span class="sub-span duration-info book">
                       <Link
                         to={{
-                          pathname: `/reserve_departure/${props.flight.FlightNumber}`,
+                          pathname: `/reserve_departure/${props.flight._id}`,
                           state: {
-                            departFlight: props.flight,
+                            DepartureFlight: props.flight,
                             flights: props.Allflights,
+                            isReturn: false
                           },
                         }}
                       >

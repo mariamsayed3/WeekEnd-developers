@@ -75,7 +75,7 @@ function BoardingPass() {
     return (
         Reservation?
         <>
-          
+          {console.log(Reservation)}
             {Reservation.map(({Booking,Flight,User}) => {
                 return <div className="boarding-pass" onClick={showModal}>
                     <header>

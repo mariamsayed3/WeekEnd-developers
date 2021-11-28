@@ -4,6 +4,7 @@ import { GiAirplaneDeparture } from "react-icons/gi";
 import { Link } from "react-router-dom";
 
 const ReturnCard = (props) => {
+  const {FirstBooking} = props
   const [overlay, setOverlay] = useState(false);
   const display = () => {
     setOverlay(!overlay);
@@ -156,7 +157,19 @@ const ReturnCard = (props) => {
                       {props.flight.AllowedBaggage}
                     </span>
                     <span class="sub-span duration-info book">
-                      <Link>Book now</Link>
+                    <Link
+                        to={{
+                          pathname: `/reserve_return/${props.flight._id}`,
+                          state: {
+                            DepartureFlight: props.flight,
+                            flights: props.Allflights,
+                            isReturn: true,
+                            FirstBooking: FirstBooking
+                          },
+                        }}
+                      >
+                        Book now
+                      </Link>
                     </span>
                   </div>
                 </div>
