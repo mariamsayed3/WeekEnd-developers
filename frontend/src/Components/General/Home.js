@@ -5,7 +5,8 @@ import '../../Styles/Test.scss'
 import HomeSearch from './HomeSearch'
 import logo from '../../Assets/logo.png'
 import { useHistory } from 'react-router';
-// import '../../Styles/Clouds.css'
+import cloud from '../../Assets/cloud.png'
+//import '../../Styles/Clouds.css'
 
  const Home = () => {
    let history = useHistory()
@@ -53,16 +54,16 @@ import { useHistory } from 'react-router';
             
             <div class="box2">
                   <div class="cloud1">
-                  <img src = 'https://assets.stickpng.com/images/580b585b2edbce24c47b263e.png' />
+                  <img src = {cloud} />
                         </div>
                   <div class="cloud2">
-                  <img src = 'https://assets.stickpng.com/images/580b585b2edbce24c47b263e.png' />
+                  <img src = {cloud} />
                   </div>
                   <div class="cloud3">
-                  <img src = 'https://assets.stickpng.com/images/580b585b2edbce24c47b263e.png' />
+                  <img src = {cloud} />
                   </div>
                   <div class="cloud4">
-                     <img src = 'https://assets.stickpng.com/images/580b585b2edbce24c47b263e.png' />
+                     <img src = {cloud} />
                   </div>
 
             </div> 
