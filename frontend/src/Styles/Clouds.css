@@ -47,14 +47,22 @@
 
 .cloud1 {
   margin-top: 100px;
+  margin-left: 100px;
   position: relative;
   /* width:50%; */
 }
 
 .cloud2 {
   margin-top: 150px;
+  margin-left: 0px;
   position: relative;
 }
+
+.cloud3 {
+    margin-top: 80px;
+    margin-left: 200px;
+    position: relative;
+  }
 
 .cloud1 {
   animation: slide 10s linear infinite;
@@ -64,9 +72,12 @@
   animation: slide 13s linear infinite;
 }
 
+.cloud3 {
+    animation: slide 8s linear infinite;
+  }
 @keyframes slide {
   from {
-    transform: translateX(0%);
+    transform: translateX(85%);
   }
   to {
     transform: translateX(100%);
