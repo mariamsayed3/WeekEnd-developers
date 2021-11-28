@@ -68,6 +68,9 @@ function AvailableFlights(props) {
   return (
     <div className="container">
       <div>
+        <UserFilter />
+      </div>
+      <div>
         {flights.map((flight) => {
           return (
             <>
