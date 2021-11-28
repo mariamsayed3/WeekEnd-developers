@@ -1,14 +1,18 @@
 import TextField from '@mui/material/TextField';
 import { DatePicker, Button } from 'antd';
-import '../../Styles/Test.scss'
+import { useContext } from 'react';
+import { UserContext } from '../../Context';
+import '../../Styles/Home.scss'
 
 const HomeSearch = () =>{
+    const {FirstName} = useContext(UserContext)
     const onChange = (e) =>{
 
     }
     return (
         <div className='search-form'>
-            <span> Where would you like to go?</span>
+            <span className="welcome-message">Welcome {FirstName ? `back ${FirstName}` : 'to Jet away! '}</span>
+            <span> Looking for a trip?</span>
             <TextField style = {{backgroundColor: 'white', margin:'10px', width:'95%'}} id="outlined-basic" label="From" variant="outlined" />
             <TextField style = {{backgroundColor: 'white', margin:'10px',  width:'95%'}} id="outlined-basic" label="To" variant="outlined" />
             {/* <div style={{display:'flex', flexDirection:'row'}}> */}
