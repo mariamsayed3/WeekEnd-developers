@@ -70,7 +70,7 @@ function AvailableFlights(props) {
       <div>
         <UserFilter />
       </div>
-      <div>
+      <div className='cards'>
         {flights.map((flight) => {
           return (
             <>
