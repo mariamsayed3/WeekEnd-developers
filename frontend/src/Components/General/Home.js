@@ -18,7 +18,7 @@ import cloud from '../../Assets/cloud.png'
 
     return (
        <div>
-      <div class="container">
+      <div class="home-container1">
             
             <div class="box1">
 
