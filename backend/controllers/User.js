@@ -109,7 +109,7 @@ exports.reserveFlight = async(req, res) => {
   const {id, Admin} = req
   const{FlightNumber, TotalPrice, Seats, Children} = req.body
   if(Admin) return res.status(403).json('Unauthorized')
-
+  console.log(flightID, TotalPrice, Seats, Children)
   let ReservationNumber
   while(true){
     ReservationNumber = Math.floor(10000000 + Math.random() * 90000000) + '' // Random number of length 8
@@ -117,24 +117,27 @@ exports.reserveFlight = async(req, res) => {
     if(!found) 
       break
   }
-  await Booking.create({User: id, Flight: flightID, ReservationNumber, FlightNumber, TotalPrice, Seats, Children})
+  let SeatsNames = []
+  for(let seat of Seats)
+    SeatsNames.push(seat.number)
+  await Booking.create({User: id, Flight: flightID, ReservationNumber, FlightNumber, TotalPrice, Seats: SeatsNames, Children})
   
   let EconomyReservedSeats = 0, FirstReservedSeats = 0, BusinessReservedSeats = 0
 
   const {FirstClassSeats, BusinessSeats, EconomySeats} = await Flight.findById(flightID)
 
   for(let seat of Seats){
-    if(seat.charAt(0) === 'A'){
+    if(seat.number.charAt(0) === 'A'){
       FirstReservedSeats++
-      FirstClassSeats[parseInt(seat.slice(1)) -1].reserved = true
+      FirstClassSeats[parseInt(seat.number.slice(1)) -1].reserved = true
     } 
-    else if(seat.charAt(0) == 'B'){
+    else if(seat.number.charAt(0) == 'B'){
       BusinessReservedSeats++
-      BusinessSeats[parseInt(seat.slice(1)) -1].reserved = true
+      BusinessSeats[parseInt(seat.number.slice(1)) -1].reserved = true
     } 
     else {
       EconomyReservedSeats++
-      EconomySeats[parseInt(seat.slice(1)) -1].reserved = true
+      EconomySeats[parseInt(seat.number.slice(1)) -1].reserved = true
     }
   }
   
