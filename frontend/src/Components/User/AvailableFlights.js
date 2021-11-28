@@ -7,14 +7,14 @@ import UserFilter from "./UserFilter";
 import "../../Styles/UserFilter.scss";
 
 function AvailableFlights(props) {
-  const {state} = useLocation()
-  let isReturn, ReturnFlight, FirstBooking
-  if(state){
-    isReturn = state.isReturn
-    ReturnFlight = state.ReturnFlight
-    FirstBooking = state.FirstBooking
+  const { state } = useLocation();
+  let isReturn, ReturnFlight, FirstBooking;
+  if (state) {
+    isReturn = state.isReturn;
+    ReturnFlight = state.ReturnFlight;
+    FirstBooking = state.FirstBooking;
   }
-    
+
   //   const location = useLocation();
   //   const [searchCriteria, setSearchCriteria] = useState(
   //     location.state.search.searchCriteria
@@ -74,16 +74,17 @@ function AvailableFlights(props) {
   //   }, []);
 
   return (
-    <div className="container">
-      <div>
-        <UserFilter />
-      </div>
-      <div className='cards'>
+    <div className="available-container">
+      <UserFilter />
+
+      <div className="cards">
         {flights.map((flight) => {
           return (
             <>
               {!isReturn && <DepartureCard flight={flight} />}
-              {isReturn && <ReturnCard FirstBooking={FirstBooking} flight={flight} />}
+              {isReturn && (
+                <ReturnCard FirstBooking={FirstBooking} flight={flight} />
+              )}
             </>
           );
         })}

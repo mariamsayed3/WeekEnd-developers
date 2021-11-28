@@ -1,12 +1,11 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:100);
 @import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400);
 
-.container{
+.available-container {
+  padding: 25px;
   display: grid;
   grid-template-columns: 25% 75%;
-  .cards{
-    margin-top: -1150px;
-  }
+  
 }
 
 .section {
@@ -604,16 +603,16 @@ label.logo {
   top: 150px;
   left: 40%;
 }
-.book{
+.book {
   position: absolute;
   top: 377px;
   right: 25px;
 }
-a{
+a {
   text-decoration: none;
   color: inherit;
   color: rgb(4, 38, 53);
 }
-a:hover{
+a:hover {
   color: #1d479f;
 }
