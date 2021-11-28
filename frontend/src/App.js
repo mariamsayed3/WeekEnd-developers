@@ -19,7 +19,8 @@ import ReserveSeats from './Components/User/Resevation/ReserveSeats'
 import { useContext } from 'react';
 import { UserContext } from './Context';
 import UserNavbar from './Components/User/UserNavbar';
-import NotFound from './Components/General/NotFound'
+import NotFound from './Components/General/NotFound';
+import EditUser from './Components/User/EditUser';
 
 dotenv.config()
 const { Header, Content, Footer } = Layout;
@@ -48,6 +49,7 @@ function App() {
             <PrivateRouteUser path="/my_reservations" exact component={BoardingPass}/>
             <PrivateRouteUser path="/reserve_departure/:flight_id" exact component={ReserveSeats} />
             <PrivateRouteUser path="/reserve_return/:flight_id" exact component={ReserveSeats} returnFlight={true}/>
+            <PrivateRouteUser path="/edit_info" exact component={EditUser}/> 
 
             <Route component={NotFound}/>
 

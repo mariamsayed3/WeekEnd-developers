@@ -68,32 +68,22 @@ exports.notifyCancellation = async (req, res) => {
 }
 
 exports.EditUser = async (req, res) => {
-  const UserID = req.params.UserID
-  const condition = { id: UserID }
-  User.updateOne(condition, req.body, (error, result) => {
-    if (error) {
-      console.log("error", error)
-      res.send(error);
-    } else {
-      console.log("result", result)
-      res.json(result);
-    }
-  });
+  const {id} = req
+  console.log(id)
+  const updated = await User.findByIdAndUpdate(id,req.body);
+  res.json(updated);
+  console.log(updated);
 }
 
 exports.ViewCurrentFlights = async (req, res) => {
-  // console.log("hi")
   const {id, Admin} = req
   console.log("id=",id);
   const condition = { User: id }
-  const output = []; //create an empty array
+  const output = [];
   const bookings = await Booking.find(condition);
   console.log(bookings);
-  // const condition2 = {id: id}
   const user = await User.findById(id);
   console.log(user)
-  // console.log(output.length);
-  // console.log(output);
   for(let i=0;i<bookings.length;i++){
     const flight = await Flight.findById(bookings[i].Flight);
     output.push({Booking: bookings[i],Flight: flight,User: user});
@@ -103,20 +93,13 @@ exports.ViewCurrentFlights = async (req, res) => {
 }
 
 exports.getUser = async (req, res) => {
-  const UserID = req.params.UserID
-  const condition = { id: UserID }
-  User.findOne(condition, (error, result) => {
-    if (error) {
-      console.log("error:", error)
-      res.send(error);
-    }
-    else {
-      console.log("entered success")
-      console.log("result:", result)
-      res.json(result);
-    }
-  });
+  const {id} = req
+  console.log("id=",id)
+  const info = await User.findById(id);
+  res.send(info);
+  console.log(info);
 }
+
 exports.reserveFlight = async(req, res) => {
   const flightID = req.params.flightID
   const {id, Admin} = req

@@ -3,7 +3,7 @@ import axios from 'axios';
 import 'antd/dist/antd.css';
 import { Modal, Tag } from 'antd';
 import { DingtalkOutlined } from '@ant-design/icons';
-import Boardingstyle from '../../Styles/Boardingstyle.scss'
+import '../../Styles/Boardingstyle.scss';
 import {Popconfirm, Button} from 'antd';
 import {UserContext} from '../../Context'
 
