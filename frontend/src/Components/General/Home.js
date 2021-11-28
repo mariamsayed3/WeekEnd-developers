@@ -36,7 +36,7 @@ import { useHistory } from 'react-router';
 
                {!Admin && <div className='tabs'>
                  <a> Home</a>
-                 <a> Flights</a>
+                 <a href= '/available_flights'> Flights</a>
                  <a href='my_reservations'> My Reservations</a>
                  <a> Contact Us</a>
                  <a onClick={logout}> Logout</a>
