@@ -1,6 +1,7 @@
 const Flight = require("../models/Flight");
 const User = require("../models/User");
 const Booking = require("../models/Booking");
+const Summary = require("../models/Summary");
 const { sendEmail } = require('../utils/email');
 const jwt = require('jsonwebtoken')
 
@@ -153,8 +154,7 @@ exports.reserveFlight = async(req, res) => {
     await Flight.findByIdAndUpdate(flightID, update)
     res.status(200).json({message: "Reservation done successfully"})
   }catch(err){
-    res.status(200).json({message: "Error"})
+    res.status(400).json({message: "Error"})
   }
-  
 }
 

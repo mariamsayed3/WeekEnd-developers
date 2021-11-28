@@ -31,9 +31,9 @@ function App() {
   return (
     <Layout style={{backgroundColor: 'rgba(1,1,1,0)'}}>
       <Router>
-          <Header style={{backgroundColor: 'rgba(1,1,1,0)', padding: 0}} >
+          {/* <Header style={{backgroundColor: 'rgba(1,1,1,0)', padding: 0}} >
             {Email ? (Admin === true ? <AdminNavbar /> : <UserNavbar/>) : null}
-          </Header> 
+          </Header>  */}
         <Content>
           <Switch>
             {Email ? <Route path="/" exact component={Home} /> : <Route path="/" exact component={Login} />}

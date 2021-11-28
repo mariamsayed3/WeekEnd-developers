@@ -12,9 +12,8 @@ const Clouds = ()=>{
                 </div>
                 <div class="c4">
                 </div>
-                </div>
-                <div class="plane"><img src='https://pics.clipartpng.com/midle/Airplane_PNG_Clipart-421.png'/>
-                <div class="cloud2">
+            </div>
+            <div class="cloud2">
                 <div class="c1">
                 </div>
                 <div class="c2">
@@ -24,7 +23,7 @@ const Clouds = ()=>{
                 <div class="c4">
                 </div>
             </div>
-            <div class="cloud3">
+            <div class="cloud1">
                 <div class="c1">
                 </div>
                 <div class="c2">
@@ -33,9 +32,8 @@ const Clouds = ()=>{
                 </div>
                 <div class="c4">
                 </div>
-                </div>
-
-                <div class="cloud4">
+            </div>
+            <div class="cloud2">
                 <div class="c1">
                 </div>
                 <div class="c2">
@@ -44,8 +42,8 @@ const Clouds = ()=>{
                 </div>
                 <div class="c4">
                 </div>
-                </div>
-        </div>
+            </div>
+            <div class="plane"><img src='https://pics.clipartpng.com/midle/Airplane_PNG_Clipart-421.png'/></div>
         </div>
 
     )
