@@ -607,12 +607,13 @@ label.logo {
   position: absolute;
   top: 377px;
   right: 25px;
+  a {
+    text-decoration: none;
+    color: inherit;
+    color: rgb(4, 38, 53);
+  }
+  a:hover {
+    color: #1d479f;
+  }
 }
-a {
-  text-decoration: none;
-  color: inherit;
-  color: rgb(4, 38, 53);
-}
-a:hover {
-  color: #1d479f;
-}
+
