@@ -1,30 +1,23 @@
-import {useEffect, useState} from 'react'
-import axios from 'axios'
+import {useEffect, useState } from 'react'
 import Seats from './Seats'
 import ReservationData from './ReservationData'
 import '../../../Styles/ReserveSeats.scss'
-import BoardingPass from '../BoardingPass'
-import ReturnCard from '../ReturnCard'
+import { useLocation } from 'react-router'
 
-const ReserveSeats = ({flightID, returnFlight}) => {
-    const [flight, setFlight] = useState(null)
+const ReserveSeats = () => {
+    const {state} = useLocation()
+    const flight = state.DepartureFlight
+    const isReturn = state.isReturn
+    const FirstBooking = state.FirstBooking
+    
     const [FirstSeats, setFirstSeats] = useState(0)
     const [EconomySeats, setEconomySeats] = useState(0)
     const [BusinessSeats, setBusinessSeats] = useState(0)
     const [selectedSeats, setSelectedSeats]= useState([])
     const [price, setPrice] = useState(0)
+    
     useEffect(() => {
-        const getFlight = async () => {
-          const { data } = await axios.get(
-            "http://localhost:8000/admin/get_flight/619e5b03e877fda48de395e3"
-          );
-          setFlight(data);
-        };
-        getFlight();
-    }, []);
-    useEffect(() => {
-        if(flight)
-            setPrice(FirstSeats*flight.FirstClassPrice + BusinessSeats*flight.BusinessPrice + EconomySeats*flight.EconomyPrice)
+        setPrice(FirstSeats*flight.FirstClassPrice + BusinessSeats*flight.BusinessPrice + EconomySeats*flight.EconomyPrice)
     },[FirstSeats, EconomySeats, BusinessSeats])
     
     useEffect(() => {
@@ -36,16 +29,15 @@ const ReserveSeats = ({flightID, returnFlight}) => {
           }
       },[])
 
-
     return (
         flight ? 
         <>
-        {!returnFlight ? <h3  className='subtitle'>Departure Flight Seats</h3> : <h3 className='subtitle'>Return Flight Seats</h3>}
+        {!isReturn ? <h3  className='subtitle'>Departure Flight Seats</h3> : <h3 className='subtitle'>Return Flight Seats</h3>}
         <div className="plane-container">
             
             <div className="plane">
                 <div className="cockpit">
-                <ReservationData returnFlight={returnFlight} from={flight.DepartureAirport} to={flight.ArrivalAirport} totalSeats={FirstSeats+EconomySeats+BusinessSeats} price={price} />
+                <ReservationData FirstBooking={FirstBooking} selectedSeats={selectedSeats} isReturn={isReturn} flight={flight}  totalSeats={FirstSeats+EconomySeats+BusinessSeats} price={price} />
                 </div>
                 <div className="exit exit--front fuselage"></div>
                 <div className="row-container body ">
@@ -91,7 +83,7 @@ const ReserveSeats = ({flightID, returnFlight}) => {
                 <div class="exit exit--front fuselage"></div>
             </div>
             <div className="plane-card">
-                <ReturnCard />
+                Fe Card Henaaaa
             </div>
 
         </div>
