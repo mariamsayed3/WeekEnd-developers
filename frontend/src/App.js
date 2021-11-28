@@ -16,7 +16,7 @@ import PrivateRouteAdmin from './Router/PrivateRouteAdmin'
 import PrivateRouteUser from './Router/PrivateRouteUser'
 import BoardingPass from './Components/User/BoardingPass'
 import ReserveSeats from './Components/User/Resevation/ReserveSeats'
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { UserContext } from './Context';
 import UserNavbar from './Components/User/UserNavbar';
 import NotFound from './Components/General/NotFound'
@@ -27,17 +27,21 @@ const { Header, Content, Footer } = Layout;
 
 
 function App() {
-  const {Email, Admin} = useContext(UserContext)
+  const {Email, Admin} = useContext(UserContext);
+  const path = window.location.pathname;
+  console.log(path)
+  const home =( path === '/' )|| (path === '/login')
   return (
     <Layout style={{backgroundColor: 'rgba(1,1,1,0)'}}>
       <Router>
-          {/* <Header style={{backgroundColor: 'rgba(1,1,1,0)', padding: 0}} >
+         { !home && <Header style={{backgroundColor: 'rgba(1,1,1,0)', padding: 0}} >
             {Email ? (Admin === true ? <AdminNavbar /> : <UserNavbar/>) : null}
-          </Header>  */}
+          </Header> 
+          }
         <Content>
           <Switch>
             {Email ? <Route path="/" exact component={Home} /> : <Route path="/" exact component={Login} />}
-            <Route path="/login" exact component={Login} />
+            <Route path="/login" exact component={Login}  />
             <Route path="/unauthorized" exact component={Unauthorized} />
             <Route path="/register" exact component={Register} />
             

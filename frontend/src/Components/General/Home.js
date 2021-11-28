@@ -4,10 +4,19 @@ import Clouds from '../General/Clouds'
 import '../../Styles/Test.scss'
 import HomeSearch from './HomeSearch'
 import logo from '../../Assets/logo.png'
+import { useHistory } from 'react-router';
 // import '../../Styles/Clouds.css'
 
  const Home = () => {
-    const {FirstName, Admin, Email} = useContext(UserContext);
+   let history = useHistory()
+   const {setEmail} = useContext(UserContext) 
+    const {Admin} = useContext(UserContext);
+    const logout = () => {
+      setEmail(null)
+      sessionStorage.removeItem('user')
+      history.push('/login')
+     }
+
     return (
        <div>
       {/* <div class="plane"><img src='https://pics.clipartpng.com/midle/Airplane_PNG_Clipart-421.png'/></div>  */}
@@ -15,12 +24,29 @@ import logo from '../../Assets/logo.png'
       <div class="container">
             
             <div class="box1">
-                {/* <img src = {logo} />  */}
+
+              <div className='logo-container'>
+                <img className='logo' src = {logo} /> 
+               {Admin && <div className='tabs'>
+                 <a > Home</a>
+                 <a href='/admin/create_flight'> Create Flight</a>
+                 <a href= '/admin/flights'> Available Flights</a>
+                 <a onClick={logout}> Logout</a>
+               </div>}
+
+               {!Admin && <div className='tabs'>
+                 <a> Home</a>
+                 <a> Flights</a>
+                 <a href='my_reservations'> My Reservations</a>
+                 <a> Contact Us</a>
+                 <a onClick={logout}> Logout</a>
+               </div>}
+                </div>
                <div style={{display: 'flex', flexDirection: 'row'}}>
-               <div className='home-search'>
-                  <HomeSearch />
-               </div>
-               <div class="plane"><img src='https://pics.clipartpng.com/midle/Airplane_PNG_Clipart-421.png'/></div> 
+                  <div className='home-search'>
+                     <HomeSearch />
+                  </div>
+                  <div class="plane"><img src='https://pics.clipartpng.com/midle/Airplane_PNG_Clipart-421.png'/></div> 
                </div> 
 
             </div>

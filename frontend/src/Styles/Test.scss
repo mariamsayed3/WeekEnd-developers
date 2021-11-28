@@ -38,6 +38,8 @@
 .box1 {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
   // background-color: rgba(255, 255, 255, 0.198);
   position: absolute;
   z-index: 10;
@@ -136,16 +138,34 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 6%;
+  margin-left:5%;
   margin-top: 25%;
   padding: 1cm 0cm 1cm;
   border-radius: 1cm;
   background-color: rgba(255, 255, 255, 0.541) ;
-  // box-shadow: 5px 10px rgba(129, 136, 233, 0.329) ;
-
-
 }
-
+.logo-container{
+ height: 5%
+}
+.logo{
+  float: left;
+  transform: scale(0.7,0.7) translate(-20%, -15%);
+}
+.tabs{
+  display: flex;
+  flex-direction: row;
+  float: right;
+  a{
+    color: white;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 60px;
+    float: left;
+    margin-right: 40px;
+    margin-top: 5px;
+  }
+}
 .search-form > span{
  font-size: 45px;
  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -153,7 +173,9 @@
 
 }
 .home-search{
+ 
   width: 45%;
   z-index: 10;
+  float: left;
 }
 
