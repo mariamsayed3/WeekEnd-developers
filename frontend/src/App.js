@@ -27,21 +27,21 @@ dotenv.config();
 const { Header, Content, Footer } = Layout;
 
 function App() {
-  const { Email, Admin } = useContext(UserContext);
+  const {Email, Admin} = useContext(UserContext);
+  const path = window.location.pathname;
+  console.log(path)
+  const home =( path === '/' )|| (path === '/login')
   return (
     <Layout style={{ backgroundColor: "rgba(1,1,1,0)" }}>
       <Router>
-        <Header style={{ backgroundColor: "rgba(1,1,1,0)", padding: 0 }}>
-          {Email ? Admin === true ? <AdminNavbar /> : <UserNavbar /> : null}
-        </Header>
+         { !home && <Header style={{backgroundColor: 'rgba(1,1,1,0)', padding: 0}} >
+            {Email ? (Admin === true ? <AdminNavbar /> : <UserNavbar/>) : null}
+          </Header> 
+          }
         <Content>
           <Switch>
-            {Email ? (
-              <Route path="/" exact component={Home} />
-            ) : (
-              <Route path="/" exact component={Login} />
-            )}
-            <Route path="/login" exact component={Login} />
+            {Email ? <Route path="/" exact component={Home} /> : <Route path="/" exact component={Login} />}
+            <Route path="/login" exact component={Login}  />
             <Route path="/unauthorized" exact component={Unauthorized} />
             <Route path="/register" exact component={Register} />
 

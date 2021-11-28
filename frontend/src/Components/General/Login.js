@@ -5,14 +5,17 @@ import axios from 'axios';
 import { Redirect } from 'react-router';
 import  { UserContext } from '../../Context'
 import {GiAirplaneDeparture} from "react-icons/gi";
+import {useHistory} from 'react-router-dom'
 import '../../Styles/login.scss'
 
 const Login = () => {
+    let history = useHistory();
     const [error, setError] = useState(null)
     const {FirstName, setAdmin,setFirstName,setLastName,setToken, setEmail} = useContext(UserContext)
     const onFinish = async (values) => {
     const {Password} = values
     const Username = values.Username.toLowerCase();
+   
     try{
         const {data} = await axios.post(`http://localhost:8000/login`, {Username, Password})
         let user = {FirstName: data.FirstName, LastName: data.LastName, Token: data.Token, Email: data.Email, Admin: data.Admin }
@@ -38,7 +41,11 @@ const Login = () => {
   },[])
 
   if(error === false){
-    return <Redirect to="/" />
+   
+   return  <Redirect to="/" />
+    // window.location.reload(false); 
+
+    
   }
     
   return (
