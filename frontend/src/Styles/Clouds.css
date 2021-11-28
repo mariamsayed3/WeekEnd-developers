@@ -54,7 +54,16 @@
   }
   
   .cloud2 {
-    margin-top: 150px;
+    margin-top: 90px;
+    position: relative;
+  }
+  .cloud3 {
+    margin-top: 120px;
+    position: relative;
+  }
+  
+  .cloud4 {
+    margin-top: 130px;
     position: relative;
   }
   
@@ -63,6 +72,14 @@
   }
   
   .cloud2 {
+    animation: slide 13s linear infinite;
+  }
+
+  .cloud3 {
+    animation: slide 16s linear infinite;
+  }
+  
+  .cloud4 {
     animation: slide 13s linear infinite;
   }
   
