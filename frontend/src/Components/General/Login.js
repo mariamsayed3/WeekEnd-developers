@@ -94,7 +94,7 @@ const Login = () => {
                 <Form.Item name="remember" valuePropName="checked" noStyle>
                 <Checkbox><span className="text">Remember me</span></Checkbox>
                 </Form.Item>
-                <a className="login-form-forgot" href="">
+                <a className="login-links" href="">
                 Forgot password ?
                 </a>
             </Form.Item>
@@ -104,7 +104,7 @@ const Login = () => {
                 <span className="text">Log in</span>
                 </Button>
                 <br/><br/>
-                <span className="text">You Don't have an account ?</span> <a href="/register">Register now!</a>
+                <span className="text">You Don't have an account ?</span> <a className="login-links" href="/register">Register now!</a>
             </Form.Item>
             
             </Form>

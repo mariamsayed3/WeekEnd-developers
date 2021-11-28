@@ -3,6 +3,7 @@ import '../../Styles/navbar.scss'
 import {GiAirplaneDeparture} from "react-icons/gi";
 import { useContext } from 'react';
 import { UserContext } from '../../Context';
+import logo from '../../Assets/small-logo.png'
 
 function UserNavbar (){
   let history = useHistory()
@@ -15,8 +16,8 @@ function UserNavbar (){
     return (
     <>
       <nav>
-        <GiAirplaneDeparture className="icon" size="40" />  
-        <label class="logo">Jet Away</label>
+         
+        <img className="logo" src={logo}/>
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/available_flights">Available Flights</a></li>
