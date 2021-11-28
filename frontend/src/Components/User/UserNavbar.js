@@ -1,28 +1,38 @@
+import { useHistory } from 'react-router';
 import '../../Styles/navbar.scss'
 import {GiAirplaneDeparture} from "react-icons/gi";
 import {CgProfile} from "react-icons/cg";
 import Profile from './Profile';
 import { useState } from 'react';
+import { useContext } from 'react';
+import { UserContext } from '../../Context';
+import logo from '../../Assets/small-logo.png'
 
 function UserNavbar (){
-
-  const [modalOpen,setModalOpen] = useState(false);
+  let history = useHistory()
+   const {setEmail} = useContext(UserContext) 
+   const logout = () => {
+    setEmail(null)
+    sessionStorage.removeItem('user')
+    history.push('/login')
+   }
+   const [modalOpen,setModalOpen] = useState(false);
    
-  const handleModalOpen = () => {
-    setModalOpen(true);
- };
-
+   const handleModalOpen = () => {
+     setModalOpen(true);
+  };
     return (
     <>
       <nav>
-        <GiAirplaneDeparture className="icon" size="40" />  
-        <label class="logo">Jet Away</label>
+         
+        <img className="logo" src={logo}/>
         <ul>
           <li><a href="/">Home</a></li>
-          <li><a href="">Available Flights</a></li>
+          <li><a href="/available_flights">Available Flights</a></li>
           <li><a href="/my_reservations">My Reservations</a></li>
           <li><a href="#">Contact us</a></li>
           <li><CgProfile className="profile" size="20"/><a onClick={handleModalOpen}>Profile</a></li>
+          <li><a onClick={logout} href="">Log out</a></li>
         </ul>
     </nav>
     <Profile

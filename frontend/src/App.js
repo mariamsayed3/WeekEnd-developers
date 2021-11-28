@@ -1,67 +1,105 @@
-import {Layout} from 'antd';
+import { Layout } from "antd";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./Styles/generics.scss";
 import UpdateFlight from "./Components/Admin/UpdateFlight";
 import CreateFlight from "./Components/Admin/CreateFlight";
 import AdminEdits from "./Components/Admin/AdminEdits";
-import CancelReservation from './Components/User/CancelReservation'
+import CancelReservation from "./Components/User/CancelReservation";
 import ViewDetails from "./Components/Admin/ViewDetails";
 import Login from "./Components/General/Login";
 import Register from "./Components/General/Register";
-import dotenv from 'dotenv'
+import dotenv from "dotenv";
 import Home from "./Components/General/Home";
-import Unauthorized from './Components/General/Unauthorized'
-import AdminNavbar from './Components/Admin/AdminNavbar'
-import PrivateRouteAdmin from './Router/PrivateRouteAdmin'
-import PrivateRouteUser from './Router/PrivateRouteUser'
-import BoardingPass from './Components/User/BoardingPass'
-import ReserveSeats from './Components/User/Resevation/ReserveSeats'
-import { useContext } from 'react';
-import { UserContext } from './Context';
-import UserNavbar from './Components/User/UserNavbar';
-import NotFound from './Components/General/NotFound';
-import EditUser from './Components/User/EditUser';
-
-dotenv.config()
+import Unauthorized from "./Components/General/Unauthorized";
+import AdminNavbar from "./Components/Admin/AdminNavbar";
+import PrivateRouteAdmin from "./Router/PrivateRouteAdmin";
+import PrivateRouteUser from "./Router/PrivateRouteUser";
+import BoardingPass from "./Components/User/BoardingPass";
+import ReserveSeats from "./Components/User/Resevation/ReserveSeats";
+import { useContext } from "react";
+import { UserContext } from "./Context";
+import UserNavbar from "./Components/User/UserNavbar";
+import NotFound from "./Components/General/NotFound";
+import DepartureCard from "./Components/User/DepartureCard";
+import ReturnCard from "./Components/User/ReturnCard";
+import AvailableFlights from "./Components/User/AvailableFlights";
+dotenv.config();
 const { Header, Content, Footer } = Layout;
 
-
 function App() {
-  const {Admin} = useContext(UserContext)
+  const {Email, Admin} = useContext(UserContext);
+  const path = window.location.pathname;
+  console.log(path)
+  const home =( path === '/' )|| (path === '/login')
   return (
-    <Layout style={{backgroundColor: 'white'}}>
+    <Layout style={{ backgroundColor: "rgba(1,1,1,0)" }}>
       <Router>
-          <Header style={{backgroundColor: 'white', padding: 0}} >
-            {Admin ? <AdminNavbar /> : <UserNavbar/>}
+         { !home && <Header style={{backgroundColor: 'rgba(1,1,1,0)', padding: 0}} >
+            {Email ? (Admin === true ? <AdminNavbar /> : <UserNavbar/>) : null}
           </Header> 
+          }
         <Content>
           <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/login" exact component={Login} />
+            {Email ? <Route path="/" exact component={Home} /> : <Route path="/" exact component={Login} />}
+            <Route path="/login" exact component={Login}  />
             <Route path="/unauthorized" exact component={Unauthorized} />
             <Route path="/register" exact component={Register} />
-            
-            <PrivateRouteAdmin path="/admin/create_flight" exact component={CreateFlight}/>
-            <PrivateRouteAdmin path="/admin/update_flight" exact component={UpdateFlight}/>
-            <PrivateRouteAdmin path="/admin/flights" exact component={AdminEdits}/>
-            <PrivateRouteAdmin path="/admin/view_details" exact component={ViewDetails}/>
-            
-            <PrivateRouteUser path="/my_reservations" exact component={BoardingPass}/>
-            <PrivateRouteUser path="/reserve_departure/:flight_id" exact component={ReserveSeats} />
-            <PrivateRouteUser path="/reserve_return/:flight_id" exact component={ReserveSeats} returnFlight={true}/>
-            <PrivateRouteUser path="/edit_info" exact component={EditUser}/> 
 
-            <Route component={NotFound}/>
+            <PrivateRouteAdmin
+              path="/admin/create_flight"
+              exact
+              component={CreateFlight}
+            />
+            <PrivateRouteAdmin
+              path="/admin/update_flight"
+              exact
+              component={UpdateFlight}
+            />
+            <PrivateRouteAdmin
+              path="/admin/flights"
+              exact
+              component={AdminEdits}
+            />
+            <PrivateRouteAdmin
+              path="/admin/view_details"
+              exact
+              component={ViewDetails}
+            />
 
-
+            <PrivateRouteUser
+              path="/my_reservations"
+              exact
+              component={BoardingPass}
+            />
+            <PrivateRouteUser
+              path="/reserve_departure/:flight_id"
+              exact
+              component={ReserveSeats}
+            />
+            <PrivateRouteUser
+              path="/reserve_return/:flight_id"
+              exact
+              component={ReserveSeats}
+              returnFlight={true}
+            />
+            <PrivateRouteUser
+              path="/available_flights"
+              exact
+              component={AvailableFlights}
+            />
+            <PrivateRouteUser 
+            path="/edit_info" 
+            exact 
+            component={EditUser}
+            /> 
+            <Route component={NotFound} />
           </Switch>
-          </Content>
-          
+        </Content>
       </Router>
 
-      <Footer>
+      {/* <Footer>
         
-      </Footer>
+      </Footer> */}
     </Layout>
   );
 }

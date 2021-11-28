@@ -1,10 +1,9 @@
 import { Button, Popconfirm } from 'antd'
 import '../../../Styles/ReservationData.scss'
 import { CheckOutlined } from '@ant-design/icons'
-import { Redirect } from 'react-router'
-import { Link, Route, useHistory } from 'react-router-dom'
-
-const ReservationData = ({from, to ,totalSeats, price, returnFlight}) => {
+import { useHistory, Link } from 'react-router-dom'
+import ConfirmReservation from './ConfirmReservation'
+const ReservationData = ({flight ,totalSeats, price, isReturn, selectedSeats, FirstBooking}) => {
     let history = useHistory()
     const confirm = () => {
        history.push('/new path')
@@ -15,7 +14,7 @@ const ReservationData = ({from, to ,totalSeats, price, returnFlight}) => {
         <div>
             <div class='bc-from'>
                 <span class='detail-code'>
-                    {from}
+                    {flight.DepartureAirport}
                 </span>
             </div>
             <div class='bc-plane'>
@@ -23,7 +22,7 @@ const ReservationData = ({from, to ,totalSeats, price, returnFlight}) => {
             </div>
             <div class='bc-to'>
                 <span class='detail-code'>
-                    {to}
+                    {flight.ArrivalAirport}
                 </span>
             </div>
         </div>
@@ -49,25 +48,25 @@ const ReservationData = ({from, to ,totalSeats, price, returnFlight}) => {
         
         <div>
             {
-            !returnFlight ?
+            !isReturn ?
             
-                <Button style={{marginTop: '15px'}} type="primary" shape="round" icon={<CheckOutlined />} size="middle">
-                    <a style={{color: 'white'}} href="/reserve_return">Confirm and reserve return flight</a>
+                <Button disabled={totalSeats === 0} style={{marginTop: '15px'}} type="primary" shape="round" icon={<CheckOutlined />} size="middle">
+                    <Link style={{color: 'white'}}
+                     to={{
+                        pathname: `/available_flights`,
+                        state: {
+                          isReturn: true,
+                          ReturnFlight: flight,
+                          FirstBooking: {flight, Seats:selectedSeats, totalSeats: totalSeats, Price: price}
+                        },
+                      }}
+                     >
+                        Confirm and reserve return flight
+                    </Link>
                 </Button>
            
             :
-            <Popconfirm  
-            title="Are you sure you want to confirm this reservation ?"
-            onConfirm={confirm}
-            // onCancel={cancel}
-            okText="Yes"
-            cancelText="No">
-                <Button style={{marginTop: '15px'}} type="primary" shape="round" icon={<CheckOutlined />} size="middle">
-                    
-                    Confirm Departure and Return Flights
-                    
-                </Button>
-            </Popconfirm>
+            <ConfirmReservation FirstBooking={FirstBooking} totalSeats={totalSeats} selectedSeats={selectedSeats} DepartureFlight={flight} totalSeats={totalSeats} price={price}/>
             }
         </div>
     

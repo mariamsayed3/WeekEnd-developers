@@ -17,5 +17,6 @@ router.get('/get_user/:Token',verifyToken,controllers.getUser);
 
 router.post('/reserve/:flightID',verifyToken, controllers.reserveFlight)
 
+router.get('/available_flights/:Token',verifyToken, controllers.AvailableFlights)
 
 module.exports = router;

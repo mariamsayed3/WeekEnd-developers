@@ -1,6 +1,7 @@
 const Flight = require("../models/Flight");
 const User = require("../models/User");
 const Booking = require("../models/Booking");
+const Summary = require("../models/Summary");
 const { sendEmail } = require('../utils/email');
 const jwt = require('jsonwebtoken')
 
@@ -9,14 +10,10 @@ exports.cancelReservation = async (req, res) => {
   
   //Find Booking
   const booking = await Booking.find({ReservationNumber:reservation_number});
-  console.log(booking)
-  
-  //Find flight & Update Seats
-  
-  console.log("booking", booking[0])
-  console.log(booking[0].Flight)
 
-const flight = await Flight.findById(booking[0].Flight);
+  //Find flight & Update Seats
+
+  const flight = await Flight.findById(booking[0].Flight);
 
 const seats = booking[0].Seats
 let first_seats=0;
@@ -55,13 +52,11 @@ for (let seat of seats)
 
 exports.notifyCancellation = async (req, res) => {
   const {ReservationNumber, email, TotalPrice, FlightNumber, Seats} = req.body
-  console.log(req.body)
     const subject = "United Airlines"
     const body = `  <h3> Hello </h3>
                         <h4> Please note that your reservation on flight number ${FlightNumber} has been succesfully cancelled. </h4>
                         <h4> A totall of ${TotalPrice}L.E will be refunded to your account.</h4>
-                      `
-    console.log(body) 
+                      ` 
     sendEmail(email, subject, body);
 
     res.status(200).send({ message: 'Email sent successfully!' })
@@ -77,18 +72,14 @@ exports.EditUser = async (req, res) => {
 
 exports.ViewCurrentFlights = async (req, res) => {
   const {id, Admin} = req
-  console.log("id=",id);
   const condition = { User: id }
   const output = [];
   const bookings = await Booking.find(condition);
-  console.log(bookings);
   const user = await User.findById(id);
-  console.log(user)
   for(let i=0;i<bookings.length;i++){
     const flight = await Flight.findById(bookings[i].Flight);
     output.push({Booking: bookings[i],Flight: flight,User: user});
   }
-  console.log(output);
   res.send(output)
 }
 
@@ -103,9 +94,9 @@ exports.getUser = async (req, res) => {
 exports.reserveFlight = async(req, res) => {
   const flightID = req.params.flightID
   const {id, Admin} = req
-  const{FlightNumber, TotalPrice, Seats} = req.body
+  const{FlightNumber, TotalPrice, Seats, Children} = req.body
   if(Admin) return res.status(403).json('Unauthorized')
-
+  console.log(flightID, TotalPrice, Seats, Children)
   let ReservationNumber
   while(true){
     ReservationNumber = Math.floor(10000000 + Math.random() * 90000000) + '' // Random number of length 8
@@ -113,42 +104,58 @@ exports.reserveFlight = async(req, res) => {
     if(!found) 
       break
   }
-  await Booking.create({User: id, Flight: flightID, ReservationNumber, FlightNumber, TotalPrice, Seats})
+  let SeatsNames = []
+  for(let seat of Seats)
+    SeatsNames.push(seat.number)
+  await Booking.create({User: id, Flight: flightID, ReservationNumber, FlightNumber, TotalPrice, Seats: SeatsNames, Children})
   
   let EconomyReservedSeats = 0, FirstReservedSeats = 0, BusinessReservedSeats = 0
 
   const {FirstClassSeats, BusinessSeats, EconomySeats} = await Flight.findById(flightID)
 
   for(let seat of Seats){
-    if(seat.charAt(0) === 'A'){
+    if(seat.number.charAt(0) === 'A'){
       FirstReservedSeats++
-      FirstClassSeats[parseInt(seat.slice(1)) -1].reserved = true
+      FirstClassSeats[parseInt(seat.number.slice(1)) -1].reserved = true
     } 
-    else if(seat.charAt(0) == 'B'){
+    else if(seat.number.charAt(0) == 'B'){
       BusinessReservedSeats++
-      BusinessSeats[parseInt(seat.slice(1)) -1].reserved = true
+      BusinessSeats[parseInt(seat.number.slice(1)) -1].reserved = true
     } 
     else {
       EconomyReservedSeats++
-      EconomySeats[parseInt(seat.slice(1)) -1].reserved = true
+      EconomySeats[parseInt(seat.number.slice(1)) -1].reserved = true
     }
   }
+  
   const update = {
     $inc: {
       EconomyAvailableSeats: -EconomyReservedSeats,
       FirstClassAvailableSeats: -FirstReservedSeats,
       BusinessAvailableSeats: -BusinessReservedSeats,
+      'NumberOfPassengers.Adults': Seats.length - Children,
+      'NumberOfPassengers.Children': Children
     },
     FirstClassSeats,
     BusinessSeats,
-    EconomySeats
+    EconomySeats,
   }
   try{
     await Flight.findByIdAndUpdate(flightID, update)
     res.status(200).json({message: "Reservation done successfully"})
   }catch(err){
-    res.status(200).json({message: "Error"})
+    res.status(400).json({message: "Error"})
   }
-  
 }
 
+
+exports.AvailableFlights = async(req, res) => {
+  const id = req.id
+  const userBookings = await Booking.find({User: id})
+  const userFlights = []
+  for(let booking of userBookings){
+    userFlights.push(booking.Flight)
+  }
+  const flights = await Flight.find({_id: {$nin: userFlights}})
+  res.send(flights)
+}

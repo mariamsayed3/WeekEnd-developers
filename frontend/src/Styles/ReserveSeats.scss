@@ -4,10 +4,33 @@
   box-sizing: border-box;
 }
 
+.seats {
+  #root {
+    // background-image: url("../Assets/seats.jpeg");
+    // -webkit-background-size: cover;
+    // -moz-background-size: cover;
+    // -o-background-size: cover;
+    // background-size: cover;
+    // background-repeat: no-repeat;
+    // height: 100%;
+  }
+}
+
 .layout {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+}
+
+.plane-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.plane-container > div {
+  margin: 0 70px 0;
 }
 
 .exit {
@@ -135,8 +158,7 @@ ol {
   box-sizing: border-box;
 }
 
-.plane {
-  margin: 20px auto;
+.plane-body {
   max-width: 60%;
   width: 35%;
 }
