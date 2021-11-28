@@ -1,0 +1,183 @@
+// .home-card {
+//   color: red;
+//   height: 100%;
+//   background-color: rgb(129, 136, 233);
+//   width: 50%;
+//   float: right;
+//   height: 100%;
+// }
+
+// #root {
+//   height: 100%;
+// }
+
+// #square {
+//   -ms-transform: skew(-120deg); /* IE 9 */
+//   -webkit-transform: skew(-120deg); /* Chrome, Safari, Opera */
+//   transform: skew(-120deg); /* Standard syntax */
+//   transform-origin: top right; /* Prevent the bottom from shifting */
+// }
+
+// .ant-layout {
+//   height: 100% !important;
+// }
+
+// .ant-layout-content {
+//   height: 100% !important;
+// }
+
+.home-container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-image: url("https://www.kindpng.com/picc/m/107-1074254_abstract-world-map-transparent-background-abstract-world-map.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.box1 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  // background-color: rgba(255, 255, 255, 0.198);
+  position: absolute;
+  z-index: 10;
+}
+
+.box2 {
+  width: 50%;
+  margin-left: 50%;
+  transform: skewX(20deg) translateX(20%);
+  float: right;
+  height: 100%;
+  background: rgb(129, 136, 233); /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to left,
+    rgb(129, 122, 237),
+    rgb(115, 150, 240)
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    rgb(129, 122, 237),
+    rgb(115, 150, 240)
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  z-index: 0;
+}
+
+.plane {
+  z-index: 1000;
+  // top: -30%;
+  margin-top: 23%;
+  margin-left: 5%;
+  // -webkit-box-reflect: left ;
+  -moz-transform: scale(2, 2);
+  -webkit-transform: scale(2, 2);
+  -o-transform: scale(2, 2);
+  -ms-transform: scale(2, 2);
+  transform: scale(2, 2);
+  background-color: transparent;
+  // margin-bottom: 40%;
+}
+
+.cloud1 {
+  margin-top: 2%;
+  left: -10%;
+  position: relative;
+  /* width:50%; */
+}
+
+.cloud2 {
+  margin-top: 5%;
+  position: relative;
+}
+
+.cloud3 {
+  margin-top: 10%;
+  left: -30%;
+  position: relative;
+  /* width:50%; */
+}
+
+.cloud4 {
+  margin-top: 10%;
+  // margin-left: 180px;
+  position: relative;
+}
+
+.cloud1 {
+  animation: slide 25s linear infinite;
+}
+
+.cloud2 {
+  animation: slide 16s linear infinite;
+}
+
+.cloud3 {
+  animation: slide 18s linear infinite;
+}
+
+.cloud4 {
+  animation: slide 13s linear infinite;
+}
+
+.cloud5 {
+  animation: slide 10s linear infinite;
+}
+
+.cloud6 {
+  animation: slide 13s linear infinite;
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(110%);
+  }
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 5%;
+  margin-top: 25%;
+  padding: 1cm 0cm 1cm;
+  border-radius: 1cm;
+  background-color: rgba(255, 255, 255, 0.541);
+}
+.logo-container {
+  height: 5%;
+}
+.logo {
+  float: left;
+  transform: scale(0.7, 0.7) translate(-20%, -15%);
+}
+.tabs {
+  display: flex;
+  flex-direction: row;
+  float: right;
+  a {
+    color: white;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 60px;
+    float: left;
+    margin-right: 40px;
+    margin-top: 5px;
+  }
+}
+.search-form > span {
+  font-size: 45px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-weight: bolder;
+}
+.home-search {
+  width: 45%;
+  z-index: 10;
+  float: left;
+}

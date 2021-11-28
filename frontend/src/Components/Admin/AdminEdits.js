@@ -117,7 +117,7 @@ export default function AdminEdits() {
   ]);
 
   return (
-    <div className='container'>
+    <div className='flights-container'>
       <Card className="admin-search">
         <div className="">
           <Form name="Search Flights">

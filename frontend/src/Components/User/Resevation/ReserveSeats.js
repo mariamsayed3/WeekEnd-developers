@@ -35,7 +35,7 @@ const ReserveSeats = () => {
         {!isReturn ? <h3  className='subtitle'>Departure Flight Seats</h3> : <h3 className='subtitle'>Return Flight Seats</h3>}
         <div className="plane-container">
             
-            <div className="plane">
+            <div className="plane-body">
                 <div className="cockpit">
                 <ReservationData FirstBooking={FirstBooking} selectedSeats={selectedSeats} isReturn={isReturn} flight={flight}  totalSeats={FirstSeats+EconomySeats+BusinessSeats} price={price} />
                 </div>

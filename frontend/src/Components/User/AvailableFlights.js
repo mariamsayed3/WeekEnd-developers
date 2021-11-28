@@ -5,28 +5,35 @@ import DepartureCard from "./DepartureCard";
 import ReturnCard from "./ReturnCard";
 import UserFilter from "./UserFilter";
 import "../../Styles/UserFilter.scss";
+import { useContext } from "react";
+import { UserContext } from "../../Context";
 
 function AvailableFlights(props) {
   const [flights, setFlights] = useState([]);
   const [filteredFlights, setFilteredFlights] = useState([]);
 
+  
+
+  
+  
+  const {state} = useLocation()
+  const {Token} = useContext(UserContext)
+  let isReturn, ReturnFlight, FirstBooking
+  if(state){
+    isReturn = state.isReturn
+    ReturnFlight = state.ReturnFlight
+    FirstBooking = state.FirstBooking
+  }
   useEffect(() => {
     const getFlights = async () => {
       const { data } = await axios.get(
-        "http://localhost:8000/admin/get_all_flights"
+        `http://localhost:8000/user/available_flights/${Token}`
       );
       setFlights(data);
     };
     getFlights();
   }, []);
-  const { state } = useLocation();
-  let isReturn, ReturnFlight, FirstBooking;
-  if (state) {
-    isReturn = state.isReturn;
-    ReturnFlight = state.ReturnFlight;
-    FirstBooking = state.FirstBooking;
-  }
-
+  console.log(flights);
   useEffect(() => {
     let arr;
     if (filteredFlights.length === 0) arr = flights;
@@ -91,6 +98,7 @@ function AvailableFlights(props) {
   //const [isReturn, setReturn] = useState(false);
   //const returnFlight = location.state.returnFlight
 
+  
   //   useEffect(() => {
   //     setFilteredFlights(flights);
   //     let arr;
