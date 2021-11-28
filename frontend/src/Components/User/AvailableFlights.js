@@ -9,12 +9,31 @@ import { useContext } from "react";
 import { UserContext } from "../../Context";
 
 function AvailableFlights(props) {
+
+  const [price, setPrice] = useState(1);
+  const [children, setChildren] = useState(100);
+  const [adults, setAdults] = useState(1000);
+  const [duration, setDuration] = useState(24);
+  const [arrivalTerminal, setArrivalTerminal] = useState("");
+  const [departureTerminal, setDepartureTerminal] = useState("");
+  const [departureTime, setDepartureTime] = useState({
+    midnight: false,
+    morning: false,
+    noon: true,
+    night: false,
+  });
+  const [cabinClass, setCabinClass] = useState({
+    first: false,
+    business: false,
+    economy: true,
+  });
+
+
+
+
+
   const [flights, setFlights] = useState([]);
   const [filteredFlights, setFilteredFlights] = useState([]);
-
-  
-
-  
   
   const {state} = useLocation()
   const {Token} = useContext(UserContext)
@@ -26,14 +45,16 @@ function AvailableFlights(props) {
   }
   useEffect(() => {
     const getFlights = async () => {
-      const { data } = await axios.get(
-        `http://localhost:8000/user/available_flights/${Token}`
-      );
+      let data
+      if(!isReturn)
+        data = await (axios.get(`http://localhost:8000/user/available_flights/${Token}`)).data;
+      else
+        data = await (axios.post(`http://localhost:8000/user/return_flights`, {Token, Departure: ReturnFlight.Arrival, Arrival: ReturnFlight.Departure, DepartureDate: ReturnFlight.DepartureDate})).data;
       setFlights(data);
     };
     getFlights();
   }, []);
-  console.log(flights);
+
   useEffect(() => {
     let arr;
     if (filteredFlights.length === 0) arr = flights;
@@ -133,7 +154,7 @@ function AvailableFlights(props) {
 
   return (
     <div className="available-container">
-      <UserFilter />
+      <UserFilter setPrice={setPrice}/>
 
       <div className="cards">
         {filteredFlights.map((flight) => {

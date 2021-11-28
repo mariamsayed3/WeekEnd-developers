@@ -7,8 +7,8 @@ import DepartureCard from "./DepartureCard";
 import ReturnCard from "./ReturnCard";
 import { Slider, InputNumber, Row, Col } from "antd";
 
-function UserFilter(props) {
-  const [price, setPrice] = useState(1);
+function UserFilter({setPrice}) {
+  //const [price, setPrice] = useState(1);
   const [children, setChildren] = useState(100);
   const [adults, setAdults] = useState(1000);
   const [duration, setDuration] = useState(24);
