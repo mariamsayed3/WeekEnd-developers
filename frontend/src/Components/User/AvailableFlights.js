@@ -74,7 +74,7 @@ function AvailableFlights(props) {
   //   }, []);
 
   return (
-    <div className="container">
+    <div>
       <div>
         {flights.map((flight) => {
           return (
