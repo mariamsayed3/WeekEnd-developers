@@ -11,6 +11,7 @@ import { UserContext } from "../../Context";
 function AvailableFlights(props) {
   const {state} = useLocation()
   const {Token} = useContext(UserContext)
+  
   let isReturn, ReturnFlight, FirstBooking
   if(state){
     isReturn = state.isReturn

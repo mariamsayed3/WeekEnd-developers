@@ -2,6 +2,8 @@ import { useHistory } from 'react-router';
 import '../../Styles/navbar.scss'
 import {GiAirplaneDeparture} from "react-icons/gi";
 import {CgProfile} from "react-icons/cg";
+import {BiLogOut} from "react-icons/bi";
+import {LogoutOutlined} from '@ant-design/icons'
 import Profile from './Profile';
 import { useState } from 'react';
 import { useContext } from 'react';
@@ -32,7 +34,8 @@ function UserNavbar (){
           <li><a href="/my_reservations">My Reservations</a></li>
           <li><a href="#">Contact us</a></li>
           <li><a onClick={handleModalOpen}>Profile</a></li>
-          <li><a onClick={logout} href="">Log out</a></li>
+          <li><a onClick={logout} href=""> <LogoutOutlined  /> </a></li>
+        
         </ul>
     </nav>
     <Profile

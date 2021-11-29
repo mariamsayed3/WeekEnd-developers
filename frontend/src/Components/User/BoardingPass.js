@@ -7,6 +7,7 @@ import "../../Styles/Boardingstyle.scss";
 import { Popconfirm, Button, Result } from "antd";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../Context";
+import Loader from '../General/Loader'
 
 function BoardingPass() {
   const { Token, FirstName, LastName, Email } = useContext(UserContext);
@@ -41,6 +42,8 @@ function BoardingPass() {
         },
       });
       showModal();
+      
+  
     } catch (error) {
       setSuccess(false);
       setErrorMsg(null);
@@ -68,15 +71,19 @@ function BoardingPass() {
 
   const handleOk = () => {
     setVisible(false);
+    window.location.reload();
   };
 
-  // if(loading){
-  //     return
-  // }
+  if(loading){
+      return <Loader />
+  }
+
   return Reservation ? (
+    <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
     <>
       {Reservation.map(({ Booking, Flight }) => {
         return (
+         
           <div className="boarding-pass">
             <header>
               {/*<svg class="logo">
@@ -179,13 +186,17 @@ function BoardingPass() {
               </svg>
             </section>
           </div>
+         
         );
       })}
 
       <Modal
         visible={visible}
         onOk={handleOk}
-        onCancel={() => setVisible(false)}
+        onCancel={() => {
+          setVisible(false);
+          window.location.reload();
+        }}
         footer={[<Button onClick={handleOk}>Ok</Button>]}
       >
         {success ? (
@@ -369,7 +380,9 @@ function BoardingPass() {
           </g>
         </symbol>
       </svg>
+      
     </>
+    </div>
   ) : (
     <>
       <Result

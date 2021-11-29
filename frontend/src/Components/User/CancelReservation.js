@@ -6,8 +6,6 @@ import {Popconfirm} from 'antd';
 import {UserContext} from '../../Context'
 require ('dotenv').config()
 
-
-
 function CancelReservation() {
     const {Email} = useContext(UserContext);
 
