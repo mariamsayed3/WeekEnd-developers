@@ -31,7 +31,9 @@ const bookingSchema = new Schema({
   Children: {
     type: Number,
     required: true
-  },
+
+  }, 
+
 });
 
 const Booking = mongoose.model('Booking', bookingSchema);

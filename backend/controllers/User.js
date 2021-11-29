@@ -152,3 +152,9 @@ exports.AvailableFlights = async(req, res) => {
   const flights = await Flight.find({_id: {$nin: userFlights}})
   res.send(flights)
 }
+
+exports.getSummaries = async (req, res) => {
+  const id = req.id
+  const summaries = await Summary.find({User: id})
+  res.send(summaries)
+}

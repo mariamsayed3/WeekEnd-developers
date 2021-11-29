@@ -19,4 +19,6 @@ router.post('/reserve/:flightID',verifyToken, controllers.reserveFlight)
 
 router.get('/available_flights/:Token',verifyToken, controllers.AvailableFlights)
 
+router.post('/summaries/:Token',verifyToken, controllers.getSummaries)
+
 module.exports = router;
