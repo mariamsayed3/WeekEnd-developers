@@ -1,13 +1,15 @@
-import  { useContext } from 'react'
+import  { useContext, useState } from 'react'
 import  { UserContext } from '../../Context';
 import '../../Styles/Home.scss'
 import HomeSearch from './HomeSearch'
 import logo from '../../Assets/logo.png'
 import { useHistory } from 'react-router';
 import cloud from '../../Assets/cloud.png'
+import Profile from '../User/Profile';
 
  const Home = () => {
    let history = useHistory()
+   const [modalOpen,setModalOpen] = useState(false);
    const {setEmail} = useContext(UserContext) 
     const {Admin, Email} = useContext(UserContext);
     const logout = () => {
@@ -15,6 +17,9 @@ import cloud from '../../Assets/cloud.png'
       sessionStorage.removeItem('user')
       history.push('/login')
      }
+     const handleModalOpen = () => {
+      setModalOpen(true);
+   };
 
     return (
        <div>
@@ -36,6 +41,11 @@ import cloud from '../../Assets/cloud.png'
                  <a href= '/available_flights'> Flights</a>
                  <a href='my_reservations'> My Reservations</a>
                  <a> Contact Us</a>
+                 {Email ? <a onClick={handleModalOpen}>Profile</a> : null}
+                 <Profile
+                  modalOpen={modalOpen}
+                  handleModalOpen={setModalOpen}
+                  />
                  {Email ? <a onClick={logout}> Logout</a> : <a href="/login"> Login</a>}
                </div>}
                 </div>

@@ -64,10 +64,12 @@ exports.notifyCancellation = async (req, res) => {
 
 exports.EditUser = async (req, res) => {
   const {id} = req
-  console.log(id)
-  const updated = await User.findByIdAndUpdate(id,req.body);
-  res.json(updated);
-  console.log(updated);
+  try{
+    const updated = await User.findByIdAndUpdate(id,req.body);
+    res.send(updated)
+  }catch{
+    res.json({message: 'duplicate email'});
+  }
 }
 
 exports.ViewCurrentFlights = async (req, res) => {

@@ -9,15 +9,22 @@ require('dotenv').config()
 function EditUser() {
     const { Token } = useContext(UserContext);
     const [form] = Form.useForm();
-
+    
     const Edit = async () => {
         try {
             const values = await form.validateFields();
-            await axios.patch(`http://localhost:8000/user/edit_user/${Token}`, values);
+            const res = await axios.patch(`http://localhost:8000/user/edit_user/${Token}`, values);
+            
+            if(res.data.message != "duplicate email")
+                message
+                    .loading('Action in progress..', 2.5)
+                    .then(() => message.success('Information Updated successfully!', 3));
+            else
             message
-                .loading('Action in progress..', 2.5)
-                .then(() => message.success('Information Updated successfully!', 3));
+            .loading('Action in progress..', 2.5)
+            .then(() => message.error('This email is associated with another account!', 3));
         } catch (e) {
+            console.log(e)
             message
                 .loading('Action in progress..', 2.5)
                 .then(() => message.error('Something went wrong.', 3));
@@ -33,28 +40,28 @@ function EditUser() {
                             name="FirstName"
                             label={<label className="label">First Name</label>}
                             style={{ width: '50%' }}
-                            rules={[{ required: true }]}>
+                            >
                             <Input className="input" placeholder='FirstName' />
                         </Form.Item>
                         <Form.Item
                             name="LastName"
                             label={<label className="label">Last Name</label>}
                             style={{ width: '50%' }}
-                            rules={[{ required: true }]}>
+                            >
                             <Input className="input" placeholder='LastName' />
                         </Form.Item>
                         <Form.Item
                             name="PassportNumber"
                             label={<label className="label">Passport Number</label>}
                             style={{ width: '50%' }}
-                            rules={[{ required: true }]}>
+                            >
                             <Input className="input" placeholder='passport number' />
                         </Form.Item>
                         <Form.Item
                             name="Email"
                             label={<label className="label">Email</label>}
                             style={{ width: '50%' }}
-                            rules={[{ required: true }]}>
+                            rules={[{ type: 'email', message: 'Please enter a valid Email' }]}>
                             <Input className="input" placeholder='email' />
                         </Form.Item>
                         <div style={{ textAlign: 'center' }}>
