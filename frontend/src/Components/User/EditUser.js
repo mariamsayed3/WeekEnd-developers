@@ -7,18 +7,34 @@ import '../../Styles/EditUser.scss';
 require('dotenv').config()
 
 function EditUser() {
-    const { Token } = useContext(UserContext);
+    const { Token, setFirstName, setLastName, setEmail } = useContext(UserContext);
     const [form] = Form.useForm();
     
     const Edit = async () => {
         try {
             const values = await form.validateFields();
             const res = await axios.patch(`http://localhost:8000/user/edit_user/${Token}`, values);
-            
-            if(res.data.message != "duplicate email")
+            const SessionStorage = sessionStorage.getItem('user')
+            let userInfo = JSON.parse(SessionStorage)
+            if(res.data.message != "duplicate email"){
                 message
-                    .loading('Action in progress..', 2.5)
-                    .then(() => message.success('Information Updated successfully!', 3));
+                .loading('Action in progress..', 2.5)
+                .then(() => message.success('Information Updated successfully!', 3));
+                if(values.FirstName){
+                    setFirstName(values.FirstName)
+                    userInfo.FirstName = values.FirstName
+                }
+                if(values.LastName){
+                    setLastName(values.LastName)
+                    userInfo.LastName = values.LastName
+                }
+                if(values.Email){
+                    setEmail(values.Email)
+                    userInfo.Email = values.Email
+                }
+                userInfo = JSON.stringify(userInfo)
+                sessionStorage.setItem('user', userInfo)
+            }      
             else
             message
             .loading('Action in progress..', 2.5)
