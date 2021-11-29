@@ -14,7 +14,6 @@ function AvailableFlights(props) {
   const [filtered, setFiltered] = useState([]);
   const { state } = useLocation();
   const { Token, Email } = useContext(UserContext);
-  //const {Email} = useContext(UserContext);
   let isReturn, ReturnFlight, FirstBooking;
   if (state) {
     isReturn = state.isReturn;
@@ -76,7 +75,6 @@ function AvailableFlights(props) {
       
 
   }
-  //console.log(flight.DepartureTime.parseInt());
   useEffect(() => {
     const getFlights = async () => {
       let data = [];
@@ -161,19 +159,8 @@ function AvailableFlights(props) {
   }, [flights, filteredFlights.length]);
 
   useEffect(() => {
-    // let priceFilter = filteredFlights.filter((flight) => (flight.EconomyPrice >= price[0] && flight.EconomyPrice < price[1]) || (flight.BusinessPrice >= price[0] && flight.BusinessPrice < price[1]) || (flight.FirstClassPrice >= price[0] && flight.FirstClassPrice < price[1]));
-    // let childrenFilter = filteredFlights.filter((flight) => (flight.NumberOfPassengers.Children <= children));
-    // let adultsFilter = filteredFlights.filter((flight) => (flight.NumberOfPassengers.Adults <= adults));
-    // let durationFilter = filteredFlights.filter((flight) => (flight.TripDuration.substring(0,2) < duration));
-
-    //let common = priceFilter.filter(value => childrenFilter.includes(value) && adultsFilter.includes(value) && durationFilter.includes(value));
-    
     let common = filteredFlights.filter((flight) => getFlights(price, departureTime, cabinClass, duration, children, adults, departureTerminal, arrivalTerminal, flight))
-    filteredFlights.map((flight) => console.log(getFlights(price, departureTime, cabinClass, duration, children, adults, departureTerminal, arrivalTerminal, flight)))
     setFiltered(common);
-
-
-
   }, [filteredFlights, price, departureTime, cabinClass, duration, children, adults, departureTerminal, arrivalTerminal]);
   
   // //   const location = useLocation();

@@ -1,11 +1,5 @@
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import axios from "axios";
 import "../../Styles/Filter.scss";
-//import Ticket from "./Ticket";
-import DepartureCard from "./DepartureCard";
-import ReturnCard from "./ReturnCard";
-import { Slider, InputNumber, Row, Col } from "antd";
+import { Slider } from "antd";
 
 function UserFilter({setPrice, setDuration, setDepartureTerminal, setArrivalTerminal, setChildren, setAdults, departureTime, setDepartureTime, cabinClass, setCabinClass}) {
   return (
