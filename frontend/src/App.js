@@ -25,8 +25,9 @@ import ReturnCard from "./Components/User/ReturnCard";
 import SummaryOfRes from "./Components/User/ResSummary/SummaryOfRes";
 import FlightSummary from "./Components/User/ResSummary/FlightSummary";
 import TheOriginalCard from "./Components/User/ResSummary/TheOriginalCard";
-
+import View from "./Components/User/ViewFlightDetails/View";
 import SmallCard from "./Components/User/ResSummary/SmallCard";
+import PlaneMotion from "./Components/User/ViewFlightDetails/PlaneMotion";
 dotenv.config();
 const { Header, Content, Footer } = Layout;
 
@@ -48,7 +49,7 @@ function App() {
             <Route path="/login" exact component={Login} />
             <Route path="/unauthorized" exact component={Unauthorized} />
             <Route path="/register" exact component={Register} />
-            <Route path="/summary" exact component={SmallCard} />
+            <Route path="/summary" exact component={View} />
 
             <PrivateRouteAdmin
               path="/admin/create_flight"

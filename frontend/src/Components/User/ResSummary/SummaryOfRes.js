@@ -12,7 +12,7 @@ class SummaryOfRes extends Component {
       <div>
         <div>
           <div
-            className="boarding-pass"
+            className="boarding-passnew"
             style={{ display: "flex", flexDirection: "column" }}
           >
             <div style={{ float: "left", marginTop: "10%", marginLeft: "10%" }}>

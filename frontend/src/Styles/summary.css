@@ -1,21 +1,11 @@
-.boarding-pass {
+.boarding-passnew {
   width: 256px;
   height: 342px;
-  /*box-shadow: 0px 0px 50px 5px rgba(0, 0, 0, 0.3);*/
+
   background: rgba(129, 136, 233, 0.158);
   float: right;
   margin-right: 3%;
 }
-
-/* .main-route {
-  display: inline-block;
-  width: 100%;
-  margin-top: 50px;
-  font-family: "Montserrat";
-  font-weight: 600;
-  font-size: 16px;
-  color: #e21a1a;
-} */
 
 #container {
   /*box-shadow: 0 15px 30px 1px rgb(231, 227, 227);*/
