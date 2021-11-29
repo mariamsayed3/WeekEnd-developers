@@ -7,24 +7,7 @@ import DepartureCard from "./DepartureCard";
 import ReturnCard from "./ReturnCard";
 import { Slider, InputNumber, Row, Col } from "antd";
 
-function UserFilter({setPrice, setChildren, setAdults, setDuration}) {
-  //const [children, setChildren] = useState(100);
-  //const [adults, setAdults] = useState(1000);
-  //const [duration, setDuration] = useState(24);
-  const [arrivalTerminal, setArrivalTerminal] = useState("");
-  const [departureTerminal, setDepartureTerminal] = useState("");
-  const [departureTime, setDepartureTime] = useState({
-    midnight: false,
-    morning: false,
-    noon: true,
-    night: false,
-  });
-  const [cabinClass, setCabinClass] = useState({
-    first: false,
-    business: false,
-    economy: true,
-  });
-//,{setChildren},{setAdults},{setDuration},{setArrivalTerminal},{setDepartureTerminal},{departureTime},{setDepartureTime},{cabinClass},{setCabinClass}
+function UserFilter({setPrice, setDuration, setDepartureTerminal, setArrivalTerminal, setChildren, setAdults, departureTime, setDepartureTime, cabinClass, setCabinClass}) {
   return (
     <>
       <div className="filter-container">
