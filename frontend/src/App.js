@@ -9,7 +9,6 @@ import "./Styles/generics.scss";
 import UpdateFlight from "./Components/Admin/UpdateFlight";
 import CreateFlight from "./Components/Admin/CreateFlight";
 import AdminEdits from "./Components/Admin/AdminEdits";
-import CancelReservation from "./Components/User/CancelReservation";
 import ViewDetails from "./Components/Admin/ViewDetails";
 import Login from "./Components/General/Login";
 import Register from "./Components/General/Register";
@@ -31,6 +30,7 @@ import AvailableFlights from "./Components/User/AvailableFlights";
 import EditUser from "./Components/User/EditUser";
 import View from "./Components/User/ViewFlightDetails/View";
 import SmallCard from './Components/User/ResSummary/SmallCard'
+import Summaries from "./Components/User/Summaries";
 dotenv.config();
 const { Header, Content, Footer } = Layout;
 
@@ -81,6 +81,11 @@ function App() {
               path="/my_reservations"
               exact
               component={BoardingPass}
+            />
+             <PrivateRouteUser
+              path="/my_summaries"
+              exact
+              component={Summaries}
             />
             <PrivateRouteUser
               path="/reserve_departure/:flight_id"

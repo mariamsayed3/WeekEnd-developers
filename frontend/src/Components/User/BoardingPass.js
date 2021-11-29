@@ -8,6 +8,7 @@ import { Popconfirm, Button, Result } from "antd";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../Context";
 import Loader from '../General/Loader'
+import EmptyList from './EmptyList'
 
 function BoardingPass() {
   const { Token, FirstName, LastName, Email } = useContext(UserContext);
@@ -77,6 +78,9 @@ function BoardingPass() {
   if(loading){
       return <Loader />
   }
+  if(Reservation.length==0){
+    return <EmptyList msg={`You do not have any current reservations with Jet Away . Would you like to reserve a flight?`} buttonText={`Yes!`} path={'/available_flights'} />
+   }
 
   return Reservation ? (
     <div style={{display:'flex', alignItems:'center', justifyContent:'center', marginTop:'5%'}}>

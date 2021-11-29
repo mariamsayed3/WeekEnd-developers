@@ -19,7 +19,7 @@ router.post('/reserve/:flightID',verifyToken, controllers.reserveFlight)
 
 router.get('/available_flights/:Token',verifyToken, controllers.AvailableFlights)
 
-router.get('/summaries',verifyToken, controllers.getSummaries)
+router.get('/summaries/:Token',verifyToken, controllers.getSummaries)
 
 router.post('/summaries',verifyToken, controllers.createSummaries)
 

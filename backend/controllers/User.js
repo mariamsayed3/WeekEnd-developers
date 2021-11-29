@@ -155,7 +155,9 @@ exports.AvailableFlights = async(req, res) => {
 
 exports.getSummaries = async (req, res) => {
   const id = req.id
+  console.log(id);
   const summaries = await Summary.find({User: id})
+  console.log(summaries)
   res.send(summaries)
 }
 
