@@ -62,6 +62,8 @@ const ReserveSeats = () => {
                     numberOfSeats={FirstSeats}
                     setNumberOfSeats={setFirstSeats}
                     seats={flight.FirstClassSeats}
+                    FirstBooking={FirstBooking}
+
                       />
 
                     <h5 className='subtitle'>Bussiness Class <b className="b">{flight.BusinessPrice}L.E</b></h5>
@@ -70,7 +72,9 @@ const ReserveSeats = () => {
                     setSelectedSeats={setSelectedSeats}
                     numberOfSeats={BusinessSeats}
                     setNumberOfSeats={setBusinessSeats}
-                    seats={flight.BusinessSeats}/>
+                    seats={flight.BusinessSeats}
+                    FirstBooking={FirstBooking}
+                    />
 
                     <h5 className='subtitle'>Economy Class <b className="b">{flight.EconomyPrice}L.E</b></h5>
                     <Seats
@@ -78,7 +82,9 @@ const ReserveSeats = () => {
                     setSelectedSeats={setSelectedSeats}
                     numberOfSeats={EconomySeats}
                     setNumberOfSeats={setEconomySeats} 
-                    seats={flight.EconomySeats}/>
+                    seats={flight.EconomySeats}
+                    FirstBooking={FirstBooking}
+                    />
                 </div>
                 <div class="exit exit--front fuselage"></div>
             </div>
