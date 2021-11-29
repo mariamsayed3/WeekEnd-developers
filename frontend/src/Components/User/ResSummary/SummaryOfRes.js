@@ -64,6 +64,7 @@ class SummaryOfRes extends Component {
               </b>
             </div>
             <div>
+              {this.props.book &&
               <Button
                 onClick={this.props.book}
                 type="primary"
@@ -74,6 +75,7 @@ class SummaryOfRes extends Component {
               >
                 Book
               </Button>
+              }
             </div>
           </div>
         </div>
