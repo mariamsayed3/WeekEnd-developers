@@ -2,6 +2,8 @@ import "../../Styles/AvailableFlights.scss";
 import { useState } from "react";
 import { GiAirplaneDeparture } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import downArrow from '../../Assets/down-arrow.svg';
+import upArrow from '../../Assets/up-arrow.svg';
 
 const ReturnCard = (props) => {
   const {FirstBooking} = props
@@ -177,6 +179,7 @@ const ReturnCard = (props) => {
             </div>
           </div>
         </div>
+        <img alt='down arrow' src={!overlay? downArrow: upArrow} className='arrow' />
       </button>
       <svg
         xmlns="http://www.w3.org/2000/svg"

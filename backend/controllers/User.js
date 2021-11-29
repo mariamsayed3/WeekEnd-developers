@@ -172,3 +172,21 @@ exports.AvailableFlights = async(req, res) => {
   const flights = await Flight.find({_id: {$nin: userFlights}})
   res.send(flights)
 }
+
+exports.ReturnFlights = async(req, res) => {
+  const id = req.id
+  const {Departure, Arrival, DepartureDate} = req.body
+  const userBookings = await Booking.find({User: id})
+  const userFlights = []
+  for(let booking of userBookings){
+    userFlights.push(booking.Flight)
+  }
+  const flights = await Flight.find({_id: {$nin: userFlights}, DepartureAirport: Departure, ArrivalAirport: Arrival, DepartureDate: {$gt: DepartureDate}})
+  res.send(flights)
+}
+
+exports.getAllFlights = async (req, res) => {
+  const Date = new Date(Date.now())
+  const allFlights = await Flight.find({DepartureDate: {$gt: Date}});
+  res.send(allFlights);
+};

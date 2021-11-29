@@ -15,6 +15,7 @@
   margin: 25px auto;
   min-height: 94px;
   border-radius: 10px;
+  position: relative;
 }
 /* flight plan */
 .tpd-body .flight-plain {
@@ -220,7 +221,7 @@
 
 .tp-flight-plan .it-1 .top-label {
   color: #47cf73;
-  font-size: 11px;
+  font-size: 14px;
 }
 
 .tp-flight-plan .it-1 .df-text {
@@ -605,15 +606,22 @@ label.logo {
 }
 .book {
   position: absolute;
-  top: 377px;
-  right: 25px;
+  top: 375px;
+  right: 27px;
   a {
+    font-size: 19px;
     text-decoration: none;
     color: inherit;
-    color: rgb(4, 38, 53);
+    color: rgb(12, 218, 12);
   }
   a:hover {
-    color: #1d479f;
+    color: green;
+    text-decoration: underline;
   }
+}
+.arrow{
+  width: 10px;
+  position: absolute;
+  bottom: 0;
 }
 

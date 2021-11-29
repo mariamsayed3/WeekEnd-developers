@@ -2,6 +2,9 @@ import "../../Styles/AvailableFlights.scss";
 import { useState } from "react";
 import { GiAirplaneDeparture } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import downArrow from '../../Assets/down-arrow.svg';
+import upArrow from '../../Assets/up-arrow.svg';
+
 
 const DepartureCard = (props) => {
   const [overlay, setOverlay] = useState(false);
@@ -174,6 +177,7 @@ const DepartureCard = (props) => {
             </div>
           </div>
         </div>
+        <img alt='down arrow' src={!overlay? downArrow: upArrow} className='arrow' />
       </button>
       <svg
         xmlns="http://www.w3.org/2000/svg"

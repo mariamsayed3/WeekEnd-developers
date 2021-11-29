@@ -7,11 +7,10 @@ import DepartureCard from "./DepartureCard";
 import ReturnCard from "./ReturnCard";
 import { Slider, InputNumber, Row, Col } from "antd";
 
-function UserFilter(props) {
-  const [price, setPrice] = useState(1);
-  const [children, setChildren] = useState(100);
-  const [adults, setAdults] = useState(1000);
-  const [duration, setDuration] = useState(24);
+function UserFilter({setPrice, setChildren, setAdults, setDuration}) {
+  //const [children, setChildren] = useState(100);
+  //const [adults, setAdults] = useState(1000);
+  //const [duration, setDuration] = useState(24);
   const [arrivalTerminal, setArrivalTerminal] = useState("");
   const [departureTerminal, setDepartureTerminal] = useState("");
   const [departureTime, setDepartureTime] = useState({
@@ -25,7 +24,7 @@ function UserFilter(props) {
     business: false,
     economy: true,
   });
-
+//,{setChildren},{setAdults},{setDuration},{setArrivalTerminal},{setDepartureTerminal},{departureTime},{setDepartureTime},{cabinClass},{setCabinClass}
   return (
     <>
       <div className="filter-container">
@@ -34,9 +33,9 @@ function UserFilter(props) {
           <h2>Price Range</h2>
           <Slider
             range
-            defaultValue={[1000, 20000]}
-            min={1000}
-            step={1000}
+            defaultValue={[0, 20000]}
+            min={0}
+            step={100}
             max={20000}
             onChange={(val) => setPrice(val)}
           />
@@ -123,7 +122,7 @@ function UserFilter(props) {
         <div>
           <h2>Max Trip Duration</h2>
           <Slider
-            defaultValue={duration}
+            defaultValue={24}
             min={0}
             max={24}
             onChange={(val) => setDuration(val)}
@@ -149,7 +148,7 @@ function UserFilter(props) {
         <div>
           <h2>Max number of Children On Board</h2>
           <Slider
-            defaultValue={children}
+            defaultValue={100}
             min={0}
             max={100}
             onChange={(val) => setChildren(val)}
@@ -158,7 +157,7 @@ function UserFilter(props) {
         <div>
           <h2>Max Number of Adults On Board</h2>
           <Slider
-            defaultValue={adults}
+            defaultValue={1000}
             min={0}
             max={1000}
             onChange={(val) => setAdults(val)}
