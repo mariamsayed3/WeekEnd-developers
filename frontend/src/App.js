@@ -1,5 +1,10 @@
 import { Layout } from "antd";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import "./Styles/generics.scss";
 import UpdateFlight from "./Components/Admin/UpdateFlight";
 import CreateFlight from "./Components/Admin/CreateFlight";
@@ -22,34 +27,31 @@ import UserNavbar from "./Components/User/UserNavbar";
 import NotFound from "./Components/General/NotFound";
 import DepartureCard from "./Components/User/DepartureCard";
 import ReturnCard from "./Components/User/ReturnCard";
-import SummaryOfRes from "./Components/User/ResSummary/SummaryOfRes";
-import FlightSummary from "./Components/User/ResSummary/FlightSummary";
-import TheOriginalCard from "./Components/User/ResSummary/TheOriginalCard";
-import View from "./Components/User/ViewFlightDetails/View";
-import SmallCard from "./Components/User/ResSummary/SmallCard";
-import PlaneMotion from "./Components/User/ViewFlightDetails/PlaneMotion";
+import AvailableFlights from "./Components/User/AvailableFlights";
+import EditUser from "./Components/User/EditUser";
 dotenv.config();
 const { Header, Content, Footer } = Layout;
 
 function App() {
   const { Email, Admin } = useContext(UserContext);
+  const path = window.location.pathname;
+
+  const home = path === "/" || path === "/login";
+
   return (
     <Layout style={{ backgroundColor: "rgba(1,1,1,0)" }}>
       <Router>
-        <Header style={{ backgroundColor: "rgba(1,1,1,0)", padding: 0 }}>
-          {Email ? Admin === true ? <AdminNavbar /> : <UserNavbar /> : null}
-        </Header>
+        {!home && (
+          <Header style={{ backgroundColor: "rgba(1,1,1,0)", padding: 0 }}>
+            {Email ? Admin === true ? <AdminNavbar /> : <UserNavbar /> : null}
+          </Header>
+        )}
         <Content>
           <Switch>
-            {Email ? (
-              <Route path="/" exact component={Home} />
-            ) : (
-              <Route path="/" exact component={Login} />
-            )}
+            <Route path="/" exact component={Home} />
             <Route path="/login" exact component={Login} />
             <Route path="/unauthorized" exact component={Unauthorized} />
             <Route path="/register" exact component={Register} />
-            <Route path="/summary" exact component={View} />
 
             <PrivateRouteAdmin
               path="/admin/create_flight"
@@ -88,7 +90,12 @@ function App() {
               component={ReserveSeats}
               returnFlight={true}
             />
-
+            <PrivateRouteUser
+              path="/available_flights"
+              exact
+              component={AvailableFlights}
+            />
+            <PrivateRouteUser path="/edit_info" exact component={EditUser} />
             <Route component={NotFound} />
           </Switch>
         </Content>

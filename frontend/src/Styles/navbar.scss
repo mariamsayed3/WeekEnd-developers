@@ -35,7 +35,11 @@
 nav {
   font-family: "Montserrat", sans-serif;
   //background: linear-gradient(93deg, rgb(6, 54, 75) 16%, rgb(31, 75, 170) 55%);
-  background: linear-gradient(93deg, rgb(4, 38, 53) 16%, rgb(31, 75, 170) 55%);
+  background: linear-gradient(
+    to left,
+    rgb(129, 122, 237) 65%,
+    rgb(217, 222, 226)
+  );
   height: 60px;
   width: 100%;
   margin: 0px 0px 0px 0px;
@@ -57,6 +61,11 @@ label.logo {
   float: left;
   margin-left: 40px;
   margin-top: 15px;
+}
+.profile{
+  color: cornsilk;
+  margin-bottom: -4px;
+  margin-right: 5px;
 }
 
 nav ul {
