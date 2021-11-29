@@ -31,7 +31,7 @@ Boarding Pass
 .boarding-pass {
   @include center;
   width: 350px;
-  height: 450px;
+  height: 500px;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 5px 30px rgba(0, 0, 0, .2);
@@ -112,7 +112,7 @@ Boarding Pass
 
       strong {
         font-size: 40px;
-        font-weight: 300;
+        font-weight: 400;
         line-height: 1;
         color: rgb(209, 187, 60);
       }
@@ -165,6 +165,15 @@ Boarding Pass
         content: '';
         display: table;
         clear: both;
+      }
+    }
+    .places{
+      .box{
+        height: 90px;
+        .seats{
+          // width: 50px;
+          text-indent: 5%;
+        }
       }
     }
     

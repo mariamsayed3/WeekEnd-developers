@@ -1,7 +1,7 @@
 import react, { useEffect, useState } from 'react'
 import RowOfSeats from './RowOfSeats'
 
-const Seats = ({seats, setNumberOfSeats, numberOfSeats, setSelectedSeats, selectedSeats}) => {
+const Seats = ({seats, setNumberOfSeats, numberOfSeats, setSelectedSeats, selectedSeats, FirstBooking}) => {
 
     const [rows, setRows] = useState([])
     useEffect(() => {
@@ -12,7 +12,7 @@ const Seats = ({seats, setNumberOfSeats, numberOfSeats, setSelectedSeats, select
         setRows(tmp)
     },[])
     return(
-        rows ? rows.map((row) => <RowOfSeats selectedSeats={selectedSeats} setSelectedSeats={setSelectedSeats} numberOfSeats={numberOfSeats} setNumberOfSeats={setNumberOfSeats}  seats={row}/>) : null
+        rows ? rows.map((row) => <RowOfSeats FirstBooking={FirstBooking} selectedSeats={selectedSeats} setSelectedSeats={setSelectedSeats} numberOfSeats={numberOfSeats} setNumberOfSeats={setNumberOfSeats}  seats={row}/>) : null
     )
 }
 

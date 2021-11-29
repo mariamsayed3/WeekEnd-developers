@@ -3,7 +3,7 @@ import axios from 'axios';
 import 'antd/dist/antd.css';
 import { Modal, Tag } from 'antd';
 import { DingtalkOutlined } from '@ant-design/icons';
-import Boardingstyle from '../../Styles/Boardingstyle.scss'
+import '../../Styles/Boardingstyle.scss';
 import {Popconfirm, Button} from 'antd';
 import {UserContext} from '../../Context'
 
@@ -72,6 +72,7 @@ function BoardingPass() {
         return `${x[0]}:${x[1]}`;
     }
 
+
     return (
         Reservation?
         <>
@@ -118,8 +119,8 @@ function BoardingPass() {
                             </div>
                             <div className="box">
                                 <small>Seat/s</small>
-                                <strong>{Booking.Seats.map((item, index) => {
-                                    return <label key={index}>{item} </label>
+                                <strong className="seats">{Booking.Seats.map((item, index) => {
+                                    return <>{item} </>
                                 })}</strong>
                             </div>
                         </div>

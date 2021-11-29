@@ -1,5 +1,5 @@
 import { Layout } from "antd";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import "./Styles/generics.scss";
 import UpdateFlight from "./Components/Admin/UpdateFlight";
 import CreateFlight from "./Components/Admin/CreateFlight";
@@ -23,14 +23,16 @@ import NotFound from "./Components/General/NotFound";
 import DepartureCard from "./Components/User/DepartureCard";
 import ReturnCard from "./Components/User/ReturnCard";
 import AvailableFlights from "./Components/User/AvailableFlights";
+import EditUser from "./Components/User/EditUser";
 dotenv.config();
 const { Header, Content, Footer } = Layout;
 
 function App() {
   const {Email, Admin} = useContext(UserContext);
   const path = window.location.pathname;
-  console.log(path)
+  
   const home =( path === '/' )|| (path === '/login')
+
   return (
     <Layout style={{ backgroundColor: "rgba(1,1,1,0)" }}>
       <Router>
@@ -40,7 +42,7 @@ function App() {
           }
         <Content>
           <Switch>
-            {Email ? <Route path="/" exact component={Home} /> : <Route path="/" exact component={Login} />}
+            <Route path="/" exact component={Home} />
             <Route path="/login" exact component={Login}  />
             <Route path="/unauthorized" exact component={Unauthorized} />
             <Route path="/register" exact component={Register} />
@@ -87,6 +89,11 @@ function App() {
               exact
               component={AvailableFlights}
             />
+            <PrivateRouteUser 
+            path="/edit_info" 
+            exact 
+            component={EditUser}
+            /> 
             <Route component={NotFound} />
           </Switch>
         </Content>

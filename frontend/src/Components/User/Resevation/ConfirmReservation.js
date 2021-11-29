@@ -1,16 +1,23 @@
-import React, { useState, useContext } from 'react';
-import { Modal, Button, Radio, InputNumber } from 'antd';
+import React, { useState, useContext, useEffect } from 'react';
+import { Modal, Button, Radio, InputNumber, message } from 'antd';
 import { CheckOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { UserContext } from '../../../Context';
+import { useHistory } from 'react-router';
 
 const ConfirmReservation = ({totalSeats, DepartureFlight, price, selectedSeats, FirstBooking}) => {
   const {Token} = useContext(UserContext)
+  let history = useHistory()
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [value, setValue] = useState(2);
   const [Children, setChildren] = useState(0);
+  const [remaining, setRemaining] = useState(FirstBooking.Seats.length)
   const FirstRequest = {FlightNumber: FirstBooking.flight.FlightNumber, Token, TotalPrice: FirstBooking.Price, Seats: FirstBooking.Seats, Children}
   const SecondRequest = {FlightNumber: DepartureFlight.FlightNumber, Token, TotalPrice: price, Seats: selectedSeats, Children}
+
+  useEffect(()=> {
+    setRemaining(FirstBooking.Seats.length - totalSeats)
+  },[totalSeats])
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -20,7 +27,15 @@ const ConfirmReservation = ({totalSeats, DepartureFlight, price, selectedSeats, 
     setIsModalVisible(false);
     await axios.post(`/user/reserve/${FirstBooking.flight._id}`, FirstRequest)
     await axios.post(`/user/reserve/${DepartureFlight._id}`, SecondRequest)
-
+    message.loading('Action in progress..', 2.5)
+            .then(() => {
+              message.success('Flight reserved successfully! You will be redirected to the summary page.', 5)
+              setTimeout(()=> {
+                history.push(`/summary`)
+              }, 5000)
+              
+    });
+    
   };
 
   const handleCancel = () => {
@@ -37,10 +52,18 @@ const ConfirmReservation = ({totalSeats, DepartureFlight, price, selectedSeats, 
     setChildren(e)
   }
   return (
+
     <>
-      <Button disabled={totalSeats === 0} style={{marginTop: '15px'}} type="primary" shape="round" icon={<CheckOutlined />} size="middle" type="primary" onClick={showModal}>
-        Confirm Reservation
-      </Button>
+      <div style={{display: 'flex', flexDirection:'column', }}>
+            <Button  disabled={remaining} style={{marginTop: '15px'}} type="primary" shape="round" icon={<CheckOutlined />} size="middle" type="primary" onClick={showModal}>
+              Confirm Reservation
+            </Button>
+                <div >
+                    <span style={{color: 'red', fontSize:'15px', margin: '10px'}}>
+                    {remaining ?`Please reserve ${remaining} more seat(s)`: null}
+                    </span>
+                </div>
+        </div>
       <Modal okText="Reserve" title="Confirm Your Reservation" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <div style={{display: 'flex', flexDirection: 'row', marginBottom: '20px', alignItems:"center"}}>
         <span style={{marginRight: '10px'}}>Are there children in your reservation ?</span> 
@@ -54,6 +77,7 @@ const ConfirmReservation = ({totalSeats, DepartureFlight, price, selectedSeats, 
             <InputNumber max={totalSeats} min={1} onChange={inputChange}/>
         </div> : null}
       </Modal>
+
     </>
   );
 };

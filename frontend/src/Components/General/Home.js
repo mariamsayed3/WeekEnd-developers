@@ -1,27 +1,29 @@
-import  { useState , useContext} from 'react'
+import  { useContext, useState } from 'react'
 import  { UserContext } from '../../Context';
-import Clouds from '../General/Clouds'
-import '../../Styles/Test.scss'
+import '../../Styles/Home.scss'
 import HomeSearch from './HomeSearch'
 import logo from '../../Assets/logo.png'
 import { useHistory } from 'react-router';
-// import '../../Styles/Clouds.css'
+import cloud from '../../Assets/cloud.png'
+import Profile from '../User/Profile';
 
  const Home = () => {
    let history = useHistory()
+   const [modalOpen,setModalOpen] = useState(false);
    const {setEmail} = useContext(UserContext) 
-    const {Admin} = useContext(UserContext);
+    const {Admin, Email} = useContext(UserContext);
     const logout = () => {
       setEmail(null)
       sessionStorage.removeItem('user')
       history.push('/login')
      }
+     const handleModalOpen = () => {
+      setModalOpen(true);
+   };
 
     return (
        <div>
-      {/* <div class="plane"><img src='https://pics.clipartpng.com/midle/Airplane_PNG_Clipart-421.png'/></div>  */}
-      
-      <div class="container">
+      <div class="home-container1">
             
             <div class="box1">
 
@@ -39,7 +41,12 @@ import { useHistory } from 'react-router';
                  <a href= '/available_flights'> Flights</a>
                  <a href='my_reservations'> My Reservations</a>
                  <a> Contact Us</a>
-                 <a onClick={logout}> Logout</a>
+                 {Email ? <a onClick={handleModalOpen}>Profile</a> : null}
+                 <Profile
+                  modalOpen={modalOpen}
+                  handleModalOpen={setModalOpen}
+                  />
+                 {Email ? <a onClick={logout}> Logout</a> : <a href="/login"> Login</a>}
                </div>}
                 </div>
                <div style={{display: 'flex', flexDirection: 'row'}}>
@@ -53,16 +60,16 @@ import { useHistory } from 'react-router';
             
             <div class="box2">
                   <div class="cloud1">
-                  <img src = 'https://assets.stickpng.com/images/580b585b2edbce24c47b263e.png' />
+                  <img src = {cloud} />
                         </div>
                   <div class="cloud2">
-                  <img src = 'https://assets.stickpng.com/images/580b585b2edbce24c47b263e.png' />
+                  <img src = {cloud} />
                   </div>
                   <div class="cloud3">
-                  <img src = 'https://assets.stickpng.com/images/580b585b2edbce24c47b263e.png' />
+                  <img src = {cloud} />
                   </div>
                   <div class="cloud4">
-                     <img src = 'https://assets.stickpng.com/images/580b585b2edbce24c47b263e.png' />
+                     <img src = {cloud} />
                   </div>
 
             </div> 

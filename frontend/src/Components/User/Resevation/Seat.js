@@ -1,6 +1,11 @@
 
-const Seat = ({seat, setNumberOfSeats, numberOfSeats, setSelectedSeats, selectedSeats}) => {
+const Seat = ({seat, setNumberOfSeats, numberOfSeats, setSelectedSeats, selectedSeats, FirstBooking}) => {
     const markAsChosen = (e) =>{
+        if(FirstBooking){
+            if(FirstBooking.Seats.length == selectedSeats.length && e.target.classList.length === 1){
+                return
+            }
+        }
         if(e.target.classList.length === 1){
             let chosenSeats = selectedSeats
             chosenSeats.push(seat)
