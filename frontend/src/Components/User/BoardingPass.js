@@ -79,7 +79,7 @@ function BoardingPass() {
   }
 
   return Reservation ? (
-    <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
+    <div style={{display:'flex', alignItems:'center', justifyContent:'center', marginTop:'5%'}}>
     <>
       {Reservation.map(({ Booking, Flight }) => {
         return (
