@@ -6,15 +6,11 @@ const { sendEmail } = require('../utils/email');
 const jwt = require('jsonwebtoken')
 
 exports.cancelReservation = async (req, res) => {
-  const reservation_number =  req.params.reservation_number;
-  
-  //Find Booking
-  const booking = await Booking.find({ReservationNumber:reservation_number});
-
-  //Find flight & Update Seats
-
-  const flight = await Flight.findById(booking[0].Flight);
-
+const reservation_number =  req.params.reservation_number;
+//Find Booking
+const booking = await Booking.find({ReservationNumber:reservation_number});
+//Find flight & Update Seats
+const flight = await Flight.findById(booking[0].Flight);
 const seats = booking[0].Seats
 let first_seats=0;
 let economy_seats=0;
@@ -36,8 +32,8 @@ for (let seat of seats)
     economy_seats++;
   }
 
-
-  let update = {$inc : {'EconomyAvailableSeats' : economy_seats, 'BusinessAvailableSeats': business_seats , 'FirstClassAvailableSeats': first_seats}, FirstClassSeats: flight.FirstClassSeats, EconomySeats :flight.EconomySeats, BusinessSeats:flight.BusinessSeats };
+  let adults = booking[0].Seats - booking[0].Children
+  let update = {$inc : {'EconomyAvailableSeats' : economy_seats, 'BusinessAvailableSeats': business_seats , 'FirstClassAvailableSeats': first_seats, 'NumberOfPassengers.Children': -booking[0].Children, 'NumberOfPassengers.Adults': -adults }, FirstClassSeats: flight.FirstClassSeats, EconomySeats :flight.EconomySeats, BusinessSeats:flight.BusinessSeats };
   await Flight.findByIdAndUpdate( flight.id, update);
 
     // Delete Booking
@@ -80,11 +76,10 @@ exports.ViewCurrentFlights = async (req, res) => {
   const output = [];
   const bookings = await Booking.find(condition);
   console.log("bookings before=",bookings)
-  const user = await User.findById(id);
   for(let i=0;i<bookings.length;i++){
     const flight = await Flight.findById(bookings[i].Flight);
     if(flight.DepartureDate>today){
-      output.push({Booking: bookings[i],Flight: flight,User: user});
+      output.push({Booking: bookings[i],Flight: flight});
     }
   }
   console.log("output=",output)
@@ -93,10 +88,8 @@ exports.ViewCurrentFlights = async (req, res) => {
 
 exports.getUser = async (req, res) => {
   const {id} = req
-  console.log("id=",id)
   const info = await User.findById(id);
   res.send(info);
-  console.log(info);
 }
 
 exports.reserveFlight = async(req, res) => {
@@ -104,7 +97,6 @@ exports.reserveFlight = async(req, res) => {
   const {id, Admin} = req
   const{FlightNumber, TotalPrice, Seats, Children} = req.body
   if(Admin) return res.status(403).json('Unauthorized')
-  console.log(flightID, TotalPrice, Seats, Children)
   let ReservationNumber
   while(true){
     ReservationNumber = Math.floor(10000000 + Math.random() * 90000000) + '' // Random number of length 8
@@ -155,7 +147,6 @@ exports.reserveFlight = async(req, res) => {
     res.status(400).json({message: "Error"})
   }
 }
-
 
 exports.AvailableFlights = async(req, res) => {
   const id = req.id
