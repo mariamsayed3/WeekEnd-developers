@@ -158,3 +158,14 @@ exports.getSummaries = async (req, res) => {
   const summaries = await Summary.find({User: id})
   res.send(summaries)
 }
+
+exports.createSummaries = async (req, res) => {
+  const id = req.id
+  const {DepartureFlight, ReturnFlight, DepartureBooking, ReturnBooking} = req.body
+  try{
+    await Summary.create({DepartureFlight, ReturnFlight, DepartureBooking, ReturnBooking})
+    res.send({message: 'Summary added successfully!'})
+  }catch{
+    res.status(400).send('error')
+  }
+}

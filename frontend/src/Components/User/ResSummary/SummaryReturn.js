@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import "../../../Styles/summary.css";
+import "../../../Styles/summary.scss";
 
 class SummaryReturn extends Component {
   render() {
     return (
-      <div>
+      <div className="small-card">
         <div
           className="section"
           style={{
@@ -23,7 +23,7 @@ class SummaryReturn extends Component {
                 >
                   <div className="item it-1">
                     <div className="airline-image">
-                      <div className="df-text">8 Hours</div>
+                      <div className="df-text">{this.props.ReturnFlight.TripDuration}</div>
                       <span className="img-wrapper">
                         <svg class="anime-airplane">
                           <svg
@@ -38,14 +38,14 @@ class SummaryReturn extends Component {
 
                     <div className="port-seg">
                       <div className="flight-seg origin">
-                        <div className="time">02:00</div>
-                        <div className="port">IST</div>
-                        <div className="name">istan</div>
+                        <div className="time">{this.props.ReturnFlight.DepartureTime}</div>
+                        <div className="port">{this.props.ReturnFlight.DepartureAirport}</div>
+                        <div className="name">{this.props.ReturnFlight.DepartureCountry}</div>
                       </div>
                       <div className="flight-seg destination">
-                        <div className="time">10:20</div>
-                        <div className="port">ESB</div>
-                        <div className="name">Ankara</div>
+                        <div className="time">{this.props.ReturnFlight.ArrivalTime}</div>
+                        <div className="port">{this.props.ReturnFlight.ArrivalAirport}</div>
+                        <div className="name">{this.props.ReturnFlight.ArrivalCountry}</div>
                       </div>
                     </div>
                   </div>

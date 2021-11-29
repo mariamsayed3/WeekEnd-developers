@@ -108,7 +108,7 @@ const ReserveSeats = () => {
           <div class="exit exit--front fuselage"></div>
         </div>
         <div className="plane-card">
-          <View />
+          <View flight={flight}/>
         </div>
       </div>
     </>

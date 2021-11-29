@@ -2,16 +2,19 @@ import { Row } from "antd";
 import "../../../Styles/view.scss";
 import PlaneMotion from "./PlaneMotion";
 
-export default function View() {
+export default function View({flight}) {
   return (
     <div className="viewdetailscontainer">
       <div class="c-modal">
         <div id="left-popup" class="c-modal__content">
           <div id="hero-city" class="c-modal__hero">
             <PlaneMotion />
-            <h1>LH 680</h1>
-            <h2 style={{ right: "30%", bottom: "100%" }}>California, USA</h2>
-            <h2 style={{ left: "30%", bottom: "100%" }}>Oslo, Norway</h2>
+            <h1 style={{fontSize: '20px'}}>{`Flight: ${flight.FlightNumber}`}</h1>
+            
+           
+            
+            <h2 style={{ right: "30%", bottom: "100%" }}>{`${flight.DepartureAirport}, ${flight.DepartureCountry}`}</h2>
+            <h2 style={{ left: "30%", bottom: "100%" }}>{`${flight.ArrivalAirport}, ${flight.ArrivalCountry}`}</h2>
           </div>
           <div id="flight-details" class="c-flight-details">
             <div
@@ -20,28 +23,29 @@ export default function View() {
             >
               <div style={{ display: "flex", flexDirection: "row" }}>
                 <div id="departure-time">
-                  <label style={{ left: "-20%" }}>Departure Airport</label>
-                  <p>08:30 AM</p>
+                  <label style={{ left: "-20%" }}>Departure Time</label>
+                  <p>{`${flight.DepartureTime}`}</p>
                 </div>
                 <div id="arrival-time">
-                  <label>Arrival Airport</label>
-                  <p>08:30 AM</p>
+                  <label>Arrival Time</label>
+                  <p>{`${flight.ArrivalTime}`}</p>
                 </div>
               </div>
               <br />
               <div style={{ display: "flex", flexDirection: "row" }}>
                 <div id="departure-time">
-                  <label>Departure</label>
-                  <p>08:30 AM</p>
+                  <label>Trip Duration</label>
+                  <p>{`${flight.TripDuration}`}</p>
                 </div>
-
+                
                 <div id="arrival-time">
-                  <label>Arrival</label>
-                  <p>04:45 PM</p>
+                  <label>Allowed Baggages</label>
+                  <p>{flight.AllowedBaggage}</p>
                 </div>
               </div>
             </div>
-            <p>Flight time: 8h. 15min</p>
+            <p>Departure Airport: {flight.Departure}</p>
+            <p>Arrival Airport: {flight.Arrival}</p>
           </div>
         </div>
       </div>

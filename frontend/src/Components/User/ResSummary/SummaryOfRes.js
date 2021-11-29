@@ -1,6 +1,6 @@
 import { Divider } from "antd";
 import React, { Component } from "react";
-import "../../../Styles/summary.css";
+import "../../../Styles/summary.scss";
 import { MdChildCare } from "react-icons/md";
 import { FiUsers } from "react-icons/fi";
 import { BsCurrencyDollar } from "react-icons/bs";
@@ -8,12 +8,15 @@ import { Button } from "antd";
 import { FaRegBell } from "react-icons/fa";
 class SummaryOfRes extends Component {
   render() {
+   const TicketPrice =  (this.props.FirstBooking.TotalPrice / this.props.FirstBooking.Seats.length) + (this.props.SecondBooking.TotalPrice / this.props.SecondBooking.Seats.length)
+   const TotalPriceAdults = TicketPrice * (this.props.FirstBooking.Seats.length - this.props.FirstBooking.Children)
+   const TotalPriceChildren = TicketPrice * this.props.FirstBooking.Children
     return (
-      <div>
+      <div className="small-card">
         <div>
           <div
             className="boarding-passnew"
-            style={{ display: "flex", flexDirection: "column" }}
+            style={{ display: "flex", flexDirection: "column", justifyContent: 'space-around' }}
           >
             <div style={{ float: "left", marginTop: "10%", marginLeft: "10%" }}>
               <b>Fare Summary</b>:
@@ -41,27 +44,28 @@ class SummaryOfRes extends Component {
             </div>
             <div style={{ display: "flex", flexDirection: "row" }}>
               <MdChildCare style={{ marginLeft: "5%" }} />
-              <b style={{ float: "left", marginLeft: "5%" }}>Child X 1</b>
+              <b style={{ float: "left", marginLeft: "5%" }}>{`Child X ${this.props.FirstBooking.Children}`}</b>
               <BsCurrencyDollar style={{ marginLeft: "25%" }} />
-              <b>10000</b>
+              <b>{TotalPriceChildren}</b>
             </div>
             <div style={{ display: "flex", flexDirection: "row" }}>
               <FiUsers style={{ marginLeft: "5%" }} />
-              <b style={{ float: "left", marginLeft: "5%" }}>Adult X 1</b>
+              <b style={{ float: "left", marginLeft: "5%" }}>{`Adult X ${this.props.FirstBooking.Seats.length - this.props.FirstBooking.Children}`}</b>
               <BsCurrencyDollar style={{ marginLeft: "25%" }} />
-              <b>20000</b>
+              <b>{`${TotalPriceAdults}`}</b>
             </div>
             <Divider />
             <div>
               <p style={{ float: "left", marginLeft: "5%" }}>Total</p>
 
               <b style={{ float: "right", marginRight: "10%" }}>
-                {" "}
-                <BsCurrencyDollar /> 300000
+              <BsCurrencyDollar /> 
+                {TotalPriceAdults + TotalPriceChildren}
               </b>
             </div>
             <div>
               <Button
+                onClick={this.props.book}
                 type="primary"
                 style={{
                   backgroundColor: "rgb(141,200,0)",
