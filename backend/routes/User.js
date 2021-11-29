@@ -34,4 +34,8 @@ router.post("/return_flights", verifyToken, controllers.ReturnFlights);
 
 router.get("/all_flights/", controllers.getAllFlights);
 
+router.get('/summaries',verifyToken, controllers.getSummaries)
+
+router.post('/summaries',verifyToken, controllers.createSummaries)
+
 module.exports = router;

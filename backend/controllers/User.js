@@ -179,3 +179,22 @@ exports.getAllFlights = async (req, res) => {
   const allFlights = await Flight.find({DepartureDate: {$gt: Date}});
   res.send(allFlights);
 };
+exports.getSummaries = async (req, res) => {
+  const id = req.id
+  const summaries = await Summary.find({User: id})
+  res.send(summaries)
+}
+
+exports.createSummaries = async (req, res) => {
+  const id = req.id
+  const {DepartureFlight, ReturnFlight, DepartureBooking, ReturnBooking} = req.body
+  ReturnBooking.Token = undefined
+  DepartureBooking.Token = undefined
+  try{
+    await Summary.create({User: id, DepartureFlight, ReturnFlight, DepartureBooking, ReturnBooking})
+    res.send({message: 'Summary added successfully!'})
+  }catch(e){
+    console.log(e)
+    res.status(400).send('error')
+  }
+}

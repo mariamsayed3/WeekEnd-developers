@@ -5,8 +5,6 @@ import {useParams} from "react-router-dom";
 import {Popconfirm} from 'antd';
 require ('dotenv').config()
 
-
-
 function CancelReservation() {
  
     const email ='allaaamr5876@gmail.com'

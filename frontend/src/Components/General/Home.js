@@ -6,6 +6,7 @@ import logo from '../../Assets/logo.png'
 import { useHistory } from 'react-router';
 import cloud from '../../Assets/cloud.png'
 import Profile from '../User/Profile';
+import {LogoutOutlined} from '@ant-design/icons'
 
  const Home = () => {
    let history = useHistory()
@@ -22,7 +23,7 @@ import Profile from '../User/Profile';
    };
 
     return (
-       <div>
+      <div>
       <div class="home-container1">
             
             <div class="box1">
@@ -33,20 +34,19 @@ import Profile from '../User/Profile';
                  <a > Home</a>
                  <a href='/admin/create_flight'> Create Flight</a>
                  <a href= '/admin/flights'> Available Flights</a>
-                 <a onClick={logout}> Logout</a>
+                 <a onClick={logout}> <LogoutOutlined /> </a>
                </div>}
 
                {!Admin && <div className='tabs'>
                  <a> Home</a>
                  <a href= '/available_flights'> Flights</a>
                  <a href='my_reservations'> My Reservations</a>
-                 <a> Contact Us</a>
                  {Email ? <a onClick={handleModalOpen}>Profile</a> : null}
                  <Profile
                   modalOpen={modalOpen}
                   handleModalOpen={setModalOpen}
                   />
-                 {Email ? <a onClick={logout}> Logout</a> : <a href="/login"> Login</a>}
+                 {Email ? <a onClick={logout}> <LogoutOutlined /> </a> : <a href="/login"> Login</a>}
                </div>}
                 </div>
                <div style={{display: 'flex', flexDirection: 'row'}}>
@@ -71,13 +71,9 @@ import Profile from '../User/Profile';
                   <div class="cloud4">
                      <img src = {cloud} />
                   </div>
-
             </div> 
            </div> 
-        
       </div>
-  
-      
     )
  }
 

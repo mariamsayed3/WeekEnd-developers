@@ -1,8 +1,10 @@
 import '../../Styles/navbar.scss'
 import {GiAirplaneDeparture} from "react-icons/gi";
+import {BiLogOut} from "react-icons/bi";
 import { useContext } from 'react';
 import { UserContext } from '../../Context';
 import { useHistory } from 'react-router';
+
 function AdminNavbar (){
    let history = useHistory()
    const {setEmail} = useContext(UserContext) 
@@ -21,7 +23,7 @@ function AdminNavbar (){
           <li><a href="/admin/flights">Available Flights</a></li>
           <li><a href="/admin/create_flight">Create Flight</a></li>
           <li><a href="#">Contact us</a></li>
-          <li><a onClick={logout} href="">Log out</a></li>
+          <li><a onClick={logout} href=""><BiLogOut /></a></li>
         </ul>
     </nav>
   </>
