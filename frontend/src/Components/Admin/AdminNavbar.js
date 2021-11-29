@@ -11,7 +11,7 @@ function AdminNavbar (){
    const logout = () => {
     setEmail(null)
     sessionStorage.removeItem('user')
-    history.push('/login')
+    history.push('/')
    }
     return (
     <>
