@@ -6,6 +6,7 @@ import logo from '../../Assets/logo.png'
 import { useHistory } from 'react-router';
 import cloud from '../../Assets/cloud.png'
 import Profile from '../User/Profile';
+import {Button, Result} from 'antd'
 
  const Home = () => {
    let history = useHistory()
@@ -22,7 +23,7 @@ import Profile from '../User/Profile';
    };
 
     return (
-       <div>
+      <div>
       <div class="home-container1">
             
             <div class="box1">
@@ -71,13 +72,9 @@ import Profile from '../User/Profile';
                   <div class="cloud4">
                      <img src = {cloud} />
                   </div>
-
             </div> 
            </div> 
-        
       </div>
-  
-      
     )
  }
 
