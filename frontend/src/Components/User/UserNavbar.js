@@ -16,7 +16,7 @@ function UserNavbar (){
    const logout = () => {
     setEmail(null)
     sessionStorage.removeItem('user')
-    history.push('/login')
+    history.push('/')
    }
    const [modalOpen,setModalOpen] = useState(false);
    
