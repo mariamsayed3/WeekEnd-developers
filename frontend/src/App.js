@@ -29,6 +29,7 @@ import DepartureCard from "./Components/User/DepartureCard";
 import ReturnCard from "./Components/User/ReturnCard";
 import AvailableFlights from "./Components/User/AvailableFlights";
 import EditUser from "./Components/User/EditUser";
+import View from "./Components/User/ViewFlightDetails/View";
 dotenv.config();
 const { Header, Content, Footer } = Layout;
 
@@ -52,7 +53,7 @@ function App() {
             <Route path="/login" exact component={Login} />
             <Route path="/unauthorized" exact component={Unauthorized} />
             <Route path="/register" exact component={Register} />
-
+            <Route path="/summary" exact component={View} />
             <PrivateRouteAdmin
               path="/admin/create_flight"
               exact

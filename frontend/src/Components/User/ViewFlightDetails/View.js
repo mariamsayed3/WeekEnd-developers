@@ -5,10 +5,11 @@ import PlaneMotion from "./PlaneMotion";
 export default function View() {
   return (
     <div className="viewdetailscontainer">
-      <div class="c-modal" style={{ left: "50%", top: "20%" }}>
+      <div class="c-modal">
         <div id="left-popup" class="c-modal__content">
           <div id="hero-city" class="c-modal__hero">
             <PlaneMotion />
+            <h1>LH 680</h1>
             <h2 style={{ right: "30%", bottom: "100%" }}>California, USA</h2>
             <h2 style={{ left: "30%", bottom: "100%" }}>Oslo, Norway</h2>
           </div>
@@ -41,19 +42,6 @@ export default function View() {
               </div>
             </div>
             <p>Flight time: 8h. 15min</p>
-          </div>
-          <div id="ticket-details">
-            <div id="ticket-options">
-              <label>Class</label>
-              <label>hiii</label>
-            </div>
-            <div id="ticket-price">
-              <label>Price per person</label>
-              <span id="price">---</span>
-              <label>Total price</label>
-              <span id="total-price">---</span>
-            </div>
-            {/* <button>BOOK THIS FLIGHT</button> */}
           </div>
         </div>
       </div>
