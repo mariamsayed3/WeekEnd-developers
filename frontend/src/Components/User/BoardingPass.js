@@ -4,57 +4,47 @@ import 'antd/dist/antd.css';
 import { Modal, Tag } from 'antd';
 import { DingtalkOutlined } from '@ant-design/icons';
 import '../../Styles/Boardingstyle.scss';
-import {Popconfirm, Button} from 'antd';
+import {Popconfirm, Button, Result} from 'antd';
+import {Link} from 'react-router-dom';
 import {UserContext} from '../../Context'
 
 
 function BoardingPass() {
-    const {Token} = useContext(UserContext)
-    const Name = "Maryam Magdy"
+    const {Token, FirstName, LastName, Email} = useContext(UserContext)
     const [Reservation, setReservation] = useState(false);
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const email ='allaaamr5876@gmail.com'
+    const [visible, setVisible] = useState(false);
+    const [success, setSuccess] = useState(true);
+    const [errorMsg, setErrorMsg] = useState(null);
+    const[loading, setLoading] = useState(true);
 
     useEffect(() => {
         const getFlights = async () => {
             const {data} = await axios.get(`http://localhost:8000/user/get_current_flights/${Token}`);
-            // console.log("data=",data);
             setReservation(data);
+            setLoading(false);
         };
         getFlights();
     }, []);
 
-    // console.log("Reservation=",Reservation)
-
-    const rnumber= 'AA';
-
-    const cancel_reservation = async () =>{
-        console.log("ahlan")
-        const {data} = await axios.patch (`http://localhost:8000/user/cancel_reservation/${rnumber}`);
-        const post = await axios({
-          method: 'post',
-          url: 'http://localhost:8000/user/email_cancellation',
-          data: {
-            email: email,
-            ...data[0]
-          }
-        });
+    const cancel_reservation = async (ReservationNumber) =>{
+        try{
+            const {data} = await axios.patch (`http://localhost:8000/user/cancel_reservation/${ReservationNumber}`);
+            const post = await axios({
+            method: 'post',
+            url: 'http://localhost:8000/user/email_cancellation',
+            data: {
+                email: Email,
+                ...data[0]
+            }
+            });
+            showModal();
+        } catch(error){
+            setSuccess(false);
+            setErrorMsg(null);
+            showModal();
+        }
         }
         
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
-
-    const handleOk = () => {
-        console.log("Hi");
-       
-        setIsModalVisible(false);
-    };
-
-    const handleCancel = () => {
-       
-        setIsModalVisible(false);
-    };
 
     const getBoardingTime = (x) => {
         if(parseInt(x[0]) == 0){
@@ -67,18 +57,25 @@ function BoardingPass() {
         const mins = b % 60;
         x[0] = '0'+hrs;
         x[1] = mins;
-        console.log(hrs);
-        console.log(mins);
         return `${x[0]}:${x[1]}`;
     }
 
-
+    const showModal = () => {
+        setVisible(true);
+      };
+    
+    const handleOk = () => {
+        setVisible(false);
+      };
+    
+// if(loading){
+//     return
+// }
     return (
         Reservation?
         <>
-          {console.log(Reservation)}
-            {Reservation.map(({Booking,Flight,User}) => {
-                return <div className="boarding-pass" onClick={showModal}>
+            {Reservation.map(({Booking,Flight}) => {
+                return <div className="boarding-pass" >
                     <header>
                         { /*<svg class="logo">
                             <use href="#alitalia"></use>
@@ -142,40 +139,75 @@ function BoardingPass() {
                                 <small>Arrival</small>
                                 <strong>{Flight.ArrivalTime}</strong>
                             </div>
+                            <div className="date">
+                                <small>Date</small>
+                                <strong>{Flight.DepartureDate.substring(0,10)}</strong>
+                            
+                            </div>
                         </div>
+                       
                     </section>
                     <section className="strap">
                         <div className="box">
                             <div className="passenger">
                                 <small>passenger</small>
                                 <strong>
-                            <p>{User.FirstName} {User.LastName}</p>
+                            <p>{FirstName} {LastName}</p>
                                </strong>
                             </div>
-                            <div className="date">
-                                <small>Date</small>
-                                <strong>{Flight.DepartureDate.substring(0,10)}</strong>
-                            </div>
+                            <Popconfirm title="Are you sure you want to cancel your reservation？"  
+                                    onConfirm={()=>cancel_reservation(Booking.ReservationNumber)}
+                                    okText="Yes" 
+                                    cancelText="No">
+                            
+                        <Button type='danger'> Cancel Reservation </Button>
+                        </Popconfirm>
                         </div> 
+                       
                         <svg className="qrcode">
                             <use href="#qrcode"></use>
                         </svg>
+                        
                        
                     </section>
                 </div>
             })}
 
-            <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <Popconfirm title="Are you sure you want to cancel your reservation？"  
-                                    onConfirm={cancel_reservation}
-                                    okText="Yes" 
-                                    cancelText="No">
-                            <Button>Cancel Reservation</Button>
-                        </Popconfirm>
-            </Modal>
+        <Modal
+                visible={visible}
+                onOk={handleOk}
+                onCancel={()=>setVisible(false)}
+                footer={[
+                    <Button  onClick={handleOk}>
+                    Ok
+                    </Button>
+                
+                ]}
+                >
+                    {success? 
+                 <Result
+                    status="success"
+                    title="Successfully Cancelled Registeration" 
+                    
+                    subTitle = "Would you like to reserve another flight?"
+                    extra={[
+                        <Link to='/available_flights'>
+                            <Button type="primary" >
+                            Reserve another flight
+                            </Button>
+                        </Link>
+                    ]}
+                />
+                :
+                <Result
+                    status="error"
+                    title="Ooops. We couldn't cancel your reservation"
+                    subTitle = {errorMsg}
+                    
+                />
+                }
+        </Modal>
+      
 
             <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
                 {/* <symbol id="alitalia" viewBox="0 0 80 17">
