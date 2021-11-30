@@ -1,13 +1,23 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:100);
 @import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400);
 
+.available-container {
+  display: grid;
+  grid-template-columns: 25% 75%;
+}
+.mega {
+  padding: 25px;
+}
+.card{
+  width: 100%;
+}
 .section {
   border: none;
-  width: 700px;
-  max-width: 700px;
+  width: 100%;
   margin: 25px auto;
   min-height: 94px;
   border-radius: 10px;
+  position: relative;
 }
 /* flight plan */
 .tpd-body .flight-plain {
@@ -213,7 +223,7 @@
 
 .tp-flight-plan .it-1 .top-label {
   color: #47cf73;
-  font-size: 11px;
+  font-size: 14px;
 }
 
 .tp-flight-plan .it-1 .df-text {
@@ -597,16 +607,93 @@ label.logo {
   top: 150px;
   left: 40%;
 }
-.book{
+.book {
   position: absolute;
-  top: 377px;
-  right: 25px;
+  top: 375px;
+  right: 27px;
+  a {
+    font-size: 19px;
+    text-decoration: none;
+    color: inherit;
+    color: rgb(12, 218, 12);
+  }
+  a:hover {
+    color: green;
+    text-decoration: underline;
+  }
 }
-a{
-  text-decoration: none;
-  color: inherit;
-  color: rgb(4, 38, 53);
+.arrow {
+  width: 10px;
+  position: absolute;
+  bottom: 0;
 }
-a:hover{
-  color: #1d479f;
+.mega-container{
+  padding: 25px;
+}
+.card-mega-container{
+  width: 75%;
+}
+.filter-header-container {
+  height: min-content;
+  margin-bottom: 15px;
+  .filter-header {
+    border-radius: 10px 10px 0 0;
+    background: #4e54c8;
+    background: -webkit-linear-gradient(
+      to right,
+      #8f94fb,
+      #4e54c8
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #7c81dc, #333785);
+    padding: 25px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    section{
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    label {
+      color: white;
+      font-weight: bold;
+    }
+    label:nth-child(1) {
+      font-size: 20px;
+    }
+    button{
+      width: 150px;
+      justify-self: center;
+      align-self: center;
+      background-color: white;
+      height:47.5px;
+      border-radius: 5px;
+      border: none;
+      color: #4e54c8;
+      font-size: 16px;
+    }
+  }
+  .filter-footer {
+    background-color: #f5f5f5;
+    border: 1px solid #d2cfcf;
+    border-radius: 0 0 10px 10px;
+    padding: 25px;
+    section {
+      display: grid;
+      grid-template-columns: repeat(3,1fr) 255px;
+      input {
+        max-width: 250px;
+        padding-left: 10px;
+        border-radius: 5px;
+        border: none;
+      }
+      button {
+        max-width: 150px;
+        background-color: #797fd9;
+        font-size: 16px;
+        color: #fff;
+        border-radius: 5px;
+        border: none;
+        
+      }
+    }
+  }
 }
