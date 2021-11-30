@@ -7,7 +7,7 @@ import  { UserContext } from '../../Context'
 import {GiAirplaneDeparture} from "react-icons/gi";
 import {useHistory} from 'react-router-dom'
 import '../../Styles/login.scss'
-import logo from '../../Assets/logo.png'
+import logo from '../../Assets/logo-blue.png'
 
 const Login = () => {
     let history = useHistory();

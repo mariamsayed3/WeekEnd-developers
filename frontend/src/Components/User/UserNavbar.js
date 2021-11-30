@@ -8,7 +8,7 @@ import Profile from './Profile';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../../Context';
-import logo from '../../Assets/small-logo.png'
+import logo from '../../Assets/small-logon.png'
 
 function UserNavbar (){
   let history = useHistory()

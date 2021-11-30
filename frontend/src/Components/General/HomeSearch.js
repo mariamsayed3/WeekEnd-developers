@@ -41,7 +41,7 @@ const HomeSearch = () =>{
               }}
              style = {{backgroundColor: 'white', margin:'10px',  width:'100%', height:'40px'}}  />
             </div>
-            <Button style={{ width:'50%', margin: '10px', marginLeft: '20%' , color:'white', backgroundColor: 'rgb(129, 122, 237'}} size='large'> 
+            <Button style={{ width:'50%', margin: '10px', marginLeft: '20%' , color:'white', backgroundColor: '#2193b0'}} size='large'> 
                 <Link to={{ pathname: '/available_flights', state: data }} > 
                 Search 
                 </Link>

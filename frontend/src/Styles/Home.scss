@@ -51,17 +51,21 @@
   transform: skewX(20deg) translateX(20%);
   float: right;
   height: 100%;
-  background: rgb(129, 136, 233); /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to left,
-    rgb(129, 122, 237),
-    rgb(115, 150, 240)
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to left,
-    rgb(129, 122, 237),
-    rgb(115, 150, 240)
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #2193b0;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #6dd5ed, #2193b0);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #6dd5ed, #2193b0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+  // background: rgb(129, 136, 233); /* fallback for old browsers */
+  // background: -webkit-linear-gradient(
+  //   to left,
+  //   rgb(129, 122, 237),
+  //   rgb(115, 150, 240)
+  // ); /* Chrome 10-25, Safari 5.1-6 */
+  // background: linear-gradient(
+  //   to left,
+  //   rgb(129, 122, 237),
+  //   rgb(115, 150, 240)
+  // ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   z-index: 0;
 }
@@ -150,7 +154,7 @@
   flex-direction: column;
   align-items: flex-start;
   margin-left: 5%;
-  margin-top: 25%;
+  margin-top: 18%;
   padding: 1cm 0cm 1cm;
   border-radius: 1cm;
   background-color: rgba(255, 255, 255, 0.541);
@@ -178,11 +182,11 @@
   }
 }
 .search-form > span {
-  font-size: 45px;
+  font-size: 40px;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-style: italic;
   font-weight: bolder;
-  color: rgb(113, 55, 180);
+  color: black; 
 }
 .home-search {
   width: 45%;

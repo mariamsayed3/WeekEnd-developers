@@ -2,7 +2,7 @@ import  { useContext, useState } from 'react'
 import  { UserContext } from '../../Context';
 import '../../Styles/Home.scss'
 import HomeSearch from './HomeSearch'
-import logo from '../../Assets/logo.png'
+import logo from '../../Assets/logo-blue.png'
 import { useHistory } from 'react-router';
 import cloud from '../../Assets/cloud.png'
 import Profile from '../User/Profile';
