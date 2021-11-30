@@ -6,12 +6,14 @@ import '../../Styles/Profile.scss';
 import { useEffect, useState, useContext } from 'react';
 import { UserContext } from '../../Context';
 import { ImProfile } from "react-icons/im";
+import EditUser from './EditUser';
 
 require('dotenv').config()
 
 const Profile = (props) => {
     const { Token } = useContext(UserContext);
     const [Information, setInformation] = useState(false);
+    const [EditOpen,setEditOpen] = useState(false);
 
     useEffect(() => {
         const getInfo = async () => {
@@ -25,9 +27,16 @@ const Profile = (props) => {
         props.handleModalOpen(false);
     };
 
+    const handleEditModal = () => {
+        setEditOpen(true);
+        props.handleModalOpen(false);
+     };
+
     return (
         <>
+        <div className="modaldiv">
             <Modal
+            className="modal"
             visible={props.modalOpen}
                 width={600}
                 footer={false}
@@ -54,10 +63,15 @@ const Profile = (props) => {
                                 <br></br>
                                 <weak>Passport Number: </weak><b>{Information.PassportNumber}</b></h4>
                         </ul>
-                        <a href="/edit_info">Edit</a>
+                        <a onClick={handleEditModal}>Edit</a>
                     </div>
                 </div>
             </Modal>
+            <EditUser
+            EditOpen={EditOpen}
+            handleEditModal={setEditOpen}
+            />
+            </div>
         </>
     )
 }

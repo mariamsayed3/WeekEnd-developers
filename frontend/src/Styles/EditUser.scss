@@ -1,12 +1,10 @@
 .container{
-    width: 400px;
-    position: absolute;
-    top: 25%;
-    right: 40%;
-    border-radius: 10px;
-    border: 2px solid rgb(65, 31, 119);
-    padding: 10px;
-    box-shadow: 5px 10px #d4d4d4;
+    position: relative;
+    margin: 0 auto;
+    padding: 20px;
+    div{
+        background-color: rgba(255,255,255,1);
+    }
     .title{
         text-align: center;
         color: rgb(65, 31, 119);
@@ -19,12 +17,14 @@
     }
     .input{
         width: 300px;
-        border-radius: 15px 50px 30px; 
+        border-radius: 10px 10px 10px; 
+        background-color: white;
+        border-color: rgb(65, 31, 119);
     }
     .button{
         border-radius: 10px;
-        background: rgb(65, 31, 119);
-        border-color: rgb(65, 31, 119);
+        background: #817AED;
+        border-color: #817AED;
         margin-top: 40px;
         width: 150px;
         height: 50px;
