@@ -78,19 +78,24 @@ function BoardingPass() {
     return `${x[0]}:${x[1]}`;
   };
 
-    const showModal = () => {
-        setVisible(true);
-      };
-    
-    const handleOk = () => {
-        setVisible(false);
-      };
-    
-// if(loading){
-//     return
-// }
-return (
-    Reservation?
+  const showModal = () => {
+    setVisible(true);
+  };
+
+  const handleOk = () => {
+    setVisible(false);
+    window.location.reload();
+  };
+
+  if(loading){
+      return <Loader />
+  }
+  if(Reservation.length==0){
+    return <EmptyList msg={`You do not have any current reservations with Jet Away . Would you like to reserve a flight?`} buttonText={`Yes!`} path={'/available_flights'} />
+   }
+
+  return Reservation ? (
+    <div style={{display:'flex', alignItems:"center", justifyContent:"center",flexWrap:'wrap', marginTop:'5%'}}>
     <>
         {Reservation.map(({Booking,Flight}) => {
             return <div className="boarding-pass" >
