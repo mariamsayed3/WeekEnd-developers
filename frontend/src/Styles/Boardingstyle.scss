@@ -7,14 +7,6 @@ Body
   box-sizing: border-box;
 }
 
-// body {
-//   height: 100vh;
-//   margin: 0;  
-//   background: radial-gradient(ellipse farthest-corner at center top, #ECECEC, #999);
-//   color: #363c44;
-//   font-size: 14px;
-//   font-family: 'Roboto', sans-serif;
-// }
 
 @mixin center {
   position: relative;
