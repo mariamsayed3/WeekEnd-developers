@@ -42,6 +42,7 @@ import {LogoutOutlined} from '@ant-design/icons'
                  <a> Home</a>
                  <a href= '/available_flights'> Flights</a>
                  <a href='my_reservations'> My Reservations</a>
+                 <a href='my_summaries'> Summaries</a>
                  {Email ? <a onClick={handleModalOpen}>Profile</a> : null}
                  <Profile
                   modalOpen={modalOpen}
