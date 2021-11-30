@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import axios from "axios";
 import "../../Styles/Filter.scss";
+<<<<<<< HEAD
 //import Ticket from "./Ticket";
 import DepartureCard from "./DepartureCard";
 import ReturnCard from "./ReturnCard";
@@ -25,7 +23,11 @@ function UserFilter({setPrice}) {
     business: false,
     economy: true,
   });
+=======
+import { Slider } from "antd";
+>>>>>>> 8e92cc9cfee349eeb9c13aaa2041f227a5dd2c5a
 
+function UserFilter({setPrice, setDuration, setDepartureTerminal, setArrivalTerminal, setChildren, setAdults, departureTime, setDepartureTime, cabinClass, setCabinClass}) {
   return (
     <>
       <div className="filter-container">
@@ -34,9 +36,9 @@ function UserFilter({setPrice}) {
           <h2>Price Range</h2>
           <Slider
             range
-            defaultValue={[1000, 20000]}
-            min={1000}
-            step={1000}
+            defaultValue={[0, 20000]}
+            min={0}
+            step={100}
             max={20000}
             onChange={(val) => setPrice(val)}
           />
@@ -123,7 +125,7 @@ function UserFilter({setPrice}) {
         <div>
           <h2>Max Trip Duration</h2>
           <Slider
-            defaultValue={duration}
+            defaultValue={24}
             min={0}
             max={24}
             onChange={(val) => setDuration(val)}
@@ -149,7 +151,7 @@ function UserFilter({setPrice}) {
         <div>
           <h2>Max number of Children On Board</h2>
           <Slider
-            defaultValue={children}
+            defaultValue={100}
             min={0}
             max={100}
             onChange={(val) => setChildren(val)}
@@ -158,7 +160,7 @@ function UserFilter({setPrice}) {
         <div>
           <h2>Max Number of Adults On Board</h2>
           <Slider
-            defaultValue={adults}
+            defaultValue={1000}
             min={0}
             max={1000}
             onChange={(val) => setAdults(val)}
