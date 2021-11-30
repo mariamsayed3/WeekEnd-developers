@@ -64,7 +64,7 @@ const EditUser = (props) => {
                     message
                         .loading('Action in progress..', 1.5)
                         .then(() => message.success('Information Updated successfully!', 1.5)
-                            .then(props.handleEditModal(false)));
+                            .then(() => window.location.reload()));
                     if (values.FirstName) {
                         setFirstName(values.FirstName)
                         userInfo.FirstName = values.FirstName
@@ -92,6 +92,7 @@ const EditUser = (props) => {
                 .loading('Action in progress..', 2.5)
                 .then(() => message.error('Something went wrong.', 3));
         }
+        
     }
 
 
