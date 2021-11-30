@@ -32,7 +32,7 @@ router.get(
 
 router.post("/return_flights", verifyToken, controllers.ReturnFlights);
 
-router.get("/all_flights/", controllers.getAllFlights);
+router.get("/all_flights/", controllers.getFlights);
 
 router.get('/summaries',verifyToken, controllers.getSummaries)
 
