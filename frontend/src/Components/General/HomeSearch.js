@@ -4,11 +4,18 @@ import { useContext, useState } from 'react';
 import { UserContext } from '../../Context';
 import {Link} from 'react-router-dom'
 import '../../Styles/Home.scss'
+import moment from 'moment';
 
 const HomeSearch = () =>{
     const {FirstName, Admin} = useContext(UserContext)
     const [data, setData] = useState({})
-     
+    function disabledDate(current) {
+        console.log(
+            current
+        )
+        return current && current < moment().endOf('day');
+    }
+
     return (
         <div className='search-form'>
             <span className="welcome-message">Welcome {FirstName ? `back ${FirstName}` : 'to Jet away! '}</span>
@@ -24,6 +31,8 @@ const HomeSearch = () =>{
             <div style={{display:'flex', flexDirection:'row', width:'100%'}}>
          
             <DatePicker placeholder="Departure Date"
+                di
+                disabledDate={disabledDate}
                 onChange={(date, dateString) => {
                     setData({
                       ...data,
@@ -33,6 +42,7 @@ const HomeSearch = () =>{
                 style = {{backgroundColor: 'white', margin:'10px',  width:'100%', height:'40px'}}  />
       
             <DatePicker placeholder="Return Date"  
+            disabledDate={disabledDate}
             onChange={(date, dateString) => {
                 setData({
                   ...data,
