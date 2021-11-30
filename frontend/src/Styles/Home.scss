@@ -26,7 +26,7 @@
 //   height: 100% !important;
 // }
 
-.home-container {
+.home-container1 {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
@@ -174,7 +174,9 @@
 .search-form > span {
   font-size: 45px;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-style: italic;
   font-weight: bolder;
+  color: rgb(113, 55, 180);
 }
 .home-search {
   width: 45%;

@@ -7,6 +7,7 @@ import  { UserContext } from '../../Context'
 import {GiAirplaneDeparture} from "react-icons/gi";
 import {useHistory} from 'react-router-dom'
 import '../../Styles/login.scss'
+import logo from '../../Assets/logo.png'
 
 const Login = () => {
     let history = useHistory();
@@ -43,7 +44,6 @@ const Login = () => {
   if(error === false){
    
    return  <Redirect to="/" />
-    // window.location.reload(false); 
 
     
   }
@@ -52,8 +52,8 @@ const Login = () => {
     <div id="body">
     <div className="login-container">  
         <div className="logo1">
-            <GiAirplaneDeparture className="login-icon" size="55" />  
-            <label class="login-logo">Jet Away</label>
+           <img src={logo}/> 
+           
         </div>
         <div className="form">  
             <Form

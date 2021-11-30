@@ -1,6 +1,6 @@
 .login {
   #root {
-    background-image: url("../Assets/login4.jpeg");
+    background-image: url("../Assets/login3.jpeg");
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -14,7 +14,7 @@
   width: 30%;
   margin: 5% 35% 5%;
   padding: 0% 10px 7%;
-  background-color: rgba(4, 38, 53, 0.95);
+  background-color: rgba(255, 255, 255, 0.548);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,19 +32,19 @@ a {
 }
 
 .text {
-  color: white;
+  color: black;
   font-size: 14px;
 }
 
 .login-logo {
   font-family: "Montserrat", sans-serif;
-  color: cornsilk;
+  color: black;
   font-size: 70px;
   font-weight: bold;
   line-height: 60px;
 }
 .login-icon {
-  color: cornsilk;
+  color: black;
   font-weight: bold;
   line-height: 60px;
   margin-right: 10px;

@@ -14,7 +14,7 @@ const summarySchema = new Schema({
         type: Object,
         required: true,
     },
-    ArrivalBooking: {
+    ReturnBooking: {
         type: Object,
         required: true,
     },
