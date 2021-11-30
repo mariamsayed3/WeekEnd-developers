@@ -8,7 +8,7 @@
 .mega {
   padding: 25px;
 }
-.card{
+.card {
   width: 100%;
 }
 .section {
@@ -131,7 +131,7 @@
   text-align: center;
 }
 .depart {
-  background: #333785;
+  background: #2193b0;
   left: 0;
 }
 
@@ -139,7 +139,7 @@
   color: cornsilk;
   right: -10px;
   top: -75px;
-  background: #7c81dc;
+  background: #6dd5ed;
 }
 .tp-flight-plan .item.it-1 {
   flex-grow: 5;
@@ -272,17 +272,8 @@
   -webkit-box-align: center;
   align-items: center;
 
-  background: #4e54c8; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #8f94fb,
-    #4e54c8
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to left,
-    #7c81dc,
-    #333785
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #2193b0;
+
   flex-direction: column;
   flex: 2 2 100px;
   height: 50px;
@@ -325,7 +316,7 @@
 }
 .airway-title span {
   font-size: 20px;
-  color: #4e54c8;
+  color: #2193b0;
 }
 
 .tp-flight-plan .fly-wrap .root-de {
@@ -394,7 +385,7 @@
   border-radius: 0 5px 5px 0;
 }
 .class-info h1 {
-  color: #4e54c8;
+  color: #2193b0;
   height: 30px;
   background-color: #f5f5f5;
   width: 90px;
@@ -627,10 +618,10 @@ label.logo {
   position: absolute;
   bottom: 0;
 }
-.mega-container{
+.mega-container {
   padding: 25px;
 }
-.card-mega-container{
+.card-mega-container {
   width: 75%;
 }
 .filter-header-container {
@@ -638,17 +629,12 @@ label.logo {
   margin-bottom: 15px;
   .filter-header {
     border-radius: 10px 10px 0 0;
-    background: #4e54c8;
-    background: -webkit-linear-gradient(
-      to right,
-      #8f94fb,
-      #4e54c8
-    ); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #7c81dc, #333785);
+    background: #2193b0;
+
     padding: 25px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    section{
+    section {
       display: grid;
       grid-template-columns: 1fr;
     }
@@ -659,15 +645,15 @@ label.logo {
     label:nth-child(1) {
       font-size: 20px;
     }
-    button{
+    button {
       width: 150px;
       justify-self: center;
       align-self: center;
       background-color: white;
-      height:47.5px;
+      height: 47.5px;
       border-radius: 5px;
       border: none;
-      color: #4e54c8;
+      color: #2193b0;
       font-size: 16px;
     }
   }
@@ -678,7 +664,7 @@ label.logo {
     padding: 25px;
     section {
       display: grid;
-      grid-template-columns: repeat(3,1fr) 255px;
+      grid-template-columns: repeat(3, 1fr) 255px;
       input {
         max-width: 250px;
         padding-left: 10px;
@@ -687,12 +673,11 @@ label.logo {
       }
       button {
         max-width: 150px;
-        background-color: #797fd9;
+        background-color: #2193b0;
         font-size: 16px;
         color: #fff;
         border-radius: 5px;
         border: none;
-        
       }
     }
   }
