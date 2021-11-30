@@ -1,31 +1,5 @@
 import "../../Styles/Filter.scss";
-<<<<<<< HEAD
-//import Ticket from "./Ticket";
-import DepartureCard from "./DepartureCard";
-import ReturnCard from "./ReturnCard";
-import { Slider, InputNumber, Row, Col } from "antd";
-
-function UserFilter({setPrice}) {
-  //const [price, setPrice] = useState(1);
-  const [children, setChildren] = useState(100);
-  const [adults, setAdults] = useState(1000);
-  const [duration, setDuration] = useState(24);
-  const [arrivalTerminal, setArrivalTerminal] = useState("");
-  const [departureTerminal, setDepartureTerminal] = useState("");
-  const [departureTime, setDepartureTime] = useState({
-    midnight: false,
-    morning: false,
-    noon: true,
-    night: false,
-  });
-  const [cabinClass, setCabinClass] = useState({
-    first: false,
-    business: false,
-    economy: true,
-  });
-=======
 import { Slider } from "antd";
->>>>>>> 8e92cc9cfee349eeb9c13aaa2041f227a5dd2c5a
 
 function UserFilter({setPrice, setDuration, setDepartureTerminal, setArrivalTerminal, setChildren, setAdults, departureTime, setDepartureTime, cabinClass, setCabinClass}) {
   return (
