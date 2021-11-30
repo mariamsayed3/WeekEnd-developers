@@ -8,6 +8,7 @@ import "../../Styles/UserFilter.scss";
 import { useContext } from "react";
 import { UserContext } from "../../Context";
 
+
 function AvailableFlights(props) {
 
   const [price, setPrice] = useState(1);
@@ -37,6 +38,7 @@ function AvailableFlights(props) {
   
   const {state} = useLocation()
   const {Token} = useContext(UserContext)
+
   let isReturn, ReturnFlight, FirstBooking
   if(state){
     isReturn = state.isReturn

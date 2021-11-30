@@ -28,6 +28,12 @@ const bookingSchema = new Schema({
     type: Object,
     required: true
   }, 
+  Children: {
+    type: Number,
+    required: true
+
+  }, 
+
 });
 
 const Booking = mongoose.model('Booking', bookingSchema);

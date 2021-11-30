@@ -35,10 +35,21 @@
 nav {
   font-family: "Montserrat", sans-serif;
   //background: linear-gradient(93deg, rgb(6, 54, 75) 16%, rgb(31, 75, 170) 55%);
+  //  background: #b993d6; /* fallback for old browsers */
+  //     background: -webkit-linear-gradient(
+  //       to right,
+  //       #8ca6db,
+  //       #b993d6
+  //     ); /* Chrome 10-25, Safari 5.1-6 */
+  //     background: linear-gradient(
+  //       to right,
+  //       #8ca6db,
+  //       #b993d6
+  //    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(
     to left,
-    rgb(129, 122, 237) 65%,
-    rgb(217, 222, 226)
+    rgb(129, 122, 237) 50%,
+    rgb(255, 255, 255)
   );
   height: 60px;
   width: 100%;
@@ -46,7 +57,7 @@ nav {
 }
 
 label.logo {
-  color: cornsilk;
+  color: black;
   font-size: 35px;
   font-weight: bold;
   line-height: 60px;
@@ -54,7 +65,7 @@ label.logo {
   margin-left: 5px;
 }
 .icon {
-  color: cornsilk;
+  color: black;
   font-size: 35px;
   font-weight: bold;
   line-height: 60px;
@@ -62,10 +73,15 @@ label.logo {
   margin-left: 40px;
   margin-top: 15px;
 }
+.profile{
+  color: black;
+  margin-bottom: -4px;
+  margin-right: 5px;
+}
 
 nav ul {
   float: right;
-  margin-right: 50px;
+  margin-right: 30px;
 }
 nav ul li {
   display: inline-block;
@@ -74,8 +90,9 @@ nav ul li {
 }
 
 nav ul li a {
-  color: wheat;
-  font-size: 18px;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: white;
+  font-size: 20px;
   font-weight: bolder;
 }
 a.active,
