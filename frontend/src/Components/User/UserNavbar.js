@@ -32,7 +32,7 @@ function UserNavbar (){
           <li><a href="/">Home</a></li>
           <li><a href="/available_flights">Available Flights</a></li>
           <li><a href="/my_reservations">My Reservations</a></li>
-          <li><a href="#">Contact us</a></li>
+          <li><a href="/my_summaries">Summaries</a></li>
           <li><a onClick={handleModalOpen}>Profile</a></li>
           <li><a onClick={logout} href=""> <LogoutOutlined  /> </a></li>
         

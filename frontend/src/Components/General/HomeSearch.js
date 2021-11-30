@@ -43,7 +43,7 @@ const HomeSearch = () =>{
             </div>
             <Button style={{ width:'50%', margin: '10px', marginLeft: '20%' , color:'white', backgroundColor: '#2193b0'}} size='large'> 
                 <Link to={{ pathname: '/available_flights', state: data }} > 
-                Search 
+                    Search 
                 </Link>
           </Button>
         </div>

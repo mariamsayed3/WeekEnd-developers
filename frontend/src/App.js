@@ -39,13 +39,18 @@ function App() {
   const path = window.location.pathname;
 
   const home = path === "/" || path === "/login";
+  
 
   return (
     <Layout style={{ backgroundColor: "rgba(1,1,1,0)" }}>
       <Router>
+        {console.log(path)}
+        {console.log(Email)}
         {!home && (
           <Header style={{ backgroundColor: "rgba(1,1,1,0)", padding: 0 }}>
-            {Email ? Admin === true ? <AdminNavbar /> : <UserNavbar /> : null}
+            {Email ?
+                 Admin === true ? <AdminNavbar /> : <UserNavbar /> 
+            : null}
           </Header>
         )}
         <Content>

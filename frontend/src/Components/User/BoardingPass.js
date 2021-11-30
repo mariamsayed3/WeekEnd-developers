@@ -83,6 +83,7 @@ function BoardingPass() {
    }
 
   return Reservation ? (
+    
     <div style={{display:'flex', alignItems:"center", justifyContent:"center",flexWrap:'wrap', marginTop:'5%'}}>
     <>
       {Reservation.map(({ Booking, Flight }) => {
@@ -90,9 +91,9 @@ function BoardingPass() {
          
           <div className="boarding-pass">
             <header>
-              {/*<svg class="logo">
+              <svg class="logo">
                             <use href="#alitalia"></use>
-                        </svg> */}
+              </svg>
               <div className="logo">
                 <Tag color={"transparent"} icon={<DingtalkOutlined />}>
                   <b>Jet Away</b>
