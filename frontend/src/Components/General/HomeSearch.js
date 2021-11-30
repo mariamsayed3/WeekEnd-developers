@@ -10,9 +10,6 @@ const HomeSearch = () =>{
     const {FirstName, Admin} = useContext(UserContext)
     const [data, setData] = useState({})
     function disabledDate(current) {
-        console.log(
-            current
-        )
         return current && current < moment().endOf('day');
     }
 

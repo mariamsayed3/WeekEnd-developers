@@ -114,6 +114,7 @@ function AvailableFlights(props) {
     const getFlights = async () => {
       let data = [];
       if (isReturn) {
+        console.log(ReturnFlight.ArrivalAirport, ReturnFlight.DepartureAirport, ReturnFlight.DepartureDate)
         data = (
           await axios.post(`http://localhost:8000/user/return_flights`, {
             Token,
@@ -137,6 +138,7 @@ function AvailableFlights(props) {
       setLoading(false);
     };
     getFlights();
+    console.log(flights)
   }, []);
   
   useEffect(() => {

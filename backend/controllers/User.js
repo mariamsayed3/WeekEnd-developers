@@ -176,7 +176,7 @@ exports.ReturnFlights = async(req, res) => {
   for(let booking of userBookings){
     userFlights.push(booking.Flight)
   }
-  const flights = await Flight.find({_id: {$nin: userFlights}, DepartureAirport: Departure, ArrivalAirport: Arrival, DepartureDate: {$gt: DepartureDate}})
+  const flights = await Flight.find({_id: {$nin: userFlights}, DepartureAirport: Departure, ArrivalAirport: Arrival, DepartureDate: {$gte: DepartureDate}})
   res.send(flights)
 }
 
