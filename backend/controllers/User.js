@@ -4,6 +4,7 @@ const Booking = require("../models/Booking");
 const Summary = require("../models/Summary");
 const { sendEmail } = require('../utils/email');
 const jwt = require('jsonwebtoken')
+// const logo = require("../Assets/logo-blue.png")
 
 exports.cancelReservation = async (req, res) => {
   const reservation_number =  req.params.reservation_number;
@@ -61,12 +62,15 @@ for (let seat of seats)
 }
 
 exports.notifyCancellation = async (req, res) => {
-  const {ReservationNumber, email, TotalPrice, FlightNumber, Seats} = req.body
-
-    const subject = "Jet Away Airlines"
-    const body = `  <h3> Hello </h3>
-                        <h4> Please note that your reservation on flight number ${FlightNumber} has been succesfully cancelled. </h4>
-                        <h4> A totall of ${TotalPrice}L.E will be refunded to your account.</h4>
+  const {ReservationNumber, email, TotalPrice, FlightNumber, Seats, FirstName, LastName} = req.body
+    const subject = "Jet Away"
+    const body = `  
+                    <h3> Hello ${FirstName} ${LastName} </h3>
+                        
+                        <h4> Please note that your reservation <b> ${ReservationNumber} </b>  on flight  <b>${FlightNumber} </b>  has been succesfully cancelled. </h4>
+                        <h4> A total of ${TotalPrice}$ will be refunded to your account.</h4>
+                        
+                    <h3> Jet Away </h3>
                       ` 
     sendEmail(email, subject, body);
 
