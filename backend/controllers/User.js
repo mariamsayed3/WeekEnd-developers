@@ -62,7 +62,8 @@ for (let seat of seats)
 
 exports.notifyCancellation = async (req, res) => {
   const {ReservationNumber, email, TotalPrice, FlightNumber, Seats} = req.body
-    const subject = "United Airlines"
+  console.log(req.body)
+    const subject = "Jet Away Airlines"
     const body = `  <h3> Hello </h3>
                         <h4> Please note that your reservation on flight number ${FlightNumber} has been succesfully cancelled. </h4>
                         <h4> A totall of ${TotalPrice}L.E will be refunded to your account.</h4>
