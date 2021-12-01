@@ -624,6 +624,11 @@ label.logo {
 .card-mega-container {
   width: 75%;
 }
+.cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .filter-header-container {
   height: min-content;
   margin-bottom: 15px;

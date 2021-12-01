@@ -131,11 +131,12 @@ function BoardingPass() {
                   <small>Arrival Terminal</small>
                   <strong>{Flight.ArrivalTerminal}</strong>
                 </div>
-                <div className="box">
+                
                   <small>Seat/s</small>
+                  <div className="box width">
                   <strong className="seats">
-                    {Booking.Seats.map((item, index) => {
-                      return <>{item} </>;
+                    {Booking.Seats.map((item) => {
+                      return <span>{item} </span>;
                     })}
                   </strong>
                 </div>

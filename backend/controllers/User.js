@@ -17,6 +17,7 @@ exports.cancelReservation = async (req, res) => {
   const flight = await Flight.findById(booking[0].Flight);
 
 const seats = booking[0].Seats
+const Children = booking[0].Children
 let first_seats=0;
 let economy_seats=0;
 let business_seats=0;
@@ -38,7 +39,16 @@ for (let seat of seats)
   }
 
 
-  let update = {$inc : {'EconomyAvailableSeats' : economy_seats, 'BusinessAvailableSeats': business_seats , 'FirstClassAvailableSeats': first_seats}, FirstClassSeats: flight.FirstClassSeats, EconomySeats :flight.EconomySeats, BusinessSeats:flight.BusinessSeats };
+  let update = {
+    $inc : 
+    {
+      'EconomyAvailableSeats' : economy_seats,
+      'BusinessAvailableSeats': business_seats ,
+      'FirstClassAvailableSeats': first_seats,
+      'NumberOfPassengers.Children': -Children,
+      'NumberOfPassengers.Adults': -(seats.length - Children),
+    }, 
+    FirstClassSeats: flight.FirstClassSeats, EconomySeats :flight.EconomySeats, BusinessSeats:flight.BusinessSeats };
   await Flight.findByIdAndUpdate( flight.id, update);
 
     // Delete Booking
@@ -80,7 +90,6 @@ exports.EditUser = async (req, res) => {
 exports.ViewCurrentFlights = async (req, res) => {
   const {id} = req
   let today = new Date();
-  // console.log(today)
   const condition = { User: id }
   const output = [];
   const bookings = await Booking.find(condition);
@@ -91,16 +100,13 @@ exports.ViewCurrentFlights = async (req, res) => {
       output.push({Booking: bookings[i],Flight: flight});
     }
   }
-  console.log("output=",output)
   res.send(output)
 }
 
 exports.getUser = async (req, res) => {
   const {id} = req
-  console.log("id=",id)
   const info = await User.findById(id);
   res.send(info);
-  console.log(info);
 }
 
 exports.reserveFlight = async(req, res) => {
@@ -108,7 +114,6 @@ exports.reserveFlight = async(req, res) => {
   const {id, Admin} = req
   const{FlightNumber, TotalPrice, Seats, Children} = req.body
   if(Admin) return res.status(403).json('Unauthorized')
-  console.log(flightID, TotalPrice, Seats, Children)
   let ReservationNumber
   while(true){
     ReservationNumber = Math.floor(10000000 + Math.random() * 90000000) + '' // Random number of length 8
@@ -192,9 +197,7 @@ exports.getFlights = async (req, res) => {
 };
 exports.getSummaries = async (req, res) => {
   const id = req.id
-  console.log(id);
   const summaries = await Summary.find({User: id})
-  console.log(summaries)
   res.send(summaries)
 }
 
