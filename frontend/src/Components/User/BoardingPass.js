@@ -39,6 +39,8 @@ function BoardingPass() {
         url: "http://localhost:8000/user/email_cancellation",
         data: {
           email: Email,
+          FirstName,
+          LastName,
           ...data[0],
         },
       });
