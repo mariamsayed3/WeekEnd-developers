@@ -44,17 +44,21 @@ Boarding Pass
   Header
   --------------------*/
   & header {
-    background: linear-gradient(to bottom, #36475f, #2c394f);
+    background: linear-gradient(to bottom, #265c69, #265c69);
     padding: 12px 20px;
     height: 53px;
 
     .logo {
+      font-size: 100%;
       float: left;
-      margin-top: 5px;
-      margin-left: -20px;
+      margin-left: -20%;
+      margin-top: 2%;
       width: 104px;
       height: 31px;
       color: white;
+      b{
+        font-size: 20px;
+      }
     }
 
     .flight {
@@ -103,7 +107,7 @@ Boarding Pass
         font-size: 40px;
         font-weight: 400;
         line-height: 1;
-        color: rgb(209, 187, 60);
+        color: #f7d0d1;
       }
 
       small {
@@ -121,7 +125,7 @@ Boarding Pass
       opacity: 0;
       // color:rgb(67, 110, 165);
       transform: translate(-50%, -50%);
-      animation: move 4s infinite;
+      animation: move 5s infinite;
     }
 
     @keyframes move {
@@ -142,7 +146,7 @@ Boarding Pass
   .infos {
     display: flex;
     // border-top: 1px solid #2c394f;
-    border-top: 1px solid rgb(209, 187, 60);
+    border-top: 1px solid #f7d0d1;
 
     .places,
     .times {
@@ -178,22 +182,22 @@ Boarding Pass
       strong {
         transform: scale(0.9);
         transform-origin: left bottom;
-        color: #537c94;
+        color: #265c69;
       }
     }
 
     .places {
       background: #ffffff;
       // border-right: 1px solid #2c394f;
-      border-right: 1px solid rgb(209, 187, 60);
+      border-right: 1px solid #f7d0d1;
 
       small {
         color: #97a1ad;
       }
 
       strong {
-        // color:#537c94;
-        color: rgb(209, 187, 60);
+        color: #f7d0d1;
+        // color: rgb(209, 187, 60);
       }
     }
 
@@ -215,7 +219,7 @@ Boarding Pass
     clear: both;
     position: relative;
     // border-top: 1px solid #2c394f;
-    border-top: 1px solid rgb(209, 187, 60);
+    border-top: 1px solid #f7d0d1;
 
     &::after {
       content: "";
@@ -235,7 +239,7 @@ Boarding Pass
 
         strong {
           font-size: 13px;
-          color: #537c94;
+          color: #265c69;
         }
       }
 
