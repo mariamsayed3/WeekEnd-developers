@@ -181,7 +181,7 @@ function BoardingPass() {
                   okText="Yes"
                   cancelText="No"
                 >
-                  <Button type="danger" style={{border:"#f7d0d1",background:"#f7d0d1"}}> Cancel Reservation </Button>
+                  <Button type="danger"> Cancel Reservation </Button>
                 </Popconfirm>
               </div>
 
