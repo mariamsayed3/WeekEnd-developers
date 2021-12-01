@@ -112,7 +112,7 @@ function CreateFlight() {
       values.ArrivalTime = `${arrivalTimeHours}:${arrivalTimeMin}`
       
       values.TripDuration = getTripDuration(values.DepartureTime, values.ArrivalTime)
-      values.NumberOfPassengers = 0
+      values.NumberOfPassengers = {Adults: 0, Children: 0}
     
       await axios.post(`http://localhost:8000/admin/create_flight`, values);
       message
@@ -172,26 +172,68 @@ function CreateFlight() {
           </Row>
 
           <Row gutter={16, 8}>
+          <Col span={12}>
+              <Form.Item
+                name="DepartureCountry"
+                label="Departure Country"
+                rules={[{ required: true, message: 'Please enter the departure country' }]}
+              >
+                <Input placeholder="Departure Country" />
+                
+              </Form.Item>
+              
+            </Col>
             <Col span={12}>
               <Form.Item
                 name="DepartureAirport"
+                label="Departure City"
+                rules={[{ required: true, message: 'Please enter the departure city' }]}
+              >
+                <Input placeholder="Departure City" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+            <Form.Item
+                name="ArrivalCountry"
+                label="Arrival Country"
+                rules={[{ required: true, message: 'Please enter the arrival country' }]}
+              >
+                <Input placeholder="Arrival Country" />
+                
+              </Form.Item>
+              </Col>
+             
+            <Col span={12}>
+              <Form.Item
+                name="ArrivalAirport"
+                label="Arrival City"
+                rules={[{ required: true, message: 'Please enter the arrival city' }]}
+              >
+                <Input placeholder="Arrival City" />
+                
+              </Form.Item>
+              
+            </Col>
+            <Col span={12}>
+            <Form.Item
+                name="Departure"
                 label="Departure Airport"
                 rules={[{ required: true, message: 'Please enter the departure airport' }]}
               >
                 <Input placeholder="Departure Airport" />
+                
               </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item
-                name="ArrivalAirport"
-                label="Arrival Airport"
+              </Col>
+              <Col span={12}>
+            <Form.Item
+                name="Arrival"
+                label="Destination Airport"
                 rules={[{ required: true, message: 'Please enter the arrival airport' }]}
               >
                 <Input placeholder="Arrival Airport" />
                 
               </Form.Item>
-            </Col>
-            
+              </Col>
           </Row>
 
           <Row gutter={16, 8}>
@@ -285,6 +327,8 @@ function CreateFlight() {
             rules={[{ required: true, message: 'Please specify the allowed baggage' }]}>
             <Input placeholder="No. of Bags" />
           </Form.Item>
+
+
 
           <div style={{ textAlign: 'center' }}>
             <Button type="primary" onClick={Create} style={{background: '#034f84', borderColor: '#034f84',marginTop: '40px', width: '150px' }}>

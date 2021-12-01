@@ -39,6 +39,8 @@ function BoardingPass() {
         url: "http://localhost:8000/user/email_cancellation",
         data: {
           email: Email,
+          FirstName,
+          LastName,
           ...data[0],
         },
       });
@@ -83,6 +85,7 @@ function BoardingPass() {
    }
 
   return Reservation ? (
+    
     <div style={{display:'flex', alignItems:"center", justifyContent:"center",flexWrap:'wrap', marginTop:'5%'}}>
     <>
       {Reservation.map(({ Booking, Flight }) => {
@@ -90,9 +93,9 @@ function BoardingPass() {
          
           <div className="boarding-pass">
             <header>
-              {/*<svg class="logo">
+              <svg class="logo">
                             <use href="#alitalia"></use>
-                        </svg> */}
+              </svg>
               <div className="logo">
                 <Tag color={"transparent"} icon={<DingtalkOutlined />}>
                   <b>Jet Away</b>
@@ -128,11 +131,12 @@ function BoardingPass() {
                   <small>Arrival Terminal</small>
                   <strong>{Flight.ArrivalTerminal}</strong>
                 </div>
-                <div className="box">
+                
                   <small>Seat/s</small>
+                  <div className="box width">
                   <strong className="seats">
-                    {Booking.Seats.map((item, index) => {
-                      return <>{item} </>;
+                    {Booking.Seats.map((item) => {
+                      return <span>{item} </span>;
                     })}
                   </strong>
                 </div>

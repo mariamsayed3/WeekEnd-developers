@@ -9,6 +9,9 @@ import { useContext } from "react";
 import { UserContext } from "../../Context";
 import FlightHeader from "./FlightHeader";
 import Loader from "../General/Loader";
+import {Layout} from 'antd'
+import UserNavBar from './UserNavbar'
+const {Header} = Layout
 
 
 function AvailableFlights(props) {
@@ -114,6 +117,7 @@ function AvailableFlights(props) {
     const getFlights = async () => {
       let data = [];
       if (isReturn) {
+        console.log(ReturnFlight.ArrivalAirport, ReturnFlight.DepartureAirport, ReturnFlight.DepartureDate)
         data = (
           await axios.post(`http://localhost:8000/user/return_flights`, {
             Token,
@@ -137,6 +141,7 @@ function AvailableFlights(props) {
       setLoading(false);
     };
     getFlights();
+    console.log(flights)
   }, []);
   
   useEffect(() => {
@@ -228,10 +233,19 @@ function AvailableFlights(props) {
     departureTerminal,
     arrivalTerminal,
   ]);
+
+  useEffect(() => {
+    const found = document.querySelector('.Header-navbar')
+    if(!found)
+      window.location.reload()
+  },[])
+
   if (loading) {
     return <Loader />;
   } else {
     return (
+      <>
+      
       <div className="mega-container">
         <FlightHeader
           origin={state && state.origin ? state.origin : undefined}
@@ -280,6 +294,7 @@ function AvailableFlights(props) {
           </div>
         </div>
       </div>
+      </>
     );
   }
 }

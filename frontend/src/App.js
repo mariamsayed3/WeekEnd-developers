@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
 } from "react-router-dom";
 import "./Styles/generics.scss";
 import UpdateFlight from "./Components/Admin/UpdateFlight";
@@ -24,30 +23,30 @@ import { useContext } from "react";
 import { UserContext } from "./Context";
 import UserNavbar from "./Components/User/UserNavbar";
 import NotFound from "./Components/General/NotFound";
-import DepartureCard from "./Components/User/DepartureCard";
-import ReturnCard from "./Components/User/ReturnCard";
 import AvailableFlights from "./Components/User/AvailableFlights";
 import EditUser from "./Components/User/EditUser";
-import View from "./Components/User/ViewFlightDetails/View";
 import SmallCard from './Components/User/ResSummary/SmallCard'
 import Summaries from "./Components/User/Summaries";
 dotenv.config();
-const { Header, Content, Footer } = Layout;
+const { Header, Content } = Layout;
 
 function App() {
   const { Email, Admin } = useContext(UserContext);
   const path = window.location.pathname;
 
   const home = path === "/" || path === "/login";
-
+  const x = path === '/available_flights'
   return (
     <Layout style={{ backgroundColor: "rgba(1,1,1,0)" }}>
       <Router>
-        {!home && (
-          <Header style={{ backgroundColor: "rgba(1,1,1,0)", padding: 0 }}>
-            {Email ? Admin === true ? <AdminNavbar /> : <UserNavbar /> : null}
+        {(!home) && (
+          <Header className="Header-navbar" style={{ backgroundColor: "rgba(1,1,1,0)", padding: 0 }}>
+            {Email ?
+                 Admin === true ? <AdminNavbar /> : <UserNavbar /> 
+            : null}
           </Header>
         )}
+        
         <Content>
           <Switch>
             <Route path="/" exact component={Home} />
@@ -108,10 +107,6 @@ function App() {
           </Switch>
         </Content>
       </Router>
-
-      {/* <Footer>
-        
-      </Footer> */}
     </Layout>
   );
 }

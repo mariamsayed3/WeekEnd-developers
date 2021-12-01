@@ -37,9 +37,51 @@ const ReserveSeats = () => {
   return flight ? (
     <>
       {!isReturn ? (
-        <h3 className="subtitle">Departure Flight Seats</h3>
+        <div>
+                <div class="navigation_menu" id="navigation_menu">
+                  <ul class="navigation_tabs" id="navigation_tabs">
+                    <li class="tab_inactive">
+                        <a>Select Departure Flight</a>
+                    </li>
+                    <li class="tab_active">
+                        <a>Select Departure Seats</a>
+                    </li>
+                    <li class="tab_disabled">
+                        <a>Select Return Flight</a>
+                    </li>
+                    <li class="tab_disabled">
+                        <a>Select Return Seats</a>
+                    </li>
+                    <li class="tab_disabled">
+                        <a>Payement</a>
+                    </li>
+                  </ul>
+                </div>
+
+        </div>
+        
       ) : (
-        <h3 className="subtitle">Return Flight Seats</h3>
+        <div>
+        <div class="navigation_menu" id="navigation_menu">
+                  <ul class="navigation_tabs" id="navigation_tabs">
+                    <li class="tab_inactive">
+                        <a href="#">Select Departure Flight</a>
+                    </li>
+                    <li class="tab_inactive">
+                        <a href="#">Select Departure Seats</a>
+                    </li>
+                    <li class="tab_inactive">
+                        <a href="#">Select Return Flight</a>
+                    </li>
+                    <li class="tab_active">
+                        <a href="#">Select Return Seats</a>
+                    </li>
+                    <li class="tab_disabled">
+                        <a href="#">Payement</a>
+                    </li>
+                  </ul>
+                </div>
+        </div>
       )}
       <div className="plane-container">
         <div className="plane-body">
