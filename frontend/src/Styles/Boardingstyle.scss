@@ -107,7 +107,7 @@ Boarding Pass
         font-size: 40px;
         font-weight: 400;
         line-height: 1;
-        color: #f7d0d1;
+        color: rgb(209, 187, 60);
       }
 
       small {
@@ -146,7 +146,7 @@ Boarding Pass
   .infos {
     display: flex;
     // border-top: 1px solid #2c394f;
-    border-top: 1px solid #f7d0d1;
+    border-top: 1px solid rgb(209, 187, 60);
 
     .places,
     .times {
@@ -189,15 +189,15 @@ Boarding Pass
     .places {
       background: #ffffff;
       // border-right: 1px solid #2c394f;
-      border-right: 1px solid #f7d0d1;
+      border-right: 1px solid rgb(209, 187, 60);
 
       small {
         color: #97a1ad;
       }
 
       strong {
-        color: #f7d0d1;
-        // color: rgb(209, 187, 60);
+        // color: #f7d0d1;
+        color: rgb(209, 187, 60);
       }
     }
 
@@ -219,7 +219,7 @@ Boarding Pass
     clear: both;
     position: relative;
     // border-top: 1px solid #2c394f;
-    border-top: 1px solid #f7d0d1;
+    border-top: 1px solid rgb(209, 187, 60);
 
     &::after {
       content: "";
