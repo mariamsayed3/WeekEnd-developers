@@ -5,6 +5,7 @@ const flightSchema = new Schema({
   FlightNumber: {
     type: String,
     required: true,
+    unique: true,
   },
   DepartureDate: {
     type: Date,
@@ -87,24 +88,12 @@ const flightSchema = new Schema({
     required: true,
   },
 
-  // Gate:{
-  //   type: String,
-  //   required: true
-  // },
-  // DepartureAirportCode:{
-  //   type: String,
-  //   required: true
-  // },
-  // ArrivalAirportCode:{
-  //   type: String,
-  //   required: true
-  // }
-  DestinationCountry: {
+  DepartureCountry: {
     type: String,
     required: true,
   },
 
-  Destination: {
+  Departure: {
     type: String,
     required: true,
   },

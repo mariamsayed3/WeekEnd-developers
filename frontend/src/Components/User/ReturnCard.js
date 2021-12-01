@@ -29,7 +29,7 @@ const ReturnCard = (props) => {
     } `;
   };
   return (
-    <div>
+    <div className="card-mega-container">
       <button class="section" onClick={display}>
         <div class="tpd-plan">
           <div class="tp-flight-plan">
