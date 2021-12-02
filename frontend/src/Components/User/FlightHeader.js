@@ -32,7 +32,6 @@ function FlightHeader({
     
   }
   return (
-    <div>
       <div className="filter-header-container">
         <div className="filter-header">
         <section>
@@ -43,18 +42,6 @@ function FlightHeader({
           <label>{booking && booking.ArrivalAirport ? booking.ArrivalAirport :to ? to : destination ? destination : "Not Specified Yet"}{" - "}{booking && booking.DepartureAirport ? booking.DepartureAirport : from ? from : origin ? origin : "Not Specified Yet"}</label>
             <label>{departureDate ? departureDate : returnFlight? returnFlight : "Not Specified Yet"}</label>
           </section>
-          {/* <section>
-            <label>{from ? from : origin ? origin : "Not Specified Yet"}</label>
-            <label>
-              {to ? to : destination ? destination : "Not Specified Yet"}
-            </label>
-          </section>
-          <section>
-            <label>{from ? from : origin ? origin : "Not Specified Yet"}</label>
-            <label>
-              {to ? to : destination ? destination : "Not Specified Yet"}
-            </label>
-          </section> */}
           <button onClick={handleclick}>Edit</button>
         </div>
         <div className={!overlay?"filter-footer none":"filter-footer"}>
@@ -91,7 +78,6 @@ function FlightHeader({
           </section>
         </div>
       </div>
-    </div>
   );
 }
 

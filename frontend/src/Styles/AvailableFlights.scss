@@ -1,9 +1,25 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:100);
 @import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400);
 
-.available-container {
+$primary-color: #2b2c30;
+$secondary-color: #fff;
+.mega-container {
   display: grid;
-  grid-template-columns: 25% 75%;
+  grid-template-columns: 400px 1fr;
+  grid-template-areas:
+    "a a a"
+    "b c c";
+}
+.filter-header-container {
+  grid-area: a;
+}
+.available-container {
+  grid-area: b;
+}
+.cards {
+  grid-area: c;
+  width: 100%;
+  padding: 0 25px;
 }
 .mega {
   padding: 25px;
@@ -271,9 +287,7 @@
   -webkit-align-items: center;
   -webkit-box-align: center;
   align-items: center;
-
   background: #2193b0;
-
   flex-direction: column;
   flex: 2 2 100px;
   height: 50px;
@@ -618,23 +632,13 @@ label.logo {
   position: absolute;
   bottom: 0;
 }
-.mega-container {
-  padding: 25px;
-}
-.card-mega-container {
-  width: 75%;
-}
-.cards {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+
 .filter-header-container {
   height: min-content;
   margin-bottom: 15px;
   .filter-header {
     border-radius: 10px 10px 0 0;
-    background: #2193b0;
+    background: $primary-color;
 
     padding: 25px;
     display: grid;
@@ -658,7 +662,7 @@ label.logo {
       height: 47.5px;
       border-radius: 5px;
       border: none;
-      color: #2193b0;
+      color: $primary-color;
       font-size: 16px;
     }
   }
@@ -678,7 +682,7 @@ label.logo {
       }
       button {
         max-width: 150px;
-        background-color: #2193b0;
+        background-color: $primary-color;
         font-size: 16px;
         color: #fff;
         border-radius: 5px;
@@ -686,4 +690,47 @@ label.logo {
       }
     }
   }
+}
+
+#id1{
+  grid-area: it1;
+}
+#id2{
+  grid-area: it2;
+}
+#id3{
+  grid-area: it3;
+}
+#id4{
+  grid-area: it4;
+}
+#id5{
+  grid-area: it5;
+}
+#id6{
+  grid-area: it6;
+}
+#id7{
+  grid-area: it7;
+}
+
+@media (max-width: 900px) {
+  // .mega-container {
+  //   grid-template-areas:
+  //     "a a a"
+  //     "b b b"
+  //     "c c c";
+  // }
+  // .available-container{
+  //   width: 100%;
+  //   .filter-container{
+  //     width: 100%;
+  //     display: grid;
+  //     grid-template-columns: 1fr;
+  //     div{
+      
+  //     }
+  //   }
+  
+  // }
 }

@@ -10,7 +10,6 @@ import { UserContext } from "../../Context";
 import FlightHeader from "./FlightHeader";
 import Loader from "../General/Loader";
 
-
 function AvailableFlights(props) {
   const [flights, setFlights] = useState([]);
   const [filteredFlights, setFilteredFlights] = useState([]);
@@ -37,13 +36,13 @@ function AvailableFlights(props) {
   const [departureTerminal, setDepartureTerminal] = useState("");
   const [departureTime, setDepartureTime] = useState({
     midnight: true,
-    morning: false,
+    morning: true,
     noon: true,
-    night: false,
+    night: true,
   });
   const [cabinClass, setCabinClass] = useState({
-    first: false,
-    business: false,
+    first: true,
+    business: true,
     economy: true,
   });
 
@@ -114,7 +113,11 @@ function AvailableFlights(props) {
     const getFlights = async () => {
       let data = [];
       if (isReturn) {
-        console.log(ReturnFlight.ArrivalAirport, ReturnFlight.DepartureAirport, ReturnFlight.DepartureDate)
+        console.log(
+          ReturnFlight.ArrivalAirport,
+          ReturnFlight.DepartureAirport,
+          ReturnFlight.DepartureDate
+        );
         data = (
           await axios.post(`http://localhost:8000/user/return_flights`, {
             Token,
@@ -138,9 +141,9 @@ function AvailableFlights(props) {
       setLoading(false);
     };
     getFlights();
-    console.log(flights)
+    console.log(flights);
   }, []);
-  
+
   useEffect(() => {
     let arr = flights;
     //return filter ones coming from destintion to origin
@@ -230,60 +233,57 @@ function AvailableFlights(props) {
     departureTerminal,
     arrivalTerminal,
   ]);
-  if (loading) {
-    return <Loader />;
-  } else {
-    return (
-      <div className="mega-container">
-        <FlightHeader
-          origin={state && state.origin ? state.origin : undefined}
-          setOrigin={setOrigin}
-          destination={
-            state && state.destination ? state.destination : undefined
-          }
-          setDestination={setDestination}
-          departureDate={
-            state && state.departureDate ? state.departureDate : undefined
-          }
-          setDepartureDate={setDepartureDate}
-          returnDate={
-            state && state.returnDate ? state.returnDate : undefined
-          }
-          setReturnDate={setReturnDate}
-          isReturn={isReturn}
-          booking = {ReturnFlight}
+  return (
+    <div className="mega-container">
+      <FlightHeader
+        origin={state && state.origin ? state.origin : undefined}
+        setOrigin={setOrigin}
+        destination={state && state.destination ? state.destination : undefined}
+        setDestination={setDestination}
+        departureDate={
+          state && state.departureDate ? state.departureDate : undefined
+        }
+        setDepartureDate={setDepartureDate}
+        returnDate={state && state.returnDate ? state.returnDate : undefined}
+        setReturnDate={setReturnDate}
+        isReturn={isReturn}
+        booking={ReturnFlight}
+      />
+
+      <div className="available-container">
+        <UserFilter
+          setPrice={setPrice}
+          setDuration={setDuration}
+          setArrivalTerminal={setArrivalTerminal}
+          setDepartureTerminal={setDepartureTerminal}
+          setChildren={setChildren}
+          setAdults={setAdults}
+          departureTime={departureTime}
+          setDepartureTime={setDepartureTime}
+          cabinClass={cabinClass}
+          setCabinClass={setCabinClass}
         />
-
-        <div className="available-container">
-          <UserFilter
-            setPrice={setPrice}
-            setDuration={setDuration}
-            setArrivalTerminal={setArrivalTerminal}
-            setDepartureTerminal={setDepartureTerminal}
-            setChildren={setChildren}
-            setAdults={setAdults}
-            departureTime={departureTime}
-            setDepartureTime={setDepartureTime}
-            cabinClass={cabinClass}
-            setCabinClass={setCabinClass}
-          />
-
-          <div className="cards">
-            {filtered.map((flight) => {
-              return (
-                <>
-                  {!isReturn && <DepartureCard flight={flight} />}
-                  {isReturn && (
-                    <ReturnCard FirstBooking={FirstBooking} flight={flight} />
-                  )}
-                </>
-              );
-            })}
-          </div>
-        </div>
       </div>
-    );
-  }
+      {loading ? (
+        <div className="cards">
+          <Loader />{" "}
+        </div>
+      ) : (
+        <div className="cards">
+          {filtered.map((flight) => {
+            return (
+              <>
+                {!isReturn && <DepartureCard flight={flight} />}
+                {isReturn && (
+                  <ReturnCard FirstBooking={FirstBooking} flight={flight} />
+                )}
+              </>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default AvailableFlights;
