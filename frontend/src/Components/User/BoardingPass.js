@@ -93,7 +93,7 @@ function BoardingPass() {
          
           <div className="boarding-pass">
             <header>
-              <svg class="logo">
+              <svg className="logo">
                             <use href="#alitalia"></use>
               </svg>
               <div className="logo">

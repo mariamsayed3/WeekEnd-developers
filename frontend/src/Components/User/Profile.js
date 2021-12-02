@@ -44,17 +44,17 @@ const Profile = (props) => {
                 onCancel={handleCancel}
                 okButtonProps={{ style: { display: 'none' } }}
                 cancelButtonProps={{ style: { display: 'none' } }}>
-                <div class="Card1">
-                    <div class="photo"></div>
-                    <ul class="details">
+                <div className="Card1">
+                    <div className="photo"></div>
+                    <ul className="details">
                         <h4>Welcome {Information.FirstName}!</h4>
                     </ul>
-                    <div class="description">
-                        <div class="line">
-                            <h2 class="my_profile"><ImProfile class="my_profile" size="20" />  My Profile</h2>
+                    <div className="description">
+                        <div className="line">
+                            <h2 className="my_profile"><ImProfile className="my_profile" size="20" />  My Profile</h2>
                         </div>
                         {/* <h2>Jet Away Profile</h2> */}
-                        <ul class="summary">
+                        <ul className="summary">
                             <h4><weak>First Name: </weak><b>{Information.FirstName}</b>
                                 <br></br>
                                 <weak>Last Name: </weak><b>{Information.LastName}</b>

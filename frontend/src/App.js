@@ -35,7 +35,7 @@ function App() {
   const path = window.location.pathname;
 
   const home = path === "/" || path === "/login";
-  const x = path === '/available_flights'
+
   return (
     <Layout style={{ backgroundColor: "rgba(1,1,1,0)" }}>
       <Router>

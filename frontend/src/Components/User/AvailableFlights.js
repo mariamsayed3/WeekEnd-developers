@@ -9,9 +9,8 @@ import { useContext } from "react";
 import { UserContext } from "../../Context";
 import FlightHeader from "./FlightHeader";
 import Loader from "../General/Loader";
-import {Layout} from 'antd'
-import UserNavBar from './UserNavbar'
-const {Header} = Layout
+import EmptyList from "./EmptyList";
+
 
 function AvailableFlights(props) {
   const [flights, setFlights] = useState([]);
@@ -273,7 +272,8 @@ function AvailableFlights(props) {
         </div>
       ) : (
         <div className="cards">
-          {filtered.map((flight) => {
+          
+          {filtered.length ? filtered.map((flight) => {
             return (
               <>
                 {!isReturn && <DepartureCard flight={flight} />}
@@ -282,7 +282,7 @@ function AvailableFlights(props) {
                 )}
               </>
             );
-          })}
+          }) : <EmptyList msg={'The requested flight is not available at the moment.'} buttonText="Search for another one ?" path="/"/>}
         </div>
       )}
     </div>

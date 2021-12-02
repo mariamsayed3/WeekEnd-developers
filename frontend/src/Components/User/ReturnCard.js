@@ -30,86 +30,86 @@ const ReturnCard = (props) => {
   };
   return (
     <div className="card-mega-container">
-      <button class="section" onClick={display}>
-        <div class="tpd-plan">
-          <div class="tp-flight-plan">
-            <div class="container-fluid">
-              <div class="crop return">
-                <div class="item it-2 return-border">
-                  <div class="take-tim">
+      <button className="section" onClick={display}>
+        <div className="tpd-plan">
+          <div className="tp-flight-plan">
+            <div className="container-fluid">
+              <div className="crop return">
+                <div className="item it-2 return-border">
+                  <div className="take-tim">
                     {getDate(props.flight.DepartureDate)}
                   </div>
                 </div>
                 <div
-                  class="context collapsed"
+                  className="context collapsed"
                   data-toggle="collapse"
                   data-target="#demo"
                 >
-                  <div class="item it-1">
-                    <label class="trip-type return">Return</label>
-                    <div class="route-dot"></div>
-                    <div class="airline-image">
-                      <div class="df-text">{props.flight.TripDuration}</div>
-                      <span class="img-wrapper">
-                        <svg class="anime-airplane">
+                  <div className="item it-1">
+                    <label className="trip-type return">Return</label>
+                    <div className="route-dot"></div>
+                    <div className="airline-image">
+                      <div className="df-text">{props.flight.TripDuration}</div>
+                      <span className="img-wrapper">
+                        <svg className="anime-airplane">
                           <svg
                             dangerouslySetInnerHTML={{
                               __html: '<use xlink:href="#airplane"/>',
                             }}
                           />
                         </svg>
-                        <span class="top-label">Direct</span>
+                        <span className="top-label">Direct</span>
                       </span>
                     </div>
 
-                    <div class="port-seg">
-                      <div class="flight-seg origin">
-                        <div class="time">{props.flight.ArrivalTime}</div>
-                        <div class="port">
+                    <div className="port-seg">
+                      <div className="flight-seg origin">
+                        <div className="time">{props.flight.ArrivalTime}</div>
+                        <div className="port">
                           {props.flight.ArrivalAirport.substring(
                             0,
                             3
                           ).toUpperCase()}
                         </div>
-                        <div class="name">{`${props.flight.ArrivalAirport}, ${props.flight.ArrivalCountry}`}</div>
+                        <div className="name">{`${props.flight.ArrivalAirport}, ${props.flight.ArrivalCountry}`}</div>
                       </div>
-                      <div class="flight-seg destination">
-                        <div class="time">{props.flight.DepartureTime}</div>
-                        <div class="port">
+                      <div className="flight-seg destination">
+                        <div className="time">{props.flight.DepartureTime}</div>
+                        <div className="port">
                           {props.flight.DepartureAirport.substring(
                             0,
                             3
                           ).toUpperCase()}
                         </div>
-                        <div class="name">{`${props.flight.DepartureAirport}, ${props.flight.DepartureCountry}`}</div>
+                        <div className="name">{`${props.flight.DepartureAirport}, ${props.flight.DepartureCountry}`}</div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div
                   id="demo"
-                  class={
+                  className={
                     overlay ? "fly-wrap collapse" : "fly-wrap collapse none"
                   }
                 >
-                  <div class="fly-det">
-                    <div class="f-item">
-                      <div class="airway-title">
+                  <div className="fly-det">
+                    <div className="f-item">
+                      <div className="airway-title">
                         <GiAirplaneDeparture className="card-icon" size="40" />
                         <span>Jet Away</span>
                       </div>
-                      <div class="root-de">
-                        <div class="directs">
-                          <div class="itin-time">
-                            <div class="itin-lines"></div>
+                      <div className="root-de">
+                        <div className="directs">
+                          <div className="itin-time">
+                            <div className="itin-lines"></div>
                           </div>
 
-                          <div class="hour-sm">
-                            <div class="hour-time-sm">
+                          <div className="hour-sm">
+                            <div className="hour-time-sm">
                               {getDeparture(props.flight)}
                             </div>
 
-                            <div class="hour-time-sm">
+                            <div className="hour-time-sm">
                               {getArrival(props.flight)}
                             </div>
                           </div>
@@ -143,22 +143,22 @@ const ReturnCard = (props) => {
                       </div>
                     </div>
                   </div>
-                  <div class="arrival-info">
-                    <span class="sub-span">
+                  <div className="arrival-info">
+                    <span className="sub-span">
                       <strong>Children on Board: </strong>
                       {props.flight.NumberOfPassengers.Children}
                     </span>
 
-                    <span class="sub-span duration-info">
+                    <span className="sub-span duration-info">
                       <strong>Adults on Board: </strong>
                       {props.flight.NumberOfPassengers.Adults}
                     </span>
 
-                    <span class="sub-span duration-info">
+                    <span className="sub-span duration-info">
                       <strong>Allowed Baggage: </strong>
                       {props.flight.AllowedBaggage}
                     </span>
-                    <span class="sub-span duration-info book">
+                    <span className="sub-span duration-info book">
                     <Link
                         to={{
                           pathname: `/reserve_return/${props.flight._id}`,

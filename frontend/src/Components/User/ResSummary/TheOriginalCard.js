@@ -25,7 +25,7 @@ class TheOriginalCard extends Component {
                     <div className="airline-image">
                       <div className="df-text">{this.props.DepartureFlight.TripDuration}</div>
                       <span className="img-wrapper">
-                        <svg class="anime-airplane">
+                        <svg className="anime-airplane">
                           <svg
                             dangerouslySetInnerHTML={{
                               __html: '<use xlink:href="#airplane">',

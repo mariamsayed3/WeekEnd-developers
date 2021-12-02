@@ -33,7 +33,7 @@ function UserFilter({
           <div id="id2">
             <h2>Depart Time</h2>
 
-            <div class="inputGroup">
+            <div className="inputGroup">
               <input
                 id="option1"
                 name="option1"
@@ -48,7 +48,7 @@ function UserFilter({
               />
               <label for="option1">12:00 am - 05:59am</label>
             </div>
-            <div class="inputGroup">
+            <div className="inputGroup">
               <input
                 id="option2"
                 name="option2"
@@ -63,7 +63,7 @@ function UserFilter({
               />
               <label for="option2">06:00 am - 11:59 am</label>
             </div>
-            <div class="inputGroup">
+            <div className="inputGroup">
               <input
                 id="option3"
                 name="option3"
@@ -78,7 +78,7 @@ function UserFilter({
               />
               <label for="option3">12:00 pm - 05:59 pm</label>
             </div>
-            <div class="inputGroup">
+            <div className="inputGroup">
               <input
                 id="option4"
                 name="option4"
@@ -97,7 +97,7 @@ function UserFilter({
           <div id="id3">
             <h2>Available Cabin Class</h2>
 
-            <div class="inputGroup">
+            <div className="inputGroup">
               <input
                 id="option5"
                 name="option5"
@@ -109,7 +109,7 @@ function UserFilter({
               />
               <label for="option5">First Class</label>
             </div>
-            <div class="inputGroup">
+            <div className="inputGroup">
               <input
                 id="option6"
                 name="option6"
@@ -124,7 +124,7 @@ function UserFilter({
               />
               <label for="option6">Business</label>
             </div>
-            <div class="inputGroup">
+            <div className="inputGroup">
               <input
                 id="option7"
                 name="option7"

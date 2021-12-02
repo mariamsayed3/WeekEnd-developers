@@ -1,9 +1,10 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:100);
 @import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400);
 
-$primary-color: #2b2c30;
+$primary-color: rgb(239, 235, 238);
 $secondary-color: #fff;
 .mega-container {
+  padding: 20px;
   display: grid;
   grid-template-columns: 400px 1fr;
   grid-template-areas:
@@ -638,10 +639,11 @@ label.logo {
   height: min-content;
   margin-bottom: 15px;
   .filter-header {
+    //height: 70px;
     border-radius: 10px 10px 0 0;
     background: $primary-color;
 
-    padding: 25px;
+    padding: 10px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     section {
@@ -649,21 +651,21 @@ label.logo {
       grid-template-columns: 1fr;
     }
     label {
-      color: white;
+      color: black;
       font-weight: bold;
     }
     label:nth-child(1) {
-      font-size: 20px;
+      font-size: 16px;
     }
     button {
-      width: 150px;
+      width: 100px;
       justify-self: center;
       align-self: center;
-      background-color: white;
-      height: 47.5px;
+      background-color: rgb(71, 146, 173);
+      height: 30px;
       border-radius: 5px;
       border: none;
-      color: $primary-color;
+      color: white;
       font-size: 16px;
     }
   }
@@ -682,10 +684,13 @@ label.logo {
         border: none;
       }
       button {
-        max-width: 150px;
-        background-color: $primary-color;
+        margin-top: 10px;
+        height: 30px;
+        margin-left: 18px;
+        max-width: 100px;
+        background-color: rgb(71, 146, 173);
         font-size: 16px;
-        color: #fff;
+        color: white;
         border-radius: 5px;
         border: none;
       }

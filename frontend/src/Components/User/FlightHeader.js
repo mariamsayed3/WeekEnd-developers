@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import axios from "axios";
+import { useState } from "react";
 import "../../Styles/Filter.scss";
 import { DatePicker } from "antd";
 
@@ -11,8 +9,6 @@ function FlightHeader({
   setDestination,
   departureDate,
   setDepartureDate,
-  returnDate,
-  setReturnDate,
   isReturn,
   booking
 }) {
