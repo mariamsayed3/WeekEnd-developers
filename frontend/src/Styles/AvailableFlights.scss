@@ -18,7 +18,8 @@ $secondary-color: #fff;
 }
 .cards {
   grid-area: c;
-  width: 100%;
+  width: 90%;
+  margin-left: 40px;
   padding: 0 25px;
 }
 .mega {
@@ -156,7 +157,6 @@ $secondary-color: #fff;
   right: -10px;
   top: -75px;
   background: #2193b0;
-  ;
 }
 .tp-flight-plan .item.it-1 {
   flex-grow: 5;
@@ -693,25 +693,25 @@ label.logo {
   }
 }
 
-#id1{
+#id1 {
   grid-area: it1;
 }
-#id2{
+#id2 {
   grid-area: it2;
 }
-#id3{
+#id3 {
   grid-area: it3;
 }
-#id4{
+#id4 {
   grid-area: it4;
 }
-#id5{
+#id5 {
   grid-area: it5;
 }
-#id6{
+#id6 {
   grid-area: it6;
 }
-#id7{
+#id7 {
   grid-area: it7;
 }
 
@@ -729,9 +729,9 @@ label.logo {
   //     display: grid;
   //     grid-template-columns: 1fr;
   //     div{
-      
+
   //     }
   //   }
-  
+
   // }
 }
