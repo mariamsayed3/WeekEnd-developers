@@ -9,6 +9,9 @@ import { useContext } from "react";
 import { UserContext } from "../../Context";
 import FlightHeader from "./FlightHeader";
 import Loader from "../General/Loader";
+import {Layout} from 'antd'
+import UserNavBar from './UserNavbar'
+const {Header} = Layout
 
 function AvailableFlights(props) {
   const [flights, setFlights] = useState([]);
@@ -233,6 +236,11 @@ function AvailableFlights(props) {
     departureTerminal,
     arrivalTerminal,
   ]);
+  useEffect(() => {
+    const found = document.querySelector('.Header-navbar')
+    if(!found)
+      window.location.reload()
+  },[])
   return (
     <div className="mega-container">
       <FlightHeader
