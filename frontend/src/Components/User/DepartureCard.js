@@ -158,7 +158,7 @@ const DepartureCard = (props) => {
                       {props.flight.AllowedBaggage}
                     </span>
                     <span class="sub-span duration-info book">
-                      <Link
+                      {!props.flight.reserved ? <Link
                         to={{
                           pathname: `/reserve_departure/${props.flight._id}`,
                           state: {
@@ -169,7 +169,7 @@ const DepartureCard = (props) => {
                         }}
                       >
                         Book now
-                      </Link>
+                      </Link> : <span style={{color: 'red', fontSize: "17px"}}>You already booked this flight!</span>}
                     </span>
                   </div>
                 </div>

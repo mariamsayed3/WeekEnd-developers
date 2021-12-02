@@ -93,7 +93,6 @@ exports.ViewCurrentFlights = async (req, res) => {
   const condition = { User: id }
   const output = [];
   const bookings = await Booking.find(condition);
-  console.log("bookings before=",bookings)
   for(let i=0;i<bookings.length;i++){
     const flight = await Flight.findById(bookings[i].Flight);
     if(flight.DepartureDate>today){
@@ -174,8 +173,13 @@ exports.AvailableFlights = async(req, res) => {
   for(let booking of userBookings){
     userFlights.push(booking.Flight)
   }
-  const flights = await Flight.find({_id: {$nin: userFlights}, DepartureDate: {$gt: currentDate}})
-  res.send(flights)
+  const flights = await Flight.find({_id: {$nin: userFlights}, DepartureDate: {$gte: currentDate}}).lean()
+  const ReservedFlights = await Flight.find({_id: {$in: userFlights}, DepartureDate: {$gte: currentDate}}).lean()
+
+  for(var flight of ReservedFlights)
+   flight.reserved = true
+
+  res.send(flights.concat(ReservedFlights))
 }
 
 exports.ReturnFlights = async(req, res) => {

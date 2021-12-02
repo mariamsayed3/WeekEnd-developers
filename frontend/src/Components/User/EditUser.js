@@ -47,11 +47,10 @@ const EditUser = (props) => {
             if (values.PassportNumber == - "") {
                 values.PassportNumber = undefined;
             }
-            console.log(values)
+         
             const res = await axios.patch(`http://localhost:8000/user/edit_user/${Token}`, values);
             const SessionStorage = sessionStorage.getItem('user')
             let userInfo = JSON.parse(SessionStorage)
-            console.log(values.FirstName)
             if (values.FirstName == undefined
                 && values.LastName == undefined
                 && values.Email == undefined
