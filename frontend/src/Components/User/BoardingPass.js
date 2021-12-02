@@ -97,7 +97,7 @@ function BoardingPass() {
                             <use href="#alitalia"></use>
               </svg>
               <div className="logo">
-                <Tag color={"transparent"} icon={<DingtalkOutlined />}>
+                <Tag color={"transparent"} icon={<DingtalkOutlined style={{fontSize: "25px"}}/>}>
                   <b>Jet Away</b>
                 </Tag>
               </div>
