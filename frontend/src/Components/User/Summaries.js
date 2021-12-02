@@ -14,7 +14,6 @@ const Summaries = () =>{
      useEffect (()=>{
          const getSummaries = async()=>{
             const {data} = await axios.get(`http://localhost:8000/user/summaries/${Token}`)
-            console.log(data)
             setSummaries(data)
             setLoading(false)
          }
