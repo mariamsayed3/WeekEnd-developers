@@ -274,7 +274,7 @@ function AvailableFlights(props) {
       </div>
       {loading ? (
         <div className="cards">
-          <Loader />{" "}
+          <Loader />
         </div>
       ) : (
         <div className="cards">
