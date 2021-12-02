@@ -41,7 +41,7 @@ const ReservationData = ({flight ,totalSeats, price, isReturn, selectedSeats, Fi
                     Total Price
                     </span>
                     <span class='text-actual'>
-                    {price} L.E
+                    {price} $
                     </span>
                 </div>
             </div>
