@@ -7,6 +7,7 @@ import { useHistory } from 'react-router';
 import cloud from '../../Assets/cloud.png'
 import Profile from '../User/Profile';
 import {LogoutOutlined} from '@ant-design/icons'
+import plane from '../../Assets/plane.png'
 
  const Home = () => {
    let history = useHistory()
@@ -55,7 +56,7 @@ import {LogoutOutlined} from '@ant-design/icons'
                   <div className='home-search'>
                      <HomeSearch />
                   </div>
-                  <div class="plane"><img src='https://pics.clipartpng.com/midle/Airplane_PNG_Clipart-421.png'/></div> 
+                  <div class="plane"><img src={plane}/></div> 
                </div> 
 
             </div>
