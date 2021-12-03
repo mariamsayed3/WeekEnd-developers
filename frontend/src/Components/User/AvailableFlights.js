@@ -150,6 +150,7 @@ function AvailableFlights(props) {
             .data;
       }
       setFlights(data);
+      setFiltered(data)
       setLoading(false);
     };
     getFlights();
@@ -160,7 +161,11 @@ function AvailableFlights(props) {
     //return filter ones coming from destintion to origin
     if (isReturn) {
       if(RDate){
-        setReturnDate(RDate);
+        setFilteredFlights(
+          arr.filter(
+            (flight) => flight.DepartureDate.substring(0, 10) == RDate
+          )
+        );
       }
       if (returnDate) {
         setFilteredFlights(
@@ -169,6 +174,7 @@ function AvailableFlights(props) {
           )
         );
       }
+
     } else {
       //All available flights
       setFilteredFlights(flights)
@@ -177,15 +183,14 @@ function AvailableFlights(props) {
         setDestination(state.destination);
       if (!departureDate && state && state.departureDate)
         setDepartureDate(state.departureDate);
-        console.log(state && state.returnDate);
       if (state && state.returnDate){
-        console.log("state.returnDate "  +state.returnDate);
         setReturnDate(state.returnDate);
       }
       setFilteredFlights(flights.filter((flight)=>homeSearchFlight(origin, destination, departureDate, flight)));
      
     }
-  }, [flights, origin, destination, departureDate]);
+  }, [flights, origin, destination, departureDate, returnDate]);
+
   useEffect(() => {
     let common = filteredFlights.filter((flight) =>
       getFlights(
@@ -227,7 +232,8 @@ function AvailableFlights(props) {
           state && state.departureDate ? state.departureDate : undefined
         }
         setDepartureDate={setDepartureDate}
-        returnDate={state && state.returnDate ? state.returnDate : undefined}
+        // returnDate={state && state.returnDate ? state.returnDate : undefined}
+        returnDate={returnDate}
         setReturnDate={setReturnDate}
         isReturn={isReturn}
         booking={ReturnFlight}
