@@ -164,7 +164,8 @@ const DepartureCard = (props) => {
                           state: {
                             DepartureFlight: props.flight,
                             flights: props.Allflights,
-                            isReturn: false
+                            isReturn: false,
+                            returnDate: props.returnDate
                           },
                         }}
                       >

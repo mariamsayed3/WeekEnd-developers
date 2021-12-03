@@ -9,9 +9,12 @@ function FlightHeader({
   setDestination,
   departureDate,
   setDepartureDate,
+  returnDate,
+  setReturnDate,
   isReturn,
   booking
 }) {
+  console.log(returnDate);
   const [overlay, setOverlay] = useState(false);
   const [from, setFrom] = useState();
   const [to, setTo] = useState();
@@ -21,11 +24,15 @@ function FlightHeader({
     setOverlay(!overlay);
   }
   const handleFilter = () => {
+    console.log("hi");
     setOrigin(from);
     setDestination(to);
     if(!isReturn)
       setDepartureDate(flightDate);
-    
+    if(isReturn){
+      console.log(returnFlight);
+      setReturnDate(returnFlight);  
+    console.log(returnDate); } 
   }
   return (
       <div className="filter-header-container">
@@ -36,7 +43,7 @@ function FlightHeader({
           </section>
           <section>
           <label>{booking && booking.ArrivalAirport ? booking.ArrivalAirport :to ? to : destination ? destination : "Not Specified Yet"}{" - "}{booking && booking.DepartureAirport ? booking.DepartureAirport : from ? from : origin ? origin : "Not Specified Yet"}</label>
-            <label>{departureDate ? departureDate : returnFlight? returnFlight : "Not Specified Yet"}</label>
+            <label>{returnDate? returnDate : returnFlight? returnFlight : "Not Specified Yet"}</label>
           </section>
           <button onClick={handleclick}>Edit</button>
         </div>

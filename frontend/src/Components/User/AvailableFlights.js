@@ -11,7 +11,6 @@ import FlightHeader from "./FlightHeader";
 import Loader from "../General/Loader";
 import EmptyList from "./EmptyList";
 
-
 function AvailableFlights(props) {
   const [flights, setFlights] = useState([]);
   const [filteredFlights, setFilteredFlights] = useState([]);
@@ -23,12 +22,13 @@ function AvailableFlights(props) {
   const [returnDate, setReturnDate] = useState();
   const { state } = useLocation();
   const { Token, Email } = useContext(UserContext);
-  let isReturn, ReturnFlight, FirstBooking, FlightDetails;
+  let isReturn, ReturnFlight, FirstBooking, FlightDetails, RDate;
   if (state) {
     isReturn = state.isReturn;
     ReturnFlight = state.ReturnFlight;
     FirstBooking = state.FirstBooking;
     FlightDetails = state.data;
+    RDate = state.returnDate;
   }
   const [price, setPrice] = useState([0, 100000]);
   const [children, setChildren] = useState(100);
@@ -111,6 +111,21 @@ function AvailableFlights(props) {
     if (cabinClass.economy && flight.EconomyAvailableSeats == 0) return false;
     else return true;
   };
+  const homeSearchFlight =(origin, destination, departureDate, flight) => {
+    if(origin){
+      if(!(flight.Departure.toLowerCase().includes(origin.toLowerCase())) && !(flight.DepartureAirport.toLowerCase().includes(origin.toLowerCase())) && !(flight.DepartureCountry.toLowerCase().includes(origin.toLowerCase()))){
+        return false;
+      }
+    }
+    if(destination){
+      if(!(flight.Arrival.toLowerCase().includes(destination.toLowerCase())) && !(flight.ArrivalAirport.toLowerCase().includes(destination.toLowerCase())) && !(flight.ArrivalCountry.toLowerCase().includes(destination.toLowerCase())))
+        return false;
+    }
+    if(departureDate && flight.DepartureDate.substring(0, 10) !== departureDate){
+      return false;
+    }
+    return true;
+  }
   useEffect(() => {
     const getFlights = async () => {
       let data = [];
@@ -138,70 +153,37 @@ function AvailableFlights(props) {
       setLoading(false);
     };
     getFlights();
-    
   }, []);
 
   useEffect(() => {
     let arr = flights;
     //return filter ones coming from destintion to origin
     if (isReturn) {
+      if(RDate){
+        setReturnDate(RDate);
+      }
       if (returnDate) {
         setFilteredFlights(
           arr.filter(
-            (flight) =>
-              flight.DepartureDate.substring(0, 10) == state.returnDate
+            (flight) => flight.DepartureDate.substring(0, 10) == returnDate
           )
         );
       }
-      setFilteredFlights(flights);
     } else {
       //All available flights
-      setFilteredFlights(flights);
+      setFilteredFlights(flights)
       if (!origin && state && state.origin) setOrigin(state.origin);
       if (!destination && state && state.destination)
         setDestination(state.destination);
       if (!departureDate && state && state.departureDate)
         setDepartureDate(state.departureDate);
-      if (origin) {
-        setFilteredFlights(
-          arr.filter(
-            (flight) =>
-              flight.Departure.toLowerCase().includes(origin.toLowerCase()) ||
-              flight.DepartureAirport.toLowerCase().includes(
-                origin.toLowerCase()
-              ) ||
-              flight.DepartureCountry.toLowerCase().includes(
-                origin.toLowerCase()
-              )
-          )
-        );
-      }
-      if (destination) {
-        setFilteredFlights(
-          arr.filter(
-            (flight) =>
-              flight.Arrival.toLowerCase().includes(
-                destination.toLowerCase()
-              ) ||
-              flight.ArrivalAirport.toLowerCase().includes(
-                destination.toLowerCase()
-              ) ||
-              flight.ArrivalCountry.toLowerCase().includes(
-                destination.toLowerCase()
-              )
-          )
-        );
-      }
-      if (departureDate) {
-        setFilteredFlights(
-          arr.filter(
-            (flight) => flight.DepartureDate.substring(0, 10) == departureDate
-          )
-        );
-      }
-      if (state && state.returnDate) {
+        console.log(state && state.returnDate);
+      if (state && state.returnDate){
+        console.log("state.returnDate "  +state.returnDate);
         setReturnDate(state.returnDate);
       }
+      setFilteredFlights(flights.filter((flight)=>homeSearchFlight(origin, destination, departureDate, flight)));
+     
     }
   }, [flights, origin, destination, departureDate]);
   useEffect(() => {
@@ -231,10 +213,9 @@ function AvailableFlights(props) {
     arrivalTerminal,
   ]);
   useEffect(() => {
-    const found = document.querySelector('.Header-navbar')
-    if(!found)
-      window.location.reload()
-  },[])
+    const found = document.querySelector(".Header-navbar");
+    if (!found) window.location.reload();
+  }, []);
   return (
     <div className="mega-container">
       <FlightHeader
@@ -272,17 +253,24 @@ function AvailableFlights(props) {
         </div>
       ) : (
         <div className="cards">
-          
-          {filtered.length ? filtered.map((flight) => {
-            return (
-              <>
-                {!isReturn && <DepartureCard flight={flight} />}
-                {isReturn && (
-                  <ReturnCard FirstBooking={FirstBooking} flight={flight} />
-                )}
-              </>
-            );
-          }) : <EmptyList msg={'The requested flight is not available at the moment.'} buttonText="Search for another one ?" path="/"/>}
+          {filtered.length ? (
+            filtered.map((flight) => {
+              return (
+                <>
+                  {!isReturn && <DepartureCard flight={flight} returnDate={returnDate} />}
+                  {isReturn && (
+                    <ReturnCard FirstBooking={FirstBooking} flight={flight}/>
+                  )}
+                </>
+              );
+            })
+          ) : (
+            <EmptyList
+              msg={"The requested flight is not available at the moment."}
+              buttonText="Search for another one ?"
+              path="/"
+            />
+          )}
         </div>
       )}
     </div>
