@@ -6,9 +6,16 @@
   -webkit-tap-highlight-color: transparent;
   width: 400px;
   display: grid;
-  grid-template-rows: 50px 150px 350px 300px 150px 200px 150px 150px;
   border: 1px solid #dcdbdb;
   padding: 25px;
+  .main{
+    border-bottom: 1px dashed #f4f1f1;
+    margin-top: 30px;
+    padding-bottom: 15px;
+    &:nth-child(1){
+      margin-top: 0px;
+    }
+  }
   h1 {
     background-color: $primary-color;
     color: black;
@@ -16,32 +23,43 @@
     margin: -25px -25px 25px -25px;
   }
   div {
-    &:nth-child(6) {
-      section {
-        display: grid;
-        grid-template-columns: 45% 55%;
-        p {
-          font-size: 17px;
-          text-align: left;
-          color: $primary-color;
-        }
-        input {
-          outline: none;
-          height: 30px;
-          border: none;
-          background-color: black;
-          padding: 10px;
-          border-radius: 5px;
-        }
+    .sectionStyle {
+      display: grid;
+      grid-template-columns: 45% 55%;
+      p {
+        font-size: 17px;
+        text-align: left;
+        color: black;
+      }
+      input {
+        outline: none;
+        height: 30px;
+        border: none;
+        background-color: #f5f5f5;
+        color: black;
+        padding: 10px;
+        border-radius: 5px;
       }
     }
-    h2 {
-      text-align: left;
-      font-size: 17px;
-      font-weight: bold;
-      color: black;
-      margin: 10px 0 50px 0;
+
+    .title {
+      display: grid;
+      grid-template-columns: 1fr 25px;
+      height: 50px;
+
+      img {
+        width: 15px;
+        margin-top: 15px;
+      }
+      h2 {
+        text-align: left;
+        font-size: 17px;
+        font-weight: bold;
+        color: black;
+        margin: 10px 0 50px 0;
+      }
     }
+
     .inputGroup {
       background-color: #f5f5f5;
       display: block;

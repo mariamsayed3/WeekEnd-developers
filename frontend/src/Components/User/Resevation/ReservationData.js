@@ -3,7 +3,7 @@ import '../../../Styles/ReservationData.scss'
 import { CheckOutlined } from '@ant-design/icons'
 import { useHistory, Link } from 'react-router-dom'
 import ConfirmReservation from './ConfirmReservation'
-const ReservationData = ({flight ,totalSeats, price, isReturn, selectedSeats, FirstBooking}) => {
+const ReservationData = ({flight ,totalSeats, price, isReturn, selectedSeats, FirstBooking, returnDate}) => {
     let history = useHistory()
     const confirm = () => {
        history.push('/new path')
@@ -57,7 +57,8 @@ const ReservationData = ({flight ,totalSeats, price, isReturn, selectedSeats, Fi
                         state: {
                           isReturn: true,
                           ReturnFlight: flight,
-                          FirstBooking: {flight, Seats:selectedSeats, totalSeats: totalSeats, Price: price}
+                          FirstBooking: {flight, Seats:selectedSeats, totalSeats: totalSeats, Price: price},
+                          returnDate: returnDate
                         },
                       }}
                      >
