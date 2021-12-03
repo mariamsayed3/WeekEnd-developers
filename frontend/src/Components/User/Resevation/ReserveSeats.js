@@ -10,7 +10,7 @@ const ReserveSeats = () => {
   const flight = state.DepartureFlight;
   const isReturn = state.isReturn;
   const FirstBooking = state.FirstBooking;
-
+  const returnDate = state.returnDate;
   const [FirstSeats, setFirstSeats] = useState(0);
   const [EconomySeats, setEconomySeats] = useState(0);
   const [BusinessSeats, setBusinessSeats] = useState(0);
@@ -93,6 +93,7 @@ const ReserveSeats = () => {
               flight={flight}
               totalSeats={FirstSeats + EconomySeats + BusinessSeats}
               price={price}
+              returnDate={returnDate}
             />
           </div>
           <div className="exit exit--front fuselage"></div>

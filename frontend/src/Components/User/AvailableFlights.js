@@ -22,12 +22,13 @@ function AvailableFlights(props) {
   const [returnDate, setReturnDate] = useState();
   const { state } = useLocation();
   const { Token, Email } = useContext(UserContext);
-  let isReturn, ReturnFlight, FirstBooking, FlightDetails;
+  let isReturn, ReturnFlight, FirstBooking, FlightDetails, RDate;
   if (state) {
     isReturn = state.isReturn;
     ReturnFlight = state.ReturnFlight;
     FirstBooking = state.FirstBooking;
     FlightDetails = state.data;
+    RDate = state.returnDate;
   }
   const [price, setPrice] = useState([0, 100000]);
   const [children, setChildren] = useState(100);
@@ -158,16 +159,16 @@ function AvailableFlights(props) {
     let arr = flights;
     //return filter ones coming from destintion to origin
     if (isReturn) {
-      console.log("keda return "+returnDate);
+      if(RDate){
+        setReturnDate(RDate);
+      }
       if (returnDate) {
-        console.log(returnDate);
         setFilteredFlights(
           arr.filter(
             (flight) => flight.DepartureDate.substring(0, 10) == returnDate
           )
         );
       }
-      setFilteredFlights(flights);
     } else {
       //All available flights
       setFilteredFlights(flights)
@@ -180,7 +181,6 @@ function AvailableFlights(props) {
       if (state && state.returnDate){
         console.log("state.returnDate "  +state.returnDate);
         setReturnDate(state.returnDate);
-        console.log(returnDate);
       }
       setFilteredFlights(flights.filter((flight)=>homeSearchFlight(origin, destination, departureDate, flight)));
      
