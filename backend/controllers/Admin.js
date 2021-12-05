@@ -1,6 +1,7 @@
 const Flight = require("../models/Flight");
 const User = require("../models/User");
 const Booking = require("../models/Booking");
+const jwt = require('jsonwebtoken')
 
 exports.getAllFlights = async (req, res) => {
   const allFlights = await Flight.find({});
@@ -38,20 +39,6 @@ exports.createFlight = async (req, res) => {
     if (error) {
       res.send(error);
     } else {
-      res.json(result);
-    }
-  });
-};
-
-exports.EditUser = async (req, res) => {
-  const UserID = req.params.UserID;
-  const condition = { id: UserID };
-  User.updateOne(condition, req.body, (error, result) => {
-    if (error) {
-
-      res.send(error);
-    } else {
-
       res.json(result);
     }
   });
