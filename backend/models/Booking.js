@@ -11,26 +11,29 @@ const bookingSchema = new Schema({
     type: ObjectId,
     required: true,
   },
+  FlightNumber: {
+    type: String,
+    required: true,
+  },
   ReservationNumber: {
     type: String,
     required: true,
+    unique: true,
   },
   TotalPrice: {
     type: Number,
     required: true,
   },
-  NumberOfSeats: {
-    type: Object, // for adults and children
-    required: true,
-  },
-  FlightNumber: {
+  Seats: {
+    type: Object,
+    required: true
+  }, 
+  Children: {
     type: Number,
     required: true
-  },
-  Seats: {
-    type: Array,
-    required: true
-  },
+
+  }, 
+
 });
 
 const Booking = mongoose.model('Booking', bookingSchema);

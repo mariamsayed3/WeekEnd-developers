@@ -1,8 +1,10 @@
 const bcrypt = require('bcrypt')
 const User = require('../models/User')
+const Flight = require('../models/Flight')
 const createToken = require('../middleware/Token')
 const jwt = require('jsonwebtoken')
 const validator = require('validator')
+
 
 exports.register = async (req, res) => {
     const { Username, Email } = req.body
@@ -22,6 +24,16 @@ exports.register = async (req, res) => {
         Token: token,
     })
 }
+
+exports.getFlight = async (req, res) => {
+    const flightID = req.params.flightID;
+    try{
+      const result = await Flight.findById(flightID)
+      res.send(result)
+    }catch(e){
+      res.send(e)
+    }
+  };
 
 exports.login = async (req, res) => {
     const { Username, Password } = req.body

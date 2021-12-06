@@ -1,0 +1,188 @@
+/*     importing google fonts css     */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap");
+
+/*****************
+1. global setup
+2. nav bar
+3. Banner
+4. media query for 768 breakpoint (tablet and mobile)
+*****************/
+
+/*~~~~~~~~~~~~~~ Global setup starts ~~~~~~*/
+* {
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+/*~~~~~~~~~~ Global setup ends ~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~ Nav Bar starts ~~~~~~~~~~~~~~~~~~~~~~*/
+// nav {
+//   font-family: "Montserrat", sans-serif;
+//   background: linear-gradient(
+//     93deg,
+//     rgba(68, 179, 226, 1) 16%,
+//     rgba(94, 129, 207, 1) 55%
+//   );
+//   height: 60px;
+//   width: 100%;
+//   margin: 0px 0px 0px 0px;
+// }
+
+nav {
+  font-family: "Montserrat", sans-serif;
+  //background: linear-gradient(93deg, rgb(6, 54, 75) 16%, rgb(31, 75, 170) 55%);
+  //  background: #b993d6; /* fallback for old browsers */
+  //     background: -webkit-linear-gradient(
+  //       to right,
+  //       #8ca6db,
+  //       #b993d6
+  //     ); /* Chrome 10-25, Safari 5.1-6 */
+  //     background: linear-gradient(
+  //       to right,
+  //       #8ca6db,
+  //       #b993d6
+  //    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #2193b0;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #6dd5ed, #2193b0);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #6dd5ed, #2193b0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  // background: linear-gradient(
+  //   to left,
+  //   rgb(129, 122, 237) 50%,
+  //   rgb(255, 255, 255)
+  // );
+  height: 60px;
+  width: 100%;
+  margin: 0px 0px 0px 0px;
+}
+
+label.logo {
+  color: black;
+  font-size: 35px;
+  font-weight: bold;
+  line-height: 60px;
+  float: left;
+  margin-left: 5px;
+}
+.icon {
+  color: black;
+  font-size: 35px;
+  font-weight: bold;
+  line-height: 60px;
+  float: left;
+  margin-left: 40px;
+  margin-top: 15px;
+}
+.profile{
+  color: black;
+  margin-bottom: -4px;
+  margin-right: 5px;
+}
+
+nav ul {
+  float: right;
+  margin-right: 30px;
+}
+nav ul li {
+  display: inline-block;
+  line-height: 60px;
+  margin: 0px 20px;
+}
+
+nav ul li a {
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: white;
+  font-size: 20px;
+  font-weight: bolder;
+}
+a.active,
+a:hover {
+  color: #44b3e2;
+  color: rgb(53, 52, 52);
+}
+.hamberger-btn {
+  font-size: 35px;
+  color: white;
+  float: right;
+  margin-right: 30px;
+  line-height: 60px;
+  cursor: pointer;
+  display: none;
+}
+#check {
+  display: none;
+}
+/* ~~~~~~~~~~~~~~~~~~~~ Nav Bar ends ~~~~~~~~~~~~~~~~~~~~~*/
+
+/* ~~~~~~~~~~~~~~~~~~~~ Media Query starts ~~~~~~~~~~~~~~~~~~~~~*/
+@media (max-width: 768px) {
+  section {
+    background-position: top right;
+  }
+
+  label.logo {
+    font-size: 30px;
+    margin-left: 20px;
+  }
+  nav ul li a {
+    color: white;
+    font-size: 16px;
+  }
+  .hamberger-btn {
+    display: block;
+  }
+  ul {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(
+      0deg,
+      rgba(34, 193, 195, 1) 0%,
+      rgba(45, 42, 145, 1) 97%
+    );
+    top: 60px;
+    right: 100%;
+    text-align: center;
+    transition: all 0.5s;
+  }
+  nav ul li {
+    display: block;
+  }
+  a:hover {
+    background: linear-gradient(
+      93deg,
+      rgba(94, 129, 207, 1) 16%,
+      rgba(94, 161, 187, 1) 55%
+    );
+  }
+
+  #check:checked ~ ul {
+    right: -10px;
+    z-index: 100;
+  }
+  .fancy-radius {
+    display: none;
+  }
+
+  .greeting {
+    font-size: 20px;
+    font-weight: bold;
+    position: relative;
+    color: whitesmoke;
+    left: 0px;
+    top: 20px;
+    background: rgb(109, 157, 162);
+    background: linear-gradient(
+      256deg,
+      rgba(109, 157, 162, 1) 18%,
+      rgba(94, 161, 187, 1) 58%
+    );
+    transition: all 0.6s;
+    z-index: 99;
+  }
+}
+/* ~~~~~~~~~~~~~~~~~~~~ Media query ends ~~~~~~~~~~~~~~~~~~~~~*/
