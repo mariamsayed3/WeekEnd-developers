@@ -3,47 +3,47 @@ const Clouds = ()=>{
 
     return(
         <div className='home-container'>
-            <div class="cloud1">
-                <div class="c1">
+            <div className="cloud1">
+                <div className="c1">
                 </div>
-                <div class="c2">
+                <div className="c2">
                 </div>
-                <div class="c3">
+                <div className="c3">
                 </div>
-                <div class="c4">
-                </div>
-            </div>
-            <div class="cloud2">
-                <div class="c1">
-                </div>
-                <div class="c2">
-                </div>
-                <div class="c3">
-                </div>
-                <div class="c4">
+                <div className="c4">
                 </div>
             </div>
-            <div class="cloud1">
-                <div class="c1">
+            <div className="cloud2">
+                <div className="c1">
                 </div>
-                <div class="c2">
+                <div className="c2">
                 </div>
-                <div class="c3">
+                <div className="c3">
                 </div>
-                <div class="c4">
-                </div>
-            </div>
-            <div class="cloud2">
-                <div class="c1">
-                </div>
-                <div class="c2">
-                </div>
-                <div class="c3">
-                </div>
-                <div class="c4">
+                <div className="c4">
                 </div>
             </div>
-            <div class="plane"><img src='https://pics.clipartpng.com/midle/Airplane_PNG_Clipart-421.png'/></div>
+            <div className="cloud1">
+                <div className="c1">
+                </div>
+                <div className="c2">
+                </div>
+                <div className="c3">
+                </div>
+                <div className="c4">
+                </div>
+            </div>
+            <div className="cloud2">
+                <div className="c1">
+                </div>
+                <div className="c2">
+                </div>
+                <div className="c3">
+                </div>
+                <div className="c4">
+                </div>
+            </div>
+            <div className="plane"><img src='https://pics.clipartpng.com/midle/Airplane_PNG_Clipart-421.png'/></div>
         </div>
 
     )

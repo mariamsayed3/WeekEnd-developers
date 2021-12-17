@@ -1,4 +1,4 @@
-import  { useContext, useState } from 'react'
+import  { useContext, useEffect, useState } from 'react'
 import  { UserContext } from '../../Context';
 import '../../Styles/Home.scss'
 import HomeSearch from './HomeSearch'
@@ -7,6 +7,7 @@ import { useHistory } from 'react-router';
 import cloud from '../../Assets/cloud.png'
 import Profile from '../User/Profile';
 import {LogoutOutlined} from '@ant-design/icons'
+import plane from '../../Assets/plane.png'
 
  const Home = () => {
    let history = useHistory()
@@ -22,12 +23,17 @@ import {LogoutOutlined} from '@ant-design/icons'
       setModalOpen(true);
    };
 
+   useEffect(() => {
+    const found = document.querySelector('header')
+    if(found)
+      found.remove()
+   }, [])
 
     return (
       <div>
-      <div class="home-container1">
+      <div className="home-container1">
             
-            <div class="box1">
+            <div className="box1">
 
               <div className='logo-container'>
                 <img className='logo' src = {logo} /> 
@@ -55,22 +61,22 @@ import {LogoutOutlined} from '@ant-design/icons'
                   <div className='home-search'>
                      <HomeSearch />
                   </div>
-                  <div class="plane"><img src='https://pics.clipartpng.com/midle/Airplane_PNG_Clipart-421.png'/></div> 
+                  <div className="plane"><img src={plane}/></div> 
                </div> 
 
             </div>
             
-            <div class="box2">
-                  <div class="cloud1">
+            <div className="box2">
+                  <div className="cloud1">
                   <img src = {cloud} />
                         </div>
-                  <div class="cloud2">
+                  <div className="cloud2">
                   <img src = {cloud} />
                   </div>
-                  <div class="cloud3">
+                  <div className="cloud3">
                   <img src = {cloud} />
                   </div>
-                  <div class="cloud4">
+                  <div className="cloud4">
                      <img src = {cloud} />
                   </div>
             </div> 

@@ -1,8 +1,5 @@
 import { useHistory } from 'react-router';
 import '../../Styles/navbar.scss'
-import {GiAirplaneDeparture} from "react-icons/gi";
-import {CgProfile} from "react-icons/cg";
-import {BiLogOut} from "react-icons/bi";
 import {LogoutOutlined} from '@ant-design/icons'
 import Profile from './Profile';
 import { useState } from 'react';

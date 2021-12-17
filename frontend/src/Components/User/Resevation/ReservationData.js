@@ -3,45 +3,45 @@ import '../../../Styles/ReservationData.scss'
 import { CheckOutlined } from '@ant-design/icons'
 import { useHistory, Link } from 'react-router-dom'
 import ConfirmReservation from './ConfirmReservation'
-const ReservationData = ({flight ,totalSeats, price, isReturn, selectedSeats, FirstBooking}) => {
+const ReservationData = ({flight ,totalSeats, price, isReturn, selectedSeats, FirstBooking, returnDate}) => {
     let history = useHistory()
     const confirm = () => {
        history.push('/new path')
     }
     return (
     <>
-    <div class='flight-card--details body1'>
+    <div className='flight-card--details body1'>
         <div>
-            <div class='bc-from'>
-                <span class='detail-code'>
+            <div className='bc-from'>
+                <span className='detail-code'>
                     {flight.DepartureAirport}
                 </span>
             </div>
-            <div class='bc-plane'>
+            <div className='bc-plane'>
                 <img src='https://cdn.onlinewebfonts.com/svg/img_537856.svg'/>
             </div>
-            <div class='bc-to'>
-                <span class='detail-code'>
+            <div className='bc-to'>
+                <span className='detail-code'>
                     {flight.ArrivalAirport}
                 </span>
             </div>
         </div>
         
-            <div class='flight-card-details--text layout2'>
-                <div class="margin">
-                    <span class='text-hline'>
+            <div className='flight-card-details--text layout2'>
+                <div className="margin">
+                    <span className='text-hline'>
                     Chosen seats
                     </span>
-                    <span class='text-actual'>
+                    <span className='text-actual'>
                     {totalSeats}
                     </span>
                 </div>
-                <div class="margin">
-                    <span class='text-hline'>
+                <div className="margin">
+                    <span className='text-hline'>
                     Total Price
                     </span>
-                    <span class='text-actual'>
-                    {price} L.E
+                    <span className='text-actual'>
+                    {price} $
                     </span>
                 </div>
             </div>
@@ -57,7 +57,8 @@ const ReservationData = ({flight ,totalSeats, price, isReturn, selectedSeats, Fi
                         state: {
                           isReturn: true,
                           ReturnFlight: flight,
-                          FirstBooking: {flight, Seats:selectedSeats, totalSeats: totalSeats, Price: price}
+                          FirstBooking: {flight, Seats:selectedSeats, totalSeats: totalSeats, Price: price},
+                          returnDate: returnDate
                         },
                       }}
                      >

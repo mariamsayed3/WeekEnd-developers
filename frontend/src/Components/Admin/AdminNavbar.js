@@ -17,7 +17,7 @@ function AdminNavbar (){
     <>
       <nav>
         <GiAirplaneDeparture className="icon" size="40" />  
-        <label class="logo">Jet Away</label>
+        <label className="logo">Jet Away</label>
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/admin/flights">Available Flights</a></li>

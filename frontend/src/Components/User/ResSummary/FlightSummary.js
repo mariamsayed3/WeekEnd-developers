@@ -33,36 +33,36 @@ class FlightSummary extends Component {
             style={{ float: "right", marginRight: "1.5%", marginTop: "15px" }}
             color="#3e67c0"
           />
-          <div class="section" style={{ float: "left" }}>
-            <div class="tpd-plan">
-              <div class="tp-flight-plan">
-                <div class="container-fluid">
+          <div className="section" style={{ float: "left" }}>
+            <div className="tpd-plan">
+              <div className="tp-flight-plan">
+                <div className="container-fluid">
                   <div>
                     <div
-                      class="context collapsed"
+                      className="context collapsed"
                       data-toggle="collapse"
                       data-target="#demo2"
                     ></div>
-                    <div id="demo2" class="fly-wrap collapse">
-                      <div class="fly-det">
-                        <div class="f-item">
-                          <div class="root-de">
-                            <div class="times">{DepartureFlight.TripDuration} </div>
-                            <div class="directs">
-                              <div class="itin-time">
-                                <div class="itin-lines"></div>
+                    <div id="demo2" className="fly-wrap collapse">
+                      <div className="fly-det">
+                        <div className="f-item">
+                          <div className="root-de">
+                            <div className="times">{DepartureFlight.TripDuration} </div>
+                            <div className="directs">
+                              <div className="itin-time">
+                                <div className="itin-lines"></div>
                               </div>
 
-                              <div class="hour-sm">
-                                <div class="hour-time-sm">{DepartureFlight.DepartureTime}</div>
+                              <div className="hour-sm">
+                                <div className="hour-time-sm">{DepartureFlight.DepartureTime}</div>
 
-                                <div class="hour-time-sm">{DepartureFlight.ArrivalTime}</div>
+                                <div className="hour-time-sm">{DepartureFlight.ArrivalTime}</div>
                               </div>
                             </div>
 
-                            <div class="itin-target">
-                              <div class="tar-label">{DepartureFlight.Departure}</div>
-                              <div class="tar-label">{DepartureFlight.Arrival}</div>
+                            <div className="itin-target">
+                              <div className="tar-label">{DepartureFlight.Departure}</div>
+                              <div className="tar-label">{DepartureFlight.Arrival}</div>
                             </div>
                           </div>
                         </div>
@@ -97,38 +97,38 @@ class FlightSummary extends Component {
               style={{ float: "right", marginRight: "1.5%", marginTop: "15px" }}
               color="#e91e63"
             />
-            <div class="section" style={{float: "left" }}>
-              <div class="tpd-plan">
-                <div class="tp-flight-plan">
-                  <div class="container-fluid">
+            <div className="section" style={{float: "left" }}>
+              <div className="tpd-plan">
+                <div className="tp-flight-plan">
+                  <div className="container-fluid">
                     <div>
                       <div
-                        class="context collapsed"
+                        className="context collapsed"
                         data-toggle="collapse"
                         data-target="#demo2"
                       ></div>
-                      <div style={{}} id="demo2" class="fly-wrap collapse">
-                        <div class="fly-det">
-                          <div class="f-item">
-                            <div class="root-de">
-                              <div class="times"> {ReturnFlight.TripDuration} </div>
-                              <div class="directs">
-                                <div class="itin-time">
-                                  <div class="itin-lines"></div>
+                      <div style={{}} id="demo2" className="fly-wrap collapse">
+                        <div className="fly-det">
+                          <div className="f-item">
+                            <div className="root-de">
+                              <div className="times"> {ReturnFlight.TripDuration} </div>
+                              <div className="directs">
+                                <div className="itin-time">
+                                  <div className="itin-lines"></div>
                                 </div>
 
-                                <div class="hour-sm">
-                                  <div class="hour-time-sm">{ReturnFlight.DepartureTime}</div>
+                                <div className="hour-sm">
+                                  <div className="hour-time-sm">{ReturnFlight.DepartureTime}</div>
 
-                                  <div class="hour-time-sm">{ReturnFlight.ArrivalTime}</div>
+                                  <div className="hour-time-sm">{ReturnFlight.ArrivalTime}</div>
                                 </div>
                               </div>
 
-                              <div class="itin-target">
-                                <div class="tar-label">
+                              <div className="itin-target">
+                                <div className="tar-label">
                                   {ReturnFlight.Departure}
                                 </div>
-                                <div class="tar-label">{ReturnFlight.Arrival}</div>
+                                <div className="tar-label">{ReturnFlight.Arrival}</div>
                               </div>
                             </div>
                           </div>

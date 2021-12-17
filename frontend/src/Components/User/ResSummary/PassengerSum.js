@@ -6,13 +6,13 @@ const PassengerSum = () => {
   const {FirstName, LastName} = useContext(UserContext)
   return (
     <div className="small-card">
-      <div class="wrapper">
-        <div class="qr_code">
+      <div className="wrapper">
+        <div className="qr_code">
           <img src="https://i.imgur.com/vMisPqv.png" alt="QR_code" />
         </div>
-        <div class="content">
-          <div class="info">
-            <div class="item">
+        <div className="content">
+          <div className="info">
+            <div className="item">
               <h4>passenger</h4>
               <p>{`${FirstName}  ${LastName}`}</p>
               <h4>Refundable</h4>
