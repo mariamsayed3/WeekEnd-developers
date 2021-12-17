@@ -214,3 +214,20 @@ exports.createSummaries = async (req, res) => {
     res.status(400).send('error')
   }
 }
+
+exports.notifyReservation = async (req, res) => {
+  const {ReservationNumber, Email, TotalPrice, FlightNumber, FirstName, LastName} = req.body
+  const subject = "Jet Away"
+  const body = `  
+                  <h3> Hello ${FirstName} ${LastName} </h3>
+                      
+                      <h4> Please note that your reservation <b> ${ReservationNumber} </b>  on flight  <b>${FlightNumber} </b>  has been succesfully booked. </h4>
+                      <h4> A total of ${TotalPrice}$ will be refunded to your account.</h4>
+                      
+                  <h3> Jet Away </h3>
+                    ` 
+  sendEmail(Email, subject, body);
+
+  res.status(200).send({ message: 'Email sent successfully!' })
+}
+

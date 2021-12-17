@@ -12,6 +12,8 @@ router.patch(
 
 router.post("/email_cancellation", controllers.notifyCancellation);
 
+router.post("/email_reservation", controllers.notifyReservation);
+
 router.patch('/edit_user/:Token',verifyToken,controllers.EditUser);
 
 router.get(
