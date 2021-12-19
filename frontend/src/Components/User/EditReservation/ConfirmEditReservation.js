@@ -29,7 +29,6 @@ const ConfirmEditReservation = ({booking, totalSeats, selectedSeats, price}) => 
                 history.push(`/my_reservations`)
               }, 5000)    
     });
-            console.log("OPAAA22")
         }catch(e){
             message.loading('Action in progress..', 2.5)
             .then(() => {
