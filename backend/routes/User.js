@@ -11,6 +11,8 @@ router.patch("/cancel_reservation/:reservation_number",controllers.cancelReserva
 
 router.post("/email_cancellation", controllers.notifyCancellation);
 
+router.post("/email_reservation", controllers.notifyReservation);
+
 router.patch('/edit_user/:Token',verifyToken,controllers.EditUser);
 
 router.get("/get_current_flights/:Token", verifyToken, controllers.ViewCurrentFlights);

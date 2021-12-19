@@ -8,7 +8,7 @@ import SmallCard from '../ResSummary/SmallCard';
 import  Summary  from '@mui/material/Modal';
 
 const ConfirmReservation = ({totalSeats, DepartureFlight, price, selectedSeats, FirstBooking}) => {
-  const {Token} = useContext(UserContext)
+  const {Token, Email, FirstName, LastName } = useContext(UserContext)
   let history = useHistory()
   const [open, setOpen] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -35,6 +35,7 @@ const ConfirmReservation = ({totalSeats, DepartureFlight, price, selectedSeats, 
     setOpen(false)
     await axios.post(`/user/reserve/${FirstBooking.flight._id}`, FirstRequest)
     await axios.post(`/user/reserve/${DepartureFlight._id}`, SecondRequest)
+    await axios.post(`/user/email_reservation`, {Token, Email , FirstName, LastName, FirstRequest, SecondRequest})
     await axios.post(`/user/summaries`,{Token,DepartureFlight: FirstBooking.flight, ReturnFlight: DepartureFlight, DepartureBooking: FirstRequest, ReturnBooking: SecondRequest})
     message.loading('Action in progress..', 2.5)
             .then(() => {

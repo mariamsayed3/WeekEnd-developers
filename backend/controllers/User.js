@@ -243,6 +243,38 @@ exports.createSummaries = async (req, res) => {
   }
 }
 
+
+exports.notifyReservation = async (req, res) => {
+  const { FirstRequest, SecondRequest, Email, FirstName, LastName} = req.body
+  const subject = "Jet Away"
+  const body = `  
+                  <h3> Our Dear Customer ${FirstName} ${LastName} </h3>
+
+                      <b> Thank you for riding with JET AWAY! </b>
+
+                      <hr>
+                      <b> <h3> Your Departure Trip Details: </h3> </b>
+                      <h4> Reservation Number: ${FirstRequest.ReservationNumber} </h4> 
+                      <h4> Flight Number: ${FirstRequest.FlightNumber} </h4> 
+                      <h4> Price: ${FirstRequest.TotalPrice} </h4> 
+                      <h4> Children: ${FirstRequest.Children} </h4> 
+                      <hr>
+                      <b> <h3> Your Return Trip Details: </h3> </b>
+                      <h4> Reservation Number: ${SecondRequest.ReservationNumber} </h4> 
+                      <h4> FlightNumber: ${SecondRequest.FlightNumber} </h4> 
+                      <h4> Price: ${SecondRequest.TotalPrice} </h4> 
+                      <h4> Children: ${SecondRequest.Children} </h4> 
+                      <hr>
+                
+                  <h4> Sincerely, </h4> 
+                  <h4> Jet Away </h4>
+                    ` 
+  sendEmail(Email, subject, body);
+
+  res.status(200).send({ message: 'Email sent successfully!' })
+}
+
+
 exports.editReservation = async (req, res) => {
   const {booking, changedSeats, newSeats, oldChildren} = req.body
   const bookingID = booking._id
@@ -292,3 +324,4 @@ exports.editReservation = async (req, res) => {
   await Flight.findByIdAndUpdate(flightID, flight)
   res.send({message: 'success'})
 }
+
