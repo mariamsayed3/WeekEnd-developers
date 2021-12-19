@@ -5,7 +5,9 @@ const verifyToken = require("../middleware/verifyToken");
 
 router.use(express.json());
 
-router.patch("/cancel_reservation/:reservation_number", controllers.cancelReservation);
+router.post("/payement", controllers.payement);
+
+router.patch("/cancel_reservation/:reservation_number",controllers.cancelReservation);
 
 router.post("/email_cancellation", controllers.notifyCancellation);
 
