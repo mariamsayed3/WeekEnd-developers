@@ -1,13 +1,9 @@
-import { Button, Popconfirm } from 'antd'
+import { Button } from 'antd'
 import '../../../Styles/ReservationData.scss'
 import { CheckOutlined } from '@ant-design/icons'
-import { useHistory, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import ConfirmReservation from './ConfirmReservation'
 const ReservationData = ({flight ,totalSeats, price, isReturn, selectedSeats, FirstBooking, returnDate}) => {
-    let history = useHistory()
-    const confirm = () => {
-       history.push('/new path')
-    }
     return (
     <>
     <div className='flight-card--details body1'>
