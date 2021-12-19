@@ -27,6 +27,7 @@ import AvailableFlights from "./Components/User/AvailableFlights";
 import EditUser from "./Components/User/EditUser";
 import SmallCard from './Components/User/ResSummary/SmallCard'
 import Summaries from "./Components/User/Summaries";
+import ForgotPassword from "./Components/General/ForgotPassword"
 import EditReservedSeats from './Components/User/EditReservation/EditReservedSeats'
 dotenv.config();
 const { Header, Content } = Layout;
@@ -55,6 +56,7 @@ function App() {
             <Route path="/unauthorized" exact component={Unauthorized} />
             <Route path="/register" exact component={Register} />
             <Route path="/summary" exact component={SmallCard} />
+            <Route path="/reset-password" exact component={ForgotPassword} />
 
             <PrivateRouteAdmin
               path="/admin/create_flight"
