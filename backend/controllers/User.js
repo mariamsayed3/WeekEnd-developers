@@ -218,3 +218,53 @@ exports.createSummaries = async (req, res) => {
     res.status(400).send('error')
   }
 }
+
+exports.editReservation = async (req, res) => {
+  const {booking, changedSeats, newSeats, oldChildren} = req.body
+  const bookingID = booking._id
+  const flightID = booking.Flight
+  const newChildren = booking.Children
+  const oldAdults = changedSeats.length - oldChildren
+  const newAdults = newSeats.length - newChildren
+  await Booking.findByIdAndUpdate(bookingID, booking)
+  const flight = await Flight.findById(flightID).lean()
+  const oldFlight = {...flight}
+  for(let seat of changedSeats){
+    const seatNumber = parseInt(seat.slice(1))
+    if(seat.charAt(0) === 'A'){
+      flight.FirstClassAvailableSeats++;
+      flight.FirstClassSeats[seatNumber - 1].reserved = false
+    }
+    else if(seat.charAt(0) === 'B'){
+      flight.BusinessAvailableSeats++
+      flight.BusinessSeats[seatNumber - 1].reserved = false
+    }
+    else {
+      flight.EconomyAvailableSeats++
+      flight.EconomySeats[seatNumber - 1].reserved = false
+    }
+  }
+
+  for(let seat of newSeats){
+    const seatNumber = parseInt(seat.slice(1))
+    if(seat.charAt(0) === 'A'){
+      flight.FirstClassAvailableSeats--
+      flight.FirstClassSeats[seatNumber - 1].reserved = true
+    }
+    else if(seat.charAt(0) === 'B'){
+      flight.BusinessAvailableSeats--
+      flight.BusinessSeats[seatNumber - 1].reserved = true
+    }
+    else {
+      flight.EconomyAvailableSeats--
+      flight.EconomySeats[seatNumber - 1].reserved = true
+    }
+  }
+  const adultsDifference = newAdults - oldAdults
+  const childrenDifference = newChildren - oldChildren
+  flight.NumberOfPassengers.Adults += adultsDifference
+  flight.NumberOfPassengers.Children += childrenDifference
+
+  await Flight.findByIdAndUpdate(flightID, flight)
+  res.send({message: 'success'})
+}
