@@ -4,16 +4,14 @@ import { CheckOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { UserContext } from '../../../Context';
 import { useHistory } from 'react-router';
-import {Link} from 'react-router-dom'
 import SmallCard from '../ResSummary/SmallCard';
 import  Summary  from '@mui/material/Modal';
 
 const ConfirmReservation = ({totalSeats, DepartureFlight, price, selectedSeats, FirstBooking}) => {
-  const {Token} = useContext(UserContext)
+  const {Token, Email, FirstName, LastName } = useContext(UserContext)
   let history = useHistory()
   const [open, setOpen] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isVisible, setVisible] = useState(false);
   const [value, setValue] = useState(2);
   const [Children, setChildren] = useState(0);
   const [remaining, setRemaining] = useState(FirstBooking.Seats.length)
@@ -37,10 +35,11 @@ const ConfirmReservation = ({totalSeats, DepartureFlight, price, selectedSeats, 
     setOpen(false)
     await axios.post(`/user/reserve/${FirstBooking.flight._id}`, FirstRequest)
     await axios.post(`/user/reserve/${DepartureFlight._id}`, SecondRequest)
+    await axios.post(`/user/email_reservation`, {Token, Email , FirstName, LastName, FirstRequest, SecondRequest})
     await axios.post(`/user/summaries`,{Token,DepartureFlight: FirstBooking.flight, ReturnFlight: DepartureFlight, DepartureBooking: FirstRequest, ReturnBooking: SecondRequest})
     message.loading('Action in progress..', 2.5)
             .then(() => {
-              message.success('Flight reserved successfully! You will be redirected to the reservations page.', 5)
+              message.success('Flight edited successfully! You will be redirected to the reservations page.', 5)
               setTimeout(()=> {
                 history.push(`/my_reservations`)
               }, 5000)    

@@ -3,8 +3,32 @@ const User = require("../models/User");
 const Booking = require("../models/Booking");
 const Summary = require("../models/Summary");
 const { sendEmail } = require('../utils/email');
+require("dotenv").config();
 const jwt = require('jsonwebtoken')
-// const logo = require("../Assets/logo-blue.png")
+const stripe = require('stripe')(process.env.STRIPE_KEY)
+
+exports.payement = async (req, res) =>{
+  const {amount} = req.body
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name:  'Total Fee',
+          },
+          unit_amount: amount *100,
+        },
+        quantity: 1,
+      },
+    ],
+    mode: 'payment',
+    success_url: 'http://localhost:3000/my_reservations',
+    cancel_url: 'http://localhost:3000/available_flights',
+  });
+
+  res.send({url: session.url});
+}
 
 exports.cancelReservation = async (req, res) => {
   const reservation_number =  req.params.reservation_number;
@@ -250,3 +274,85 @@ console.log(user);
 
   res.status(200).send({ message: 'Email sent successfully!' })
 }
+
+exports.notifyReservation = async (req, res) => {
+  const { FirstRequest, SecondRequest, Email, FirstName, LastName} = req.body
+  const subject = "Jet Away"
+  const body = `  
+                  <h3> Our Dear Customer ${FirstName} ${LastName} </h3>
+
+                      <b> Thank you for riding with JET AWAY! </b>
+
+                      <hr>
+                      <b> <h3> Your Departure Trip Details: </h3> </b>
+                      <h4> Reservation Number: ${FirstRequest.ReservationNumber} </h4> 
+                      <h4> Flight Number: ${FirstRequest.FlightNumber} </h4> 
+                      <h4> Price: ${FirstRequest.TotalPrice} </h4> 
+                      <h4> Children: ${FirstRequest.Children} </h4> 
+                      <hr>
+                      <b> <h3> Your Return Trip Details: </h3> </b>
+                      <h4> Reservation Number: ${SecondRequest.ReservationNumber} </h4> 
+                      <h4> FlightNumber: ${SecondRequest.FlightNumber} </h4> 
+                      <h4> Price: ${SecondRequest.TotalPrice} </h4> 
+                      <h4> Children: ${SecondRequest.Children} </h4> 
+                      <hr>
+                
+                  <h4> Sincerely, </h4> 
+                  <h4> Jet Away </h4>
+                    ` 
+  sendEmail(Email, subject, body);
+
+  res.status(200).send({ message: 'Email sent successfully!' })
+}
+
+
+exports.editReservation = async (req, res) => {
+  const {booking, changedSeats, newSeats, oldChildren} = req.body
+  const bookingID = booking._id
+  const flightID = booking.Flight
+  const newChildren = booking.Children
+  const oldAdults = changedSeats.length - oldChildren
+  const newAdults = newSeats.length - newChildren
+  await Booking.findByIdAndUpdate(bookingID, booking)
+  const flight = await Flight.findById(flightID).lean()
+  const oldFlight = {...flight}
+  for(let seat of changedSeats){
+    const seatNumber = parseInt(seat.slice(1))
+    if(seat.charAt(0) === 'A'){
+      flight.FirstClassAvailableSeats++;
+      flight.FirstClassSeats[seatNumber - 1].reserved = false
+    }
+    else if(seat.charAt(0) === 'B'){
+      flight.BusinessAvailableSeats++
+      flight.BusinessSeats[seatNumber - 1].reserved = false
+    }
+    else {
+      flight.EconomyAvailableSeats++
+      flight.EconomySeats[seatNumber - 1].reserved = false
+    }
+  }
+
+  for(let seat of newSeats){
+    const seatNumber = parseInt(seat.slice(1))
+    if(seat.charAt(0) === 'A'){
+      flight.FirstClassAvailableSeats--
+      flight.FirstClassSeats[seatNumber - 1].reserved = true
+    }
+    else if(seat.charAt(0) === 'B'){
+      flight.BusinessAvailableSeats--
+      flight.BusinessSeats[seatNumber - 1].reserved = true
+    }
+    else {
+      flight.EconomyAvailableSeats--
+      flight.EconomySeats[seatNumber - 1].reserved = true
+    }
+  }
+  const adultsDifference = newAdults - oldAdults
+  const childrenDifference = newChildren - oldChildren
+  flight.NumberOfPassengers.Adults += adultsDifference
+  flight.NumberOfPassengers.Children += childrenDifference
+
+  await Flight.findByIdAndUpdate(flightID, flight)
+  res.send({message: 'success'})
+}
+

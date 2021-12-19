@@ -1,6 +1,8 @@
 import  { useContext, useEffect, useState } from 'react'
 import  { UserContext } from '../../Context';
 import '../../Styles/Home.scss'
+import axios from 'axios';
+import {Redirect} from "react-router"
 import HomeSearch from './HomeSearch'
 import logo from '../../Assets/logo-blue.png'
 import { useHistory } from 'react-router';
@@ -28,7 +30,7 @@ import plane from '../../Assets/plane.png'
     if(found)
       found.remove()
    }, [])
-
+  
     return (
       <div>
       <div className="home-container1">
@@ -39,6 +41,7 @@ import plane from '../../Assets/plane.png'
                 <img className='logo' src = {logo} /> 
                {Admin && <div className='tabs'>
                  <a > Home</a>
+                
                  <a href='/admin/create_flight'> Create Flight</a>
                  <a href= '/admin/flights'> Available Flights</a>
                  <a onClick={logout}> <LogoutOutlined /> </a>
@@ -46,6 +49,7 @@ import plane from '../../Assets/plane.png'
 
                {!Admin && <div className='tabs'>
                  <a> Home</a>
+            
                  <a href= '/available_flights'> Flights</a>
                  <a href='my_reservations'> My Reservations</a>
                  <a href='my_summaries'> Summaries</a>
