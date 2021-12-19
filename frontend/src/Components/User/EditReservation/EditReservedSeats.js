@@ -14,10 +14,6 @@ const EditReservedSeats = () => {
     const [previouslySelectedSeats, setPreviouslySelectedSeats] = useState(Booking.Seats);
     const [price, setPrice] = useState(0);
 
-    console.log(Booking)
-    console.log(Flight)
-    console.log(selectedSeats)
-
     useEffect(() => {
         setPrice(
           FirstSeats * flight.FirstClassPrice +

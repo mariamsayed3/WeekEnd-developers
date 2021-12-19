@@ -1,20 +1,43 @@
 import { CheckOutlined } from '@ant-design/icons';
 import { Modal, Button, Radio, InputNumber, message } from 'antd';
-import { useState } from 'react';
-const ConfirmEditReservation = ({booking, flight, totalSeats, selectedSeats, price}) => {
+import axios from 'axios';
+import { useContext, useState } from 'react';
+import { useHistory } from 'react-router';
+import { UserContext } from '../../../Context';
+const ConfirmEditReservation = ({booking, totalSeats, selectedSeats, price}) => {
+    const { Token } = useContext(UserContext)
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [value, setValue] = useState(2);
     const [Children, setChildren] = useState(0);
-    const editReservation = () => {
+    let history = useHistory()
+    const editReservation = async () => {
+        setIsModalVisible(false)
         const changedSeats = booking.Seats
+        const oldChildren = booking.Children
         booking.TotalPrice = price
         booking.Children = Children
         booking.Seats = []
         for(let seat of selectedSeats)
             booking.Seats.push(seat.number)
         const newSeats =  booking.Seats
-       
-
+        try{
+            await axios.patch('http://localhost:8000/user/edit_reservation', {Token, changedSeats, newSeats, booking, oldChildren})
+            message.loading('Action in progress..', 2.5)
+            .then(() => {
+              message.success('Flight reserved successfully! You will be redirected to the reservations page.', 5)
+              setTimeout(()=> {
+                history.push(`/my_reservations`)
+              }, 5000)    
+    });
+            console.log("OPAAA22")
+        }catch(e){
+            message.loading('Action in progress..', 2.5)
+            .then(() => {
+              message.error('Something went wrong. Please try again later.', 5)  
+            });
+        }
+        
+        
     }
 
     const handleCancel = () => {
