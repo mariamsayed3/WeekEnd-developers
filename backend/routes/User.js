@@ -38,4 +38,6 @@ router.get('/summaries/:Token',verifyToken, controllers.getSummaries)
 
 router.post('/summaries',verifyToken, controllers.createSummaries)
 
+router.post('/resetPassword', controllers.resetPassword);
+
 module.exports = router;
