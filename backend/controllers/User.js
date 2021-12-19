@@ -237,6 +237,7 @@ console.log(user);
   const url = "http://localhost:8000/user/resetpassword/" + token
   // call sendEmail
   const subject = "JET AWAY Reset Password"
+  
   const body = `  <h3> Hello ${user.FirstName}, ${user.LastName} </h3>
                       <h4> A request has been made for you to reset your password 
                       if you didn't make this request then please ignore this email.  </h4>
