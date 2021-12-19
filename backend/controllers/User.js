@@ -216,15 +216,29 @@ exports.createSummaries = async (req, res) => {
 }
 
 exports.notifyReservation = async (req, res) => {
-  const {ReservationNumber, Email, TotalPrice, FlightNumber, FirstName, LastName} = req.body
+  const { FirstRequest, SecondRequest, Email, FirstName, LastName} = req.body
   const subject = "Jet Away"
   const body = `  
-                  <h3> Hello ${FirstName} ${LastName} </h3>
-                      
-                      <h4> Please note that your reservation <b> ${ReservationNumber} </b>  on flight  <b>${FlightNumber} </b>  has been succesfully booked. </h4>
-                      <h4> A total of ${TotalPrice}$ will be refunded to your account.</h4>
-                      
-                  <h3> Jet Away </h3>
+                  <h3> Our Dear Customer ${FirstName} ${LastName} </h3>
+
+                      <b> Thank you for riding with JET AWAY! </b>
+
+                      <hr>
+                      <b> <h3> Your Departure Trip Details: </h3> </b>
+                      <h4> Reservation Number: ${FirstRequest.ReservationNumber} </h4> 
+                      <h4> Flight Number: ${FirstRequest.FlightNumber} </h4> 
+                      <h4> Price: ${FirstRequest.TotalPrice} </h4> 
+                      <h4> Children: ${FirstRequest.Children} </h4> 
+                      <hr>
+                      <b> <h3> Your Return Trip Details: </h3> </b>
+                      <h4> Reservation Number: ${SecondRequest.ReservationNumber} </h4> 
+                      <h4> FlightNumber: ${SecondRequest.FlightNumber} </h4> 
+                      <h4> Price: ${SecondRequest.TotalPrice} </h4> 
+                      <h4> Children: ${SecondRequest.Children} </h4> 
+                      <hr>
+                
+                  <h4> Sincerely, </h4> 
+                  <h4> Jet Away </h4>
                     ` 
   sendEmail(Email, subject, body);
 
