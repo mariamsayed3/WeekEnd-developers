@@ -2,7 +2,7 @@ import { Component } from "react";
 import "antd/dist/antd.css";
 import { Popconfirm } from "antd";
 import axios from "axios";
-import { FaPlaneDeparture, FaPlaneArrival } from 'react-icons/fa';
+import { FaPlaneDeparture } from 'react-icons/fa';
 import "../../Styles/flightcard.scss";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import FlightDetailsPopup from '../General/FlightDetailsPopup'

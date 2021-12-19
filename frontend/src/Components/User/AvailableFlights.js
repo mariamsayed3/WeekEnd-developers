@@ -9,10 +9,7 @@ import { useContext } from "react";
 import { UserContext } from "../../Context";
 import FlightHeader from "./FlightHeader";
 import Loader from "../General/Loader";
-import {Layout} from 'antd'
-import UserNavBar from './UserNavbar'
-const {Header} = Layout
-
+import EmptyList from "./EmptyList";
 
 function AvailableFlights(props) {
   const [flights, setFlights] = useState([]);
@@ -25,12 +22,13 @@ function AvailableFlights(props) {
   const [returnDate, setReturnDate] = useState();
   const { state } = useLocation();
   const { Token, Email } = useContext(UserContext);
-  let isReturn, ReturnFlight, FirstBooking, FlightDetails;
+  let isReturn, ReturnFlight, FirstBooking, FlightDetails, RDate;
   if (state) {
     isReturn = state.isReturn;
     ReturnFlight = state.ReturnFlight;
     FirstBooking = state.FirstBooking;
     FlightDetails = state.data;
+    RDate = state.returnDate;
   }
   const [price, setPrice] = useState([0, 100000]);
   const [children, setChildren] = useState(100);
@@ -40,13 +38,13 @@ function AvailableFlights(props) {
   const [departureTerminal, setDepartureTerminal] = useState("");
   const [departureTime, setDepartureTime] = useState({
     midnight: true,
-    morning: false,
+    morning: true,
     noon: true,
-    night: false,
+    night: true,
   });
   const [cabinClass, setCabinClass] = useState({
-    first: false,
-    business: false,
+    first: true,
+    business: true,
     economy: true,
   });
 
@@ -113,11 +111,25 @@ function AvailableFlights(props) {
     if (cabinClass.economy && flight.EconomyAvailableSeats == 0) return false;
     else return true;
   };
+  const homeSearchFlight =(origin, destination, departureDate, flight) => {
+    if(origin){
+      if(!(flight.Departure.toLowerCase().includes(origin.toLowerCase())) && !(flight.DepartureAirport.toLowerCase().includes(origin.toLowerCase())) && !(flight.DepartureCountry.toLowerCase().includes(origin.toLowerCase()))){
+        return false;
+      }
+    }
+    if(destination){
+      if(!(flight.Arrival.toLowerCase().includes(destination.toLowerCase())) && !(flight.ArrivalAirport.toLowerCase().includes(destination.toLowerCase())) && !(flight.ArrivalCountry.toLowerCase().includes(destination.toLowerCase())))
+        return false;
+    }
+    if(departureDate && flight.DepartureDate.substring(0, 10) !== departureDate){
+      return false;
+    }
+    return true;
+  }
   useEffect(() => {
     const getFlights = async () => {
       let data = [];
       if (isReturn) {
-        console.log(ReturnFlight.ArrivalAirport, ReturnFlight.DepartureAirport, ReturnFlight.DepartureDate)
         data = (
           await axios.post(`http://localhost:8000/user/return_flights`, {
             Token,
@@ -138,75 +150,47 @@ function AvailableFlights(props) {
             .data;
       }
       setFlights(data);
+      setFiltered(data)
       setLoading(false);
     };
     getFlights();
-    console.log(flights)
   }, []);
-  
+
   useEffect(() => {
     let arr = flights;
     //return filter ones coming from destintion to origin
     if (isReturn) {
-      if (returnDate) {
+      if(RDate){
         setFilteredFlights(
           arr.filter(
-            (flight) =>
-              flight.DepartureDate.substring(0, 10) == state.returnDate
+            (flight) => flight.DepartureDate.substring(0, 10) == RDate
           )
         );
       }
-      setFilteredFlights(flights);
+      if (returnDate) {
+        setFilteredFlights(
+          arr.filter(
+            (flight) => flight.DepartureDate.substring(0, 10) == returnDate
+          )
+        );
+      }
+
     } else {
       //All available flights
-      setFilteredFlights(flights);
+      setFilteredFlights(flights)
       if (!origin && state && state.origin) setOrigin(state.origin);
       if (!destination && state && state.destination)
         setDestination(state.destination);
       if (!departureDate && state && state.departureDate)
         setDepartureDate(state.departureDate);
-      if (origin) {
-        setFilteredFlights(
-          arr.filter(
-            (flight) =>
-              flight.Departure.toLowerCase().includes(origin.toLowerCase()) ||
-              flight.DepartureAirport.toLowerCase().includes(
-                origin.toLowerCase()
-              ) ||
-              flight.DepartureCountry.toLowerCase().includes(
-                origin.toLowerCase()
-              )
-          )
-        );
-      }
-      if (destination) {
-        setFilteredFlights(
-          arr.filter(
-            (flight) =>
-              flight.Arrival.toLowerCase().includes(
-                destination.toLowerCase()
-              ) ||
-              flight.ArrivalAirport.toLowerCase().includes(
-                destination.toLowerCase()
-              ) ||
-              flight.ArrivalCountry.toLowerCase().includes(
-                destination.toLowerCase()
-              )
-          )
-        );
-      }
-      if (departureDate) {
-        setFilteredFlights(
-          arr.filter(
-            (flight) => flight.DepartureDate.substring(0, 10) == departureDate
-          )
-        );
-      }
-      if (state && state.returnDate) {
+      if (state && state.returnDate){
         setReturnDate(state.returnDate);
       }
+      setFilteredFlights(flights.filter((flight)=>homeSearchFlight(origin, destination, departureDate, flight)));
+     
     }
-  }, [flights, origin, destination, departureDate]);
+  }, [flights, origin, destination, departureDate, returnDate]);
+
   useEffect(() => {
     let common = filteredFlights.filter((flight) =>
       getFlights(
@@ -233,70 +217,70 @@ function AvailableFlights(props) {
     departureTerminal,
     arrivalTerminal,
   ]);
-
   useEffect(() => {
-    const found = document.querySelector('.Header-navbar')
-    if(!found)
-      window.location.reload()
-  },[])
+    const found = document.querySelector(".Header-navbar");
+    if (!found) window.location.reload();
+  }, []);
+  return (
+    <div className="mega-container">
+      <FlightHeader
+        origin={state && state.origin ? state.origin : undefined}
+        setOrigin={setOrigin}
+        destination={state && state.destination ? state.destination : undefined}
+        setDestination={setDestination}
+        departureDate={
+          state && state.departureDate ? state.departureDate : undefined
+        }
+        setDepartureDate={setDepartureDate}
+        // returnDate={state && state.returnDate ? state.returnDate : undefined}
+        returnDate={returnDate}
+        setReturnDate={setReturnDate}
+        isReturn={isReturn}
+        booking={ReturnFlight}
+      />
 
-  if (loading) {
-    return <Loader />;
-  } else {
-    return (
-      <>
-      
-      <div className="mega-container">
-        <FlightHeader
-          origin={state && state.origin ? state.origin : undefined}
-          setOrigin={setOrigin}
-          destination={
-            state && state.destination ? state.destination : undefined
-          }
-          setDestination={setDestination}
-          departureDate={
-            state && state.departureDate ? state.departureDate : undefined
-          }
-          setDepartureDate={setDepartureDate}
-          returnDate={
-            state && state.returnDate ? state.returnDate : undefined
-          }
-          setReturnDate={setReturnDate}
-          isReturn={isReturn}
-          booking = {ReturnFlight}
+      <div className="available-container">
+        <UserFilter
+          setPrice={setPrice}
+          setDuration={setDuration}
+          setArrivalTerminal={setArrivalTerminal}
+          setDepartureTerminal={setDepartureTerminal}
+          setChildren={setChildren}
+          setAdults={setAdults}
+          departureTime={departureTime}
+          setDepartureTime={setDepartureTime}
+          cabinClass={cabinClass}
+          setCabinClass={setCabinClass}
         />
-
-        <div className="available-container">
-          <UserFilter
-            setPrice={setPrice}
-            setDuration={setDuration}
-            setArrivalTerminal={setArrivalTerminal}
-            setDepartureTerminal={setDepartureTerminal}
-            setChildren={setChildren}
-            setAdults={setAdults}
-            departureTime={departureTime}
-            setDepartureTime={setDepartureTime}
-            cabinClass={cabinClass}
-            setCabinClass={setCabinClass}
-          />
-
-          <div className="cards">
-            {filtered.map((flight) => {
+      </div>
+      {loading ? (
+        <div className="cards">
+          <Loader />
+        </div>
+      ) : (
+        <div className="cards">
+          {filtered.length ? (
+            filtered.map((flight) => {
               return (
                 <>
-                  {!isReturn && <DepartureCard flight={flight} />}
+                  {!isReturn && <DepartureCard flight={flight} returnDate={returnDate} />}
                   {isReturn && (
-                    <ReturnCard FirstBooking={FirstBooking} flight={flight} />
+                    <ReturnCard FirstBooking={FirstBooking} flight={flight}/>
                   )}
                 </>
               );
-            })}
-          </div>
+            })
+          ) : (
+            <EmptyList
+              msg={"The requested flight is not available at the moment."}
+              buttonText="Search for another one ?"
+              path="/"
+            />
+          )}
         </div>
-      </div>
-      </>
-    );
-  }
+      )}
+    </div>
+  );
 }
 
 export default AvailableFlights;

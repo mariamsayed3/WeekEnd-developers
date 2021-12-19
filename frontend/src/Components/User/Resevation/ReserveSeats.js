@@ -10,7 +10,7 @@ const ReserveSeats = () => {
   const flight = state.DepartureFlight;
   const isReturn = state.isReturn;
   const FirstBooking = state.FirstBooking;
-
+  const returnDate = state.returnDate;
   const [FirstSeats, setFirstSeats] = useState(0);
   const [EconomySeats, setEconomySeats] = useState(0);
   const [BusinessSeats, setBusinessSeats] = useState(0);
@@ -38,21 +38,21 @@ const ReserveSeats = () => {
     <>
       {!isReturn ? (
         <div>
-                <div class="navigation_menu" id="navigation_menu">
-                  <ul class="navigation_tabs" id="navigation_tabs">
-                    <li class="tab_inactive">
+                <div className="navigation_menu" id="navigation_menu">
+                  <ul className="navigation_tabs" id="navigation_tabs">
+                    <li className="tab_inactive">
                         <a>Select Departure Flight</a>
                     </li>
-                    <li class="tab_active">
+                    <li className="tab_active">
                         <a>Select Departure Seats</a>
                     </li>
-                    <li class="tab_disabled">
+                    <li className="tab_disabled">
                         <a>Select Return Flight</a>
                     </li>
-                    <li class="tab_disabled">
+                    <li className="tab_disabled">
                         <a>Select Return Seats</a>
                     </li>
-                    <li class="tab_disabled">
+                    <li className="tab_disabled">
                         <a>Payement</a>
                     </li>
                   </ul>
@@ -62,21 +62,21 @@ const ReserveSeats = () => {
         
       ) : (
         <div>
-        <div class="navigation_menu" id="navigation_menu">
-                  <ul class="navigation_tabs" id="navigation_tabs">
-                    <li class="tab_inactive">
+        <div className="navigation_menu" id="navigation_menu">
+                  <ul className="navigation_tabs" id="navigation_tabs">
+                    <li className="tab_inactive">
                         <a href="#">Select Departure Flight</a>
                     </li>
-                    <li class="tab_inactive">
+                    <li className="tab_inactive">
                         <a href="#">Select Departure Seats</a>
                     </li>
-                    <li class="tab_inactive">
+                    <li className="tab_inactive">
                         <a href="#">Select Return Flight</a>
                     </li>
-                    <li class="tab_active">
+                    <li className="tab_active">
                         <a href="#">Select Return Seats</a>
                     </li>
-                    <li class="tab_disabled">
+                    <li className="tab_disabled">
                         <a href="#">Payement</a>
                     </li>
                   </ul>
@@ -93,21 +93,22 @@ const ReserveSeats = () => {
               flight={flight}
               totalSeats={FirstSeats + EconomySeats + BusinessSeats}
               price={price}
+              returnDate={returnDate}
             />
           </div>
           <div className="exit exit--front fuselage"></div>
           <div className="row-container body ">
-            <ul class="showcase">
+            <ul className="showcase">
               <li>
-                <div class="seat"></div>
+                <div className="seat"></div>
                 <small>N/A</small>
               </li>
               <li>
-                <div class="seat selected"></div>
+                <div className="seat selected"></div>
                 <small>Selected</small>
               </li>
               <li>
-                <div class="seat occupied"></div>
+                <div className="seat occupied"></div>
                 <small>Occupied</small>
               </li>
             </ul>
@@ -147,7 +148,7 @@ const ReserveSeats = () => {
               FirstBooking={FirstBooking}
             />
           </div>
-          <div class="exit exit--front fuselage"></div>
+          <div className="exit exit--front fuselage"></div>
         </div>
         <div className="plane-card">
           <View flight={flight}/>

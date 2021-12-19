@@ -22,8 +22,6 @@ exports.sendEmail = (email, subject, html) => {
         if(err) {
             console.log(err)
             console.log('Error Occurs');
-        } else {
-            console.log('Email sent successfully');
-        }
+        } 
     });
 }

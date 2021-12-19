@@ -1,13 +1,12 @@
-import { Row } from "antd";
 import "../../../Styles/view.scss";
 import PlaneMotion from "./PlaneMotion";
 
 export default function View({flight}) {
   return (
     <div className="viewdetailscontainer">
-      <div class="c-modal">
-        <div id="left-popup" class="c-modal__content">
-          <div id="hero-city" class="c-modal__hero">
+      <div className="c-modal">
+        <div id="left-popup" className="c-modal__content">
+          <div id="hero-city" className="c-modal__hero">
             <PlaneMotion />
             <h1 style={{fontSize: '20px'}}>{`Flight: ${flight.FlightNumber}`}</h1>
             
@@ -16,7 +15,7 @@ export default function View({flight}) {
             <h2 style={{ right: "30%", bottom: "100%" }}>{`${flight.DepartureAirport}, ${flight.DepartureCountry}`}</h2>
             <h2 style={{ left: "30%", bottom: "100%" }}>{`${flight.ArrivalAirport}, ${flight.ArrivalCountry}`}</h2>
           </div>
-          <div id="flight-details" class="c-flight-details">
+          <div id="flight-details" className="c-flight-details">
             <div
               id="times"
               style={{ display: "flex", flexDirection: "column" }}

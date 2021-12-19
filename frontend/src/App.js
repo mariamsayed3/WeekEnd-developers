@@ -27,6 +27,7 @@ import AvailableFlights from "./Components/User/AvailableFlights";
 import EditUser from "./Components/User/EditUser";
 import SmallCard from './Components/User/ResSummary/SmallCard'
 import Summaries from "./Components/User/Summaries";
+import EditReservedSeats from './Components/User/EditReservation/EditReservedSeats'
 dotenv.config();
 const { Header, Content } = Layout;
 
@@ -35,7 +36,7 @@ function App() {
   const path = window.location.pathname;
 
   const home = path === "/" || path === "/login";
-  const x = path === '/available_flights'
+
   return (
     <Layout style={{ backgroundColor: "rgba(1,1,1,0)" }}>
       <Router>
@@ -102,6 +103,15 @@ function App() {
               exact
               component={AvailableFlights}
             />
+
+            <PrivateRouteUser
+              path="/edit_reservation"
+              exact
+              component={EditReservedSeats}
+            />
+
+
+
             <PrivateRouteUser path="/edit_info" exact component={EditUser} />
             <Route component={NotFound} />
           </Switch>

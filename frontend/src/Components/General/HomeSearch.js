@@ -40,6 +40,7 @@ const HomeSearch = () =>{
       
             <DatePicker placeholder="Return Date"  
             disabledDate={disabledDate}
+   
             onChange={(date, dateString) => {
                 setData({
                   ...data,

@@ -1,9 +1,27 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:100);
 @import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400);
 
-.available-container {
+$primary-color: rgb(239, 235, 238);
+$secondary-color: #fff;
+.mega-container {
+  padding: 20px;
   display: grid;
-  grid-template-columns: 25% 75%;
+  grid-template-columns: 400px 1fr;
+  grid-template-areas:
+    "a a a"
+    "b c c";
+}
+.filter-header-container {
+  grid-area: a;
+}
+.available-container {
+  grid-area: b;
+}
+.cards {
+  grid-area: c;
+  width: 90%;
+  margin-left: 40px;
+  padding: 0 25px;
 }
 .mega {
   padding: 25px;
@@ -139,7 +157,7 @@
   color: cornsilk;
   right: -10px;
   top: -75px;
-  background: #6dd5ed;
+  background: #2193b0;
 }
 .tp-flight-plan .item.it-1 {
   flex-grow: 5;
@@ -271,9 +289,7 @@
   -webkit-align-items: center;
   -webkit-box-align: center;
   align-items: center;
-
   background: #2193b0;
-
   flex-direction: column;
   flex: 2 2 100px;
   height: 50px;
@@ -618,25 +634,16 @@ label.logo {
   position: absolute;
   bottom: 0;
 }
-.mega-container {
-  padding: 25px;
-}
-.card-mega-container {
-  width: 75%;
-}
-.cards {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+
 .filter-header-container {
   height: min-content;
   margin-bottom: 15px;
   .filter-header {
+    //height: 70px;
     border-radius: 10px 10px 0 0;
-    background: #2193b0;
+    background: $primary-color;
 
-    padding: 25px;
+    padding: 10px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     section {
@@ -644,21 +651,21 @@ label.logo {
       grid-template-columns: 1fr;
     }
     label {
-      color: white;
+      color: black;
       font-weight: bold;
     }
     label:nth-child(1) {
-      font-size: 20px;
+      font-size: 16px;
     }
     button {
-      width: 150px;
+      width: 100px;
       justify-self: center;
       align-self: center;
-      background-color: white;
-      height: 47.5px;
+      background-color: rgb(71, 146, 173);
+      height: 30px;
       border-radius: 5px;
       border: none;
-      color: #2193b0;
+      color: white;
       font-size: 16px;
     }
   }
@@ -677,13 +684,59 @@ label.logo {
         border: none;
       }
       button {
-        max-width: 150px;
-        background-color: #2193b0;
+        margin-top: 10px;
+        height: 30px;
+        margin-left: 18px;
+        max-width: 100px;
+        background-color: rgb(71, 146, 173);
         font-size: 16px;
-        color: #fff;
+        color: white;
         border-radius: 5px;
         border: none;
       }
     }
   }
+}
+
+#id1 {
+  grid-area: it1;
+}
+#id2 {
+  grid-area: it2;
+}
+#id3 {
+  grid-area: it3;
+}
+#id4 {
+  grid-area: it4;
+}
+#id5 {
+  grid-area: it5;
+}
+#id6 {
+  grid-area: it6;
+}
+#id7 {
+  grid-area: it7;
+}
+
+@media (max-width: 900px) {
+  // .mega-container {
+  //   grid-template-areas:
+  //     "a a a"
+  //     "b b b"
+  //     "c c c";
+  // }
+  // .available-container{
+  //   width: 100%;
+  //   .filter-container{
+  //     width: 100%;
+  //     display: grid;
+  //     grid-template-columns: 1fr;
+  //     div{
+
+  //     }
+  //   }
+
+  // }
 }

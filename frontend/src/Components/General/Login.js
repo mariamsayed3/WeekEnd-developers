@@ -4,15 +4,12 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { Redirect } from 'react-router';
 import  { UserContext } from '../../Context'
-import {GiAirplaneDeparture} from "react-icons/gi";
-import {useHistory} from 'react-router-dom'
 import '../../Styles/login.scss'
 import logo from '../../Assets/logo-blue.png'
 
 const Login = () => {
-    let history = useHistory();
     const [error, setError] = useState(null)
-    const {FirstName, setAdmin,setFirstName,setLastName,setToken, setEmail} = useContext(UserContext)
+    const { setAdmin,setFirstName,setLastName,setToken, setEmail} = useContext(UserContext)
     const onFinish = async (values) => {
     const {Password} = values
     const Username = values.Username.toLowerCase();
