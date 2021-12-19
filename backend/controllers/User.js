@@ -218,3 +218,10 @@ exports.createSummaries = async (req, res) => {
     res.status(400).send('error')
   }
 }
+
+exports.editReservation = async (req, res) => {
+  const {ReservationNumber} = req.body
+  console.log(ReservationNumber)
+  const booking = await Booking.findOne({ReservationNumber})
+  res.send(booking)
+}

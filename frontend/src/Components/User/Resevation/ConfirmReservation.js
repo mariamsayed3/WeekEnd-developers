@@ -4,7 +4,6 @@ import { CheckOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { UserContext } from '../../../Context';
 import { useHistory } from 'react-router';
-import {Link} from 'react-router-dom'
 import SmallCard from '../ResSummary/SmallCard';
 import  Summary  from '@mui/material/Modal';
 
@@ -13,7 +12,6 @@ const ConfirmReservation = ({totalSeats, DepartureFlight, price, selectedSeats, 
   let history = useHistory()
   const [open, setOpen] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isVisible, setVisible] = useState(false);
   const [value, setValue] = useState(2);
   const [Children, setChildren] = useState(0);
   const [remaining, setRemaining] = useState(FirstBooking.Seats.length)
