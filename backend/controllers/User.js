@@ -3,8 +3,32 @@ const User = require("../models/User");
 const Booking = require("../models/Booking");
 const Summary = require("../models/Summary");
 const { sendEmail } = require('../utils/email');
+require("dotenv").config();
 const jwt = require('jsonwebtoken')
-// const logo = require("../Assets/logo-blue.png")
+const stripe = require('stripe')(process.env.STRIPE_KEY)
+
+exports.payement = async (req, res) =>{
+  const {amount} = req.body
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name:  'Total Fee',
+          },
+          unit_amount: amount *100,
+        },
+        quantity: 1,
+      },
+    ],
+    mode: 'payment',
+    success_url: 'http://localhost:3000/my_reservations',
+    cancel_url: 'http://localhost:3000/available_flights',
+  });
+
+  res.send({url: session.url});
+}
 
 exports.cancelReservation = async (req, res) => {
   const reservation_number =  req.params.reservation_number;
