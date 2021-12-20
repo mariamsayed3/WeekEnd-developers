@@ -253,9 +253,9 @@ exports.resetPassword = async (req, res) => {
 
 const user = await User.findOne({Email: email})
 
-  if (user){
-          return res.status(400).send('Invalid email!') 
-  }
+  if (!user)
+      return res.status(400).send('Invalid email!') 
+  
   const token = jwt.sign({ id: user.id}, process.env.Reset_Password, { expiresIn: '20m' })
   // generate URL to be sent in email (body)
   const url = "http://localhost:8000/user/resetpassword/" + token
