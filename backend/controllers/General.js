@@ -4,6 +4,8 @@ const Flight = require('../models/Flight')
 const createToken = require('../middleware/Token')
 const jwt = require('jsonwebtoken')
 const validator = require('validator')
+const { sendEmail } = require('../utils/email');
+require("dotenv").config()
 
 
 exports.register = async (req, res) => {
@@ -57,3 +59,36 @@ exports.login = async (req, res) => {
         Admin: user.Admin
     })
 }
+
+
+exports.resetPassword = async (req, res) => {
+    const { email } = req.body
+    console.log(email)
+    console.log("Hi")
+
+  const user = await User.findOne({Email: email})
+  console.log(user);
+    if (!user){
+            return res.status(400).send('Invalid email!') 
+    }
+    const token = jwt.sign ({user_id: user._id, email }, process.env.Reset_Password, { expiresIn: '20m' })
+
+  
+    const url = "http://localhost:3000/reset-password/" + token
+    console.log(url);
+  
+    const subject = "JET AWAY Reset Password"
+    
+    const body = `  <h3> Hello ${user.FirstName}, ${user.LastName} </h3>
+                        <h4> A request has been made for you to reset your password 
+                        if you didn't make this request then please ignore this email.  </h4>
+  
+                        <h4> Please click down below to reset your password </h4>
+                        <h4> <b> The link will expire in 20 minutes </b> </h4>
+                        <br>
+                        <a href= ${url}> Reset Password </a>`
+    console.log(token);
+    sendEmail(email, subject, body);
+  
+    res.status(200).send({ message: 'Email sent successfully!' })
+  }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import axios from 'axios';
 import { Card, Input, Form, Button, Result } from 'antd';
 import { Link } from 'react-router-dom';
@@ -9,17 +9,27 @@ const ForgotPassword = () => {
 
   const submitForm = async ({email}) => {
     try {
-      await axios.post('http://localhost:8000/user/resetPassword', { email });
+      await axios.post('http://localhost:8000/resetPassword', { email });
       setSuccess(true)
     } catch (e) {
       setSuccess(false)
     }
   }
+
+  useEffect(() => {
+    const body = document.querySelector('body')
+    body.classList.add('forgot-password')
+      return () => {
+        const body = document.querySelector('body')
+        body.classList.remove('forgot-password')
+      }
+  },[])
+
 const form = 
 <div className="forgot-password-container">
-
+        <h3> Please enter your email to reset your password</h3>
         <Form
-          style={{ width: '90%' }}
+          style={{ width: '100%', marginRight: '18%' , marginTop: '5%'}}
           name="basic"
           labelCol={{
             span: 8,
@@ -39,7 +49,7 @@ const form =
           rules={[
             {
               required: true,
-              message: 'Please enter a correct email!',
+              message: 'Please make sure your email is in the correct form. e.g "example@gmail.com"',
               type: 'email',
             },
           ]}
@@ -62,7 +72,7 @@ const form =
       </div>
   
   return (
-    <div className="forgot-password">
+    <div id="body">
       {
     success ? 
      <Result
