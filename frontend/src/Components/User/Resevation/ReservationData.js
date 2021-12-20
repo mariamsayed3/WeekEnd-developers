@@ -46,7 +46,7 @@ const ReservationData = ({flight ,totalSeats, price, isReturn, selectedSeats, Fi
             {
             !isReturn ?
             
-                <Button disabled={totalSeats === 0} style={{marginTop: '15px'}} type="primary" shape="round" icon={<CheckOutlined />} size="middle">
+                <Button disabled={totalSeats === 0} style={{marginTop: '15px'}} type="primary" icon={<CheckOutlined />} size="middle">
                     <Link style={{color: 'white'}}
                      to={{
                         pathname: `/available_flights`,

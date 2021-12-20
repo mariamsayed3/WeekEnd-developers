@@ -11,6 +11,7 @@ import Loader from '../General/Loader'
 import EmptyList from './EmptyList'
 
 function BoardingPass() {
+  sessionStorage.removeItem("booking")
   const { Token, FirstName, LastName, Email } = useContext(UserContext);
   const [Reservation, setReservation] = useState(false);
   const [visible, setVisible] = useState(false);
