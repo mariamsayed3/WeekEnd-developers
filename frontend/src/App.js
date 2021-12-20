@@ -29,6 +29,7 @@ import SmallCard from './Components/User/ResSummary/SmallCard'
 import Summaries from "./Components/User/Summaries";
 import ForgotPassword from "./Components/General/ForgotPassword"
 import EditReservedSeats from './Components/User/EditReservation/EditReservedSeats'
+import PaymentSuccess from './Components/User/PaymentSuccess'
 dotenv.config();
 const { Header, Content } = Layout;
 
@@ -104,6 +105,12 @@ function App() {
               path="/available_flights"
               exact
               component={AvailableFlights}
+            />
+
+            <PrivateRouteUser
+              path="/success"
+              exact
+              component={PaymentSuccess}
             />
 
             <PrivateRouteUser

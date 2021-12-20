@@ -6,8 +6,7 @@ import { MdChildCare } from "react-icons/md";
 import { FiUsers } from "react-icons/fi";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { Button } from "antd";
-import { FaRegBell } from "react-icons/fa";
-import {Redirect} from "react-router"
+
 class SummaryOfRes extends Component {
 
   
@@ -17,9 +16,9 @@ class SummaryOfRes extends Component {
    const TotalPriceChildren = TicketPrice * this.props.FirstBooking.Children
 
    const pay = async () =>{
-    const {data} = await axios.post("http://localhost:8000/user/payement", {amount:TotalPriceAdults+TotalPriceChildren }  )
-    window.location=data.url;
-    }
+    const {data} = await axios.post("http://localhost:8000/user/payement", { amount:TotalPriceAdults+TotalPriceChildren })
+    window.location = data.url;
+  }
 
     return (
       <div className="small-card">

@@ -23,7 +23,7 @@ exports.payement = async (req, res) =>{
       },
     ],
     mode: 'payment',
-    success_url: 'http://localhost:3000/my_reservations',
+    success_url: 'http://localhost:3000/success',
     cancel_url: 'http://localhost:3000/available_flights',
   });
 
@@ -255,7 +255,6 @@ const user = await User.findOne({Email: email})
   if (user){
           return res.status(400).send('Invalid email!') 
   }
-console.log(user);
   const token = jwt.sign({ id: user.id}, process.env.Reset_Password, { expiresIn: '20m' })
   // generate URL to be sent in email (body)
   const url = "http://localhost:8000/user/resetpassword/" + token
@@ -285,16 +284,18 @@ exports.notifyReservation = async (req, res) => {
 
                       <hr>
                       <b> <h3> Your Departure Trip Details: </h3> </b>
-                      <h4> Reservation Number: ${FirstRequest.ReservationNumber} </h4> 
+                      <h4> From: ${FirstRequest.from} </h4> 
+                      <h4> To: ${FirstRequest.to} </h4> 
                       <h4> Flight Number: ${FirstRequest.FlightNumber} </h4> 
                       <h4> Price: ${FirstRequest.TotalPrice} </h4> 
-                      <h4> Children: ${FirstRequest.Children} </h4> 
+                      <h4> Number of Children: ${FirstRequest.Children} </h4> 
                       <hr>
                       <b> <h3> Your Return Trip Details: </h3> </b>
-                      <h4> Reservation Number: ${SecondRequest.ReservationNumber} </h4> 
+                      <h4> From: ${SecondRequest.from} </h4> 
+                      <h4> To: ${SecondRequest.to} </h4> 
                       <h4> FlightNumber: ${SecondRequest.FlightNumber} </h4> 
                       <h4> Price: ${SecondRequest.TotalPrice} </h4> 
-                      <h4> Children: ${SecondRequest.Children} </h4> 
+                      <h4> Number of Children: ${SecondRequest.Children} </h4> 
                       <hr>
                 
                   <h4> Sincerely, </h4> 

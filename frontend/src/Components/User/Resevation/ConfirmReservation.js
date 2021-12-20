@@ -24,6 +24,21 @@ const ConfirmReservation = ({totalSeats, DepartureFlight, price, selectedSeats, 
 
   const showModal = () => {
     setIsModalVisible(true);
+    const booking = {
+      firstFlightID: FirstBooking.flight._id,
+      FirstRequest, 
+      secondFlightID: DepartureFlight._id, 
+      SecondRequest,
+      Token,
+      Email,
+      FirstName,
+      LastName,
+      DepartureFlight: FirstBooking.flight,
+      ReturnFlight: DepartureFlight,
+      DepartureBooking: FirstRequest, 
+      ReturnBooking: SecondRequest
+    }
+    sessionStorage.setItem("booking", JSON.stringify(booking))
   };
 
   const handleOk = async () => {
