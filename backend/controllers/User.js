@@ -243,6 +243,7 @@ exports.createSummaries = async (req, res) => {
   }
 }
 
+
 exports.resetPassword = async (req, res) => {
   const { email } = req.body
   //check if a user with this email exists 
@@ -273,6 +274,7 @@ const user = await User.findOne({Email: email})
 
   res.status(200).send({ message: 'Email sent successfully!' })
 }
+
 
 exports.notifyReservation = async (req, res) => {
   const { FirstRequest, SecondRequest, Email, FirstName, LastName} = req.body

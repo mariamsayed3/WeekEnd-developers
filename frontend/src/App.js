@@ -58,6 +58,10 @@ function App() {
             <Route path="/register" exact component={Register} />
             <Route path="/summary" exact component={SmallCard} />
             <Route path="/reset-password" exact component={ForgotPassword} />
+            
+            {/* Will Call Maryam Magdy's Change Password Component */}
+            {/* <Route path='/resetPassword/:token' component={ResetPassword}/> */}
+
 
             <PrivateRouteAdmin
               path="/admin/create_flight"
