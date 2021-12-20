@@ -87,7 +87,7 @@ const ConfirmReservation = ({totalSeats, DepartureFlight, price, selectedSeats, 
 
     <>
       <div style={{display: 'flex', flexDirection:'column', }}>
-            <Button  disabled={remaining} style={{marginTop: '15px'}} type="primary" shape="round" icon={<CheckOutlined />} size="middle" type="primary" onClick={showModal}>
+            <Button  disabled={remaining} style={{marginTop: '15px'}} type="primary" icon={<CheckOutlined />} size="middle" type="primary" onClick={showModal}>
               Confirm Reservation
             </Button>
                 <div >
