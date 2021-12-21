@@ -1,16 +1,25 @@
 import { Divider } from "antd";
+import axios from "axios";
 import React, { Component } from "react";
 import "../../../Styles/summary.scss";
 import { MdChildCare } from "react-icons/md";
 import { FiUsers } from "react-icons/fi";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { Button } from "antd";
-import { FaRegBell } from "react-icons/fa";
+
 class SummaryOfRes extends Component {
+
+  
   render() {
    const TicketPrice =  (this.props.FirstBooking.TotalPrice / this.props.FirstBooking.Seats.length) + (this.props.SecondBooking.TotalPrice / this.props.SecondBooking.Seats.length)
    const TotalPriceAdults = TicketPrice * (this.props.FirstBooking.Seats.length - this.props.FirstBooking.Children)
    const TotalPriceChildren = TicketPrice * this.props.FirstBooking.Children
+
+   const pay = async () =>{
+    const {data} = await axios.post("http://localhost:8000/user/payement", { amount:TotalPriceAdults+TotalPriceChildren })
+    window.location = data.url;
+  }
+
     return (
       <div className="small-card">
         <div>
@@ -64,16 +73,20 @@ class SummaryOfRes extends Component {
               </b>
             </div>
             <div>
+              
               {this.props.book &&
               <Button
-                onClick={this.props.book}
+                onClick={ ()=>{
+                  pay()
+              //    this.props.book()
+                }}
                 type="primary"
                 style={{
                   backgroundColor: "rgb(141,200,0)",
                   width: "80%",
                 }}
               >
-                Book
+                Pay Now
               </Button>
               }
             </div>

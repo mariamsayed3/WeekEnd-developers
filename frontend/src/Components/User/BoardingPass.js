@@ -11,6 +11,7 @@ import Loader from '../General/Loader'
 import EmptyList from './EmptyList'
 
 function BoardingPass() {
+  sessionStorage.removeItem("booking")
   const { Token, FirstName, LastName, Email } = useContext(UserContext);
   const [Reservation, setReservation] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -102,8 +103,8 @@ function BoardingPass() {
                 </Tag>
               </div>
               <div className="flight">
-                <small>flight</small>
-                <strong>{Booking.FlightNumber}</strong>
+                <small>Reservation Number</small>
+                <strong>{Booking.ReservationNumber}</strong>
               </div>
             </header>
             <section className="cities">
@@ -138,7 +139,15 @@ function BoardingPass() {
                     {Booking.Seats.map((item) => {
                       return <span>{item} </span>;
                     })}
+                    
                   </strong>
+                  <Link to={{pathname: "/edit_reservation", state: 
+                  {
+                    Booking,
+                    Flight
+                  }}}>
+                    <Button type="primary"> Edit Reservation </Button>
+                  </Link>
                 </div>
               </div>
               <div className="times">
@@ -177,7 +186,9 @@ function BoardingPass() {
                     </p>
                   </strong>
                 </div>
+                <div style={{display: 'flex', flexDirection: 'column', alignItems:'flex-start'}}>
                 <Popconfirm
+                
                   title="Are you sure you want to cancel your reservation？"
                   onConfirm={() =>
                     cancel_reservation(Booking.ReservationNumber)
@@ -187,6 +198,8 @@ function BoardingPass() {
                 >
                   <Button type="danger"> Cancel Reservation </Button>
                 </Popconfirm>
+                
+                </div>
               </div>
 
               <svg className="qrcode">

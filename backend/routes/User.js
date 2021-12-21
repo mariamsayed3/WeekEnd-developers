@@ -5,30 +5,23 @@ const verifyToken = require("../middleware/verifyToken");
 
 router.use(express.json());
 
-router.patch(
-  "/cancel_reservation/:reservation_number",
-  controllers.cancelReservation
-);
+router.post("/payement", controllers.payement);
+
+router.patch("/cancel_reservation/:reservation_number",controllers.cancelReservation);
 
 router.post("/email_cancellation", controllers.notifyCancellation);
 
+router.post("/email_reservation", controllers.notifyReservation);
+
 router.patch('/edit_user/:Token',verifyToken,controllers.EditUser);
 
-router.get(
-  "/get_current_flights/:Token",
-  verifyToken,
-  controllers.ViewCurrentFlights
-);
+router.get("/get_current_flights/:Token", verifyToken, controllers.ViewCurrentFlights);
 
 router.get('/get_user/:Token',verifyToken,controllers.getUser);
 
 router.post("/reserve/:flightID", verifyToken, controllers.reserveFlight);
 
-router.get(
-  "/available_flights/:Token",
-  verifyToken,
-  controllers.AvailableFlights
-);
+router.get("/available_flights/:Token", verifyToken, controllers.AvailableFlights);
 
 router.post("/return_flights", verifyToken, controllers.ReturnFlights);
 
@@ -39,5 +32,7 @@ router.get('/summaries/:Token',verifyToken, controllers.getSummaries)
 router.post('/summaries',verifyToken, controllers.createSummaries)
 
 router.patch('/change_password/:Token',verifyToken,controllers.changePassword);
+
+router.patch('/edit_reservation', verifyToken, controllers.editReservation)
 
 module.exports = router;

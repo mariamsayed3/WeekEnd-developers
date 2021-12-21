@@ -27,6 +27,9 @@ import AvailableFlights from "./Components/User/AvailableFlights";
 import EditUser from "./Components/User/EditUser";
 import SmallCard from './Components/User/ResSummary/SmallCard'
 import Summaries from "./Components/User/Summaries";
+import ForgotPassword from "./Components/General/ForgotPassword"
+import EditReservedSeats from './Components/User/EditReservation/EditReservedSeats'
+import PaymentSuccess from './Components/User/PaymentSuccess'
 dotenv.config();
 const { Header, Content } = Layout;
 
@@ -54,6 +57,11 @@ function App() {
             <Route path="/unauthorized" exact component={Unauthorized} />
             <Route path="/register" exact component={Register} />
             <Route path="/summary" exact component={SmallCard} />
+            <Route path="/reset-password" exact component={ForgotPassword} />
+            
+            {/* Will Call Maryam Magdy's Change Password Component */}
+            {/* <Route path='/resetPassword/:token' component={ResetPassword}/> */}
+
 
             <PrivateRouteAdmin
               path="/admin/create_flight"
@@ -102,6 +110,21 @@ function App() {
               exact
               component={AvailableFlights}
             />
+
+            <PrivateRouteUser
+              path="/success"
+              exact
+              component={PaymentSuccess}
+            />
+
+            <PrivateRouteUser
+              path="/edit_reservation"
+              exact
+              component={EditReservedSeats}
+            />
+
+
+
             <PrivateRouteUser path="/edit_info" exact component={EditUser} />
             <Route component={NotFound} />
           </Switch>

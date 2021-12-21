@@ -1,4 +1,3 @@
-import { Popover } from 'antd';
 import { message } from 'antd';
 
 const Seat = ({seat, setNumberOfSeats, numberOfSeats, setSelectedSeats, selectedSeats, FirstBooking}) => {
