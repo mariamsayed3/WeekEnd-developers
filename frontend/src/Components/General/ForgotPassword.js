@@ -1,6 +1,6 @@
 import React, { useState , useEffect} from 'react';
 import axios from 'axios';
-import { Card, Input, Form, Button, Result } from 'antd';
+import { Input, Form, Button, Result } from 'antd';
 import { Link } from 'react-router-dom';
 import "../../Styles/ForgotPassword.scss"
 
@@ -75,7 +75,9 @@ const form =
     <div id="body">
       {
     success ? 
+    <div style={{backgroundColor: 'white', marginLeft: '25%', marginRight: '25%'}}>
      <Result
+      style={{marginTop: '10%'}}
       status="success"
       title="An email has been sent. Please check your inbox"
       extra={[
@@ -84,6 +86,7 @@ const form =
         </Button>,
       ]}
     />
+    </div>
     : success === false ?
     <Result
       status="error"
