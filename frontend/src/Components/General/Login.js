@@ -51,7 +51,6 @@ const Login = () => {
     <div className="login-container">  
         <div className="logo1">
            <img src={logo}/> 
-           
         </div>
         <div className="form">  
             <Form
