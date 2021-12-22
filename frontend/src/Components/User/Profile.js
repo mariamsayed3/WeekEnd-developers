@@ -67,7 +67,7 @@ const Profile = (props) => {
                                     <br></br>
                                     <weak>Last Name: </weak><b>{Information.LastName}</b>
                                     <br></br>
-                                    <weak>Email: </weak><b>{Information.Email}</b>
+                                    <weak>Email: </weak><b style={{fontSize: 13}}>{Information.Email}</b>
                                     <br></br>
                                     <weak>Passport Number: </weak><b>{Information.PassportNumber}</b></h4>
                             </ul>

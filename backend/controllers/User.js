@@ -123,7 +123,6 @@ exports.changePassword = async (req, res) => {
   const hashedPassword = await bcrypt.hash(Password, 10);
   req.body.Password = hashedPassword;
   const updated = await User.findByIdAndUpdate(id, req.body);
-  //console.log(updated);
   res.send(updated);
 }
 
