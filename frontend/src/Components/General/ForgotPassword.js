@@ -60,13 +60,20 @@ const form =
           <Form.Item
             wrapperCol={{
               offset: 8,
-              span: 16,
+             
             }}
           >
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" style={{marginRight: '8px'}}>
               Submit
             </Button>
+            
+            <Button type="dashed" key="back">
+              <Link to="/login">Back</Link>
+            </Button>
+            
           </Form.Item>
+          
+        
         </Form>
 
       </div>
