@@ -4,11 +4,12 @@ import "antd/dist/antd.css";
 import { Modal, Tag } from "antd";
 import { DingtalkOutlined } from "@ant-design/icons";
 import "../../Styles/Boardingstyle.scss";
-import { Popconfirm, Button, Result } from "antd";
+import { Popconfirm, Button, Result, Row } from "antd";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../Context";
 import Loader from '../General/Loader'
 import EmptyList from './EmptyList'
+import GlobePlane from './GlobePlane'
 
 function BoardingPass() {
   sessionStorage.removeItem("booking")
@@ -86,12 +87,20 @@ function BoardingPass() {
    }
 
   return Reservation ? (
-    
-    <div style={{display:'flex', alignItems:"center", justifyContent:"center",flexWrap:'wrap', marginTop:'5%'}}>
+    <div>
+     <Row> 
+      <GlobePlane />
+ 
+    <div style={{display:'flex', alignItems:"center", justifyContent:"center",flexWrap:'wrap', marginTop:'5%', width: '50%'}}>
     <>
-      {Reservation.map(({ Booking, Flight }) => {
+
+      {Reservation.map(({ Booking, Flight }, index) => {
+       
         return (
-         
+
+          (index%2 !=0) 
+          ?
+          <div>
           <div className="boarding-pass">
             <header>
               <svg className="logo">
@@ -207,9 +216,127 @@ function BoardingPass() {
               </svg>
             </section>
           </div>
-         
-        );
-      })}
+          </div>
+         :
+         <div className="boarding-pass">
+         <header>
+           <svg className="logo">
+                         <use href="#alitalia"></use>
+           </svg>
+           <div className="logo">
+             <Tag color={"transparent"} icon={<DingtalkOutlined style={{fontSize: "25px"}}/>}>
+               <b>Jet Away</b>
+             </Tag>
+           </div>
+           <div className="flight">
+             <small>Reservation Number</small>
+             <strong>{Booking.ReservationNumber}</strong>
+           </div>
+         </header>
+         <section className="cities">
+           <div className="city">
+             <small>{Flight.DepartureAirport}</small>
+             <strong>{Flight.DepartureAirport.substring(0, 3)}</strong>{" "}
+             {/*add short name for the airport*/}
+           </div>
+           <div className="city">
+             <small>{Flight.ArrivalAirport}</small>
+
+             <strong>{Flight.ArrivalAirport.substring(0, 3)}</strong>
+           </div>
+           <svg className="airplane">
+             <use href="#airplane"></use>
+           </svg>
+         </section>
+         <section className="infos">
+           <div className="places">
+             <div className="box">
+               <small>Departure Terminal</small>
+               <strong>{Flight.DepartureTerminal}</strong>
+             </div>
+             <div className="box">
+               <small>Arrival Terminal</small>
+               <strong>{Flight.ArrivalTerminal}</strong>
+             </div>
+             
+               <small>Seat/s</small>
+               <div className="box width">
+               <strong className="seats">
+                 {Booking.Seats.map((item) => {
+                   return <span>{item} </span>;
+                 })}
+                 
+               </strong>
+               <Link to={{pathname: "/edit_reservation", state: 
+               {
+                 Booking,
+                 Flight
+               }}}>
+                 <Button type="primary"> Edit Reservation </Button>
+               </Link>
+             </div>
+           </div>
+           <div className="times">
+             <div className="box">
+               <small>Boarding</small>
+               <strong>
+                 {getBoardingTime(Flight.DepartureTime.split(":"))}
+               </strong>
+               {/* {( parseInt((Flight.DepartureTime.split(":"))[0])*60 + parseInt((Flight.DepartureTime.split(":"))[1]) )-30 } */}
+             </div>
+             <div className="box">
+               <small>Departure</small>
+               <strong>{Flight.DepartureTime}</strong>
+             </div>
+             <div className="box">
+               <small>Duration</small>
+               <strong>{Flight.TripDuration}</strong>
+             </div>
+             <div className="box">
+               <small>Arrival</small>
+               <strong>{Flight.ArrivalTime}</strong>
+             </div>
+             <div className="date">
+               <small>Date</small>
+               <strong>{Flight.DepartureDate.substring(0, 10)}</strong>
+             </div>
+           </div>
+         </section>
+         <section className="strap">
+           <div className="box">
+             <div className="passenger">
+               <small>passenger</small>
+               <strong>
+                 <p>
+                   {FirstName} {LastName}
+                 </p>
+               </strong>
+             </div>
+             <div style={{display: 'flex', flexDirection: 'column', alignItems:'flex-start'}}>
+             <Popconfirm
+             
+               title="Are you sure you want to cancel your reservation？"
+               onConfirm={() =>
+                 cancel_reservation(Booking.ReservationNumber)
+               }
+               okText="Yes"
+               cancelText="No"
+             >
+               <Button type="danger"> Cancel Reservation </Button>
+             </Popconfirm>
+             
+             </div>
+           </div>
+
+           <svg className="qrcode">
+             <use href="#qrcode"></use>
+           </svg>
+         </section>
+       </div>
+        
+
+        
+      )})}
 
       <Modal
         visible={visible}
@@ -404,7 +531,10 @@ function BoardingPass() {
       
     </>
     </div>
-  ) : (
+    </Row>
+    </div>
+
+ ) : (
     <>
       <Result
         title="You have no Reservations"
