@@ -1,33 +1,38 @@
-import React, { useState , useEffect} from 'react';
+import { Form, Input, Button, Card, Result } from 'antd';
 import axios from 'axios';
-import { Card, Input, Form, Button, Result } from 'antd';
-import { Link } from 'react-router-dom';
-import "../../Styles/ForgotPassword.scss"
+import React, { useEffect, useState } from 'react';
+import { useParams , Link} from 'react-router-dom';
 
-const ForgotPassword = () => {
+const ResetPassword = () => {
+
+  const { token } = useParams();
   const [success, setSuccess] = useState(null)
 
-  const submitForm = async ({email}) => {
-    try {
-      await axios.post('http://localhost:8000/requestResetPassword', { email });
+  const submit = async ({ newPassword }) => {
+    console.log(newPassword, token);
+    try{
+      await axios.patch('http://localhost:8000/resetPassword', {
+        "newPassword": newPassword,
+        "token": token,
+      });
       setSuccess(true)
-    } catch (e) {
+    } catch{
       setSuccess(false)
     }
-  }
-
+  };
   useEffect(() => {
     const body = document.querySelector('body')
-    body.classList.add('forgot-password')
+    body.classList.add('reset-password')
       return () => {
         const body = document.querySelector('body')
-        body.classList.remove('forgot-password')
+        body.classList.remove('reset-password')
       }
   },[])
 
+  
 const form = 
-<div className="forgot-password-container">
-        <h3> Please enter your email to reset your password</h3>
+<div className="reset-password-container">
+        <h3> Please enter your new password</h3>
         <Form
           style={{ width: '100%', marginRight: '18%' , marginTop: '5%'}}
           name="basic"
@@ -40,17 +45,17 @@ const form =
           initialValues={{
             remember: true,
           }}
-          onFinish={submitForm}
+          onFinish={submit}
           autoComplete="off"
         >
         <Form.Item
-          label="Email"
-          name="email" 
+          label="newPassword"
+          name="newPassword" 
           rules={[
             {
               required: true,
-              message: 'Please make sure your email is in the correct form. e.g "example@gmail.com"',
-              type: 'email',
+              type: 'password',
+              message: 'Please input your password!'
             },
           ]}
         >
@@ -64,7 +69,7 @@ const form =
             }}
           >
             <Button type="primary" htmlType="submit">
-              Submit
+              Change Password
             </Button>
           </Form.Item>
         </Form>
@@ -77,20 +82,21 @@ const form =
     success ? 
      <Result
       status="success"
-      title="An email has been sent. Please check your inbox"
+      title="Your Password Has Been Successfully Resetted"
       extra={[
         <Button type="primary" key="console">
-          <Link to="/login">Back</Link>
+          <Link to="/login">Login</Link>
         </Button>,
       ]}
     />
     : success === false ?
     <Result
       status="error"
-      title="Invalid email address"
+      title="Your request to reset the password failed"
+      subTitle="The link could have been expired. You can try resetting your password again."
       extra={[
         <Button onClick={() => setSuccess(null)} type="primary" key="console">
-          <Link to="/login">Back</Link>
+          <Link to="/reset-password-request"> Reset Password</Link>
         </Button>,
       ]}
     />
@@ -102,5 +108,4 @@ const form =
   
  
 }
-
-export default ForgotPassword;
+export default ResetPassword;

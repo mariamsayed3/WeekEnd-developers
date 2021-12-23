@@ -92,3 +92,29 @@ exports.resetPassword = async (req, res) => {
   
     res.status(200).send({ message: 'Email sent successfully!' })
   }
+
+  exports.changingForgottenPassword = async (req, res) => {
+    var resetPasswordToken = req.body.token;
+    const { newPassword } = req.body
+    console.log(newPassword);
+    
+    var payload = decodeResetPassToken(resetPasswordToken);
+
+    if (!payload){
+        return res.status(400).send('Invalid or expired token');
+    }    
+    id = payload.user_id;
+    console.log(id);
+    
+
+    const newHashedPassword = await bcrypt.hash(newPassword, 10)
+    
+    try{
+      await User.findByIdAndUpdate(id, {Password: newHashedPassword})
+      res.status(200).send('Password changed successully!')
+    }catch (err){
+        res.status(400).send(err)
+    }
+      
+  
+}
