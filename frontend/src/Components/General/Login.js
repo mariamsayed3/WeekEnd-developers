@@ -51,7 +51,6 @@ const Login = () => {
     <div className="login-container">  
         <div className="logo1">
            <img src={logo}/> 
-           
         </div>
         <div className="form">  
             <Form
@@ -100,7 +99,7 @@ const Login = () => {
                 <span className="text">Log in</span>
                 </Button>
                 <br/><br/>
-                <span className="text">You Don't have an account ?</span> <a className="login-links" href="/register">Register now!</a>
+                <span className="text">You Don't have an account ?</span> <a className="login-links" style={{color: '#245bf2'}} href="/register">Register now!</a>
             </Form.Item>
             
             </Form>

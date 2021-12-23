@@ -63,19 +63,12 @@ exports.login = async (req, res) => {
 
 exports.resetPassword = async (req, res) => {
     const { email } = req.body
-    console.log(email)
-    console.log("Hi")
-
-  const user = await User.findOne({Email: email})
-  console.log(user);
-    if (!user){
-            return res.status(400).send('Invalid email!') 
-    }
+    const user = await User.findOne({Email: email})
+    if (!user)
+      return res.status(400).send('Invalid email!') 
+    
     const token = jwt.sign ({user_id: user._id, email }, process.env.Reset_Password, { expiresIn: '20m' })
-
-  
     const url = "http://localhost:3000/reset-password/" + token
-    console.log(url);
   
     const subject = "JET AWAY Reset Password"
     
@@ -87,7 +80,6 @@ exports.resetPassword = async (req, res) => {
                         <h4> <b> The link will expire in 20 minutes </b> </h4>
                         <br>
                         <a href= ${url}> Reset Password </a>`
-    console.log(token);
     sendEmail(email, subject, body);
   
     res.status(200).send({ message: 'Email sent successfully!' })
