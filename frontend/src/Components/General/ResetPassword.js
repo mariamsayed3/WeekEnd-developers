@@ -1,7 +1,8 @@
-import { Form, Input, Button, Card, Result } from 'antd';
+import { Form, Input, Button, Result } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams , Link} from 'react-router-dom';
+import '../../Styles/ResetPassword.scss'
 
 const ResetPassword = () => {
 
@@ -9,9 +10,8 @@ const ResetPassword = () => {
   const [success, setSuccess] = useState(null)
 
   const submit = async ({ newPassword }) => {
-    console.log(newPassword, token);
     try{
-      await axios.patch('http://localhost:8000/resetPassword', {
+      await axios.post('http://localhost:8000/resetPassword', {
         "newPassword": newPassword,
         "token": token,
       });
@@ -49,17 +49,16 @@ const form =
           autoComplete="off"
         >
         <Form.Item
-          label="newPassword"
+          label="New Password"
           name="newPassword" 
           rules={[
             {
               required: true,
-              type: 'password',
               message: 'Please input your password!'
             },
           ]}
         >
-          <Input />
+          <Input.Password type="password" placeholder="New password" />
       </Form.Item>
 
           <Form.Item

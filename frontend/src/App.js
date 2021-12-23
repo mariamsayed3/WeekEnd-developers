@@ -55,7 +55,7 @@ function App() {
             <Route path="/register" exact component={Register} />
             <Route path="/summary" exact component={SmallCard} />
             <Route path="/reset-password-request" exact component={ForgotPassword} />
-            <Route path='/resetPassword/:token' component={ResetPassword}/>
+            <Route path='/reset-password/:token' component={ResetPassword}/>
 
 
             <PrivateRouteAdmin

@@ -5,6 +5,7 @@ const createToken = require('../middleware/Token')
 const jwt = require('jsonwebtoken')
 const validator = require('validator')
 const { sendEmail } = require('../utils/email');
+const decodeResetPassToken = require('../middleware/VerifyPasswordToken')
 require("dotenv").config()
 
 
@@ -35,7 +36,7 @@ exports.getFlight = async (req, res) => {
     }catch(e){
       res.send(e)
     }
-  };
+}
 
 exports.login = async (req, res) => {
     const { Username, Password } = req.body
@@ -60,7 +61,6 @@ exports.login = async (req, res) => {
     })
 }
 
-
 exports.resetPassword = async (req, res) => {
     const { email } = req.body
     const user = await User.findOne({Email: email})
@@ -83,30 +83,24 @@ exports.resetPassword = async (req, res) => {
     sendEmail(email, subject, body);
   
     res.status(200).send({ message: 'Email sent successfully!' })
-  }
+}
 
-  exports.changingForgottenPassword = async (req, res) => {
-    var resetPasswordToken = req.body.token;
-    const { newPassword } = req.body
-    console.log(newPassword);
-    
-    var payload = decodeResetPassToken(resetPasswordToken);
-
-    if (!payload){
-        return res.status(400).send('Invalid or expired token');
-    }    
-    id = payload.user_id;
-    console.log(id);
-    
-
-    const newHashedPassword = await bcrypt.hash(newPassword, 10)
-    
-    try{
-      await User.findByIdAndUpdate(id, {Password: newHashedPassword})
-      res.status(200).send('Password changed successully!')
-    }catch (err){
-        res.status(400).send(err)
-    }
-      
+exports.changingForgottenPassword = async (req, res) => {
+  var resetPasswordToken = req.body.token;
+  const { newPassword } = req.body
   
+  var payload = decodeResetPassToken(resetPasswordToken);
+  if (!payload)
+    return res.status(400).send('Invalid or expired token');
+      
+  id = payload.user_id;
+
+  const newHashedPassword = await bcrypt.hash(newPassword, 10)
+  
+  try{
+    await User.findByIdAndUpdate(id, {Password: newHashedPassword})
+    res.status(200).send('Password changed successully!')
+  }catch (err){
+      res.status(400).send(err)
+  }
 }
