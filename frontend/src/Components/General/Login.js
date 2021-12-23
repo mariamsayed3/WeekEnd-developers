@@ -91,7 +91,7 @@ const Login = () => {
                 <Form.Item name="remember" valuePropName="checked" noStyle>
                 <Checkbox><span className="text">Remember me</span></Checkbox>
                 </Form.Item>
-                <Link style={{color: '#245bf2'}} to="/reset-password">Forgot Password ?</Link>
+                <Link to="/reset-password-request">Forgot Password ?</Link>
             </Form.Item>
 
             <Form.Item>

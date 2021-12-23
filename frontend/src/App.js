@@ -26,6 +26,7 @@ import Summaries from "./Components/User/Summaries";
 import ForgotPassword from "./Components/General/ForgotPassword"
 import EditReservedSeats from './Components/User/EditReservation/EditReservedSeats'
 import PaymentSuccess from './Components/User/PaymentSuccess'
+import ResetPassword from './Components/General/ResetPassword'
 dotenv.config();
 const { Header, Content } = Layout;
 
@@ -53,10 +54,8 @@ function App() {
             <Route path="/unauthorized" exact component={Unauthorized} />
             <Route path="/register" exact component={Register} />
             <Route path="/summary" exact component={SmallCard} />
-            <Route path="/reset-password" exact component={ForgotPassword} />
-            
-            {/* Will Call Maryam Magdy's Change Password Component */}
-            {/* <Route path='/resetPassword/:token' component={ResetPassword}/> */}
+            <Route path="/reset-password-request" exact component={ForgotPassword} />
+            <Route path='/resetPassword/:token' component={ResetPassword}/>
 
 
             <PrivateRouteAdmin
