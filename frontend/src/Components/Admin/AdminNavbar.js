@@ -4,6 +4,8 @@ import {BiLogOut} from "react-icons/bi";
 import { useContext } from 'react';
 import { UserContext } from '../../Context';
 import { useHistory } from 'react-router';
+import Profile from '../General/Profile';
+import { useState } from 'react';
 
 function AdminNavbar (){
    let history = useHistory()
@@ -13,6 +15,11 @@ function AdminNavbar (){
     sessionStorage.removeItem('user')
     history.push('/')
    }
+   const [modalOpen,setModalOpen] = useState(false);
+   
+   const handleModalOpen = () => {
+     setModalOpen(true);
+  };
     return (
     <>
       <nav>
@@ -23,9 +30,14 @@ function AdminNavbar (){
           <li><a href="/admin/flights">Available Flights</a></li>
           <li><a href="/admin/create_flight">Create Flight</a></li>
           <li><a href="#">Contact us</a></li>
+          <li><a onClick={handleModalOpen}>Profile</a></li>
           <li><a onClick={logout} href=""><BiLogOut /></a></li>
         </ul>
     </nav>
+    <Profile
+    modalOpen={modalOpen}
+    handleModalOpen={setModalOpen}
+    />
   </>
     )
 }

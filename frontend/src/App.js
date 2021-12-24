@@ -20,7 +20,7 @@ import { UserContext } from "./Context";
 import UserNavbar from "./Components/User/UserNavbar";
 import NotFound from "./Components/General/NotFound";
 import AvailableFlights from "./Components/User/AvailableFlights";
-import EditUser from "./Components/User/EditUser";
+import EditUser from "./Components/General/EditUser";
 import SmallCard from './Components/User/ResSummary/SmallCard'
 import Summaries from "./Components/User/Summaries";
 import ForgotPassword from "./Components/General/ForgotPassword"

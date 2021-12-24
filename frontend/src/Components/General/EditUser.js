@@ -15,7 +15,7 @@ const EditUser = (props) => {
     };
 
     const display = async () => {
-        const { data } = await axios.get(`http://localhost:8000/user/get_user/${Token}`);
+        const { data } = await axios.get(`http://localhost:8000/get_user/${Token}`);
         if (data) {
             const { FirstName, LastName, Email, PassportNumber } = data
 
@@ -58,7 +58,7 @@ const EditUser = (props) => {
                 values.PassportNumber = undefined;
             }
 
-            const res = await axios.patch(`http://localhost:8000/user/edit_user/${Token}`, values);
+            const res = await axios.patch(`http://localhost:8000/edit_user/${Token}`, values);
             const SessionStorage = sessionStorage.getItem('user')
             let userInfo = JSON.parse(SessionStorage)
             if (values.FirstName == undefined
