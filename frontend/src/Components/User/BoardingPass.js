@@ -195,20 +195,6 @@ function BoardingPass({Booking, Flight, id}) {
                     </p>
                   </strong>
                 </div>
-                <div style={{display: 'flex', flexDirection: 'column', alignItems:'flex-start'}}>
-                <Popconfirm
-                
-                  title="Are you sure you want to cancel your reservation？"
-                  onConfirm={() =>
-                    cancel_reservation(Booking.ReservationNumber)
-                  }
-                  okText="Yes"
-                  cancelText="No"
-                >
-                  <Button type="danger"> Cancel Reservation </Button>
-                </Popconfirm>
-                
-                </div>
               </div>
 
               <svg className="qrcode">

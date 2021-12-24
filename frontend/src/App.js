@@ -13,7 +13,6 @@ import Unauthorized from "./Components/General/Unauthorized";
 import AdminNavbar from "./Components/Admin/AdminNavbar";
 import PrivateRouteAdmin from "./Router/PrivateRouteAdmin";
 import PrivateRouteUser from "./Router/PrivateRouteUser";
-import BoardingPass from "./Components/User/BoardingPass";
 import ReserveSeats from "./Components/User/Resevation/ReserveSeats";
 import { useContext } from "react";
 import { UserContext } from "./Context";
@@ -29,7 +28,6 @@ import PaymentSuccess from './Components/User/PaymentSuccess'
 import MyReservations from './Components/User/MyReservations'
 import ResetPassword from './Components/General/ResetPassword'
 import EditPaymentSuccess from './Components/User/EditPaymentSuccess'
-
 import CreateFlightOne from "./Components/Admin/CreateFlight/CreateFlightOne";
 import CreateFlightTwo from "./Components/Admin/CreateFlight/CreateFlightTwo";
 import CreateFlightThree from "./Components/Admin/CreateFlight/CreateFlightThree";
