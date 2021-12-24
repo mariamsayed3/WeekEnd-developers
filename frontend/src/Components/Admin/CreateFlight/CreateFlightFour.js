@@ -173,7 +173,7 @@ export default function CreateFlightFour() {
             name="BusinessPrice"
             label={
               <span style={{fontSize: "20px" }}>
-                Economy Class Seats Price
+                Business Class Seats Price
               </span>
             }
             rules={[{ required: true, message: "Please enter a price" }]}

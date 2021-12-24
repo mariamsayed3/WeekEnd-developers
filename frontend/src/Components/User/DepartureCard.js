@@ -4,13 +4,38 @@ import { GiAirplaneDeparture } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import downArrow from "../../Assets/down-arrow.svg";
 import upArrow from "../../Assets/up-arrow.svg";
-import { Popconfirm } from "antd";
+import Modal from "antd/lib/modal/Modal";
+import axios from "axios";
+import { message } from "antd";
 
 const DepartureCard = (props) => {
   const [overlay, setOverlay] = useState(false);
+  const [visible, setVisible] = useState(false)
+  const showModal = () => {
+    setVisible(true)
+  }
+
+  const onCancel = () => {
+    setVisible(false)
+  }
+
   const display = () => {
     setOverlay(!overlay);
   };
+
+  const deleteFlight = async () => {
+    try{
+      await axios.delete(`http://localhost:8000/admin/delete_flight/${props.idKey}`, props.idKey)
+      message.loading('Action in progress..', 1.5)
+                    .then(() => message.success('Flight deleted successfully!', 1.5)
+                        .then(() => window.location.reload()));
+    }catch{
+      message.loading('Action in progress..', 1.5)
+          .then(() => message.success('Something went wrong. Check your internet connection!', 1.5));
+    }
+    
+  }
+
   const getDate = (date) => {
     date = new Date(date);
     let res =
@@ -169,17 +194,9 @@ const DepartureCard = (props) => {
                           >
                             Update
                           </Link>
-                          <Popconfirm
-                            title="Are you sure you want to delete this flight?"
-                            onConfirm={() => {
-                              this.handleClick(props.idkey);
-                            }}
-                            // onCancel={this.cancel}
-                            cancelText="No"
-                            okText="Yes"
-                          >
-                            <a> Delete </a>
-                          </Popconfirm>
+                          
+                            <a style={{color: 'red', margin:'20px'}} onClick={showModal}> Delete </a>
+                       
                         </>
                       ) : !props.flight.reserved ? (
                         <Link
@@ -230,6 +247,7 @@ const DepartureCard = (props) => {
           </g>
         </symbol>
       </svg>
+      <Modal onOk={deleteFlight} onCancel={onCancel} okType="danger" okText="YES" cancelText="Cancel"  visible={visible}><span style={{fontSize: '20px'}}>Are you sure you want to delete this flight ?</span></Modal>
     </div>
   );
 };

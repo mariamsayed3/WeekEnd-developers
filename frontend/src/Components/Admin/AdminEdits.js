@@ -144,7 +144,6 @@ export default function AdminEdits() {
     setFilteredFlights(common);
   }, [
     flights,
-    filteredFlights,
     flightNumber,
     dep,
     arr,
@@ -181,7 +180,6 @@ export default function AdminEdits() {
       <div>
         {filteredFlights.map((flight) => {
           let id = flight._id;
-          // return <FlightDetails idkey={id} myFlight={flight} key={id} />;
           return <DepartureCard isAdmin={true} flight={flight} idKey={flight._id} />;
         })}
       </div>

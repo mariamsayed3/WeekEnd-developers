@@ -62,4 +62,5 @@ exports.deleteFlight = async (req, res) => {
       console.log(err);
     }
   });
+  res.send({})
 };
