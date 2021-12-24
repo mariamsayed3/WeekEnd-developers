@@ -3,7 +3,6 @@ import 'antd/dist/antd.css';
 import './Admin.css';
 import moment from 'moment'
 import { Button, message, Form, Input, Row, Col, DatePicker, Card,TimePicker  } from 'antd';
-// import '../../Styles/background.scss';
 const { RangePicker } = DatePicker;
 require('dotenv').config('../../.env')
 

@@ -181,7 +181,7 @@ function BoardingPass({Booking, Flight, id}) {
                   <small>Date</small>
                   <strong>{Flight.DepartureDate.substring(0, 10)}</strong>
                 </div>
-                <DownloadTickets id={id}/>
+                <DownloadTickets FirstName={FirstName} LastName={LastName} id={id}/>
               </div>
               
             </section>
