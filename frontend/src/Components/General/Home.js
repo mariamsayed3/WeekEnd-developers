@@ -42,7 +42,7 @@ import plane from '../../Assets/plane.png'
                {Admin && <div className='tabs'>
                  <a > Home</a>
                 
-                 <a href='/admin/create_flight'> Create Flight</a>
+                 <a href='/admin/createFlightOne'> Create Flight</a>
                  <a href= '/admin/flights'> Available Flights</a>
                  {Email ? <a onClick={handleModalOpen}>Profile</a> : null}
                  <Profile

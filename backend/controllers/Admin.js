@@ -1,7 +1,7 @@
 const Flight = require("../models/Flight");
 const User = require("../models/User");
 const Booking = require("../models/Booking");
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
 
 exports.getAllFlights = async (req, res) => {
   const allFlights = await Flight.find({});
