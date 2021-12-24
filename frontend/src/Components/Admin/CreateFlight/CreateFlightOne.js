@@ -31,8 +31,8 @@ function range(start, end) {
   }
   return result;
 }
-// bta3et moahmed
-export const getTripDuration = (from, to) => {
+
+const getTripDuration = (from, to) => {
   const fromTime = from.split(":");
   const toTime = to.split(":");
 
@@ -89,7 +89,6 @@ export default function CreateFlightOne() {
     info["DepartureDate"] = values.DepartureDate;
     info["ArrivalDate"] = values.ArrivalDate;
 
-    //Mohamedddd
     const departureTimeHours =
       (values.TripDuration[0]._d.getHours() + "").length == 1
         ? "0" + values.TripDuration[0]._d.getHours()
@@ -117,11 +116,11 @@ export default function CreateFlightOne() {
       values.DepartureTime,
       values.ArrivalTime
     );
-    //Mohameddddd
     info["TripDuration"] = values.TripDuration;
+    info["DepartureTime"] = values.DepartureTime
+    info["ArrivalTime"] = values.ArrivalTime
     if (correctInputs == true) {
       sessionStorage.setItem("Information", JSON.stringify(info));
-      console.log(info);
       history.push("/admin/createFlightTwo");
     }
   };

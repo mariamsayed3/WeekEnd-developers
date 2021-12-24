@@ -26,12 +26,12 @@ export default function CreateFlightTwo() {
     let info = sessionStorage.getItem("Information");
     let correctInputs = true;
     info = JSON.parse(info);
-    info["DepartureCity"] = values.DepartureAirport; //city
+    info["DepartureAirport"] = values.DepartureAirport; //city
     info["DepartureCountry"] = values.DepartureCountry;
     info["DepartureTerminal"] = values.DepartureTerminal;
-    info["DepartureAirport"] = values.Departure; //airport
+    info["Departure"] = values.Departure; //airport
 
-    console.log(info);
+
     sessionStorage.setItem("Information", JSON.stringify(info));
     history.push("/admin/createFlightThree");
   };

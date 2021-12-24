@@ -29,7 +29,6 @@ export default function CreateFlightThree() {
     info["ArrivalCountry"] = values.ArrivalCountry;
     info["ArrivalTerminal"] = values.ArrivalTerminal;
     info["Arrival"] = values.Arrival; //airport
-    console.log(info);
     sessionStorage.setItem("Information", JSON.stringify(info));
     history.push("/admin/createFlightFour");
   };

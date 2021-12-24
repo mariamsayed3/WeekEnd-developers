@@ -8,6 +8,7 @@ import { Form, Input, message } from "antd";
 import { useHistory, Link } from "react-router-dom";
 import { GrLinkNext } from "react-icons/gr";
 export default function CreateFlightFour() {
+ 
   let whichone = {
     first: true,
     second: true,
@@ -36,9 +37,9 @@ export default function CreateFlightFour() {
       values.EconomyAvailableSeats = parseInt(values.EconomyTotalSeats);
       values.BusinessAvailableSeats = parseInt(values.BusinessTotalSeats);
       values.FirstClassAvailableSeats = parseInt(values.FirstClassTotalSeats);
-      info["FirstClassTotalSeats"] = values.FirstClassAvailableSeats;
-      info["BusinessTotalSeats"] = values.BusinessPrice;
-      info["EconomyTotalSeats"] = values.EconomyTotalSeats;
+      info["FirstClassAvailableSeats"] = values.FirstClassAvailableSeats;
+      info["BusinessAvailableSeats"] = values.BusinessPrice;
+      info["EconomyAvailableSeats"] = values.EconomyTotalSeats;
 
       values.BusinessSeats = new Array(parseInt(values.BusinessTotalSeats));
       values.EconomySeats = new Array(parseInt(values.EconomyTotalSeats));
@@ -76,17 +77,19 @@ export default function CreateFlightFour() {
       sessionStorage.setItem("Information", JSON.stringify(info));
 
       info = JSON.parse(sessionStorage.getItem("Information"));
-      console.log(info);
       await axios.post(`http://localhost:8000/admin/create_flight`, info);
       message
         .loading("Action in progress..", 2.5)
-        .then(() => message.success("Flight Created Succesfully", 3));
-    } catch (e) {
-      console.log(e);
+        .then(() => {message.success("Flight Created Succesfully", 3)
+        sessionStorage.removeItem("Information")
+        history.push('/admin/flights')
+      });
+    } catch {
       message
         .loading("Action in progress..", 2.5)
-        .then(() => message.error("Something went wrong please try again.", 3));
+        .then(() => message.error("Something went wrong please try again. Make sure you entered a unique flight number", 3));
     }
+
   };
   return (
     <div>

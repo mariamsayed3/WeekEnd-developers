@@ -40,7 +40,6 @@ exports.createFlight = async (req, res) => {
   if(exist)
     return res.status(400).json({message: 'duplicate flight number'})
   Flight.create(req.body, (error, result) => {
-    console.log(req.body);
     if (error) {
       res.send(error);
     } else {
