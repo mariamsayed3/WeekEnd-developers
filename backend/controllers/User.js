@@ -4,10 +4,41 @@ const Booking = require("../models/Booking");
 const Summary = require("../models/Summary");
 const { sendEmail } = require('../utils/email');
 require("dotenv").config();
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
-// const logo = require("../Assets/logo-blue.png")
 const stripe = require('stripe')(process.env.STRIPE_KEY)
+
+
+exports.EditUser = async (req, res) => {
+  const { id } = req
+  try {
+    const updated = await User.findByIdAndUpdate(id, req.body);
+    res.send(updated)
+  } catch {
+    res.json({ message: 'duplicate email' });
+  }
+}
+
+exports.EditPayement = async (req, res) =>{
+  const {amount} = req.body
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name:  'Total Fee',
+          },
+          unit_amount: amount *100,
+        },
+        quantity: 1,
+      },
+    ],
+    mode: 'payment',
+    success_url: 'http://localhost:3000/edit_success',
+    cancel_url: 'http://localhost:3000/my_reservations',
+  });
+
+  res.send({url: session.url});
+}
 
 exports.payement = async (req, res) =>{
   const {amount} = req.body
@@ -89,41 +120,19 @@ exports.cancelReservation = async (req, res) => {
 }
 
 exports.notifyCancellation = async (req, res) => {
-  const { ReservationNumber, email, TotalPrice, FlightNumber, Seats, FirstName, LastName } = req.body
+  const { ReservationNumber, email, TotalPrice, FlightNumber, FirstName, LastName, ReturnPrice } = req.body
   const subject = "Jet Away"
   const body = `  
                     <h3> Hello ${FirstName} ${LastName} </h3>
                         
                         <h4> Please note that your reservation <b> ${ReservationNumber} </b>  on flight  <b>${FlightNumber} </b>  has been succesfully cancelled. </h4>
-                        <h4> A total of ${TotalPrice}$ will be refunded to your account.</h4>
+                        <h4> A total of ${TotalPrice + ReturnPrice}$ will be refunded to your account.</h4>
                         
                     <h3> Jet Away </h3>
                       `
   sendEmail(email, subject, body);
 
   res.status(200).send({ message: 'Email sent successfully!' })
-}
-
-exports.EditUser = async (req, res) => {
-  const { id } = req
-  try {
-    const updated = await User.findByIdAndUpdate(id, req.body);
-    res.send(updated)
-  } catch {
-    res.json({ message: 'duplicate email' });
-  }
-}
-
-exports.changePassword = async (req, res) => {
-  const { id } = req;
-  const { OldPassword, Password } = req.body;
-  const user = await User.findById(id);
-  const matched = await bcrypt.compare(OldPassword, user.Password);
-  if (!matched) return res.status(400).json({ message: 'Wrong password!'});
-  const hashedPassword = await bcrypt.hash(Password, 10);
-  req.body.Password = hashedPassword;
-  const updated = await User.findByIdAndUpdate(id, req.body);
-  res.send(updated);
 }
 
 exports.ViewCurrentFlights = async (req, res) => {
@@ -139,12 +148,6 @@ exports.ViewCurrentFlights = async (req, res) => {
     }
   }
   res.send(output)
-}
-
-exports.getUser = async (req, res) => {
-  const { id } = req
-  const info = await User.findById(id);
-  res.send(info);
 }
 
 exports.reserveFlight = async (req, res) => {
@@ -258,38 +261,24 @@ exports.createSummaries = async (req, res) => {
   }
 }
 
+exports.editRefund = async(req, res) => {
+  const { Email, FirstName, LastName, price } = req.body
+  const subject = "Jet Away"
+  const body = `  
+                  <h3> Our Dear Customer ${FirstName} ${LastName} </h3>
 
-exports.resetPassword = async (req, res) => {
-  const { email } = req.body
-  //check if a user with this email exists 
-  let userID
-  let userType
-  let first_name
+                      <b> Thank you for riding with JET AWAY! </b>
 
-const user = await User.findOne({Email: email})
-
-  if (!user)
-      return res.status(400).send('Invalid email!') 
-  
-  const token = jwt.sign({ id: user.id}, process.env.Reset_Password, { expiresIn: '20m' })
-  // generate URL to be sent in email (body)
-  const url = "http://localhost:8000/user/resetpassword/" + token
-  // call sendEmail
-  const subject = "JET AWAY Reset Password"
-  
-  const body = `  <h3> Hello ${user.FirstName}, ${user.LastName} </h3>
-                      <h4> A request has been made for you to reset your password 
-                      if you didn't make this request then please ignore this email.  </h4>
-
-                      <h4> Please click down below to reset your password </h4>
-                      <h4> <b> The link will expire in 20 minutes </b> </h4>
-                      <br>
-                      <a href= ${url}> Reset Password </a>`
-  sendEmail(email, subject, body);
+                      <hr>
+                      <h3>Your reservation has been successfully edited. A total of ${price}$ will be refunded to your bank account. </h3>
+                      <hr>
+                  <h4> Sincerely, </h4> 
+                  <h4> Jet Away </h4>
+                    ` 
+  sendEmail(Email, subject, body);
 
   res.status(200).send({ message: 'Email sent successfully!' })
 }
-
 
 exports.notifyReservation = async (req, res) => {
   const { FirstRequest, SecondRequest, Email, FirstName, LastName} = req.body

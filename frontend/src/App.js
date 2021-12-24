@@ -1,9 +1,5 @@
 import { Layout } from "antd";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import "./Styles/generics.scss";
 import UpdateFlight from "./Components/Admin/UpdateFlight";
 import CreateFlight from "./Components/Admin/CreateFlight";
@@ -24,13 +20,15 @@ import { UserContext } from "./Context";
 import UserNavbar from "./Components/User/UserNavbar";
 import NotFound from "./Components/General/NotFound";
 import AvailableFlights from "./Components/User/AvailableFlights";
-import EditUser from "./Components/User/EditUser";
+import EditUser from "./Components/General/EditUser";
 import SmallCard from './Components/User/ResSummary/SmallCard'
 import Summaries from "./Components/User/Summaries";
 import ForgotPassword from "./Components/General/ForgotPassword"
 import EditReservedSeats from './Components/User/EditReservation/EditReservedSeats'
 import PaymentSuccess from './Components/User/PaymentSuccess'
 import MyReservations from './Components/User/MyReservations'
+import ResetPassword from './Components/General/ResetPassword'
+import EditPaymentSuccess from './Components/User/EditPaymentSuccess'
 dotenv.config();
 const { Header, Content } = Layout;
 
@@ -58,10 +56,8 @@ function App() {
             <Route path="/unauthorized" exact component={Unauthorized} />
             <Route path="/register" exact component={Register} />
             <Route path="/summary" exact component={SmallCard} />
-            <Route path="/reset-password" exact component={ForgotPassword} />
-            
-            {/* Will Call Maryam Magdy's Change Password Component */}
-            {/* <Route path='/resetPassword/:token' component={ResetPassword}/> */}
+            <Route path="/reset-password-request" exact component={ForgotPassword} />
+            <Route path='/reset-password/:token' component={ResetPassword}/>
 
 
             <PrivateRouteAdmin
@@ -116,6 +112,12 @@ function App() {
               path="/success"
               exact
               component={PaymentSuccess}
+            />
+
+            <PrivateRouteUser
+              path="/edit_success"
+              exact
+              component={EditPaymentSuccess}
             />
 
             <PrivateRouteUser

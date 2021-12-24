@@ -5,6 +5,7 @@ const createToken = require('../middleware/Token')
 const jwt = require('jsonwebtoken')
 const validator = require('validator')
 const { sendEmail } = require('../utils/email');
+const decodeResetPassToken = require('../middleware/VerifyPasswordToken')
 require("dotenv").config()
 
 
@@ -35,7 +36,7 @@ exports.getFlight = async (req, res) => {
     }catch(e){
       res.send(e)
     }
-  };
+}
 
 exports.login = async (req, res) => {
     const { Username, Password } = req.body
@@ -60,7 +61,6 @@ exports.login = async (req, res) => {
     })
 }
 
-
 exports.resetPassword = async (req, res) => {
     const { email } = req.body
     const user = await User.findOne({Email: email})
@@ -84,3 +84,52 @@ exports.resetPassword = async (req, res) => {
   
     res.status(200).send({ message: 'Email sent successfully!' })
   }
+
+  exports.getUser = async (req, res) => {
+    const { id } = req
+    const info = await User.findById(id);
+    res.send(info);
+  }
+
+  exports.EditUser = async (req, res) => {
+    const { id } = req
+    try {
+      const updated = await User.findByIdAndUpdate(id, req.body);
+      res.send(updated)
+    } catch {
+      res.json({ message: 'duplicate email' });
+    }
+  }
+  
+  exports.changePassword = async (req, res) => {
+    const { id } = req;
+    const { OldPassword, Password } = req.body;
+    const user = await User.findById(id);
+    const matched = await bcrypt.compare(OldPassword, user.Password);
+    if (!matched) return res.status(400).json({ message: 'Wrong password!'});
+    const hashedPassword = await bcrypt.hash(Password, 10);
+    req.body.Password = hashedPassword;
+    const updated = await User.findByIdAndUpdate(id, req.body);
+    res.send(updated);
+  }
+  
+
+exports.changingForgottenPassword = async (req, res) => {
+  var resetPasswordToken = req.body.token;
+  const { newPassword } = req.body
+  
+  var payload = decodeResetPassToken(resetPasswordToken);
+  if (!payload)
+    return res.status(400).send('Invalid or expired token');
+      
+  id = payload.user_id;
+
+  const newHashedPassword = await bcrypt.hash(newPassword, 10)
+  
+  try{
+    await User.findByIdAndUpdate(id, {Password: newHashedPassword})
+    res.status(200).send('Password changed successully!')
+  }catch (err){
+      res.status(400).send(err)
+  }
+}

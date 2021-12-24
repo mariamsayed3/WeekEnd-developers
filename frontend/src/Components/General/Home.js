@@ -7,7 +7,7 @@ import HomeSearch from './HomeSearch'
 import logo from '../../Assets/logo-blue.png'
 import { useHistory } from 'react-router';
 import cloud from '../../Assets/cloud.png'
-import Profile from '../User/Profile';
+import Profile from '../General/Profile';
 import {LogoutOutlined} from '@ant-design/icons'
 import plane from '../../Assets/plane.png'
 
@@ -44,6 +44,11 @@ import plane from '../../Assets/plane.png'
                 
                  <a href='/admin/create_flight'> Create Flight</a>
                  <a href= '/admin/flights'> Available Flights</a>
+                 {Email ? <a onClick={handleModalOpen}>Profile</a> : null}
+                 <Profile
+                  modalOpen={modalOpen}
+                  handleModalOpen={setModalOpen}
+                  />
                  <a onClick={logout}> <LogoutOutlined /> </a>
                </div>}
 

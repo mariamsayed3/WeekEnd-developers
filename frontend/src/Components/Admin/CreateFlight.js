@@ -32,7 +32,6 @@ export const getTripDuration = (from, to) => {
 
   return `${diffHours}:${diffMinutes}`
 }
-
 function range(start, end) {
   const result = [];
   for (let i = start; i < end; i++) {
@@ -40,12 +39,10 @@ function range(start, end) {
   }
   return result;
 }
-
 function disabledDate(current) {
   // Can not select days before today and today
   return current && current < moment().endOf('day');
 }
-
 function disabledRangeTime(_, type) {
   if (type === 'start') {
     return {
@@ -60,9 +57,6 @@ function disabledRangeTime(_, type) {
     disabledSeconds: () => [55, 56],
   };
 }
-
-
-
 
 function CreateFlight() {
   const [form] = Form.useForm();
@@ -120,9 +114,10 @@ function CreateFlight() {
                 .then(() => message.success('Flight Created Succesfully', 3));
     }
     catch (e) {
+      console.log(e)
       message
       .loading('Action in progress..', 2.5)
-      .then(() => message.error('Something went wrong please try again.', 3));
+      .then(() => message.error('Something went wrong please try again. Make sure you entered a unique flight number!', 3));
     }
   }
 

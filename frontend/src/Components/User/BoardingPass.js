@@ -19,7 +19,6 @@ function BoardingPass({Booking, Flight}) {
   const [success, setSuccess] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const getFlights = async () => {
       const { data } = await axios.get(
@@ -29,20 +28,36 @@ function BoardingPass({Booking, Flight}) {
       setLoading(false);
     };
     getFlights();
+    
   }, []);
 
   const cancel_reservation = async (ReservationNumber) => {
+    let ReturnReservation = {}
+    for(let i = 0 ; i < Reservation.length ; i++){
+      const currentReservationNumber = Reservation[i].Booking.ReservationNumber
+      if(ReservationNumber === currentReservationNumber){
+        if(i % 2 == 0)
+          ReturnReservation = Reservation[i+1]
+        else
+          ReturnReservation = Reservation[i-1]
+        break
+      }
+    }
     try {
       const { data } = await axios.patch(
         `http://localhost:8000/user/cancel_reservation/${ReservationNumber}`
       );
-      const post = await axios({
+      const { data1 } = await axios.patch(
+        `http://localhost:8000/user/cancel_reservation/${ReturnReservation.Booking.ReservationNumber}`
+      );
+      await axios({
         method: "post",
         url: "http://localhost:8000/user/email_cancellation",
         data: {
           email: Email,
           FirstName,
           LastName,
+          ReturnPrice: ReturnReservation.Booking.TotalPrice,
           ...data[0],
         },
       });
@@ -50,6 +65,7 @@ function BoardingPass({Booking, Flight}) {
       
   
     } catch (error) {
+      console.log(error)
       setSuccess(false);
       setErrorMsg(null);
       showModal();
