@@ -7,6 +7,7 @@ import { UserContext } from "../../Context";
 import Loader from '../General/Loader';
 import BoardingPass from './BoardingPass';
 import EmptyList from './EmptyList'
+import Weather from './Weather/Weather'
 
 const MyReservations = () =>{
     const { Token} = useContext(UserContext);
@@ -55,9 +56,14 @@ const MyReservations = () =>{
        
             return (
                 <>
+               
                 <BoardingPass Booking={Departure.Booking} Flight={Departure.Flight} />
                 <BoardingPass Booking={Return.Booking} Flight={Return.Flight} />
+                <Weather />
                 <Divider style= {{backgroundColor: 'black'}}/>
+               
+        
+                
 
                 </>
             );
