@@ -16,7 +16,6 @@ const connect = async () => {
             }
         )
         console.log('Connected successfully')
-
     }catch(err){
         console.log(err)
     }

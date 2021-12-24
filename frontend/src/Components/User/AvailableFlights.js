@@ -30,6 +30,10 @@ function AvailableFlights(props) {
     FlightDetails = state.data;
     RDate = state.returnDate;
   }
+  const [flightNumber, setFlightNumber] = useState("");
+  const [dep, setDep] = useState("");
+  const [arr, setArr] = useState("");
+  const [depDate, setDepDate] = useState();
   const [price, setPrice] = useState([0, 100000]);
   const [children, setChildren] = useState(100);
   const [adults, setAdults] = useState(1000);
@@ -49,6 +53,10 @@ function AvailableFlights(props) {
   });
 
   const getFlights = (
+    flightNumber,
+    dep,
+    arr,
+    depDate,
     price,
     departureTime,
     cabinClass,
@@ -59,6 +67,10 @@ function AvailableFlights(props) {
     arrivalTerminal,
     flight
   ) => {
+    if (!flight.FlightNumber.includes(flightNumber)) return false;
+    if(!(flight.Departure.toLowerCase().includes(dep.toLowerCase())) && !(flight.DepartureAirport.toLowerCase().includes(dep.toLowerCase())) && !(flight.DepartureCountry.toLowerCase().includes(dep.toLowerCase()))) return false;
+    if(!(flight.Arrival.toLowerCase().includes(arr.toLowerCase())) && !(flight.ArrivalAirport.toLowerCase().includes(arr.toLowerCase())) && !(flight.ArrivalCountry.toLowerCase().includes(arr.toLowerCase()))) return false;
+    if(depDate && flight.DepartureDate.substring(0, 10) !== depDate) return false;
     if (
       !(flight.EconomyPrice >= price[0] && flight.EconomyPrice < price[1]) ||
       !(flight.BusinessPrice >= price[0] && flight.BusinessPrice < price[1]) ||
@@ -194,6 +206,10 @@ function AvailableFlights(props) {
   useEffect(() => {
     let common = filteredFlights.filter((flight) =>
       getFlights(
+        flightNumber,
+        dep,
+        arr,
+        depDate,
         price,
         departureTime,
         cabinClass,
@@ -208,6 +224,10 @@ function AvailableFlights(props) {
     setFiltered(common);
   }, [
     filteredFlights,
+    flightNumber,
+    dep,
+    arr,
+    depDate,
     price,
     departureTime,
     cabinClass,
@@ -251,6 +271,11 @@ function AvailableFlights(props) {
           setDepartureTime={setDepartureTime}
           cabinClass={cabinClass}
           setCabinClass={setCabinClass}
+          setFlightNumber={setFlightNumber}
+          isAdmin={false}
+          setDep={setDep}
+          setArr={setArr}
+          setDepDate={setDepDate}
         />
       </div>
       {loading ? (

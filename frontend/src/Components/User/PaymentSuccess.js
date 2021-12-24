@@ -19,7 +19,6 @@ const PaymentSuccess = () => {
             await axios.post(`/user/reserve/${booking.secondFlightID}`, booking.SecondRequest)
             await axios.post(`/user/email_reservation`, {Token, Email , FirstName, LastName, FirstRequest, SecondRequest})
             await axios.post(`/user/summaries`,{Token,DepartureFlight: booking.DepartureFlight, ReturnFlight: booking.ReturnFlight, DepartureBooking: FirstRequest, ReturnBooking: SecondRequest})
-            console.log(booking)
             sessionStorage.removeItem("booking")
         }
         setLoading(false)

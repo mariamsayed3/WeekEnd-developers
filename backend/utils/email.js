@@ -1,5 +1,3 @@
-
-   
 const nodemailer = require("nodemailer");
 
 exports.sendEmail = (email, subject, html) => {
@@ -19,6 +17,7 @@ exports.sendEmail = (email, subject, html) => {
     };
     
     mailTransporter.sendMail(mailDetails, function(err, data) {
+        console.log('SENT');
         if(err) {
             console.log(err)
             console.log('Error Occurs');

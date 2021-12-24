@@ -35,6 +35,10 @@ exports.updateFlight = async (req, res) => {
 };
 
 exports.createFlight = async (req, res) => {
+  const {FlightNumber} = req.body
+  const exist = await Flight.findOne({FlightNumber})
+  if(exist)
+    return res.status(400).json({message: 'duplicate flight number'})
   Flight.create(req.body, (error, result) => {
     if (error) {
       res.send(error);
