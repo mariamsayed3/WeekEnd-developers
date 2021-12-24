@@ -10,8 +10,9 @@ import { UserContext } from "../../Context";
 import Loader from '../General/Loader'
 import EmptyList from './EmptyList'
 import GlobePlane from './GlobePlane'
+import DownloadTickets from "./DownloadTicket";
 
-function BoardingPass({Booking, Flight}) {
+function BoardingPass({Booking, Flight, id}) {
   sessionStorage.removeItem("booking")
   const { Token, FirstName, LastName, Email } = useContext(UserContext);
   const [Reservation, setReservation] = useState(false);
@@ -180,7 +181,9 @@ function BoardingPass({Booking, Flight}) {
                   <small>Date</small>
                   <strong>{Flight.DepartureDate.substring(0, 10)}</strong>
                 </div>
+                <DownloadTickets FirstName={FirstName} LastName={LastName} id={id}/>
               </div>
+              
             </section>
             <section className="strap">
               <div className="box">

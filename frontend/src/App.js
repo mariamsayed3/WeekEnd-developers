@@ -29,6 +29,11 @@ import PaymentSuccess from './Components/User/PaymentSuccess'
 import MyReservations from './Components/User/MyReservations'
 import ResetPassword from './Components/General/ResetPassword'
 import EditPaymentSuccess from './Components/User/EditPaymentSuccess'
+
+import CreateFlightOne from "./Components/Admin/CreateFlight/CreateFlightOne";
+import CreateFlightTwo from "./Components/Admin/CreateFlight/CreateFlightTwo";
+import CreateFlightThree from "./Components/Admin/CreateFlight/CreateFlightThree";
+import CreateFlightFour from "./Components/Admin/CreateFlight/CreateFlightFour";
 dotenv.config();
 const { Header, Content } = Layout;
 
@@ -41,14 +46,15 @@ function App() {
   return (
     <Layout style={{ backgroundColor: "rgba(1,1,1,0)" }}>
       <Router>
-        {(!home) && (
-          <Header className="Header-navbar" style={{ backgroundColor: "rgba(1,1,1,0)", padding: 0 }}>
-            {Email ?
-                 Admin === true ? <AdminNavbar /> : <UserNavbar /> 
-            : null}
+        {!home && (
+          <Header
+            className="Header-navbar"
+            style={{ backgroundColor: "rgba(1,1,1,0)", padding: 0 }}
+          >
+            {Email ? Admin === true ? <AdminNavbar /> : <UserNavbar /> : null}
           </Header>
         )}
-        
+
         <Content>
           <Switch>
             <Route path="/" exact component={Home} />
@@ -60,6 +66,26 @@ function App() {
             <Route path='/reset-password/:token' component={ResetPassword}/>
 
 
+            <Route
+              path="/admin/createFlightOne"
+              exact
+              component={CreateFlightOne}
+            />
+            <Route
+              path="/admin/createFlightTwo"
+              exact
+              component={CreateFlightTwo}
+            />
+            <Route
+              path="/admin/createFlightThree"
+              exact
+              component={CreateFlightThree}
+            />
+            <Route
+              path="/admin/createFlightFour"
+              exact
+              component={CreateFlightFour}
+            />
             <PrivateRouteAdmin
               path="/admin/create_flight"
               exact
@@ -86,7 +112,7 @@ function App() {
               exact
               component={MyReservations}
             />
-             <PrivateRouteUser
+            <PrivateRouteUser
               path="/my_summaries"
               exact
               component={Summaries}

@@ -8,6 +8,7 @@ import Loader from '../General/Loader';
 import BoardingPass from './BoardingPass';
 import EmptyList from './EmptyList'
 import Weather from './Weather/Weather'
+import DownloadTickets from "./DownloadTicket";
 
 const MyReservations = () =>{
     const { Token} = useContext(UserContext);
@@ -52,19 +53,19 @@ const MyReservations = () =>{
     <>
         {
        
-        ReservationTrips.map(({ Departure, Return }) => {
+        ReservationTrips.map(({ Departure, Return }, index) => {
        
             return (
                 <>
-               
-                <BoardingPass Booking={Departure.Booking} Flight={Departure.Flight} />
-                <BoardingPass Booking={Return.Booking} Flight={Return.Flight} />
+                <div id={`departure${index}`}>
+                  <BoardingPass id={`departure${index}`} Booking={Departure.Booking} Flight={Departure.Flight} />
+                </div>
+                <div id={`return${index}`}>
+                  <BoardingPass id={`return${index}`} Booking={Return.Booking} Flight={Return.Flight} />
+                </div>
                 <Weather />
                 <Divider style= {{backgroundColor: 'black'}}/>
-               
-        
                 
-
                 </>
             );
         })}

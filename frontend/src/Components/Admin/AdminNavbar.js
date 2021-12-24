@@ -28,7 +28,7 @@ function AdminNavbar (){
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/admin/flights">Available Flights</a></li>
-          <li><a href="/admin/create_flight">Create Flight</a></li>
+          <li><a href="/admin/createFlightOne">Create Flight</a></li>
           <li><a href="#">Contact us</a></li>
           <li><a onClick={handleModalOpen}>Profile</a></li>
           <li><a onClick={logout} href=""><BiLogOut /></a></li>
