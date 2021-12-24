@@ -110,8 +110,74 @@ export default function UpdateFlightadmin() {
       message.error("Something went wrong. please try again.", 3);
     }
   };
-  const nextSlide = () => {
-    this.carousel.next();
-  };
-  return <div></div>;
+
+  return (
+    <div>
+      <Carousel effect="fade" dotPosition="left" dots={false}>
+        <div>
+          <h3 className="contentStyle">
+            <div>
+              {/* <img
+                src={airplane}
+                style={{ height: "2000px", width: "800px" }}
+              ></img> */}
+            </div>
+            <Form
+              form={form}
+              style={{ display: "inline-block", marginTop: "5em" }}
+            >
+              <Form.Item
+                name="FlightNumber"
+                label={
+                  <p style={{ "margin-top": "1em", fontSize: "20px" }}>
+                    Flight Number
+                  </p>
+                }
+                style={{ width: "60%", marginLeft: "2em" }}
+              >
+                <Input style={{ "border-radius": "5px" }} />
+              </Form.Item>
+              <Form.Item
+                name="DepartureDate"
+                label={
+                  <p style={{ "margin-top": "1em", fontSize: "20px" }}>
+                    Departure Time
+                  </p>
+                }
+              >
+                <DatePicker />
+              </Form.Item>
+              <Form.Item
+                name="ArrivalDate"
+                label={
+                  <p style={{ "margin-top": "1em", fontSize: "20px" }}>
+                    Arrival Time
+                  </p>
+                }
+              >
+                <DatePicker />
+              </Form.Item>
+              <Form.Item
+                name="TripDuration"
+                label={
+                  <p style={{ "margin-top": "1em", fontSize: "20px" }}>
+                    Trip Duration
+                  </p>
+                }
+              >
+                <TimePicker.RangePicker
+                  order={false}
+                  format="HH:mm"
+                  size="small"
+                />
+              </Form.Item>
+            </Form>
+          </h3>
+        </div>
+      </Carousel>
+      <div>
+        <img className="imageStyle" src={fourthOne} alt="fourthOne" />
+      </div>
+    </div>
+  );
 }

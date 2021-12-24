@@ -1,0 +1,25 @@
+:root {
+  --shadow-white: white;
+  --shadow-gray: #c8d0e7;
+  --bg-gray: #e4ebf5;
+  --text-purple: #6d5dfc;
+  --shadow-blue: #eaeaea;
+}
+
+.contentStyle {
+  height: 400px;
+  width: 600px;
+  color: rgb(196, 15, 15);
+  line-height: 160px;
+  text-align: center;
+  background-color: var(--shadow-gray);
+  margin-left: 2em;
+  margin-top: 5em;
+}
+
+.mainSyle {
+  height: 500px;
+  width: 1300px;
+  margin-left: 2em;
+  margin-top: 5em;
+}
