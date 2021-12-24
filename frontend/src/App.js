@@ -1,9 +1,5 @@
 import { Layout } from "antd";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./Styles/generics.scss";
 import UpdateFlight from "./Components/Admin/UpdateFlight";
 import CreateFlight from "./Components/Admin/CreateFlight";
@@ -25,8 +21,13 @@ import UserNavbar from "./Components/User/UserNavbar";
 import NotFound from "./Components/General/NotFound";
 import AvailableFlights from "./Components/User/AvailableFlights";
 import EditUser from "./Components/User/EditUser";
-import SmallCard from './Components/User/ResSummary/SmallCard'
+import SmallCard from "./Components/User/ResSummary/SmallCard";
 import Summaries from "./Components/User/Summaries";
+import View from "./Components/User/ViewFlightDetails/View";
+import CreateFlightOne from "./Components/Admin/CreateFlight/CreateFlightOne";
+import CreateFlightTwo from "./Components/Admin/CreateFlight/CreateFlightTwo";
+import CreateFlightThree from "./Components/Admin/CreateFlight/CreateFlightThree";
+import CreateFlightFour from "./Components/Admin/CreateFlight/CreateFlightFour";
 dotenv.config();
 const { Header, Content } = Layout;
 
@@ -39,14 +40,15 @@ function App() {
   return (
     <Layout style={{ backgroundColor: "rgba(1,1,1,0)" }}>
       <Router>
-        {(!home) && (
-          <Header className="Header-navbar" style={{ backgroundColor: "rgba(1,1,1,0)", padding: 0 }}>
-            {Email ?
-                 Admin === true ? <AdminNavbar /> : <UserNavbar /> 
-            : null}
+        {!home && (
+          <Header
+            className="Header-navbar"
+            style={{ backgroundColor: "rgba(1,1,1,0)", padding: 0 }}
+          >
+            {Email ? Admin === true ? <AdminNavbar /> : <UserNavbar /> : null}
           </Header>
         )}
-        
+
         <Content>
           <Switch>
             <Route path="/" exact component={Home} />
@@ -54,7 +56,26 @@ function App() {
             <Route path="/unauthorized" exact component={Unauthorized} />
             <Route path="/register" exact component={Register} />
             <Route path="/summary" exact component={SmallCard} />
-
+            <Route
+              path="/admin/createFlightOne"
+              exact
+              component={CreateFlightOne}
+            />
+            <Route
+              path="/admin/createFlightTwo"
+              exact
+              component={CreateFlightTwo}
+            />
+            <Route
+              path="/admin/createFlightThree"
+              exact
+              component={CreateFlightThree}
+            />
+            <Route
+              path="/admin/createFlightFour"
+              exact
+              component={CreateFlightFour}
+            />
             <PrivateRouteAdmin
               path="/admin/create_flight"
               exact
@@ -81,7 +102,7 @@ function App() {
               exact
               component={BoardingPass}
             />
-             <PrivateRouteUser
+            <PrivateRouteUser
               path="/my_summaries"
               exact
               component={Summaries}

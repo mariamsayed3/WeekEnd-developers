@@ -1,7 +1,7 @@
 const Flight = require("../models/Flight");
 const User = require("../models/User");
 const Booking = require("../models/Booking");
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
 
 exports.getAllFlights = async (req, res) => {
   const allFlights = await Flight.find({});
@@ -36,6 +36,7 @@ exports.updateFlight = async (req, res) => {
 
 exports.createFlight = async (req, res) => {
   Flight.create(req.body, (error, result) => {
+    console.log(req.body);
     if (error) {
       res.send(error);
     } else {
