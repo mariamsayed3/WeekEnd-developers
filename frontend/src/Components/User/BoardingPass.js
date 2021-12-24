@@ -96,7 +96,6 @@ function BoardingPass({Booking, Flight}) {
   };
 
   
- 
    return (
     <div>
           <div className="boarding-pass">
