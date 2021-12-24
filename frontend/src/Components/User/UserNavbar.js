@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router';
 import '../../Styles/navbar.scss'
 import {LogoutOutlined} from '@ant-design/icons'
-import Profile from './Profile';
+import Profile from '../General/Profile';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../../Context';

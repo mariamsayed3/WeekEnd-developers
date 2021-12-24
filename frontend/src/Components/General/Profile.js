@@ -19,7 +19,7 @@ const Profile = (props) => {
 
     useEffect(() => {
         const getInfo = async () => {
-            const { data } = await axios.get(`http://localhost:8000/user/get_user/${Token}`);
+            const { data } = await axios.get(`http://localhost:8000/get_user/${Token}`);
             setInformation(data);
         };
         getInfo();

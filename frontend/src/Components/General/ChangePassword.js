@@ -15,7 +15,7 @@ const ChangePassword = (props) => {
 
     const onFinish = async (values) => {
         try {
-            const {data} = await axios.patch(`http://localhost:8000/user/change_password/${Token}`, values);
+            const {data} = await axios.patch(`http://localhost:8000/change_password/${Token}`, values);
             if (data.length != 0) {
                 message.loading('Action in progress..', 1.5)
                     .then(() => message.success('Password changed successfully!', 1.5)
