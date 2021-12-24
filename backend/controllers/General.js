@@ -83,7 +83,36 @@ exports.resetPassword = async (req, res) => {
     sendEmail(email, subject, body);
   
     res.status(200).send({ message: 'Email sent successfully!' })
-}
+  }
+
+  exports.getUser = async (req, res) => {
+    const { id } = req
+    const info = await User.findById(id);
+    res.send(info);
+  }
+
+  exports.EditUser = async (req, res) => {
+    const { id } = req
+    try {
+      const updated = await User.findByIdAndUpdate(id, req.body);
+      res.send(updated)
+    } catch {
+      res.json({ message: 'duplicate email' });
+    }
+  }
+  
+  exports.changePassword = async (req, res) => {
+    const { id } = req;
+    const { OldPassword, Password } = req.body;
+    const user = await User.findById(id);
+    const matched = await bcrypt.compare(OldPassword, user.Password);
+    if (!matched) return res.status(400).json({ message: 'Wrong password!'});
+    const hashedPassword = await bcrypt.hash(Password, 10);
+    req.body.Password = hashedPassword;
+    const updated = await User.findByIdAndUpdate(id, req.body);
+    res.send(updated);
+  }
+  
 
 exports.changingForgottenPassword = async (req, res) => {
   var resetPasswordToken = req.body.token;
