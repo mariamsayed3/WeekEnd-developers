@@ -5,6 +5,7 @@ const createToken = require('../middleware/Token')
 const jwt = require('jsonwebtoken')
 const validator = require('validator')
 const { sendEmail } = require('../utils/email');
+const decodeResetPassToken = require('../middleware/VerifyPasswordToken')
 require("dotenv").config()
 
 
@@ -35,7 +36,7 @@ exports.getFlight = async (req, res) => {
     }catch(e){
       res.send(e)
     }
-  };
+}
 
 exports.login = async (req, res) => {
     const { Username, Password } = req.body
@@ -60,22 +61,14 @@ exports.login = async (req, res) => {
     })
 }
 
-
 exports.resetPassword = async (req, res) => {
     const { email } = req.body
-    console.log(email)
-    console.log("Hi")
-
-  const user = await User.findOne({Email: email})
-  console.log(user);
-    if (!user){
-            return res.status(400).send('Invalid email!') 
-    }
+    const user = await User.findOne({Email: email})
+    if (!user)
+      return res.status(400).send('Invalid email!') 
+    
     const token = jwt.sign ({user_id: user._id, email }, process.env.Reset_Password, { expiresIn: '20m' })
-
-  
     const url = "http://localhost:3000/reset-password/" + token
-    console.log(url);
   
     const subject = "JET AWAY Reset Password"
     
@@ -87,8 +80,27 @@ exports.resetPassword = async (req, res) => {
                         <h4> <b> The link will expire in 20 minutes </b> </h4>
                         <br>
                         <a href= ${url}> Reset Password </a>`
-    console.log(token);
     sendEmail(email, subject, body);
   
     res.status(200).send({ message: 'Email sent successfully!' })
+}
+
+exports.changingForgottenPassword = async (req, res) => {
+  var resetPasswordToken = req.body.token;
+  const { newPassword } = req.body
+  
+  var payload = decodeResetPassToken(resetPasswordToken);
+  if (!payload)
+    return res.status(400).send('Invalid or expired token');
+      
+  id = payload.user_id;
+
+  const newHashedPassword = await bcrypt.hash(newPassword, 10)
+  
+  try{
+    await User.findByIdAndUpdate(id, {Password: newHashedPassword})
+    res.status(200).send('Password changed successully!')
+  }catch (err){
+      res.status(400).send(err)
   }
+}

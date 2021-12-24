@@ -10,6 +10,19 @@
   }
 }
 
+.register {
+  display: flex;
+  flex-direction: column;
+  justify-content: "center";
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.548);
+  padding-top: 30px;
+  margin-left: 20%;
+  margin-right: 20%;
+  border-radius: 50px;
+  box-shadow: 5px 5px 5px black;
+}
+
 .login-container {
   width: 30%;
   margin: 5% 35% 5%;

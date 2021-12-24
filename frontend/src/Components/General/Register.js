@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Form, Input, Button, Select, Alert } from 'antd';
 import  validator  from 'validator';
 import axios from 'axios';
 import { Redirect } from 'react-router';
+import logo from '../../Assets/logo-blue.png'
 const {Option} = Select
 const tailFormItemLayout = {
     wrapperCol: {
@@ -55,6 +56,15 @@ const Register = () => {
   const [form] = Form.useForm();
   const [error, setError] = useState(null)
 
+  useEffect(() => {
+    const body = document.querySelector('body')
+    body.classList.add('login')
+      return () => {
+        const body = document.querySelector('body')
+        body.classList.remove('login')
+      }
+  },[])
+
   const onFinish = async (values) => {
       values.Admin = false
       values.Username = values.Username.toLowerCase()
@@ -71,7 +81,10 @@ const Register = () => {
     return <Redirect to="/home" />
 
   return (
-    <div>
+    <div className="register">
+      <div className="logo2">
+           <img src={logo}/> 
+        </div>
     <Form
       style={{width: '50%'}}
       {...formItemLayout}

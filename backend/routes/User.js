@@ -31,6 +31,8 @@ router.get('/summaries/:Token',verifyToken, controllers.getSummaries)
 
 router.post('/summaries',verifyToken, controllers.createSummaries)
 
+router.patch('/change_password/:Token',verifyToken,controllers.changePassword);
+
 router.patch('/edit_reservation', verifyToken, controllers.editReservation)
 
 module.exports = router;
