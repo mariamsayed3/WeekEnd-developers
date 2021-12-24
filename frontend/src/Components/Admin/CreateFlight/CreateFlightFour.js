@@ -1,0 +1,177 @@
+import React, { Component } from "react";
+import axios from "axios";
+import "../../../Styles/createFlight.scss";
+import "antd/dist/antd.css";
+import State from "./State";
+import fourthOne from "../../../Styles/fourthOne.png";
+import { Form, Input, message } from "antd";
+import { useHistory, Link } from "react-router-dom";
+import { GrLinkNext } from "react-icons/gr";
+export default function CreateFlightFour() {
+  let whichone = {
+    first: true,
+    second: true,
+    third: true,
+    fourth: false,
+    nowFI: false,
+    nowS: false,
+    nowT: false,
+    nowFO: true,
+  };
+  const [form] = Form.useForm();
+  let history = useHistory();
+  const Create = async () => {
+    try {
+      const values = await form.validateFields();
+
+      values.EconomyPrice = parseInt(values.EconomyPrice);
+      values.BusinessPrice = parseInt(values.BusinessPrice);
+      values.FirstClassPrice = parseInt(values.FirstClassPrice);
+      let info = sessionStorage.getItem("Information");
+      info = JSON.parse(info);
+      info["EconomyPrice"] = values.EconomyPrice;
+      info["BusinessPrice"] = values.BusinessPrice;
+      info["FirstClassPrice"] = values.FirstClassPrice;
+
+      values.EconomyAvailableSeats = parseInt(values.EconomyTotalSeats);
+      values.BusinessAvailableSeats = parseInt(values.BusinessTotalSeats);
+      values.FirstClassAvailableSeats = parseInt(values.FirstClassTotalSeats);
+      info["FirstClassTotalSeats"] = values.FirstClassAvailableSeats;
+      info["BusinessTotalSeats"] = values.BusinessPrice;
+      info["EconomyTotalSeats"] = values.EconomyTotalSeats;
+
+      values.BusinessSeats = new Array(parseInt(values.BusinessTotalSeats));
+      values.EconomySeats = new Array(parseInt(values.EconomyTotalSeats));
+      values.FirstClassSeats = new Array(parseInt(values.FirstClassTotalSeats));
+
+      values.NumberOfPassengers = { Adults: 0, Children: 0 };
+
+      for (let i = 0; i < values.BusinessSeats.length; i++)
+        values.BusinessSeats[i] = {
+          number: `B${i + 1}`,
+          reserved: false,
+          type: null,
+        };
+
+      for (let i = 0; i < values.EconomySeats.length; i++)
+        values.EconomySeats[i] = {
+          number: `C${i + 1}`,
+          reserved: false,
+          type: null,
+        };
+
+      for (let i = 0; i < values.FirstClassSeats.length; i++)
+        values.FirstClassSeats[i] = {
+          number: `A${i + 1}`,
+          reserved: false,
+          type: null,
+        };
+
+      info["FirstClassSeats"] = values.FirstClassSeats;
+      info["EconomySeats"] = values.EconomySeats;
+      info["BusinessSeats"] = values.BusinessSeats;
+
+      info["NumberOfPassengers"] = values.NumberOfPassengers;
+
+      sessionStorage.setItem("Information", JSON.stringify(info));
+
+      info = JSON.parse(sessionStorage.getItem("Information"));
+      console.log(info);
+      await axios.post(`http://localhost:8000/admin/create_flight`, info);
+      message
+        .loading("Action in progress..", 2.5)
+        .then(() => message.success("Flight Created Succesfully", 3));
+    } catch (e) {
+      console.log(e);
+      message
+        .loading("Action in progress..", 2.5)
+        .then(() => message.error("Something went wrong please try again.", 3));
+    }
+  };
+  return (
+    <div>
+      <State decide={whichone} />
+      <div id="createContainer" style={{ width: "40%" }}>
+        <Form
+          style={{ "margin-left": "2em", "margin-top": "2em" }}
+          form={form}
+          onSubmit={Create}
+        >
+          <Form.Item
+            name="EconomyTotalSeats"
+            label="Economy Class Seats"
+            rules={[{ required: true, message: "Please enter a number" }]}
+          >
+            <Input
+              placeholder="Please specify the number"
+              style={{ width: "40%", marginLeft: "-60%" }}
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="EconomyPrice"
+            label="Economy Class Seat Price"
+            rules={[{ required: true, message: "Please enter a price" }]}
+          >
+            <Input
+              placeholder="price"
+              style={{ width: "40%", marginLeft: "-60%" }}
+            />
+          </Form.Item>
+          <Form.Item
+            name="FirstClassTotalSeats"
+            label="First Class Class Seats"
+            rules={[{ required: true, message: "Please enter a number" }]}
+          >
+            <Input
+              placeholder="Please specify the number"
+              style={{ width: "40%", marginLeft: "-60%" }}
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="FirstClassPrice"
+            label="First Class Seat Price"
+            rules={[{ required: true, message: "Please enter a price" }]}
+          >
+            <Input
+              placeholder="price"
+              style={{ width: "40%", marginLeft: "-60%" }}
+            />
+          </Form.Item>
+          <Form.Item
+            name="BusinessTotalSeats"
+            label="Business Class Seats"
+            rules={[{ required: true, message: "Please enter a number" }]}
+          >
+            <Input
+              placeholder="Please specify the number"
+              style={{ width: "40%", marginLeft: "-60%" }}
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="BusinessPrice"
+            label="Business Class Seat Price"
+            rules={[{ required: true, message: "Please enter a price" }]}
+          >
+            <Input
+              placeholder="price"
+              style={{ width: "40%", marginLeft: "-60%" }}
+            />
+          </Form.Item>
+          <div>
+            <GrLinkNext
+              style={{ marginLeft: "40%" }}
+              size="40"
+              onClick={Create}
+            />
+          </div>
+        </Form>
+      </div>
+      <div>
+        <img className="imageStyle" src={fourthOne} alt="fourthOne" />
+      </div>
+    </div>
+  );
+}
