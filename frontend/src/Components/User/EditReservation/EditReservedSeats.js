@@ -6,7 +6,8 @@ import View from '../ViewFlightDetails/View'
 const EditReservedSeats = () => {
     const {Booking, Flight} = useLocation().state
     const flight = Flight
-
+    const oldPrice = Booking.TotalPrice
+  
     const [FirstSeats, setFirstSeats] = useState(0);
     const [EconomySeats, setEconomySeats] = useState(0);
     const [BusinessSeats, setBusinessSeats] = useState(0);
@@ -32,7 +33,7 @@ const EditReservedSeats = () => {
               totalSeats={FirstSeats + EconomySeats + BusinessSeats}
               price={price}
               booking={Booking}
-
+              oldPrice={oldPrice}
             />
           </div>
           <div className="exit exit--front fuselage"></div>

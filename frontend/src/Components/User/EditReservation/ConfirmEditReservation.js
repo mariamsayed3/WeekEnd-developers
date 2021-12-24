@@ -4,8 +4,8 @@ import axios from 'axios';
 import { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { UserContext } from '../../../Context';
-const ConfirmEditReservation = ({booking, totalSeats, selectedSeats, price}) => {
-    const { Token } = useContext(UserContext)
+const ConfirmEditReservation = ({booking, totalSeats, selectedSeats, price, oldPrice}) => {
+    const { Token, FirstName, LastName, Email } = useContext(UserContext)
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [value, setValue] = useState(2);
     const [Children, setChildren] = useState(0);
@@ -20,28 +20,39 @@ const ConfirmEditReservation = ({booking, totalSeats, selectedSeats, price}) => 
         for(let seat of selectedSeats)
             booking.Seats.push(seat.number)
         const newSeats =  booking.Seats
-        try{
-            await axios.patch('http://localhost:8000/user/edit_reservation', {Token, changedSeats, newSeats, booking, oldChildren})
-            message.loading('Action in progress..', 2.5)
-            .then(() => {
-              message.success('Flight reserved successfully! You will be redirected to the reservations page.', 5)
-              setTimeout(()=> {
-                history.push(`/my_reservations`)
-              }, 5000)    
-    });
-        }catch(e){
-            message.loading('Action in progress..', 2.5)
-            .then(() => {
-              message.error('Something went wrong. Please try again later.', 5)  
+        if(oldPrice > price)
+            await axios.post('http://localhost:8000/user/email_edit_refund', {FirstName, LastName, Email, price: oldPrice - price})
+        if(oldPrice >= price){
+            try{
+                await axios.patch('http://localhost:8000/user/edit_reservation', {Token, changedSeats, newSeats, booking, oldChildren})
+                message.loading('Action in progress..', 2.5)
+                .then(() => {
+                  message.success('Flight edited successfully! You will be redirected to the reservations page.', 5)
+                  setTimeout(()=> {
+                    history.push(`/my_reservations`)
+                  }, 5000)    
             });
+            }catch{
+                message.loading('Action in progress..', 2.5)
+                .then(() => {
+                  message.error('Something went wrong. Please try again later.', 5)  
+                });
+            }
+        } 
+        else{
+            sessionStorage.setItem('editBooking', JSON.stringify({Token, changedSeats, newSeats, booking, oldChildren}))
+            pay();
+
         }
-        
-        
+    }
+
+    const pay = async () =>{
+        const {data} = await axios.post("http://localhost:8000/user/edit_payement", { amount: price - oldPrice })
+        window.location = data.url;
     }
 
     const handleCancel = () => {
         setIsModalVisible(false);
-    
     };
 
     const onRadioChange = (e) => {

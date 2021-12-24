@@ -7,11 +7,15 @@ router.use(express.json());
 
 router.post("/payement", controllers.payement);
 
+router.post("/edit_payement", controllers.EditPayement);
+
 router.patch("/cancel_reservation/:reservation_number",controllers.cancelReservation);
 
 router.post("/email_cancellation", controllers.notifyCancellation);
 
 router.post("/email_reservation", controllers.notifyReservation);
+
+router.post("/email_edit_refund", controllers.editRefund);
 
 router.patch('/edit_user/:Token',verifyToken,controllers.EditUser);
 

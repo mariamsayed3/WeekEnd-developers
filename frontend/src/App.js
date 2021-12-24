@@ -27,6 +27,7 @@ import ForgotPassword from "./Components/General/ForgotPassword"
 import EditReservedSeats from './Components/User/EditReservation/EditReservedSeats'
 import PaymentSuccess from './Components/User/PaymentSuccess'
 import ResetPassword from './Components/General/ResetPassword'
+import EditPaymentSuccess from './Components/User/EditPaymentSuccess'
 dotenv.config();
 const { Header, Content } = Layout;
 
@@ -110,6 +111,12 @@ function App() {
               path="/success"
               exact
               component={PaymentSuccess}
+            />
+
+            <PrivateRouteUser
+              path="/edit_success"
+              exact
+              component={EditPaymentSuccess}
             />
 
             <PrivateRouteUser
