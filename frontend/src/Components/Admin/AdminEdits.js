@@ -107,9 +107,9 @@ export default function AdminEdits() {
       parseInt(flight.DepartureTime) < 24
     )
       return false;
-    if (cabinClass.first && flight.FirstClassAvailableSeats == 0) return false;
-    if (cabinClass.business && flight.BusinessAvailableSeats == 0) return false;
-    if (cabinClass.economy && flight.EconomyAvailableSeats == 0) return false;
+    if (cabinClass.first && flight.FirstClassAvailableSeats === 0) return false;
+    if (cabinClass.business && flight.BusinessAvailableSeats === 0) return false;
+    if (cabinClass.economy && flight.EconomyAvailableSeats === 0) return false;
     return true;
   };
 
