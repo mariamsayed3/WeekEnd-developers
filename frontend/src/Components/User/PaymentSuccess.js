@@ -22,7 +22,7 @@ const PaymentSuccess = () => {
             sessionStorage.removeItem("booking")
         }
         setLoading(false)
-      }
+    }
     useEffect(() => {
         book()
     }, [])

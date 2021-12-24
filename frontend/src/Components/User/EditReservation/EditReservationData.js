@@ -1,5 +1,5 @@
 import ConfirmEditReservation from './ConfirmEditReservation'
-const EditReservationData = ({flight, totalSeats, price, selectedSeats, booking}) => {
+const EditReservationData = ({flight, totalSeats, price, selectedSeats, booking, oldPrice}) => {
 
     return (
         <div className='flight-card--details body1'>
@@ -41,7 +41,7 @@ const EditReservationData = ({flight, totalSeats, price, selectedSeats, booking}
         <div>
            
             
-            <ConfirmEditReservation booking={booking} flight={flight} totalSeats={totalSeats} selectedSeats={selectedSeats} price={price}/>
+            <ConfirmEditReservation oldPrice={oldPrice} booking={booking} flight={flight} totalSeats={totalSeats} selectedSeats={selectedSeats} price={price}/>
             
         </div>
     

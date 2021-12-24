@@ -3,7 +3,6 @@ import 'antd/dist/antd.css';
 import './Admin.css';
 import moment from 'moment'
 import { Button, message, Form, Input, Row, Col, DatePicker, Card,TimePicker  } from 'antd';
-// import '../../Styles/background.scss';
 const { RangePicker } = DatePicker;
 require('dotenv').config('../../.env')
 
@@ -114,9 +113,10 @@ function CreateFlight() {
                 .then(() => message.success('Flight Created Succesfully', 3));
     }
     catch (e) {
+      console.log(e)
       message
       .loading('Action in progress..', 2.5)
-      .then(() => message.error('Something went wrong please try again.', 3));
+      .then(() => message.error('Something went wrong please try again. Make sure you entered a unique flight number!', 3));
     }
   }
 

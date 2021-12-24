@@ -4,30 +4,114 @@ import axios from "axios";
 import FlightDetails from "./FlightDetails";
 import "antd/dist/antd.css";
 import "../../Styles/search.scss";
-import {
-  Form,
-  Input,
-  DatePicker,
-  Card,
-  Row,
-  Col,
-} from "antd";
+import UserFilter from "../User/UserFilter";
 
 export default function AdminEdits() {
-  const [flightNumber, setFlightNumber] = useState("");
-  const [depDate, setDepDate] = useState("");
-  const [arrDate, setArrDate] = useState("");
-  const [economySeats] = useState(1);
-  const [businessSeats] = useState(1);
-  const [firstSeats] = useState(1);
-  const [baggage] = useState(10);
-  const [price] = useState(10000);
-  const [depAirport, setDepAirport] = useState("");
-  const [depTerminal, setDepTerminal] = useState("");
-  const [arrAirport, setArrAirport] = useState("");
-  const [arrTerminal, setArrTerminal] = useState("");
   const [flights, setFlights] = useState([]);
   const [filteredFlights, setFilteredFlights] = useState([]);
+  const [flightNumber, setFlightNumber] = useState("");
+  const [dep, setDep] = useState("");
+  const [arr, setArr] = useState("");
+  const [depDate, setDepDate] = useState();
+  const [price, setPrice] = useState([0, 100000]);
+  const [children, setChildren] = useState(100);
+  const [adults, setAdults] = useState(1000);
+  const [duration, setDuration] = useState("24");
+  const [arrivalTerminal, setArrivalTerminal] = useState("");
+  const [departureTerminal, setDepartureTerminal] = useState("");
+  const [departureTime, setDepartureTime] = useState({
+    midnight: true,
+    morning: true,
+    noon: true,
+    night: true,
+  });
+  const [cabinClass, setCabinClass] = useState({
+    first: true,
+    business: true,
+    economy: true,
+  });
+  const getFlights = (
+    flightNumber,
+    dep,
+    arr,
+    depDate,
+    price,
+    departureTime,
+    cabinClass,
+    duration,
+    children,
+    adults,
+    departureTerminal,
+    arrivalTerminal,
+    flight
+  ) => {
+    if (!flight.FlightNumber.includes(flightNumber)) return false;
+    if (
+      !flight.Departure.toLowerCase().includes(dep.toLowerCase()) &&
+      !flight.DepartureAirport.toLowerCase().includes(dep.toLowerCase()) &&
+      !flight.DepartureCountry.toLowerCase().includes(dep.toLowerCase())
+    )
+      return false;
+    if (
+      !flight.Arrival.toLowerCase().includes(arr.toLowerCase()) &&
+      !flight.ArrivalAirport.toLowerCase().includes(arr.toLowerCase()) &&
+      !flight.ArrivalCountry.toLowerCase().includes(arr.toLowerCase())
+    )
+      return false;
+    if (depDate && flight.DepartureDate.substring(0, 10) !== depDate)
+      return false;
+    if (
+      !(flight.EconomyPrice >= price[0] && flight.EconomyPrice < price[1]) ||
+      !(flight.BusinessPrice >= price[0] && flight.BusinessPrice < price[1]) ||
+      !(flight.FirstClassPrice >= price[0] && flight.FirstClassPrice < price[1])
+    )
+      return false;
+    if (flight.TripDuration.substring(0, 2) >= duration) return false;
+    if (flight.NumberOfPassengers.Children > children) return false;
+    if (flight.NumberOfPassengers.Adults > adults) return false;
+    if (
+      departureTerminal !== "" &&
+      !flight.DepartureTerminal.toLowerCase().includes(
+        departureTerminal.toLowerCase()
+      )
+    )
+      return false;
+    if (
+      arrivalTerminal !== "" &&
+      !flight.ArrivalTerminal.toLowerCase().includes(
+        arrivalTerminal.toLowerCase()
+      )
+    )
+      return false;
+    if (
+      !departureTime.midnight &&
+      parseInt(flight.DepartureTime) >= 0 &&
+      parseInt(flight.DepartureTime) < 6
+    )
+      return false;
+    if (
+      !departureTime.morning &&
+      parseInt(flight.DepartureTime) >= 6 &&
+      parseInt(flight.DepartureTime) < 12
+    )
+      return false;
+    if (
+      !departureTime.noon &&
+      parseInt(flight.DepartureTime) >= 12 &&
+      parseInt(flight.DepartureTime) < 18
+    )
+      return false;
+    if (
+      !departureTime.night &&
+      parseInt(flight.DepartureTime) >= 18 &&
+      parseInt(flight.DepartureTime) < 24
+    )
+      return false;
+    if (cabinClass.first && flight.FirstClassAvailableSeats == 0) return false;
+    if (cabinClass.business && flight.BusinessAvailableSeats == 0) return false;
+    if (cabinClass.economy && flight.EconomyAvailableSeats == 0) return false;
+    return true;
+  };
 
   useEffect(() => {
     const getFlights = async () => {
@@ -39,228 +123,61 @@ export default function AdminEdits() {
     getFlights();
   }, []);
   useEffect(() => {
-    setFilteredFlights(flights);
-    let arr;
-    if (filteredFlights.length === 0) arr = flights;
-    else arr = filteredFlights;
-    if (flightNumber !== "") {
-      setFilteredFlights(
-        arr.filter((flight) => {
-        return flight.FlightNumber.toLowerCase().includes(flightNumber.toLowerCase())}
-        )
-      );
-    }
-    if (depDate !== "") {
-      setFilteredFlights(
-        arr.filter((flight) =>
-          flight.DepartureDate.substring(0,10).includes(depDate)
-        )
-      );
-    }
-    if (arrDate !== "") {
-      setFilteredFlights(
-        arr.filter((flight) =>
-          flight.ArrivalDate.substring(0,10).includes(arrDate)
-        )
-      );
-    }
-    if (depAirport !== "") {
-      setFilteredFlights(
-        arr.filter((flight) => flight.DepartureAirport.toLowerCase().includes(depAirport.toLowerCase()))
-      );
-    }
-    if (arrAirport !== "") {
-      setFilteredFlights(
-        arr.filter((flight) => flight.ArrivalAirport.toLowerCase().includes(arrAirport.toLowerCase()))
-      );
-    }
-    if (depTerminal !== "") {
-      setFilteredFlights(
-        arr.filter((flight) => flight.DepartureTerminal.toLowerCase().includes(depTerminal.toLowerCase()))
-      );
-    }
-    if (arrTerminal !== "") {
-      setFilteredFlights(
-        arr.filter((flight) => flight.ArrivalTerminal.toLowerCase().includes(arrTerminal.toLowerCase()))
-      );
-    }
-
-
-    // setFilteredFlights(
-    //   arr.filter((flight) => {
-    //     return flight.AllowedBaggage >= baggage
-    //   })
-    //   );
-
-    // setFilteredFlights(
-    // arr.filter((flight) =>{ 
-    //  return flight.BusinessPrice <= price || 
-    //  flight.EconomyPrice <= price || 
-    //  flight.FirstClassPrice <= price 
-    // }) );
-
-   
+    let common = flights.filter((flight) =>
+      getFlights(
+        flightNumber,
+        dep,
+        arr,
+        depDate,
+        price,
+        departureTime,
+        cabinClass,
+        duration,
+        children,
+        adults,
+        departureTerminal,
+        arrivalTerminal,
+        flight
+      )
+    );
+    setFilteredFlights(common);
   }, [
     flights,
+    filteredFlights,
     flightNumber,
+    dep,
+    arr,
     depDate,
-    arrDate,
-    economySeats,
-    businessSeats,
-    firstSeats,
-    baggage,
     price,
-    depAirport,
-    arrAirport,
-    depTerminal,
-    arrTerminal,
+    departureTime,
+    cabinClass,
+    duration,
+    children,
+    adults,
+    departureTerminal,
+    arrivalTerminal,
   ]);
 
   return (
-    <div className='flights-container'>
-      <Card className="admin-search">
-        <div className="">
-          <Form name="Search Flights">
-            <Row gutter={(16, 8)}>
-              <Col span={25}>
-                <Form.Item name="FlightNumber" label="Flight Number">
-                  <Input
-                    onChange={(e) => {
-                      e.target.value !== ""
-                        ? setFlightNumber(e.target.value)
-                        : setFlightNumber("");
-                    }}
-                  />
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row>
-              <Col span={25}>
-                <Form.Item name="DepartureDate" label="Departure Date">
-                  <DatePicker
-                    onChange={(date, dateString) => {
-                      dateString !== ""
-                        ? setDepDate(dateString)
-                        : setDepDate("");
-                    }}
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={25}>
-                <Form.Item name="ArrivalDate" label="Arrival Date">
-                  <DatePicker
-                    onChange={(date, dateString) => {
-                      dateString != ""
-                        ? setArrDate(dateString)
-                        : setArrDate("");
-                    }}
-                  />
-                </Form.Item>
-              </Col>
-            </Row>
-            {/* <Row> */}
-              {/* <Col span={15}>
-                <Form.Item name="baggage" label="Baggage">
-                  <Slider
-                    defaultValue={10}
-                    min={1}
-                    max={10}
-                    onChange={(value) => {
-                      setBaggage(value);
-                    }}
-                    value={typeof baggage === "number" ? baggage : 0}
-                  />
-                </Form.Item>
-              </Col> */}
-              {/* <Col span={2}>
-                <InputNumber
-                  min={1}
-                  max={20}
-                  style={{ margin: "0 10px", width: "50px" }}
-                  value={baggage}
-                  onChange={(value) => {
-                    setBaggage(value);
-                  }}
-                />
-              </Col>
-            </Row> */}
-            {/* <Row>
-              <Col span={20}>
-                <Form.Item name="price" label="Price">
-                  <Slider
-                    ي
-                    defaultValue={10000}
-                    min={0}
-                    max={10000} //max
-                    onChange={(value) => {
-                      setPrice(value);
-                    }}
-                    value={typeof price === "number" ? price :0}
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={2}>
-                <InputNumber
-                  min={0}
-                  max={10000} //max
-                  style={{margin: "0 10px", width: "50px"}}
-                  value={price}
-                  onChange={(value) => {
-                    setPrice(value);
-                  }}
-                />
-              </Col>
-            </Row> */}
-            <Row gutter={(16, 8)}>
-              <Col span={25}>
-                <Form.Item name="DepartureAirport" label="Departure Airport">
-                  <Input
-                    onChange={(e) => {
-                      e.target.value != ""
-                        ? setDepAirport(e.target.value)
-                        : setDepAirport("");
-                    }}
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={25}>
-                <Form.Item name="ArrivalAirport" label="Arrival Airport">
-                  <Input
-                    onChange={(e) => {
-                      e.target.value != ""
-                        ? setArrAirport(e.target.value)
-                        : setArrAirport("");
-                    }}
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={25}>
-                <Form.Item name="DepartureTerminal" label="Departure Terminal">
-                  <Input
-                    onChange={(e) => {
-                      e.target.value != ""
-                        ? setDepTerminal(e.target.value)
-                        : setDepTerminal("");
-                    }}
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={25}>
-                <Form.Item name="ArrivalTerminal" label="Arrival Terminal">
-                  <Input
-                    onChange={(e) => {
-                      e.target.value != ""
-                        ? setArrTerminal(e.target.value)
-                        : setArrTerminal("");
-                    }}
-                  />
-                </Form.Item>
-              </Col>
-            </Row>
-          </Form>
-        </div>
-      </Card>
-      <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+    <div className="flights-container">
+      <UserFilter
+        setPrice={setPrice}
+        setDuration={setDuration}
+        setArrivalTerminal={setArrivalTerminal}
+        setDepartureTerminal={setDepartureTerminal}
+        setChildren={setChildren}
+        setAdults={setAdults}
+        departureTime={departureTime}
+        setDepartureTime={setDepartureTime}
+        cabinClass={cabinClass}
+        setCabinClass={setCabinClass}
+        setFlightNumber={setFlightNumber}
+        isAdmin={true}
+        setDep={setDep}
+        setArr={setArr}
+        setDepDate={setDepDate}
+      />
+      <div style={{display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
         {filteredFlights.map((flight) => {
           let id = flight._id;
           return <FlightDetails idkey={id} myFlight={flight} key={id} />;

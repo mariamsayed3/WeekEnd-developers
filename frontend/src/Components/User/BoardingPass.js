@@ -9,8 +9,10 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../../Context";
 import Loader from '../General/Loader'
 import EmptyList from './EmptyList'
+import GlobePlane from './GlobePlane'
+import DownloadTickets from "./DownloadTicket";
 
-function BoardingPass() {
+function BoardingPass({Booking, Flight, id}) {
   sessionStorage.removeItem("booking")
   const { Token, FirstName, LastName, Email } = useContext(UserContext);
   const [Reservation, setReservation] = useState(false);
@@ -18,7 +20,6 @@ function BoardingPass() {
   const [success, setSuccess] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const getFlights = async () => {
       const { data } = await axios.get(
@@ -28,20 +29,36 @@ function BoardingPass() {
       setLoading(false);
     };
     getFlights();
+    
   }, []);
 
   const cancel_reservation = async (ReservationNumber) => {
+    let ReturnReservation = {}
+    for(let i = 0 ; i < Reservation.length ; i++){
+      const currentReservationNumber = Reservation[i].Booking.ReservationNumber
+      if(ReservationNumber === currentReservationNumber){
+        if(i % 2 == 0)
+          ReturnReservation = Reservation[i+1]
+        else
+          ReturnReservation = Reservation[i-1]
+        break
+      }
+    }
     try {
       const { data } = await axios.patch(
         `http://localhost:8000/user/cancel_reservation/${ReservationNumber}`
       );
-      const post = await axios({
+      const { data1 } = await axios.patch(
+        `http://localhost:8000/user/cancel_reservation/${ReturnReservation.Booking.ReservationNumber}`
+      );
+      await axios({
         method: "post",
         url: "http://localhost:8000/user/email_cancellation",
         data: {
           email: Email,
           FirstName,
           LastName,
+          ReturnPrice: ReturnReservation.Booking.TotalPrice,
           ...data[0],
         },
       });
@@ -49,6 +66,7 @@ function BoardingPass() {
       
   
     } catch (error) {
+      console.log(error)
       setSuccess(false);
       setErrorMsg(null);
       showModal();
@@ -78,20 +96,9 @@ function BoardingPass() {
     window.location.reload();
   };
 
-  if(loading){
-      return <Loader />
-  }
-  if(Reservation.length==0){
-    return <EmptyList msg={`You do not have any current reservations with Jet Away . Would you like to reserve a flight?`} buttonText={`Yes!`} path={'/available_flights'} />
-   }
-
-  return Reservation ? (
-    
-    <div style={{display:'flex', alignItems:"center", justifyContent:"center",flexWrap:'wrap', marginTop:'5%'}}>
-    <>
-      {Reservation.map(({ Booking, Flight }) => {
-        return (
-         
+  
+   return (
+    <div>
           <div className="boarding-pass">
             <header>
               <svg className="logo">
@@ -174,7 +181,9 @@ function BoardingPass() {
                   <small>Date</small>
                   <strong>{Flight.DepartureDate.substring(0, 10)}</strong>
                 </div>
+                <DownloadTickets FirstName={FirstName} LastName={LastName} id={id}/>
               </div>
+              
             </section>
             <section className="strap">
               <div className="box">
@@ -208,8 +217,7 @@ function BoardingPass() {
             </section>
           </div>
          
-        );
-      })}
+        )
 
       <Modal
         visible={visible}
@@ -402,25 +410,10 @@ function BoardingPass() {
         </symbol>
       </svg>
       
-    </>
+   
     </div>
-  ) : (
-    <>
-      <Result
-        title="You have no Reservations"
-        extra={
-          <Button
-            type="link"
-            key="home"
-            href="/home"
-            style={{ color: "lilac" }}
-          >
-            Go Home
-          </Button>
-        }
-      />
-    </>
-  );
+   )
+
 }
 
 export default BoardingPass;
