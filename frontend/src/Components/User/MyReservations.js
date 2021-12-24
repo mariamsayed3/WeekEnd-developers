@@ -7,6 +7,7 @@ import { UserContext } from "../../Context";
 import Loader from '../General/Loader';
 import BoardingPass from './BoardingPass';
 import EmptyList from './EmptyList'
+import Weather from './Weather/Weather'
 import DownloadTickets from "./DownloadTicket";
 
 const MyReservations = () =>{
@@ -62,6 +63,7 @@ const MyReservations = () =>{
                 <div id={`return${index}`}>
                   <BoardingPass id={`return${index}`} Booking={Return.Booking} Flight={Return.Flight} />
                 </div>
+                <Weather City={Departure.Flight.ArrivalAirport} />
                 <Divider style= {{backgroundColor: 'black'}}/>
                 
                 </>
