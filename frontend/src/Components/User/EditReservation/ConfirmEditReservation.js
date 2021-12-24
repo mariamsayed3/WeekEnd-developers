@@ -10,6 +10,7 @@ const ConfirmEditReservation = ({booking, totalSeats, selectedSeats, price, oldP
     const [value, setValue] = useState(2);
     const [Children, setChildren] = useState(0);
     let history = useHistory()
+    
     const editReservation = async () => {
         setIsModalVisible(false)
         const changedSeats = booking.Seats

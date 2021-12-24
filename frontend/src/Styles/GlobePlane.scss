@@ -1,0 +1,61 @@
+// /* vars */
+// $teal: #A1DBDC;
+
+// @keyframes mapScroll {
+//     from { transform: translate3d(0, 0, 0)}
+//     to {transform: translate3d(375px, 0, 0)}
+// }
+
+// @keyframes planeMove {
+//   0% {transform: translate(0%, -45%) rotate(-2deg) }
+//   100% { transform: translate(0%, -90%) }
+// }
+
+
+// .globe {
+//   position: relative;
+//   display: inline-block;
+//   margin-left: 3%;
+//   margin-top: 50px;
+// }
+
+// .circle {
+//   position: relative;
+//   display: block;
+//   margin: 0 auto;
+//   width: 100%; height: 100%;
+//   border-radius: 50%;
+//   overflow: hidden;
+//   width: 128px; height: 128px;
+  
+//   &:after {
+//     content: "";
+//     position: absolute;
+//     left: 0; right: 0;
+//     top: 0;
+//     bottom: 0;
+//     border-radius: 50%;
+//     background: $teal;
+//     z-index: -1;
+//   }
+// }
+
+// .map {
+//   position: absolute;
+//   background: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg') repeat-x center;
+//   background-size: 375px;
+//   width: 1500px;
+//   top: 0; bottom: 0;
+//   right: 0;
+//   animation: mapScroll 10s linear infinite;
+// }
+
+// .plane {
+//   position: absolute;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   right: -20px;
+//   animation: planeMove 1.75s ease-in-out infinite;
+//   // animation-play-state: running;
+//   animation-direction: alternate;
+// }

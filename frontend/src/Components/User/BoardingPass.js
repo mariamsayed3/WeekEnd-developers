@@ -9,8 +9,9 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../../Context";
 import Loader from '../General/Loader'
 import EmptyList from './EmptyList'
+import GlobePlane from './GlobePlane'
 
-function BoardingPass() {
+function BoardingPass({Booking, Flight}) {
   sessionStorage.removeItem("booking")
   const { Token, FirstName, LastName, Email } = useContext(UserContext);
   const [Reservation, setReservation] = useState(false);
@@ -94,20 +95,9 @@ function BoardingPass() {
     window.location.reload();
   };
 
-  if(loading){
-      return <Loader />
-  }
-  if(Reservation.length==0){
-    return <EmptyList msg={`You do not have any current reservations with Jet Away . Would you like to reserve a flight?`} buttonText={`Yes!`} path={'/available_flights'} />
-   }
-
-  return Reservation ? (
-    
-    <div style={{display:'flex', alignItems:"center", justifyContent:"center",flexWrap:'wrap', marginTop:'5%'}}>
-    <>
-      {Reservation.map(({ Booking, Flight }) => {
-        return (
-         
+  
+   return (
+    <div>
           <div className="boarding-pass">
             <header>
               <svg className="logo">
@@ -224,8 +214,7 @@ function BoardingPass() {
             </section>
           </div>
          
-        );
-      })}
+        )
 
       <Modal
         visible={visible}
@@ -418,25 +407,10 @@ function BoardingPass() {
         </symbol>
       </svg>
       
-    </>
+   
     </div>
-  ) : (
-    <>
-      <Result
-        title="You have no Reservations"
-        extra={
-          <Button
-            type="link"
-            key="home"
-            href="/home"
-            style={{ color: "lilac" }}
-          >
-            Go Home
-          </Button>
-        }
-      />
-    </>
-  );
+   )
+
 }
 
 export default BoardingPass;
