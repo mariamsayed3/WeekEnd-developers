@@ -35,39 +35,51 @@ export default function CreateFlightThree() {
   return (
     <div>
       <State decide={whichone} />
-      <div id="createContainer" style={{ width: "40%" }}>
+      <div id="createContainer" style={{ width: "30%" }}>
         <Form
-          style={{ "margin-left": "2em", "margin-top": "2em" }}
+          style={{ padding: '40px'}}
           form={form}
           onSubmit={Create}
         >
           <Form.Item
             name="ArrivalCountry"
-            label="Arrival Country"
+            label={
+              <span style={{fontSize: "20px" }}>
+                Arrival Country
+              </span>
+            }
             rules={[
               { required: true, message: "Please enter the arrival country" },
             ]}
           >
             <Input
               placeholder="Arrival Country"
-              style={{ width: "40%", marginLeft: "-60%" }}
+              
             />
           </Form.Item>
           <Form.Item
             name="ArrivalAirport"
-            label="Arrival City"
+            label={
+              <span style={{fontSize: "20px" }}>
+                Arrival City
+              </span>
+            }
             rules={[
               { required: true, message: "Please enter the arrival city" },
             ]}
           >
             <Input
               placeholder="Arrival City"
-              style={{ width: "40%", marginLeft: "-60%" }}
+             
             />
           </Form.Item>
           <Form.Item
             name="ArrivalTerminal"
-            label="Arrival Terminal"
+            label={
+              <span style={{fontSize: "20px" }}>
+                Arrival Terminal
+              </span>
+            }
             rules={[
               {
                 required: true,
@@ -77,12 +89,16 @@ export default function CreateFlightThree() {
           >
             <Input
               placeholder="Arrival Terminal"
-              style={{ width: "40%", marginLeft: "-60%" }}
+             
             />
           </Form.Item>
           <Form.Item
             name="Arrival"
-            label="Arrival Airport"
+            label={
+              <span style={{fontSize: "20px" }}>
+                Arrival Airport
+              </span>
+            }
             rules={[
               {
                 required: true,
@@ -94,7 +110,7 @@ export default function CreateFlightThree() {
           </Form.Item>
           <div>
             <GrLinkNext
-              style={{ marginLeft: "40%" }}
+              style={{ float: 'right', cursor: 'pointer'}}
               size="40"
               onClick={Create}
             />

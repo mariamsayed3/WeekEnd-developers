@@ -129,18 +129,18 @@ export default function CreateFlightOne() {
       <State decide={whichone} />
       <div id="createContainer" style={{ width: "40%" }}>
         <Form
-          style={{ "margin-left": "2em", "margin-top": "2em" }}
+          style={{ padding: '50px'}}
           form={form}
           onSubmit={Create}
         >
           <Form.Item
             name="FlightNumber"
             label={
-              <p style={{ "margin-top": "1em", fontSize: "20px" }}>
+              <span style={{fontSize: "20px" }}>
                 Flight Number
-              </p>
+              </span>
             }
-            style={{ width: "60%" }}
+      
             rules={[
               { required: true, message: "Please enter the flight number" },
             ]}
@@ -153,11 +153,10 @@ export default function CreateFlightOne() {
           <Form.Item
             name="AllowedBaggage"
             label={
-              <p style={{ "margin-top": "1em", fontSize: "20px" }}>
+              <span style={{ fontSize: "20px" }}>
                 Allowed Baggage
-              </p>
+              </span>
             }
-            style={{ width: "60%", "margin-top": "5em" }}
             rules={[
               {
                 required: true,
@@ -173,27 +172,27 @@ export default function CreateFlightOne() {
           <Form.Item
             name="DepartureDate"
             label={
-              <p style={{ "margin-top": "1em", fontSize: "20px" }}>
-                Departure Date and Arrival Date
-              </p>
+              <span style={{ fontSize: "20px" }}>
+                Departure and Arrival Dates
+              </span>
             }
-            style={{ width: "60%", "margin-top": "5em" }}
+            
             rules={[{ required: true, message: "Please enter the date" }]}
           >
             <RangePicker
-              width="60%"
+             
               disabledDate={disabledDate}
               disabledTime={disabledRangeTime}
               ranges={{
                 Today: [moment(), moment()],
               }}
               format="YYYY-MM-DD"
-              style={{ "margin-top": "2em" }}
+             
             />
           </Form.Item>
           <Form.Item
             name="TripDuration"
-            label="Trip Duration"
+            label={<span style={{fontSize: '20px'}}>Trip Duration</span>}
             rules={[
               { required: true, message: "Please enter the trip duration" },
             ]}
@@ -202,7 +201,7 @@ export default function CreateFlightOne() {
           </Form.Item>
           <div>
             <GrLinkNext
-              style={{ marginLeft: "-40%" }}
+              style={{ float: "right", cursor: 'pointer' }}
               size="40"
               onClick={Create}
             />

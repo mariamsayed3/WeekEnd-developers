@@ -4,7 +4,7 @@ import "antd/dist/antd.css";
 import State from "./State";
 import secondOne from "../../../Styles/secondOne.png";
 import { Form, Input, DatePicker } from "antd";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { GrLinkNext } from "react-icons/gr";
 const { RangePicker } = DatePicker;
 
@@ -36,17 +36,23 @@ export default function CreateFlightTwo() {
     history.push("/admin/createFlightThree");
   };
   return (
-    <div>
-      <State decide={whichone} />
-      <div id="createContainer" style={{ width: "40%" }}>
+    <>
+    <State decide={whichone} />
+    
+      
+      <div id="createContainer" style={{ width: "30%" }}>
         <Form
-          style={{ "margin-left": "2em", "margin-top": "2em" }}
+          style={{ padding: '50px'}}
           form={form}
           onSubmit={Create}
         >
           <Form.Item
             name="DepartureCountry"
-            label="Departure Country"
+            label={
+              <span style={{ fontSize: "20px" }}>
+                Departure Country
+              </span>
+            }
             rules={[
               {
                 required: true,
@@ -54,26 +60,30 @@ export default function CreateFlightTwo() {
               },
             ]}
           >
-            <Input
-              placeholder="Departure Country"
-              style={{ width: "40%", marginLeft: "-60%" }}
-            />
+            <Input placeholder="Departure Country"/>
           </Form.Item>
           <Form.Item
             name="DepartureAirport"
-            label="Departure City"
+            label={
+              <span style={{ fontSize: "20px" }}>
+                Departure City
+              </span>
+            }
             rules={[
               { required: true, message: "Please enter the departure city" },
             ]}
           >
             <Input
               placeholder="Departure City"
-              style={{ width: "40%", marginLeft: "-60%" }}
             />
           </Form.Item>
           <Form.Item
             name="Departure"
-            label="Departure Airport"
+            label={
+              <span style={{ fontSize: "20px" }}>
+                Departure Airport
+              </span>
+            }
             rules={[
               {
                 required: true,
@@ -83,12 +93,15 @@ export default function CreateFlightTwo() {
           >
             <Input
               placeholder="Departure Airport"
-              style={{ width: "40%", marginLeft: "-60%" }}
             />
           </Form.Item>
           <Form.Item
             name="DepartureTerminal"
-            label="Departure Terminal"
+            label={
+              <span style={{ fontSize: "20px" }}>
+                Departure Terminal
+              </span>
+            }
             rules={[
               {
                 required: true,
@@ -98,19 +111,21 @@ export default function CreateFlightTwo() {
           >
             <Input
               placeholder="Departure Terminal"
-              style={{ width: "40%", marginLeft: "-60%" }}
             />
           </Form.Item>
+          <div>
           <GrLinkNext
-            style={{ marginLeft: "40%" }}
+            style={{ float: 'right', cursor: 'pointer'}}
             size="40"
             onClick={Create}
           />
+          </div>
         </Form>
       </div>
       <div>
         <img className="imageStyle" src={secondOne} alt="secondOne" />
       </div>
-    </div>
+  
+    </>
   );
 }

@@ -5,7 +5,7 @@ import "antd/dist/antd.css";
 import State from "./State";
 import fourthOne from "../../../Styles/fourthOne.png";
 import { Form, Input, message } from "antd";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { GrLinkNext } from "react-icons/gr";
 export default function CreateFlightFour() {
  
@@ -94,47 +94,60 @@ export default function CreateFlightFour() {
   return (
     <div>
       <State decide={whichone} />
-      <div id="createContainer" style={{ width: "40%" }}>
+      <div id="createContainer" style={{ width: "35%" }}>
         <Form
-          style={{ "margin-left": "2em", "margin-top": "2em" }}
+          style={{ padding: '50px'}}
           form={form}
           onSubmit={Create}
         >
           <Form.Item
             name="EconomyTotalSeats"
-            label="Economy Class Seats"
+            label={
+              <span style={{fontSize: "20px" }}>
+                Economy Class Seats
+              </span>
+            }
             rules={[{ required: true, message: "Please enter a number" }]}
           >
             <Input
               placeholder="Please specify the number"
-              style={{ width: "40%", marginLeft: "-60%" }}
             />
           </Form.Item>
 
           <Form.Item
             name="EconomyPrice"
-            label="Economy Class Seat Price"
+            label={
+              <span style={{fontSize: "20px" }}>
+                Economy Class Seats Price
+              </span>
+            }
             rules={[{ required: true, message: "Please enter a price" }]}
           >
             <Input
               placeholder="price"
-              style={{ width: "40%", marginLeft: "-60%" }}
             />
           </Form.Item>
           <Form.Item
             name="FirstClassTotalSeats"
-            label="First Class Class Seats"
+            label={
+              <span style={{fontSize: "20px" }}>
+                First Class Seats 
+              </span>
+            }
             rules={[{ required: true, message: "Please enter a number" }]}
           >
             <Input
               placeholder="Please specify the number"
-              style={{ width: "40%", marginLeft: "-60%" }}
             />
           </Form.Item>
 
           <Form.Item
             name="FirstClassPrice"
-            label="First Class Seat Price"
+            label={
+              <span style={{fontSize: "20px" }}>
+                First Class Seats Price
+              </span>
+            }
             rules={[{ required: true, message: "Please enter a price" }]}
           >
             <Input
@@ -144,28 +157,34 @@ export default function CreateFlightFour() {
           </Form.Item>
           <Form.Item
             name="BusinessTotalSeats"
-            label="Business Class Seats"
+            label={
+              <span style={{fontSize: "20px" }}>
+                Business Class Seats 
+              </span>
+            }
             rules={[{ required: true, message: "Please enter a number" }]}
           >
             <Input
               placeholder="Please specify the number"
-              style={{ width: "40%", marginLeft: "-60%" }}
             />
           </Form.Item>
 
           <Form.Item
             name="BusinessPrice"
-            label="Business Class Seat Price"
+            label={
+              <span style={{fontSize: "20px" }}>
+                Economy Class Seats Price
+              </span>
+            }
             rules={[{ required: true, message: "Please enter a price" }]}
           >
             <Input
               placeholder="price"
-              style={{ width: "40%", marginLeft: "-60%" }}
             />
           </Form.Item>
           <div>
             <GrLinkNext
-              style={{ marginLeft: "40%" }}
+              style={{ float: 'right', cursor: 'pointer' }}
               size="40"
               onClick={Create}
             />
