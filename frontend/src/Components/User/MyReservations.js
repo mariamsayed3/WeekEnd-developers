@@ -63,7 +63,7 @@ const MyReservations = () =>{
                 <div id={`return${index}`}>
                   <BoardingPass id={`return${index}`} Booking={Return.Booking} Flight={Return.Flight} />
                 </div>
-                <Weather />
+                <Weather City={Departure.Flight.ArrivalAirport} />
                 <Divider style= {{backgroundColor: 'black'}}/>
                 
                 </>
