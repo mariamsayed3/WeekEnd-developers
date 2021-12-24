@@ -17,7 +17,7 @@ router.post("/email_reservation", controllers.notifyReservation);
 
 router.post("/email_edit_refund", controllers.editRefund);
 
-router.patch('/edit_user/:Token',verifyToken,controllers.EditUser);
+router.patch('/edit_user/:Token',verifyToken, controllers.EditUser);
 
 router.get("/get_current_flights/:Token", verifyToken, controllers.ViewCurrentFlights);
 

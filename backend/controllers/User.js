@@ -4,11 +4,18 @@ const Booking = require("../models/Booking");
 const Summary = require("../models/Summary");
 const { sendEmail } = require('../utils/email');
 require("dotenv").config();
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
-// const logo = require("../Assets/logo-blue.png")
 const stripe = require('stripe')(process.env.STRIPE_KEY)
 
+
+exports.EditUser = async (req, res) => {
+  const { id } = req
+  try {
+    const updated = await User.findByIdAndUpdate(id, req.body);
+    res.send(updated)
+  } catch {
+    res.json({ message: 'duplicate email' });
+  }
+}
 
 exports.EditPayement = async (req, res) =>{
   const {amount} = req.body
@@ -113,13 +120,13 @@ exports.cancelReservation = async (req, res) => {
 }
 
 exports.notifyCancellation = async (req, res) => {
-  const { ReservationNumber, email, TotalPrice, FlightNumber, Seats, FirstName, LastName } = req.body
+  const { ReservationNumber, email, TotalPrice, FlightNumber, FirstName, LastName, ReturnPrice } = req.body
   const subject = "Jet Away"
   const body = `  
                     <h3> Hello ${FirstName} ${LastName} </h3>
                         
                         <h4> Please note that your reservation <b> ${ReservationNumber} </b>  on flight  <b>${FlightNumber} </b>  has been succesfully cancelled. </h4>
-                        <h4> A total of ${TotalPrice}$ will be refunded to your account.</h4>
+                        <h4> A total of ${TotalPrice + ReturnPrice}$ will be refunded to your account.</h4>
                         
                     <h3> Jet Away </h3>
                       `
