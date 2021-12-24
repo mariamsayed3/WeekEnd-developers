@@ -1,74 +1,20 @@
 import { useState, useEffect, useContext } from "react";
+import { DingtalkOutlined } from "@ant-design/icons";
 import axios from "axios";
+import "../../Styles/Boardingstyle.scss";
+import { Popconfirm, Button, Result, Row } from "antd";
+import { UserContext } from "../../Context";
+import { Link } from "react-router-dom";
 import "antd/dist/antd.css";
 import { Modal, Tag } from "antd";
-import { DingtalkOutlined } from "@ant-design/icons";
-import "../../Styles/Boardingstyle.scss";
-import { Popconfirm, Button, Result } from "antd";
-import { Link } from "react-router-dom";
-import { UserContext } from "../../Context";
-import Loader from '../General/Loader'
-import EmptyList from './EmptyList'
-import GlobePlane from './GlobePlane'
 
-function BoardingPass({Booking, Flight}) {
-  sessionStorage.removeItem("booking")
-  const { Token, FirstName, LastName, Email } = useContext(UserContext);
-  const [Reservation, setReservation] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const [success, setSuccess] = useState(true);
-  const [errorMsg, setErrorMsg] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const getFlights = async () => {
-      const { data } = await axios.get(
-        `http://localhost:8000/user/get_current_flights/${Token}`
-      );
-      setReservation(data);
-      setLoading(false);
-    };
-    getFlights();
-  }, []);
-
-  const cancel_reservation = async (ReservationNumber) => {
-    try {
-      const { data } = await axios.patch(
-        `http://localhost:8000/user/cancel_reservation/${ReservationNumber}`
-      );
-      const post = await axios({
-        method: "post",
-        url: "http://localhost:8000/user/email_cancellation",
-        data: {
-          email: Email,
-          FirstName,
-          LastName,
-          ...data[0],
-        },
-      });
-      showModal();
-      
-  
-    } catch (error) {
-      setSuccess(false);
-      setErrorMsg(null);
-      showModal();
-    }
-  };
-
-  const getBoardingTime = (x) => {
-    if (parseInt(x[0]) == 0) {
-      let z = 30 - parseInt(x[1]);
-      return `23:${60 - z}`;
-    }
-    let b = parseInt(x[0]) * 60 + parseInt(x[1]);
-    b = b - 30;
-    const hrs = parseInt(b / 60);
-    const mins = b % 60;
-    x[0] = "0" + hrs;
-    x[1] = mins;
-    return `${x[0]}:${x[1]}`;
-  };
+const SingleBoardingPass = ({Booking,Flight}) =>{  
+    console.log(Booking, Flight)
+    const { Token, FirstName, LastName, Email } = useContext(UserContext);
+    const [success, setSuccess] = useState(true);
+    const [errorMsg, setErrorMsg] = useState(null);
+    const [visible, setVisible] = useState(false);
+    
 
   const showModal = () => {
     setVisible(true);
@@ -79,129 +25,164 @@ function BoardingPass({Booking, Flight}) {
     window.location.reload();
   };
 
-  
- 
-   return (
-    <div>
-          <div className="boarding-pass">
-            <header>
-              <svg className="logo">
-                            <use href="#alitalia"></use>
-              </svg>
-              <div className="logo">
-                <Tag color={"transparent"} icon={<DingtalkOutlined style={{fontSize: "25px"}}/>}>
-                  <b>Jet Away</b>
-                </Tag>
-              </div>
-              <div className="flight">
-                <small>Reservation Number</small>
-                <strong>{Booking.ReservationNumber}</strong>
-              </div>
-            </header>
-            <section className="cities">
-              <div className="city">
-                <small>{Flight.DepartureAirport}</small>
-                <strong>{Flight.DepartureAirport.substring(0, 3)}</strong>{" "}
-                {/*add short name for the airport*/}
-              </div>
-              <div className="city">
-                <small>{Flight.ArrivalAirport}</small>
+    const cancel_reservation = async (ReservationNumber) => {
+        try {
+          const { data } = await axios.patch(
+            `http://localhost:8000/user/cancel_reservation/${ReservationNumber}`
+          );
+          const post = await axios({
+            method: "post",
+            url: "http://localhost:8000/user/email_cancellation",
+            data: {
+              email: Email,
+              FirstName,
+              LastName,
+              ...data[0],
+            },
+          });
+          showModal();
+          
+      
+        } catch (error) {
+          setSuccess(false);
+          setErrorMsg(null);
+          showModal();
+        }
+      };
 
-                <strong>{Flight.ArrivalAirport.substring(0, 3)}</strong>
-              </div>
-              <svg className="airplane">
-                <use href="#airplane"></use>
-              </svg>
-            </section>
-            <section className="infos">
-              <div className="places">
-                <div className="box">
-                  <small>Departure Terminal</small>
-                  <strong>{Flight.DepartureTerminal}</strong>
-                </div>
-                <div className="box">
-                  <small>Arrival Terminal</small>
-                  <strong>{Flight.ArrivalTerminal}</strong>
-                </div>
-                
-                  <small>Seat/s</small>
-                  <div className="box width">
-                  <strong className="seats">
-                    {Booking.Seats.map((item) => {
-                      return <span>{item} </span>;
-                    })}
-                    
-                  </strong>
-                  <Link to={{pathname: "/edit_reservation", state: 
-                  {
-                    Booking,
-                    Flight
-                  }}}>
-                    <Button type="primary"> Edit Reservation </Button>
-                  </Link>
-                </div>
-              </div>
-              <div className="times">
-                <div className="box">
-                  <small>Boarding</small>
-                  <strong>
-                    {getBoardingTime(Flight.DepartureTime.split(":"))}
-                  </strong>
-                  {/* {( parseInt((Flight.DepartureTime.split(":"))[0])*60 + parseInt((Flight.DepartureTime.split(":"))[1]) )-30 } */}
-                </div>
-                <div className="box">
-                  <small>Departure</small>
-                  <strong>{Flight.DepartureTime}</strong>
-                </div>
-                <div className="box">
-                  <small>Duration</small>
-                  <strong>{Flight.TripDuration}</strong>
-                </div>
-                <div className="box">
-                  <small>Arrival</small>
-                  <strong>{Flight.ArrivalTime}</strong>
-                </div>
-                <div className="date">
-                  <small>Date</small>
-                  <strong>{Flight.DepartureDate.substring(0, 10)}</strong>
-                </div>
-              </div>
-            </section>
-            <section className="strap">
-              <div className="box">
-                <div className="passenger">
-                  <small>passenger</small>
-                  <strong>
-                    <p>
-                      {FirstName} {LastName}
-                    </p>
-                  </strong>
-                </div>
-                <div style={{display: 'flex', flexDirection: 'column', alignItems:'flex-start'}}>
-                <Popconfirm
-                
-                  title="Are you sure you want to cancel your reservation？"
-                  onConfirm={() =>
-                    cancel_reservation(Booking.ReservationNumber)
-                  }
-                  okText="Yes"
-                  cancelText="No"
-                >
-                  <Button type="danger"> Cancel Reservation </Button>
-                </Popconfirm>
-                
-                </div>
-              </div>
+      
+    const getBoardingTime = (x) => {
+        if (parseInt(x[0]) == 0) {
+          let z = 30 - parseInt(x[1]);
+          return `23:${60 - z}`;
+        }
+        let b = parseInt(x[0]) * 60 + parseInt(x[1]);
+        b = b - 30;
+        const hrs = parseInt(b / 60);
+        const mins = b % 60;
+        x[0] = "0" + hrs;
+        x[1] = mins;
+        return `${x[0]}:${x[1]}`;
+      }; 
+return (
+    <>
+    <div className="boarding-pass">
+    <header>
+      <svg className="logo">
+                    <use href="#alitalia"></use>
+      </svg>
+      <div className="logo">
+        <Tag color={"transparent"} icon={<DingtalkOutlined style={{fontSize: "25px"}}/>}>
+          <b>Jet Away</b>
+        </Tag>
+      </div>
+      <div className="flight">
+        <small>Reservation Number</small>
+        <strong>{Booking.ReservationNumber}</strong>
+      </div>
+    </header>
+    <section className="cities">
+      <div className="city">
+        <small>{Flight.DepartureAirport}</small>
+        <strong>{Flight.DepartureAirport.substring(0, 3)}</strong>{" "}
+        {/*add short name for the airport*/}
+      </div>
+      <div className="city">
+        <small>{Flight.ArrivalAirport}</small>
 
-              <svg className="qrcode">
-                <use href="#qrcode"></use>
-              </svg>
-            </section>
-          </div>
-         
-        )
+        <strong>{Flight.ArrivalAirport.substring(0, 3)}</strong>
+      </div>
+      <svg className="airplane">
+        <use href="#airplane"></use>
+      </svg>
+    </section>
+    <section className="infos">
+      <div className="places">
+        <div className="box">
+          <small>Departure Terminal</small>
+          <strong>{Flight.DepartureTerminal}</strong>
+        </div>
+        <div className="box">
+          <small>Arrival Terminal</small>
+          <strong>{Flight.ArrivalTerminal}</strong>
+        </div>
+        
+          <small>Seat/s</small>
+          <div className="box width">
+          <strong className="seats">
+            {Booking.Seats.map((item) => {
+              return <span>{item} </span>;
+            })}
+            
+          </strong>
+          <Link to={{pathname: "/edit_reservation", state: 
+          {
+            Booking,
+            Flight
+          }}}>
+            <Button type="primary"> Edit Reservation </Button>
+          </Link>
+        </div>
+      </div>
+      <div className="times">
+        <div className="box">
+          <small>Boarding</small>
+          <strong>
+            {getBoardingTime(Flight.DepartureTime.split(":"))}
+          </strong>
+          {/* {( parseInt((Flight.DepartureTime.split(":"))[0])*60 + parseInt((Flight.DepartureTime.split(":"))[1]) )-30 } */}
+        </div>
+        <div className="box">
+          <small>Departure</small>
+          <strong>{Flight.DepartureTime}</strong>
+        </div>
+        <div className="box">
+          <small>Duration</small>
+          <strong>{Flight.TripDuration}</strong>
+        </div>
+        <div className="box">
+          <small>Arrival</small>
+          <strong>{Flight.ArrivalTime}</strong>
+        </div>
+        <div className="date">
+          <small>Date</small>
+          <strong>{Flight.DepartureDate.substring(0, 10)}</strong>
+        </div>
+      </div>
+    </section>
+    <section className="strap">
+      <div className="box">
+        <div className="passenger">
+          <small>passenger</small>
+          <strong>
+            <p>
+              {FirstName} {LastName}
+            </p>
+          </strong>
+        </div>
+        <div style={{display: 'flex', flexDirection: 'column', alignItems:'flex-start'}}>
+        <Popconfirm
+        
+          title="Are you sure you want to cancel your reservation？"
+          onConfirm={() =>
+            cancel_reservation(Booking.ReservationNumber)
+          }
+          okText="Yes"
+          cancelText="No"
+        >
+          <Button type="danger"> Cancel Reservation </Button>
+        </Popconfirm>
+        
+        </div>
+      </div>
 
-      <Modal
+      <svg className="qrcode">
+        <use href="#qrcode"></use>
+      </svg>
+    </section>
+  </div>
+   
+  <Modal
         visible={visible}
         onOk={handleOk}
         onCancel={() => {
@@ -392,10 +373,8 @@ function BoardingPass({Booking, Flight}) {
         </symbol>
       </svg>
       
-   
-    </div>
-   )
 
+      </>
+)
 }
-
-export default BoardingPass;
+export default SingleBoardingPass;

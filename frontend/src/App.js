@@ -30,6 +30,7 @@ import Summaries from "./Components/User/Summaries";
 import ForgotPassword from "./Components/General/ForgotPassword"
 import EditReservedSeats from './Components/User/EditReservation/EditReservedSeats'
 import PaymentSuccess from './Components/User/PaymentSuccess'
+import MyReservations from './Components/User/MyReservations'
 dotenv.config();
 const { Header, Content } = Layout;
 
@@ -87,7 +88,7 @@ function App() {
             <PrivateRouteUser
               path="/my_reservations"
               exact
-              component={BoardingPass}
+              component={MyReservations}
             />
              <PrivateRouteUser
               path="/my_summaries"
