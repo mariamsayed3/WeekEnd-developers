@@ -1,11 +1,11 @@
 import '../../Styles/navbar.scss'
-import {GiAirplaneDeparture} from "react-icons/gi";
-import {BiLogOut} from "react-icons/bi";
+import {LogoutOutlined} from '@ant-design/icons'
 import { useContext } from 'react';
 import { UserContext } from '../../Context';
 import { useHistory } from 'react-router';
 import Profile from '../General/Profile';
 import { useState } from 'react';
+import logo from '../../Assets/small-logon.png'
 
 function AdminNavbar (){
    let history = useHistory()
@@ -23,15 +23,14 @@ function AdminNavbar (){
     return (
     <>
       <nav>
-        <GiAirplaneDeparture className="icon" size="40" />  
-        <label className="logo">Jet Away</label>
+        <img className="logo" src={logo}/>
         <ul>
           <li><a href="/">Home</a></li>
-          <li><a href="/admin/flights">Available Flights</a></li>
           <li><a href="/admin/createFlightOne">Create Flight</a></li>
-          <li><a href="#">Contact us</a></li>
+          <li><a href="/admin/flights">Available Flights</a></li>
+          
           <li><a onClick={handleModalOpen}>Profile</a></li>
-          <li><a onClick={logout} href=""><BiLogOut /></a></li>
+          <li><a onClick={logout} href=""> <LogoutOutlined  /> </a></li>
         </ul>
     </nav>
     <Profile
