@@ -2,4 +2,5 @@
 .container,.flights-container{
     display: grid;
     grid-template-columns: 35% 1fr;
+    padding: 10px;
 }

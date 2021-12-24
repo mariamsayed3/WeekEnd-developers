@@ -5,6 +5,7 @@ import FlightDetails from "./FlightDetails";
 import "antd/dist/antd.css";
 import "../../Styles/search.scss";
 import UserFilter from "../User/UserFilter";
+import DepartureCard from "../User/DepartureCard";
 
 export default function AdminEdits() {
   const [flights, setFlights] = useState([]);
@@ -177,10 +178,11 @@ export default function AdminEdits() {
         setArr={setArr}
         setDepDate={setDepDate}
       />
-      <div style={{display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+      <div>
         {filteredFlights.map((flight) => {
           let id = flight._id;
-          return <FlightDetails idkey={id} myFlight={flight} key={id} />;
+          // return <FlightDetails idkey={id} myFlight={flight} key={id} />;
+          return <DepartureCard isAdmin={true} flight={flight} idKey={flight._id} />;
         })}
       </div>
     </div>
