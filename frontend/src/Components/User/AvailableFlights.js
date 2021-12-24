@@ -52,6 +52,22 @@ function AvailableFlights(props) {
     economy: true,
   });
 
+  const getLocation = (location) => {
+    let res = [];
+    res.push(location.substring(0,3))
+    let str = "";
+    for(let i=5; i<location.length; i++){
+      if(location.charAt(i) != ',')
+        str += location.charAt(i);
+      else{
+        res.push(str);
+        str = "";
+        i+=1;
+      }
+    }
+    res.push(str);
+    return res;
+  }
   const getFlights = (
     flightNumber,
     dep,
@@ -125,12 +141,14 @@ function AvailableFlights(props) {
   };
   const homeSearchFlight =(origin, destination, departureDate, flight) => {
     if(origin){
-      if(!(flight.Departure.toLowerCase().includes(origin.toLowerCase())) && !(flight.DepartureAirport.toLowerCase().includes(origin.toLowerCase())) && !(flight.DepartureCountry.toLowerCase().includes(origin.toLowerCase()))){
+      let arr = getLocation(origin);
+      if(!(flight.Departure.toLowerCase().includes(arr[1].toLowerCase())) && !(flight.DepartureAirport.toLowerCase().includes(arr[2].toLowerCase())) && !(flight.DepartureCountry.toLowerCase().includes(arr[3].toLowerCase()))){
         return false;
       }
     }
     if(destination){
-      if(!(flight.Arrival.toLowerCase().includes(destination.toLowerCase())) && !(flight.ArrivalAirport.toLowerCase().includes(destination.toLowerCase())) && !(flight.ArrivalCountry.toLowerCase().includes(destination.toLowerCase())))
+      let arr = getLocation(destination);
+      if(!(flight.Arrival.toLowerCase().includes(arr[1].toLowerCase())) && !(flight.ArrivalAirport.toLowerCase().includes(arr[2].toLowerCase())) && !(flight.ArrivalCountry.toLowerCase().includes(arr[3].toLowerCase())))
         return false;
     }
     if(departureDate && flight.DepartureDate.substring(0, 10) !== departureDate){
@@ -138,6 +156,7 @@ function AvailableFlights(props) {
     }
     return true;
   }
+
   useEffect(() => {
     const getFlights = async () => {
       let data = [];
