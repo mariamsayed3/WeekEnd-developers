@@ -13,7 +13,7 @@ class SmallCard extends Component {
       <div>
         <div id="containeroriginal">
          
-          <PassengerSum />
+          <PassengerSum FirstBooking={this.props.FirstBooking} SecondBooking={this.props.SecondBooking}/>
           <TheOriginalCard DepartureFlight={this.props.DepartureFlight}/>
           <SummaryReturn ReturnFlight={this.props.ReturnFlight}/>
           <SummaryOfRes FirstBooking={this.props.FirstBooking} SecondBooking={this.props.SecondBooking} book={this.props.book}/>

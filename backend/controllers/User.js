@@ -281,7 +281,7 @@ exports.editRefund = async(req, res) => {
 }
 
 exports.notifyReservation = async (req, res) => {
-  const { FirstRequest, SecondRequest, Email, FirstName, LastName} = req.body
+  const { FirstBooking, SecondBooking, Email, FirstName, LastName} = req.body
   const subject = "Jet Away"
   const body = `  
                   <h3> Our Dear Customer ${FirstName} ${LastName} </h3>
@@ -290,18 +290,14 @@ exports.notifyReservation = async (req, res) => {
 
                       <hr>
                       <b> <h3> Your Departure Trip Details: </h3> </b>
-                      <h4> From: ${FirstRequest.from} </h4> 
-                      <h4> To: ${FirstRequest.to} </h4> 
-                      <h4> Flight Number: ${FirstRequest.FlightNumber} </h4> 
-                      <h4> Price: ${FirstRequest.TotalPrice} </h4> 
-                      <h4> Number of Children: ${FirstRequest.Children} </h4> 
+                      <h4> Flight Number: ${FirstBooking.FlightNumber} </h4> 
+                      <h4> Price: ${FirstBooking.TotalPrice} </h4> 
+                      <h4> Number of Children: ${FirstBooking.Children} </h4> 
                       <hr>
                       <b> <h3> Your Return Trip Details: </h3> </b>
-                      <h4> From: ${SecondRequest.from} </h4> 
-                      <h4> To: ${SecondRequest.to} </h4> 
-                      <h4> FlightNumber: ${SecondRequest.FlightNumber} </h4> 
-                      <h4> Price: ${SecondRequest.TotalPrice} </h4> 
-                      <h4> Number of Children: ${SecondRequest.Children} </h4> 
+                      <h4> FlightNumber: ${SecondBooking.FlightNumber} </h4> 
+                      <h4> Price: ${SecondBooking.TotalPrice} </h4> 
+                      <h4> Number of Children: ${SecondBooking.Children} </h4> 
                       <hr>
                 
                   <h4> Sincerely, </h4> 
