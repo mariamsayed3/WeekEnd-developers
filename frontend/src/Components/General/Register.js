@@ -78,7 +78,7 @@ const Register = () => {
   };
 
   if(error === false)
-    return <Redirect to="/home" />
+    return <Redirect to="/login" />
 
   return (
     <div className="register">
