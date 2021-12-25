@@ -408,6 +408,6 @@ Route for finding current flights reserved by the user
 
 ## Credits
 
-antd: https://ant.design/
-Material UI: https://mui.com/
-React icons: https://react-icons.github.io/react-icons/
+antd: https://ant.design/ \n
+Material UI: https://mui.com/ \n
+React icons: https://react-icons.github.io/react-icons/ \n
