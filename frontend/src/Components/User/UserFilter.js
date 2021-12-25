@@ -36,7 +36,7 @@ function UserFilter({
   return (
     <>
       <div className="filter-container">
-        <h1 className="filter">Filters</h1>
+        <h1 style={{textAlign: 'center'}}  className="filter">Filters</h1>
 
         <div>
           <div id="id" className="main">

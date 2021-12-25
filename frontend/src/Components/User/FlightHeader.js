@@ -68,7 +68,7 @@ function FlightHeader({
     <div className="filter-header-container">
       <div className="filter-header">
         <section>
-          <label>
+          <label style={{textAlign: 'center'}}>
             {booking && booking.DepartureAirport
               ? booking.DepartureAirport
               : arr3
@@ -89,7 +89,7 @@ function FlightHeader({
               ? arr2[1]
               : "Not Specified Yet"}
           </label>
-          <label>
+          <label style={{textAlign: 'center'}}>
             {booking && booking.DepartureDate
               ? booking.DepartureDate.substring(0, 10)
               : flightDate
@@ -100,7 +100,7 @@ function FlightHeader({
           </label>
         </section>
         <section>
-          <label>
+          <label style={{textAlign: 'center'}}>
             {booking && booking.ArrivalAirport
               ? booking.ArrivalAirport
               : arr4
@@ -121,7 +121,7 @@ function FlightHeader({
               ? arr1[1]
               : "Not Specified Yet"}
           </label>
-          <label>
+          <label style={{textAlign: 'center'}}>
             {returnFlight
               ? returnFlight
               : returnDate

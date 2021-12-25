@@ -140,8 +140,8 @@ function BoardingPass({Booking, Flight, id}) {
                   <strong>{Flight.ArrivalTerminal}</strong>
                 </div>
                 
-                  <small>Seat/s</small>
-                  <div className="box width">
+                  <small style={{textAlign: 'center'}}>Seat/s</small>
+                  <div style={{textAlign: 'center'}} className="box width">
                   <strong className="seats">
                     {Booking.Seats.map((item) => {
                       return <span>{item} </span>;
@@ -172,8 +172,8 @@ function BoardingPass({Booking, Flight, id}) {
                   <strong>{Flight.ArrivalTime}</strong>
                 </div>
                 <div className="date">
-                  <small>Date</small>
-                  <strong>{Flight.DepartureDate.substring(0, 10)}</strong>
+                  <small style={{textAlign: 'center'}}>Date</small>
+                  <strong style={{textAlign: 'center'}}>{Flight.DepartureDate.substring(0, 10)}</strong>
                 </div>
                
               </div>
