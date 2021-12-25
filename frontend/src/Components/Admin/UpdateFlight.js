@@ -7,8 +7,6 @@ import { getTripDuration } from './CreateFlight';
 import './Admin.css';
 require ('dotenv').config()
 
-
-
 function UpdateFlight() {
   const location = useLocation()
   const { state } = location

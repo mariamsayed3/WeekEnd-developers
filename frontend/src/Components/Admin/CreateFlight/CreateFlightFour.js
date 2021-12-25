@@ -94,7 +94,7 @@ export default function CreateFlightFour() {
   return (
     <div>
       <State decide={whichone} />
-      <div id="createContainer" style={{ width: "35%" }}>
+      <div id="createContainer"style={{ width: "40%" }}>
         <Form
           style={{ padding: '50px'}}
           form={form}
@@ -192,7 +192,7 @@ export default function CreateFlightFour() {
         </Form>
       </div>
       <div>
-        <img className="imageStyle" src={fourthOne} alt="fourthOne" />
+        <img className="imageStyle4" src={fourthOne} alt="fourthOne" />
       </div>
     </div>
   );

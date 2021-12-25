@@ -147,7 +147,7 @@ export default function CreateFlightOne() {
           >
             <Input
               placeholder="Flight No."
-              style={{ "border-radius": "5px" }}
+              style={{ "border-radius": "5px" , width: "375px" }}
             />
           </Form.Item>
           <Form.Item
@@ -166,7 +166,7 @@ export default function CreateFlightOne() {
           >
             <Input
               placeholder="No. of Bags"
-              style={{ "border-radius": "5px" }}
+              style={{ "border-radius": "5px", width: "350px" }}
             />
           </Form.Item>
           <Form.Item
@@ -199,18 +199,21 @@ export default function CreateFlightOne() {
           >
             <TimePicker.RangePicker order={false} format="HH:mm" size="small" />
           </Form.Item>
-          <div>
-            <GrLinkNext
+          <GrLinkNext
               style={{ float: "right", cursor: 'pointer' }}
               size="40"
               onClick={Create}
             />
-          </div>
         </Form>
+        <div>
+            
+          </div>
       </div>
+    
       <div>
         <img className="imageStyle" src={firstOne} alt="firstOne" />
       </div>
+      
     </div>
   );
 }

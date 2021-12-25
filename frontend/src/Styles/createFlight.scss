@@ -7,13 +7,13 @@
 }
 
 #createContainer {
-  box-shadow: 0 15px 30px 1px rgb(231, 227, 227);
+  box-shadow: 0 15px 30px 1px #2193b0;
   //background: linear-gradient(rgba(10, 91, 128, 0.699), rgba(10, 90, 128, 0.3));
-  background-color: var(--shadow-blue);
+  background-color: #ffffffd7;
   text-align: center;
   border-radius: 25px;
   overflow: hidden;
-  margin-left: 2em;
+  margin-left: 8%;
   margin-top: 5em;
   display: flex;
   flex-direction: column;
@@ -22,13 +22,43 @@
 }
 
 .imageStyle {
-  height: auto;
-  width: auto;
-  max-width: 500px;
-  max-height: 500px;
-  margin-left: 30em;
+  height: 600px;
+  width: 600px;
+  max-width: 1900px;
+  max-height: 1200px;
+  margin-left: 55em;
+  margin-top: -20%;
+}
+
+.imageStyle2 {
+  height: 600px;
+  width: 750px;
+  max-width: 1900px;
+  max-height: 1200px;
+  margin-left: 65em;
+  margin-top: -20%;
+}
+
+.imageStyle3{
+  height: 800px;
+  width: 750px;
+  max-width: 1900px;
+  max-height: 1200px;
+  margin-left: 60em;
   margin-top: -30%;
 }
+
+
+.imageStyle4{
+  height: 700px;
+  width: 650px;
+  max-width: 1900px;
+  max-height: 1200px;
+  margin-left: 55em;
+  margin-top: -30%;
+}
+
 .Logo {
   background-image: url(./LastOne.png);
 }
+
