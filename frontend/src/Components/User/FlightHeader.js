@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../../Styles/Filter.scss";
 import { DatePicker } from "antd";
+import DropDown from "../General/DropDown";
 
 function FlightHeader({
   origin,
@@ -21,7 +22,9 @@ function FlightHeader({
   const [toAirport, setToAirport] = useState();
   const [flightDate, setFlightDate] = useState();
   const [returnFlight, setReturnFlight] = useState();
-  let arr, arr2;
+  const [selectedFrom, setSelectedFrom] = useState();
+  const [selectedTo, setSelectedTo] = useState();
+  let arr1, arr2, arr3, arr4;
   const handleclick = () => {
     setOverlay(!overlay);
   };
@@ -42,21 +45,23 @@ function FlightHeader({
   };
   const handleFilter = () => {
     setOrigin(from);
-    let arr = getLocation(origin);
-    setFromAirport(arr[1]);
     setDestination(to);
-    let arr2 = getLocation(destination);
-    setToAirport(arr2[1]);
     if (!isReturn) setDepartureDate(flightDate);
     if (isReturn) {
       setReturnDate(returnFlight);
     }
   };
   if (origin) {
-    arr = getLocation(origin);
+    arr1 = getLocation(origin);
   }
   if (destination) {
     arr2 = getLocation(destination);
+  }
+  if (from && from.length > 3) {
+    arr3 = getLocation(from);
+  }
+  if (to && to.length > 3) {
+    arr4 = getLocation(to);
   }
 
   return (
@@ -66,14 +71,18 @@ function FlightHeader({
           <label>
             {booking && booking.DepartureAirport
               ? booking.DepartureAirport
+              : arr3
+              ? arr3[1]
               : from
               ? from
-              : arr
-              ? arr[1]
+              : arr1
+              ? arr1[1]
               : "Not Specified Yet"}
             {" - "}
             {booking && booking.ArrivalAirport
               ? booking.ArrivalAirport
+              : arr4
+              ? arr4[1]
               : to
               ? to
               : arr2
@@ -94,6 +103,8 @@ function FlightHeader({
           <label>
             {booking && booking.ArrivalAirport
               ? booking.ArrivalAirport
+              : arr4
+              ? arr4[1]
               : to
               ? to
               : arr2
@@ -102,10 +113,12 @@ function FlightHeader({
             {" - "}
             {booking && booking.DepartureAirport
               ? booking.DepartureAirport
+              : arr3
+              ? arr3[1]
               : from
               ? from
-              : arr
-              ? arr[1]
+              : arr1
+              ? arr1[1]
               : "Not Specified Yet"}
           </label>
           <label>
@@ -120,16 +133,54 @@ function FlightHeader({
       </div>
       <div className={!overlay ? "filter-footer none" : "filter-footer"}>
         <section>
-          <input
-            type="text"
-            placeholder="From"
-            onChange={!isReturn ? (x) => setFrom(x.target.value) : ""}
-          />
-          <input
-            type="text"
-            placeholder="To"
-            onChange={!isReturn ? (x) => setTo(x.target.value) : ""}
-          />
+          <div>
+            <input
+              autocomplete="off"
+              onClick={(e) => setSelectedFrom(false)}
+              type="text"
+              placeholder="From"
+              value={from ? from : ""}
+              onChange={!isReturn ? (x) => setFrom(x.target.value) : ""}
+            />
+            {from && from.length > 2 && (
+              <DropDown
+                component="from"
+                term={from}
+                selected={selectedFrom}
+                setSelected={setSelectedFrom}
+                setData={""}
+                data={""}
+                setFrom={setFrom}
+                from={from}
+                setTo={setTo}
+                to={to}
+              />
+            )}
+          </div>
+          <div>
+            <input
+              autocomplete="off"
+              onClick={(e) => setSelectedTo(false)}
+              type="text"
+              placeholder="To"
+              value={to ? to : ""}
+              onChange={!isReturn ? (x) => setTo(x.target.value) : ""}
+            />
+            {to && to.length > 2 && (
+              <DropDown
+                component="to"
+                term={to}
+                selected={selectedTo}
+                setSelected={setSelectedTo}
+                setData={""}
+                data={""}
+                setFrom={setFrom}
+                from={from}
+                setTo={setTo}
+                to={to}
+              />
+            )}
+          </div>
           <DatePicker
             placeholder="Departure Date"
             onChange={
@@ -141,7 +192,6 @@ function FlightHeader({
               backgroundColor: "#fff",
               border: "none",
               borderRadius: "5px",
-              maxWidth: "250px",
               height: "50px",
             }}
           />

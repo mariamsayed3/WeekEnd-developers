@@ -36,16 +36,22 @@ const HomeSearch = () => {
       <div>
         {data.origin && data.origin.length > 2 && (
           <DropDown
+            autocomplete="off"
             component="origin"
             term={data.origin}
             selected={selectedFrom}
             setSelected={setSelectedFrom}
             setData={setData}
             data={data}
+            setFrom={""}
+            from={""}
+            setTo={""}
+            to={""}
           />
         )}
       </div>
       <TextField
+        autocomplete="off"
         onClick={(e) => setSelectedTo(false)}
         onChange={(e) => setData({ ...data, destination: e.target.value })}
         value={data.destination}
@@ -63,6 +69,10 @@ const HomeSearch = () => {
             setSelected={setSelectedTo}
             setData={setData}
             data={data}
+            setFrom={""}
+            from={""}
+            setTo={""}
+            to={""}
           />
         )}
       </div>
