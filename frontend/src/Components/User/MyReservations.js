@@ -2,26 +2,23 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "antd/dist/antd.css";
 import "../../Styles/Boardingstyle.scss";
-import { Button, Result , Divider} from "antd";
+import { Button, Result , Divider, Popconfirm, Modal} from "antd";
 import { UserContext } from "../../Context";
 import Loader from '../General/Loader';
 import BoardingPass from './BoardingPass';
 import EmptyList from './EmptyList'
 import Weather from './Weather/Weather'
-import { Popconfirm } from "antd";
+import SummaryModal from './SummaryModal'
 
 const MyReservations = () =>{
   const { Token, FirstName, LastName, Email } = useContext(UserContext);
-  const [visible, setVisible] = useState(false);
   const [Reservation, setReservation] = useState(false);
   const[ReservationTrips, setReservationTrips] = useState([])
   const [success, setSuccess] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const showModal = () => {
-    setVisible(true);
-  };
+
 
   const cancel_reservation = async (ReservationNumber) => {
     let ReturnReservation = {}
@@ -53,14 +50,14 @@ const MyReservations = () =>{
           ...data[0],
         },
       });
-      showModal();
+      // showModal();
       window.location.reload()
   
     } catch (error) {
       console.log(error)
       setSuccess(false);
       setErrorMsg(null);
-      showModal();
+      // showModal();
     }
   };
 
@@ -111,7 +108,8 @@ const MyReservations = () =>{
                     <BoardingPass id={`return${index}`} Booking={Return.Booking} Flight={Return.Flight} />
                   </div>
                   </div>
-                  <Popconfirm
+                  <div style={{display:'flex', flexDirection:'row', top:'200px',  width:'300px'}}>
+                <Popconfirm
 
                     title="Are you sure you want to cancel your reservation？"
                     onConfirm={() =>
@@ -119,14 +117,23 @@ const MyReservations = () =>{
                     }
                     okText="Yes"
                     cancelText="No"
-                  >
-                    <Button style={{width: '60%'}} type="danger"> Cancel Reservation </Button>
-                  </Popconfirm>
+                    >
+                    <Button  type="danger"> Cancel Reservation </Button>
+                    </Popconfirm>
+                    <SummaryModal Departure= {Departure} Return= {Return}/>
                 </div>
-                <Weather City={Departure.Flight.ArrivalAirport} />
+                </div>
+                
+               
+                <Weather City1={Departure.Flight.ArrivalAirport} City2={Return.Flight.ArrivalAirport} />
+               
+               
                 <Divider style= {{backgroundColor: 'black'}}/>
+
+               
                 
                 </>
+                
             );
         })}
    
