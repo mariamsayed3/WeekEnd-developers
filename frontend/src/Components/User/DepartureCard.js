@@ -186,7 +186,7 @@ const DepartureCard = (props) => {
                     <span className="sub-span duration-info book">
                       {props.isAdmin ? (
                         <>
-                        <Button style={{top : '-15px', marginRight: '5px'}}>
+                        <Button type="primary" style={{top : '-15px', marginRight: '5px'}}>
                           <Link
                             className="active"
                             to={{
@@ -198,12 +198,12 @@ const DepartureCard = (props) => {
                           </Link>
                           </Button>
                           
-                          <Button style={{top : '-15px'}}>
-                            <a style={{color: 'red', margin:'20px'}} onClick={showModal}> Delete </a>
+                          <Button type="danger" style={{top : '-15px'}}>
+                            <a style={{ margin:'20px'}} onClick={showModal}> Delete </a>
                             </Button>
                         </>
                       ) : !props.flight.reserved ? (
-                        <Button style={{top : '-15px'}}>
+                        <Button  style={{top : '-15px', color: 'green'}}>
                         <Link
                           to={{
                             pathname: `/reserve_departure/${props.flight._id}`,
