@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import axios from "axios";
-import FlightDetails from "./FlightDetails";
 import "antd/dist/antd.css";
 import "../../Styles/search.scss";
 import UserFilter from "../User/UserFilter";
@@ -179,7 +178,6 @@ export default function AdminEdits() {
       />
       <div style={{marginRight: '10%'}}>
         {filteredFlights.map((flight) => {
-          let id = flight._id;
           return <DepartureCard isAdmin={true} flight={flight} idKey={flight._id} />;
         })}
       </div>

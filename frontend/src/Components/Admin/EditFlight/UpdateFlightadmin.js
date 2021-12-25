@@ -240,11 +240,11 @@ export default function UpdateFlightadmin() {
             <TabPane
               tab="Seats Information"
               key="4"
-              style={{ marginLeft: "-90px" }}
+              style={{ float: "left" }}
             >
               <Form
                 form={form}
-                style={{ display: "inline-block", marginTop: "2em" }}
+                style={{ display: "inline-block", marginTop: "2em",  }}
               >
                 
                 <Form.Item name="EconomyPrice" 
@@ -268,11 +268,12 @@ export default function UpdateFlightadmin() {
                 </Form.Item>
                 
               </Form>
-              <div style={{ textAlign: "center" }}>
+              <div style={{ textAlign: "center"}}>
                 <Button
+
                   type="primary"
                   onClick={onSubmit}
-                  style={{ marginTop: "40px", width: "150px" }}
+                  style={{ margin: "30px", width: "150px" }}
                 >
                   Update Flight
                 </Button>
