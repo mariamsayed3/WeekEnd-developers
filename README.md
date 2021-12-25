@@ -34,11 +34,11 @@ The user is able to..
 - Download his reservation ticket. (BONUS)
   ![alt text](https://github.com/advanced-computer-lab/WeekEnd-developers/blob/dev/pics/download.png)
 
-- Check the weather of the city he is travelling to. (BONUS)
-  ![alt text](https://github.com/advanced-computer-lab/WeekEnd-developers/blob/dev/pics/ticket.png)
 - Edit his reservation and paying/getting the refund of the difference
 - Cancel his reservation and request a refund.
 - Email himself a copy of his reservation.
+- Check the weather of the city he is travelling to. (BONUS)
+  ![alt text](https://github.com/advanced-computer-lab/WeekEnd-developers/blob/dev/pics/ticket.png)
 - Reset his password through his email. (BONUS)
 - Change his password
 - View his profile.
@@ -50,6 +50,7 @@ The admin is able to..
 - Edit flights.
 - Delete flights.
 - The system is protected for both entities through private routes. (BONUS)
+  ![alt text](https://github.com/advanced-computer-lab/WeekEnd-developers/blob/dev/pics/private.png)
 - The interface between the frontend and the backend is protected by the use of the jsonwebtoken for data authentication.
 - The data is validated in the front end and the backend interfaces.
 - The user is informed and guided when errors occur.
