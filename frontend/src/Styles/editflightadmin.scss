@@ -1,0 +1,19 @@
+:root {
+  --shadow-white: white;
+  --shadow-gray: #c8d0e7;
+  --bg-gray: #e4ebf5;
+  --text-purple: #6d5dfc;
+  --shadow-blue: #eaeaea;
+}
+#editContainer {
+  box-shadow: 0 15px 30px 1px rgb(231, 227, 227);
+  //background: linear-gradient(rgba(10, 91, 128, 0.699), rgba(10, 90, 128, 0.3));
+  background-color: var(--shadow-blue);
+  text-align: center;
+  border-radius: 25px;
+  overflow: hidden;
+  height: 500px;
+  width: 1300px;
+  margin-left: 2em;
+  margin-top: 5em;
+}

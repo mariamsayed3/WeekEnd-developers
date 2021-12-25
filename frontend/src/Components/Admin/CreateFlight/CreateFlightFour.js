@@ -4,7 +4,7 @@ import "../../../Styles/createFlight.scss";
 import "antd/dist/antd.css";
 import State from "./State";
 import fourthOne from "../../../Styles/fourthOne.png";
-import { Form, Input, message } from "antd";
+import { Form, InputNumber, message } from "antd";
 import { useHistory } from "react-router-dom";
 import { GrLinkNext } from "react-icons/gr";
 export default function CreateFlightFour() {
@@ -109,7 +109,8 @@ export default function CreateFlightFour() {
             }
             rules={[{ required: true, message: "Please enter a number" }]}
           >
-            <Input
+            <InputNumber
+            style={{width: '100%'}}
               placeholder="Please specify the number"
             />
           </Form.Item>
@@ -123,7 +124,8 @@ export default function CreateFlightFour() {
             }
             rules={[{ required: true, message: "Please enter a price" }]}
           >
-            <Input
+            <InputNumber
+            style={{width: '100%'}}
               placeholder="price"
             />
           </Form.Item>
@@ -136,7 +138,8 @@ export default function CreateFlightFour() {
             }
             rules={[{ required: true, message: "Please enter a number" }]}
           >
-            <Input
+            <InputNumber
+            style={{width: '100%'}}
               placeholder="Please specify the number"
             />
           </Form.Item>
@@ -150,9 +153,9 @@ export default function CreateFlightFour() {
             }
             rules={[{ required: true, message: "Please enter a price" }]}
           >
-            <Input
+            <InputNumber
               placeholder="price"
-              style={{ width: "40%", marginLeft: "-60%" }}
+              style={{ width: "100%" }}
             />
           </Form.Item>
           <Form.Item
@@ -164,7 +167,8 @@ export default function CreateFlightFour() {
             }
             rules={[{ required: true, message: "Please enter a number" }]}
           >
-            <Input
+            <InputNumber
+            style={{width: '100%'}}
               placeholder="Please specify the number"
             />
           </Form.Item>
@@ -178,7 +182,8 @@ export default function CreateFlightFour() {
             }
             rules={[{ required: true, message: "Please enter a price" }]}
           >
-            <Input
+            <InputNumber
+            style={{width: '100%'}}
               placeholder="price"
             />
           </Form.Item>

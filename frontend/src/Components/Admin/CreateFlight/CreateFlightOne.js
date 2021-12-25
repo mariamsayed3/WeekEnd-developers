@@ -3,9 +3,9 @@ import "../../../Styles/createFlight.scss";
 import "antd/dist/antd.css";
 import State from "./State";
 import firstOne from "../../../Styles/firstOne.png";
-import { Form, Input, DatePicker, TimePicker, message } from "antd";
+import { Form, Input, DatePicker, TimePicker, message, InputNumber } from "antd";
 import { GrLinkNext } from "react-icons/gr";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import moment from "moment";
 const { RangePicker } = DatePicker;
 
@@ -146,9 +146,9 @@ export default function CreateFlightOne() {
                 },
               ]}
             >
-              <Input
+              <InputNumber
                 placeholder="No. of Bags"
-                style={{ "border-radius": "5px" }}
+                style={{ "border-radius": "5px", width:'100%' }}
               />
             </Form.Item>
             <Form.Item
