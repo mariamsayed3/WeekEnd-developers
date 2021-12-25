@@ -192,7 +192,7 @@ export default function CreateFlightFour() {
         </Form>
       </div>
       <div>
-        <img className="imageStyle" src={fourthOne} alt="fourthOne" />
+        <img className="imageStyle" src={fourthOne} alt="fourthOne" style={{marginTop: '-30%'}}/>
       </div>
     </div>
   );

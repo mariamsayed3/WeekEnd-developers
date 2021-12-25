@@ -123,7 +123,7 @@ export default function CreateFlightTwo() {
         </Form>
       </div>
       <div>
-        <img className="imageStyle" src={secondOne} alt="secondOne" />
+        <img className="imageStyle" src={secondOne} alt="secondOne" style={{marginTop: '-25%'}} />
       </div>
   
     </>
