@@ -8,7 +8,6 @@ import PassengerSum from "./PassengerSum";
 class SmallCard extends Component {
   
   render() {
-    console.log(this.props.data);
     return (
       <div>
         <div id="containeroriginal">

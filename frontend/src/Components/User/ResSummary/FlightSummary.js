@@ -10,12 +10,19 @@ class FlightSummary extends Component {
     const ReturnFlight = this.props.ReturnFlight
     let seats = ""
     for(let seat of this.props.FirstBooking.Seats)
-      seats += ` ${seat.number},`
+      if(seat.number)
+        seats += ` ${seat.number},`
+      else
+        seats += `${seat},`
+
     seats = seats.slice(0, seats.length-1)
 
     let seats2 = ""
     for(let seat of this.props.SecondBooking.Seats)
-      seats2 += ` ${seat.number},`
+      if(seat.number)
+        seats2 += ` ${seat.number},`
+      else
+        seats2 += `${seat},`
     seats2 = seats2.slice(0, seats2.length-1)
 
     return (
