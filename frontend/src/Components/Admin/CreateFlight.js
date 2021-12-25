@@ -336,7 +336,7 @@ function CreateFlight() {
                 <Form.Item
                   name="EconomyPrice"
                   label="Economy Class Seat Price"
-                  rules={[{ required: true, message: "Please enter a price" }]}
+                  rules={[{ required: true, message: "Please enter a price"  }]}
                 >
                   <Input placeholder="price" />
                 </Form.Item>

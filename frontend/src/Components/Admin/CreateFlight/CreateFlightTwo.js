@@ -14,7 +14,7 @@ export default function CreateFlightTwo() {
     second: false,
     third: false,
     fourth: false,
-    nowFI: false,
+    nowFI: false, 
     nowS: true,
     nowT: false,
     nowFO: false,
