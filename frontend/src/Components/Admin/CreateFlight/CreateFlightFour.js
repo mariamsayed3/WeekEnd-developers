@@ -23,7 +23,6 @@ export default function CreateFlightFour() {
   const Create = async () => {
     try {
       const values = await form.validateFields();
-
       values.EconomyPrice = parseInt(values.EconomyPrice);
       values.BusinessPrice = parseInt(values.BusinessPrice);
       values.FirstClassPrice = parseInt(values.FirstClassPrice);

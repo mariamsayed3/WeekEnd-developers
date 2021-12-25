@@ -85,8 +85,10 @@ export default function UpdateFlightadmin() {
         lastNewValues["FirstClassAvailableSeats"] = parseInt(
           values.FirstClassAvailableSeats
         );
-      if (values.FirstClassPrice)
+      if (values.FirstClassPrice) {
         lastNewValues["FirstClassPrice"] = parseInt(values.FirstClassPrice);
+      }
+
       await axios.patch(
         `http://localhost:8000/admin/update_flight/${id}`,
         lastNewValues
@@ -163,10 +165,10 @@ export default function UpdateFlightadmin() {
       if (values.ArrivalTerminal)
         updatedData["ArrivalTerminal"] = values.ArrivalTerminal;
       if (values.Arrival) updatedData["Arrival"] = values.Arrival;
-      console.log(updatedData);
       sessionStorage.setItem("UpdatedInfo", JSON.stringify(updatedData));
-    } catch (e) {}
-    // console.log(key);
+    } catch (e) {
+      message.error("Something went wrong. please try again.", 3);
+    }
   }
 
   return (
@@ -190,7 +192,17 @@ export default function UpdateFlightadmin() {
                 <Form.Item name="FlightNumber" label="FlightNumber">
                   <Input />
                 </Form.Item>
-                <Form.Item name="AllowedBaggage" label="Allowed Baggage">
+                <Form.Item
+                  name="AllowedBaggage"
+                  label="Allowed Baggage"
+                  rules={[
+                    {
+                      required: true,
+                      type: "number",
+                      message: "Please enter a number",
+                    },
+                  ]}
+                >
                   <Input />
                 </Form.Item>
                 <Form.Item name="DepartureDate" label="Departure Time">
@@ -266,27 +278,87 @@ export default function UpdateFlightadmin() {
                 <Form.Item
                   name="EconomyAvailableSeats"
                   label="Economy Class Available Seats"
+                  rules={[
+                    {
+                      required: true,
+                      type: "number",
+                      message: "Please enter a number",
+                    },
+                  ]}
                 >
                   <Input />
                 </Form.Item>
-                <Form.Item name="EconomyPrice" label="Economy Class Price">
+                <Form.Item
+                  name="EconomyPrice"
+                  label="Economy Class Price"
+                  rules={[
+                    {
+                      required: true,
+                      type: "number",
+                      message: "Please enter a number",
+                    },
+                  ]}
+                >
                   <Input />
                 </Form.Item>
                 <Form.Item
                   name="BusinessAvailableSeats"
                   label="Business Class Available Seats"
+                  rules={[
+                    {
+                      required: true,
+                      type: "number",
+                      message: "Please enter a number",
+                    },
+                  ]}
                 >
                   <Input />
                 </Form.Item>
-                <Form.Item name="BusinessPrice" label="Business Class Price">
+                <Form.Item
+                  name="BusinessPrice"
+                  label="Business Class Price"
+                  rules={[
+                    {
+                      required: true,
+                      type: "number",
+                      message: "Please enter a number",
+                    },
+                  ]}
+                >
                   <Input />
                 </Form.Item>
-                <Form.Item name="FirstClassPrice" label="First Class Price">
+                <Form.Item
+                  name="FirstClassPrice"
+                  label="First Class Price"
+                  hasFeedback
+                  rules={[
+                    {
+                      required: true,
+                    },
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (typeof value === "number") {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(
+                          new Error("Please enter a number")
+                        );
+                      },
+                    }),
+                  ]}
+                >
                   <Input />
                 </Form.Item>
                 <Form.Item
                   name="FirstClassAvailableSeats"
                   label="First Class Available Seats"
+                  rules={[
+                    {
+                      required: true,
+                      type: "number",
+                      message: "Please enter a number",
+                    },
+                  ]}
                 >
                   <Input />
                 </Form.Item>
