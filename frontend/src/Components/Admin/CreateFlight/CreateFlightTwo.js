@@ -37,7 +37,25 @@ export default function CreateFlightTwo() {
     sessionStorage.setItem("Information", JSON.stringify(info));
     history.push("/admin/createFlightThree");
   };
-  console.log(dep);
+  let arr;
+  const getLocation = (location) => {
+    let res = [];
+    res.push(location.substring(0, 3));
+    let str = "";
+    for (let i = 5; i < location.length; i++) {
+      if (location.charAt(i) != ",") str += location.charAt(i);
+      else {
+        res.push(str);
+        str = "";
+        i += 1;
+      }
+    }
+    res.push(str);
+    return res;
+  };
+  if (dep) {
+    arr = getLocation(dep);
+  }
   return (
     <>
       <State decide={whichone} />
@@ -54,12 +72,13 @@ export default function CreateFlightTwo() {
               },
             ]}
           >
+           {console.log(arr)}
             <Input
               autocomplete="off"
               onClick={(e) => setSelected(false)}
               placeholder="Departure Airport"
               onChange={(e) => setDep(e.target.value)}
-              value={dep}
+              value={dep?dep:""}
             />
           </Form.Item>
           <div>
@@ -85,7 +104,8 @@ export default function CreateFlightTwo() {
               { required: true, message: "Please enter the departure city" },
             ]}
           >
-            <Input placeholder="Departure City" />
+            {console.log(arr)}
+            <Input placeholder="Departure City" value={arr?arr[2]:""} />
           </Form.Item>
           <Form.Item
             name="DepartureCountry"
@@ -97,7 +117,8 @@ export default function CreateFlightTwo() {
               },
             ]}
           >
-            <Input placeholder="Departure Country" />
+            {console.log(arr)}
+            <Input placeholder="Departure Country" value={arr?arr[3]:""} />
           </Form.Item>
 
           <Form.Item

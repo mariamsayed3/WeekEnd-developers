@@ -56,6 +56,10 @@ function DropDown({
       setFrom(e);
       setSelected(true);
     }
+    if (component === "arrAirport") {
+      setTo(e);
+      setSelected(true);
+    }
   };
   return (
     <>
