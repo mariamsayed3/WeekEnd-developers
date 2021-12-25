@@ -21,6 +21,9 @@ JetAway uses a number of open source projects to work properly:
 
 The user is able to..
 - Search & Filter through a list of available flights based on his desired criteria
+
+![alt text](https://github.com/advanced-computer-lab/WeekEnd-developers/blob/dev/pics/flights.png)
+
 - Choose his seats on the flight 
 - Reserve and pay for his reservation online using his credit card
 - Download his reservation ticket. (BONUS)
