@@ -135,7 +135,7 @@ function FlightHeader({
         <section>
           <div>
             <input
-              autocomplete="off"
+            autoComplete="off"
               onClick={(e) => setSelectedFrom(false)}
               type="text"
               placeholder="From"
@@ -159,7 +159,7 @@ function FlightHeader({
           </div>
           <div>
             <input
-              autocomplete="off"
+              autoComplete="off"
               onClick={(e) => setSelectedTo(false)}
               type="text"
               placeholder="To"
