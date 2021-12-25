@@ -35,6 +35,7 @@ function DropDown({
         console.error(error);
       });
   }, [term]);
+  console.log(drop);
   const clicked = (e) => {
     if (component === "origin") {
       setData({ ...data, origin: e });

@@ -6,16 +6,42 @@ import { Link } from "react-router-dom";
 import "../../Styles/Home.scss";
 import moment from "moment";
 import DropDown from "./DropDown";
+import axios from "axios";
+import Geocode from "react-geocode";
+Geocode.setApiKey("AIzaSyB1Fe3YdKoCOe-duaOOlNF8PoEOyAYC5Pw");
+
+// set response language. Defaults to english.
+Geocode.setLanguage("en");
 
 const HomeSearch = () => {
   const { FirstName, Admin } = useContext(UserContext);
   const [data, setData] = useState({});
   const [selectedFrom, setSelectedFrom] = useState();
   const [selectedTo, setSelectedTo] = useState();
+  const [latitude, setLatitude] = useState();
+  const [longitude, setLongitude] = useState();
   function disabledDate(current) {
     return current && current < moment().endOf("day");
   }
-
+  useEffect(() => {
+    console.log("hello");
+    navigator.geolocation.getCurrentPosition(function (position) {
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.longitude);
+     
+      console.log("Latitude is :", position.coords.latitude);
+      console.log("Longitude is :", position.coords.longitude);
+      console.log(position);
+    })
+    axios
+    .get("https://maps.googleapis.com/maps/api/geocode/json?latlng=30,31&amp;key=AIzaSyB1Fe3YdKoCOe-duaOOlNF8PoEOyAYC5Pw")
+    .then(function (response) {
+      if (response) console.log(response);
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+  }, [navigator.geolocation]);
   return (
     <div className="search-form">
       <span className="welcome-message">
@@ -23,7 +49,7 @@ const HomeSearch = () => {
       </span>
       <span> {Admin ? "Manage some flights?" : "Looking for a trip?"}</span>
       <TextField
-        autocomplete="off"
+        autoComplete="off"
         onClick={(e) => setSelectedFrom(false)}
         onChange={(e) => {
           setData({ ...data, origin: e.target.value });
@@ -51,7 +77,7 @@ const HomeSearch = () => {
         )}
       </div>
       <TextField
-        autocomplete="off"
+        autoComplete="off"
         onClick={(e) => setSelectedTo(false)}
         onChange={(e) => setData({ ...data, destination: e.target.value })}
         value={data.destination}
