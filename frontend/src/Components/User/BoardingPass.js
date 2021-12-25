@@ -148,13 +148,7 @@ function BoardingPass({Booking, Flight, id}) {
                     })}
                     
                   </strong>
-                  <Link to={{pathname: "/edit_reservation", state: 
-                  {
-                    Booking,
-                    Flight
-                  }}}>
-                    <Button type="primary"> Edit Reservation </Button>
-                  </Link>
+                 
                 </div>
               </div>
               <div className="times">
@@ -181,19 +175,29 @@ function BoardingPass({Booking, Flight, id}) {
                   <small>Date</small>
                   <strong>{Flight.DepartureDate.substring(0, 10)}</strong>
                 </div>
-                <DownloadTickets FirstName={FirstName} LastName={LastName} id={id}/>
+               
               </div>
               
             </section>
             <section className="strap">
               <div className="box">
                 <div className="passenger">
-                  <small>passenger</small>
+                <DownloadTickets FirstName={FirstName} LastName={LastName} id={id}/>
+                <br />
+                  {/* <small>passenger</small>
                   <strong>
                     <p>
                       {FirstName} {LastName}
                     </p>
-                  </strong>
+                  </strong> */}
+                  <Link to={{pathname: "/edit_reservation", state: 
+                  {
+                    Booking,
+                    Flight
+                  }}}>
+                    <Button type="primary" style={{marginTop:'10px'}}> Edit Reservation </Button>
+                  </Link>
+                 
                 </div>
               </div>
 

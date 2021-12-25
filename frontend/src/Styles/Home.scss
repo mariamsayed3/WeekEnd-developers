@@ -72,24 +72,37 @@
 
 .plane {
   z-index: 1000;
-  // top: -30%;
   margin-top: 23%;
   margin-left: 5%;
-  // -webkit-box-reflect: left ;
   -moz-transform: scale(2, 2);
   -webkit-transform: scale(2, 2);
   -o-transform: scale(2, 2);
   -ms-transform: scale(2, 2);
   transform: scale(2, 2);
   background-color: transparent;
-  // margin-bottom: 40%;
 }
 @media only screen and (max-width: 700px) {
   .plane {
-    width: 50px;
-    justify-content: center;
-    align-items: center;
+    width: 200px;
+    height: 200px;
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 60%;
+    ;
   }
+}
+
+@media only screen and (max-width: 900px) {
+  .plane {
+    width: 200px;
+    height: 200px;
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 60%;
+    ;
+  }
+
+
 }
 .cloud1 {
   margin-top: 2%;
