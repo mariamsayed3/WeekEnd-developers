@@ -1,6 +1,6 @@
 export default function PlaneMotion() {
   return (
-    <div style={{ marginLeft: "auto", marginRight: "auto", bottom: "20%" }}>
+    <div style={{ marginLeft: "5%", marginRight: "auto", bottom: "20%" }}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         xmlnsLink="http://www.w3.org/1999/xlink"

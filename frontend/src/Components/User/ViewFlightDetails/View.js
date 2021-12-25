@@ -8,7 +8,7 @@ export default function View({flight}) {
         <div id="left-popup" className="c-modal__content">
           <div id="hero-city" className="c-modal__hero">
             <PlaneMotion />
-            <h1 style={{fontSize: '20px'}}>{`Flight: ${flight.FlightNumber}`}</h1>
+            <h1 style={{fontSize: '20px', marginLeft: '35%'}}>{`Flight: ${flight.FlightNumber}`}</h1>
             
            
             
