@@ -67,7 +67,11 @@ function App() {
               exact
               component={CreateFlightTwo}
             />
-            <Route path="/admin/newtry" exact component={UpdateFlightadmin} />
+            <Route
+              path="/admin/update_flight"
+              exact
+              component={UpdateFlightadmin}
+            />
             <Route
               path="/admin/createFlightThree"
               exact
