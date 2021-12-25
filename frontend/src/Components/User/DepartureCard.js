@@ -14,7 +14,7 @@ const DepartureCard = (props) => {
   const showModal = () => {
     setVisible(true)
   }
-  console.log(props)
+
   const onCancel = () => {
     setVisible(false)
   }

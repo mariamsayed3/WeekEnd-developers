@@ -95,7 +95,7 @@ const Login = () => {
             </Form.Item>
 
             <Form.Item>
-                <Button type="primary" htmlType="submit" className="login-form-button">
+                <Button style={{marginLeft: '35%'}} type="primary" htmlType="submit" className="login-form-button">
                 <span className="text">Log in</span>
                 </Button>
                 <br/><br/>
