@@ -5,19 +5,13 @@
   --text-purple: #6d5dfc;
   --shadow-blue: #eaeaea;
 }
-
-.contentStyle {
-  height: 400px;
-  width: 600px;
-  color: rgb(196, 15, 15);
-  line-height: 160px;
+#editContainer {
+  box-shadow: 0 15px 30px 1px rgb(231, 227, 227);
+  //background: linear-gradient(rgba(10, 91, 128, 0.699), rgba(10, 90, 128, 0.3));
+  background-color: var(--shadow-blue);
   text-align: center;
-  background-color: var(--shadow-gray);
-  margin-left: 2em;
-  margin-top: 5em;
-}
-
-.mainSyle {
+  border-radius: 25px;
+  overflow: hidden;
   height: 500px;
   width: 1300px;
   margin-left: 2em;
