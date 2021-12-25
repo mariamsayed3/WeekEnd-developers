@@ -4,6 +4,7 @@ import { GiAirplaneDeparture } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import downArrow from '../../Assets/down-arrow.svg';
 import upArrow from '../../Assets/up-arrow.svg';
+import { Button } from "antd";
 
 const ReturnCard = (props) => {
   const {FirstBooking} = props
@@ -160,6 +161,7 @@ const ReturnCard = (props) => {
                       {props.flight.AllowedBaggage}
                     </span>
                     <span className="sub-span duration-info book">
+                    <Button  style={{top : '-15px', color: 'green'}}>
                     <Link
                         to={{
                           pathname: `/reserve_return/${props.flight._id}`,
@@ -173,6 +175,7 @@ const ReturnCard = (props) => {
                       >
                         Book now
                       </Link>
+                     </Button>
                     </span>
                   </div>
                 </div>

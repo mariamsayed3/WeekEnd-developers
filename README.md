@@ -414,7 +414,7 @@ Route for finding current flights reserved by the user
 
 - Semicolon is not manditory
 
-- Horizontal indents is manditory
+- Horizontal indents are manditory
 
 ## Roadmap
 

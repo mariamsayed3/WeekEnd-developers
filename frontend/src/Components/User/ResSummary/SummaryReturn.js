@@ -25,7 +25,7 @@ class SummaryReturn extends Component {
                     <div className="airline-image">
                       <div className="df-text">{this.props.ReturnFlight.TripDuration}</div>
                       <span className="img-wrapper">
-                        <svg className="anime-airplane">
+                        <svg style={{top: '-23px'}} className="anime-airplane">
                           <svg
                             dangerouslySetInnerHTML={{
                               __html: '<use xlink:href="#airplane">',

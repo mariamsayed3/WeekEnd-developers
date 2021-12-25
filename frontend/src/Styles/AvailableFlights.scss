@@ -522,6 +522,7 @@ $secondary-color: #fff;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   left: 10%;
+  margin-top: 6px;
   -webkit-animation: move 3s infinite;
   animation: move 3s infinite;
 }
@@ -533,6 +534,7 @@ $secondary-color: #fff;
   -ms-transform: rotate(180deg); /* IE 9 */
   -webkit-transform: rotate(180deg); /* Safari */
   transform: rotate(180deg);
+  top: -25px;
   -webkit-animation: move-right 3s infinite;
   animation: move-right 3s infinite;
 }
