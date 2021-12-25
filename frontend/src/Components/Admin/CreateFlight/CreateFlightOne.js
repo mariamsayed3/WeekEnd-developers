@@ -75,7 +75,6 @@ export default function CreateFlightOne() {
   const Create = async () => {
     let correctInputs = true;
     const values = await form.validateFields();
-    values.FlightNumber = values.FlightNumber.toString();
     values.ArrivalDate = new Date(Date.parse(values.DepartureDate[1]._d));
     values.DepartureDate = new Date(Date.parse(values.DepartureDate[0]._d));
     let info = {};
@@ -85,7 +84,6 @@ export default function CreateFlightOne() {
     } else {
       info["AllowedBaggage"] = parseInt(values.AllowedBaggage);
     }
-    info["FlightNumber"] = values.FlightNumber.toString();
     info["DepartureDate"] = values.DepartureDate;
     info["ArrivalDate"] = values.ArrivalDate;
 
@@ -133,7 +131,7 @@ export default function CreateFlightOne() {
           form={form}
           onSubmit={Create}
         >
-          <Form.Item
+          {/* <Form.Item
             name="FlightNumber"
             label={
               <span style={{fontSize: "20px" }}>
@@ -149,7 +147,7 @@ export default function CreateFlightOne() {
               placeholder="Flight No."
               style={{ "border-radius": "5px" }}
             />
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item
             name="AllowedBaggage"
             label={
@@ -209,7 +207,7 @@ export default function CreateFlightOne() {
         </Form>
       </div>
       <div>
-        <img className="imageStyle" src={firstOne} alt="firstOne" />
+        <img className="imageStyle" src={firstOne} alt="firstOne"  />
       </div>
     </div>
   );
