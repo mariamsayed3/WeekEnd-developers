@@ -4,6 +4,7 @@ import "antd/dist/antd.css";
 import "../../Styles/Boardingstyle.scss";
 import { Button, Result , Divider, Popconfirm, Modal} from "antd";
 import { UserContext } from "../../Context";
+import {Link} from 'react-router-dom'
 import Loader from '../General/Loader';
 import BoardingPass from './BoardingPass';
 import EmptyList from './EmptyList'
@@ -14,11 +15,19 @@ const MyReservations = () =>{
   const { Token, FirstName, LastName, Email } = useContext(UserContext);
   const [Reservation, setReservation] = useState(false);
   const[ReservationTrips, setReservationTrips] = useState([])
+  const [visible, setVisible] = useState(false);
   const [success, setSuccess] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const showModal = () => {
+    setVisible(true);
+  };
 
+  const handleOk = () => {
+    setVisible(false);
+    window.location.reload();
+  };
 
   const cancel_reservation = async (ReservationNumber) => {
     let ReturnReservation = {}
@@ -50,14 +59,14 @@ const MyReservations = () =>{
           ...data[0],
         },
       });
-      // showModal();
+      showModal();
       window.location.reload()
   
     } catch (error) {
       console.log(error)
       setSuccess(false);
       setErrorMsg(null);
-      // showModal();
+      showModal();
     }
   };
 
@@ -130,9 +139,37 @@ const MyReservations = () =>{
                
                 <Divider style= {{backgroundColor: 'black'}}/>
 
-               
+                <Modal
+                  visible={visible}
+                  onOk={handleOk}
+                  onCancel={() => {
+                    setVisible(false);
+                    window.location.reload();
+                  }}
+                  footer={[<Button onClick={handleOk}>Ok</Button>]}
+                >
+                  {success ? (
+                    <Result
+                      status="success"
+                      title="Successfully Cancelled Registeration"
+                      subTitle="Would you like to reserve another flight?"
+                      extra={[
+                        <Link to="/available_flights">
+                          <Button type="primary">Reserve another flight</Button>
+                        </Link>,
+                      ]}
+                    />
+                  ) : (
+                    <Result
+                      status="error"
+                      title="Ooops. We couldn't cancel your reservation"
+                      subTitle={errorMsg}
+                    />
+                  )}
+                </Modal>
                 
                 </>
+                
                 
             );
         })}

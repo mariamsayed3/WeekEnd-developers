@@ -3,8 +3,6 @@ import SmallCard from './ResSummary/SmallCard';
 import { Button,  Modal} from "antd";
 
 const SummaryModal= ({Departure, Return}) =>{
-    console.log(Departure)
-    console.log(Return)
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [departuretrip, setDeparture] = useState({});
     const [returntrip, setReturn] = useState({});
@@ -25,9 +23,7 @@ const SummaryModal= ({Departure, Return}) =>{
       setDeparture(Departure);
       setReturn(Return);
     },[])
-    console.log(departuretrip);
-    console.log(returntrip);
-
+    
     if(departuretrip != {} || returntrip != {}){
     return(
         <>
