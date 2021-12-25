@@ -14,7 +14,6 @@ class TheOriginalCard extends Component {
         >
           <div className="tp-flight-plan">
             <div className="container-fluid">
-              {/* the 2nd*/}
               <div className="crop depart">
                 <div
                   className="context collapsed"
@@ -25,8 +24,9 @@ class TheOriginalCard extends Component {
                     <div className="airline-image">
                       <div className="df-text">{this.props.DepartureFlight.TripDuration}</div>
                       <span className="img-wrapper">
-                        <svg className="anime-airplane">
+                        <svg style={{margin: '6px'}} className="anime-airplane">
                           <svg
+                            
                             dangerouslySetInnerHTML={{
                               __html: '<use xlink:href="#airplane">',
                             }}

@@ -2,15 +2,40 @@ import "../../Styles/AvailableFlights.scss";
 import { useState } from "react";
 import { GiAirplaneDeparture } from "react-icons/gi";
 import { Link } from "react-router-dom";
-import downArrow from '../../Assets/down-arrow.svg';
-import upArrow from '../../Assets/up-arrow.svg';
-
+import downArrow from "../../Assets/down-arrow.svg";
+import upArrow from "../../Assets/up-arrow.svg";
+import Modal from "antd/lib/modal/Modal";
+import axios from "axios";
+import { Button, message } from "antd";
 
 const DepartureCard = (props) => {
   const [overlay, setOverlay] = useState(false);
+  const [visible, setVisible] = useState(false)
+  const showModal = () => {
+    setVisible(true)
+  }
+
+  const onCancel = () => {
+    setVisible(false)
+  }
+
   const display = () => {
     setOverlay(!overlay);
   };
+
+  const deleteFlight = async () => {
+    try{
+      await axios.delete(`http://localhost:8000/admin/delete_flight/${props.idKey}`, props.idKey)
+      message.loading('Action in progress..', 1.5)
+                    .then(() => message.success('Flight deleted successfully!', 1.5)
+                        .then(() => window.location.reload()));
+    }catch{
+      message.loading('Action in progress..', 1.5)
+          .then(() => message.success('Something went wrong. Check your internet connection!', 1.5));
+    }
+    
+  }
+
   const getDate = (date) => {
     date = new Date(date);
     let res =
@@ -37,7 +62,8 @@ const DepartureCard = (props) => {
               <div className="crop depart">
                 <div className="item it-2 depart-border">
                   <label className="trip-type depart">Departure</label>
-                  <div className="take-tim">
+                  <span style={{fontSize: '13px'}} className="take-tim">Flight Number: {props.flight.FlightNumber}</span>
+                  <div style={{ marginTop: '2px'}} className="take-tim">
                     {getDate(props.flight.DepartureDate)}
                   </div>
                 </div>
@@ -158,19 +184,46 @@ const DepartureCard = (props) => {
                       {props.flight.AllowedBaggage}
                     </span>
                     <span className="sub-span duration-info book">
-                      {!props.flight.reserved ? <Link
-                        to={{
-                          pathname: `/reserve_departure/${props.flight._id}`,
-                          state: {
-                            DepartureFlight: props.flight,
-                            flights: props.Allflights,
-                            isReturn: false,
-                            returnDate: props.returnDate
-                          },
-                        }}
-                      >
-                        Book now
-                      </Link> : <span style={{color: 'red', fontSize: "17px"}}>You already booked this flight!</span>}
+                      {props.isAdmin ? (
+                        <>
+                        <Button type="primary" style={{top : '-15px', marginRight: '5px'}}>
+                          <Link
+                            className="active"
+                            to={{
+                              pathname: "/admin/update_flight",
+                              state:{ data: props.flight, id: props.idKey}
+                              // state: { id: props.idKey, baggage: props.flight.AllowedBaggage },
+                            }}
+                          >
+                            Update
+                          </Link>
+                          </Button>
+                          
+                          <Button type="danger" style={{top : '-15px'}}>
+                            <a style={{ margin:'20px'}} onClick={showModal}> Delete </a>
+                            </Button>
+                        </>
+                      ) : !props.flight.reserved ? (
+                        <Button  style={{top : '-15px', color: 'green'}}>
+                        <Link
+                          to={{
+                            pathname: `/reserve_departure/${props.flight._id}`,
+                            state: {
+                              DepartureFlight: props.flight,
+                              flights: props.Allflights,
+                              isReturn: false,
+                              returnDate: props.returnDate,
+                            },
+                          }}
+                        >
+                          Book now
+                        </Link>
+                        </Button>
+                      ) : (
+                        <span style={{ color: "red", fontSize: "17px" }}>
+                          You already booked this flight!
+                        </span>
+                      )}
                     </span>
                   </div>
                 </div>
@@ -178,7 +231,11 @@ const DepartureCard = (props) => {
             </div>
           </div>
         </div>
-        <img alt='down arrow' src={!overlay? downArrow: upArrow} className='arrow' />
+        <img
+          alt="down arrow"
+          src={!overlay ? downArrow : upArrow}
+          className="arrow"
+        />
       </button>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -197,6 +254,7 @@ const DepartureCard = (props) => {
           </g>
         </symbol>
       </svg>
+      <Modal onOk={deleteFlight} onCancel={onCancel} okType="danger" okText="YES" cancelText="Cancel"  visible={visible}><span style={{fontSize: '20px'}}>Are you sure you want to delete this flight ?</span></Modal>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 const Flight = require("../models/Flight");
 const User = require("../models/User");
 const Booking = require("../models/Booking");
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
 
 exports.getAllFlights = async (req, res) => {
   const allFlights = await Flight.find({});
@@ -25,6 +25,7 @@ exports.getFlight = async (req, res) => {
 
 exports.updateFlight = async (req, res) => {
   const flightID = req.params.flightID;
+
   Flight.findByIdAndUpdate(flightID, req.body, (error, result) => {
     if (error) {
       res.send(error);
@@ -35,6 +36,14 @@ exports.updateFlight = async (req, res) => {
 };
 
 exports.createFlight = async (req, res) => {
+  let FlightNumber
+  while (true) {
+    FlightNumber = Math.floor(100000 + Math.random() * 900000) + '' // Random number of length 6
+    const found = await Flight.findOne({ FlightNumber })
+    if (!found)
+      break
+  }
+  req.body.FlightNumber = FlightNumber
   Flight.create(req.body, (error, result) => {
     if (error) {
       res.send(error);
@@ -58,4 +67,5 @@ exports.deleteFlight = async (req, res) => {
       console.log(err);
     }
   });
+  res.send({})
 };

@@ -4,6 +4,9 @@ const Flight = require('../models/Flight')
 const createToken = require('../middleware/Token')
 const jwt = require('jsonwebtoken')
 const validator = require('validator')
+const { sendEmail } = require('../utils/email');
+const decodeResetPassToken = require('../middleware/VerifyPasswordToken')
+require("dotenv").config()
 
 
 exports.register = async (req, res) => {
@@ -33,7 +36,7 @@ exports.getFlight = async (req, res) => {
     }catch(e){
       res.send(e)
     }
-  };
+}
 
 exports.login = async (req, res) => {
     const { Username, Password } = req.body
@@ -56,4 +59,77 @@ exports.login = async (req, res) => {
         LastName: user.LastName,
         Admin: user.Admin
     })
+}
+
+exports.resetPassword = async (req, res) => {
+    const { email } = req.body
+    const user = await User.findOne({Email: email})
+    if (!user)
+      return res.status(400).send('Invalid email!') 
+    
+    const token = jwt.sign ({user_id: user._id, email }, process.env.Reset_Password, { expiresIn: '20m' })
+    const url = "http://localhost:3000/reset-password/" + token
+  
+    const subject = "JET AWAY Reset Password"
+    
+    const body = `  <h3> Hello ${user.FirstName}, ${user.LastName} </h3>
+                        <h4> A request has been made for you to reset your password 
+                        if you didn't make this request then please ignore this email.  </h4>
+  
+                        <h4> Please click down below to reset your password </h4>
+                        <h4> <b> The link will expire in 20 minutes </b> </h4>
+                        <br>
+                        <a href= ${url}> Reset Password </a>`
+    sendEmail(email, subject, body);
+  
+    res.status(200).send({ message: 'Email sent successfully!' })
+  }
+
+  exports.getUser = async (req, res) => {
+    const { id } = req
+    const info = await User.findById(id);
+    res.send(info);
+  }
+
+  exports.EditUser = async (req, res) => {
+    const { id } = req
+    try {
+      const updated = await User.findByIdAndUpdate(id, req.body);
+      res.send(updated)
+    } catch {
+      res.json({ message: 'duplicate email' });
+    }
+  }
+  
+  exports.changePassword = async (req, res) => {
+    const { id } = req;
+    const { OldPassword, Password } = req.body;
+    const user = await User.findById(id);
+    const matched = await bcrypt.compare(OldPassword, user.Password);
+    if (!matched) return res.status(400).json({ message: 'Wrong password!'});
+    const hashedPassword = await bcrypt.hash(Password, 10);
+    req.body.Password = hashedPassword;
+    const updated = await User.findByIdAndUpdate(id, req.body);
+    res.send(updated);
+  }
+  
+
+exports.changingForgottenPassword = async (req, res) => {
+  var resetPasswordToken = req.body.token;
+  const { newPassword } = req.body
+  
+  var payload = decodeResetPassToken(resetPasswordToken);
+  if (!payload)
+    return res.status(400).send('Invalid or expired token');
+      
+  id = payload.user_id;
+
+  const newHashedPassword = await bcrypt.hash(newPassword, 10)
+  
+  try{
+    await User.findByIdAndUpdate(id, {Password: newHashedPassword})
+    res.status(200).send('Password changed successully!')
+  }catch (err){
+      res.status(400).send(err)
+  }
 }

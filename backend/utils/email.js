@@ -1,5 +1,3 @@
-
-   
 const nodemailer = require("nodemailer");
 
 exports.sendEmail = (email, subject, html) => {

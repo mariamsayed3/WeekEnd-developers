@@ -1,8 +1,6 @@
 
-.container{
+.container,.flights-container{
     display: grid;
-    grid-template-columns: 25% 1fr;
-}
-.admin-search{
-    box-shadow: 0px 4px 6px 3px rgba(0, 0, 0, 0.1);
+    grid-template-columns: 35% 1fr;
+    padding: 10px;
 }

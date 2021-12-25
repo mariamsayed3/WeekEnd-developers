@@ -25,7 +25,7 @@ class SummaryReturn extends Component {
                     <div className="airline-image">
                       <div className="df-text">{this.props.ReturnFlight.TripDuration}</div>
                       <span className="img-wrapper">
-                        <svg className="anime-airplane">
+                        <svg style={{top: '-23px'}} className="anime-airplane">
                           <svg
                             dangerouslySetInnerHTML={{
                               __html: '<use xlink:href="#airplane">',
@@ -38,14 +38,15 @@ class SummaryReturn extends Component {
 
                     <div className="port-seg">
                       <div className="flight-seg origin">
+                      <div className="time">{this.props.ReturnFlight.ArrivalTime}</div>
+                        <div className="port">{this.props.ReturnFlight.ArrivalAirport}</div>
+                        <div className="name">{this.props.ReturnFlight.ArrivalCountry}</div>
+                      </div>
+                      <div className="flight-seg destination">
+                        
                         <div className="time">{this.props.ReturnFlight.DepartureTime}</div>
                         <div className="port">{this.props.ReturnFlight.DepartureAirport}</div>
                         <div className="name">{this.props.ReturnFlight.DepartureCountry}</div>
-                      </div>
-                      <div className="flight-seg destination">
-                        <div className="time">{this.props.ReturnFlight.ArrivalTime}</div>
-                        <div className="port">{this.props.ReturnFlight.ArrivalAirport}</div>
-                        <div className="name">{this.props.ReturnFlight.ArrivalCountry}</div>
                       </div>
                     </div>
                   </div>

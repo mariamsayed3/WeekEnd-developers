@@ -1,19 +1,15 @@
-import { Button, Popconfirm } from 'antd'
+import { Button } from 'antd'
 import '../../../Styles/ReservationData.scss'
 import { CheckOutlined } from '@ant-design/icons'
-import { useHistory, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import ConfirmReservation from './ConfirmReservation'
 const ReservationData = ({flight ,totalSeats, price, isReturn, selectedSeats, FirstBooking, returnDate}) => {
-    let history = useHistory()
-    const confirm = () => {
-       history.push('/new path')
-    }
     return (
     <>
     <div className='flight-card--details body1'>
         <div>
             <div className='bc-from'>
-                <span className='detail-code'>
+                <span  className='detail-code'>
                     {flight.DepartureAirport}
                 </span>
             </div>
@@ -21,7 +17,7 @@ const ReservationData = ({flight ,totalSeats, price, isReturn, selectedSeats, Fi
                 <img src='https://cdn.onlinewebfonts.com/svg/img_537856.svg'/>
             </div>
             <div className='bc-to'>
-                <span className='detail-code'>
+                <span  className='detail-code'>
                     {flight.ArrivalAirport}
                 </span>
             </div>
@@ -50,7 +46,7 @@ const ReservationData = ({flight ,totalSeats, price, isReturn, selectedSeats, Fi
             {
             !isReturn ?
             
-                <Button disabled={totalSeats === 0} style={{marginTop: '15px'}} type="primary" shape="round" icon={<CheckOutlined />} size="middle">
+                <Button disabled={totalSeats === 0} style={{marginTop: '15px'}} type="primary" icon={<CheckOutlined />} size="middle">
                     <Link style={{color: 'white'}}
                      to={{
                         pathname: `/available_flights`,

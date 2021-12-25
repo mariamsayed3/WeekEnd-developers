@@ -34,27 +34,8 @@
 
 nav {
   font-family: "Montserrat", sans-serif;
-  //background: linear-gradient(93deg, rgb(6, 54, 75) 16%, rgb(31, 75, 170) 55%);
-  //  background: #b993d6; /* fallback for old browsers */
-  //     background: -webkit-linear-gradient(
-  //       to right,
-  //       #8ca6db,
-  //       #b993d6
-  //     ); /* Chrome 10-25, Safari 5.1-6 */
-  //     background: linear-gradient(
-  //       to right,
-  //       #8ca6db,
-  //       #b993d6
-  //    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: #2193b0;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #6dd5ed, #2193b0);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #6dd5ed, #2193b0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-  // background: linear-gradient(
-  //   to left,
-  //   rgb(129, 122, 237) 50%,
-  //   rgb(255, 255, 255)
-  // );
   height: 60px;
   width: 100%;
   margin: 0px 0px 0px 0px;
@@ -119,7 +100,7 @@ a:hover {
 /* ~~~~~~~~~~~~~~~~~~~~ Nav Bar ends ~~~~~~~~~~~~~~~~~~~~~*/
 
 /* ~~~~~~~~~~~~~~~~~~~~ Media Query starts ~~~~~~~~~~~~~~~~~~~~~*/
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   section {
     background-position: top right;
   }
@@ -130,7 +111,7 @@ a:hover {
   }
   nav ul li a {
     color: white;
-    font-size: 16px;
+    font-size: 5px;
   }
   .hamberger-btn {
     display: block;

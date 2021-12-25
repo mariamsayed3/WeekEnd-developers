@@ -3,6 +3,7 @@ import { Form, Input, Button, Checkbox, Alert } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 import  { UserContext } from '../../Context'
 import '../../Styles/login.scss'
 import logo from '../../Assets/logo-blue.png'
@@ -50,7 +51,6 @@ const Login = () => {
     <div className="login-container">  
         <div className="logo1">
            <img src={logo}/> 
-           
         </div>
         <div className="form">  
             <Form
@@ -91,17 +91,15 @@ const Login = () => {
                 <Form.Item name="remember" valuePropName="checked" noStyle>
                 <Checkbox><span className="text">Remember me</span></Checkbox>
                 </Form.Item>
-                <a className="login-links" href="">
-                Forgot password ?
-                </a>
+                <Link to="/reset-password-request">Forgot Password ?</Link>
             </Form.Item>
 
             <Form.Item>
-                <Button type="primary" htmlType="submit" className="login-form-button">
+                <Button style={{marginLeft: '35%'}} type="primary" htmlType="submit" className="login-form-button">
                 <span className="text">Log in</span>
                 </Button>
                 <br/><br/>
-                <span className="text">You Don't have an account ?</span> <a className="login-links" href="/register">Register now!</a>
+                <span className="text">You Don't have an account ?</span> <a className="login-links" style={{color: '#245bf2'}} href="/register">Register now!</a>
             </Form.Item>
             
             </Form>

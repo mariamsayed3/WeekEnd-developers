@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router';
 import '../../Styles/navbar.scss'
 import {LogoutOutlined} from '@ant-design/icons'
-import Profile from './Profile';
+import Profile from '../General/Profile';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../../Context';
@@ -29,7 +29,6 @@ function UserNavbar (){
           <li><a href="/">Home</a></li>
           <li><a href="/available_flights">Available Flights</a></li>
           <li><a href="/my_reservations">My Reservations</a></li>
-          <li><a href="/my_summaries">Summaries</a></li>
           <li><a onClick={handleModalOpen}>Profile</a></li>
           <li><a onClick={logout} href=""> <LogoutOutlined  /> </a></li>
         

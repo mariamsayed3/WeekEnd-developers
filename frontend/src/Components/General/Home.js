@@ -1,11 +1,13 @@
 import  { useContext, useEffect, useState } from 'react'
 import  { UserContext } from '../../Context';
 import '../../Styles/Home.scss'
+import axios from 'axios';
+import {Redirect} from "react-router"
 import HomeSearch from './HomeSearch'
 import logo from '../../Assets/logo-blue.png'
 import { useHistory } from 'react-router';
 import cloud from '../../Assets/cloud.png'
-import Profile from '../User/Profile';
+import Profile from '../General/Profile';
 import {LogoutOutlined} from '@ant-design/icons'
 import plane from '../../Assets/plane.png'
 
@@ -13,7 +15,7 @@ import plane from '../../Assets/plane.png'
    let history = useHistory()
    const [modalOpen,setModalOpen] = useState(false);
    const {setEmail} = useContext(UserContext) 
-    const {Admin, Email} = useContext(UserContext);
+    const {Admin, Email, FirstName} = useContext(UserContext);
     const logout = () => {
       setEmail(null)
       sessionStorage.removeItem('user')
@@ -28,7 +30,7 @@ import plane from '../../Assets/plane.png'
     if(found)
       found.remove()
    }, [])
-
+  
     return (
       <div>
       <div className="home-container1">
@@ -39,16 +41,22 @@ import plane from '../../Assets/plane.png'
                 <img className='logo' src = {logo} /> 
                {Admin && <div className='tabs'>
                  <a > Home</a>
-                 <a href='/admin/create_flight'> Create Flight</a>
+                
+                 <a href='/admin/createFlightOne'> Create Flight</a>
                  <a href= '/admin/flights'> Available Flights</a>
+                 {Email ? <a onClick={handleModalOpen}>Profile</a> : null}
+                 <Profile
+                  modalOpen={modalOpen}
+                  handleModalOpen={setModalOpen}
+                  />
                  <a onClick={logout}> <LogoutOutlined /> </a>
                </div>}
 
                {!Admin && <div className='tabs'>
                  <a> Home</a>
+            
                  <a href= '/available_flights'> Flights</a>
                  <a href='my_reservations'> My Reservations</a>
-                 <a href='my_summaries'> Summaries</a>
                  {Email ? <a onClick={handleModalOpen}>Profile</a> : null}
                  <Profile
                   modalOpen={modalOpen}
@@ -59,7 +67,7 @@ import plane from '../../Assets/plane.png'
                 </div>
                <div style={{display: 'flex', flexDirection: 'row'}}>
                   <div className='home-search'>
-                     <HomeSearch />
+                     {!Admin ? <HomeSearch />: null}
                   </div>
                   <div className="plane"><img src={plane}/></div> 
                </div> 

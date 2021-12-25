@@ -71,24 +71,40 @@
 }
 
 .plane {
+  width: 350px;
+  height: 350px;
+  max-width: 350px;
+  max-height: 350px;
   z-index: 1000;
-  // top: -30%;
   margin-top: 23%;
   margin-left: 5%;
-  // -webkit-box-reflect: left ;
   -moz-transform: scale(2, 2);
   -webkit-transform: scale(2, 2);
   -o-transform: scale(2, 2);
   -ms-transform: scale(2, 2);
   transform: scale(2, 2);
   background-color: transparent;
-  // margin-bottom: 40%;
 }
+
 @media only screen and (max-width: 700px) {
   .plane {
-    width: 50px;
-    justify-content: center;
-    align-items: center;
+    width: 150px;
+    height: 150px;
+    max-width: 150px;
+    max-height: 150px;
+    margin-top: 60%;
+    ;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .plane {
+    width: 150px;
+    height: 150px;
+    max-width: 150px;
+    max-height: 150px;
+    margin-top: 60%;
+    ;
   }
 }
 .cloud1 {

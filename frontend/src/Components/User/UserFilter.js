@@ -1,5 +1,5 @@
 import "../../Styles/Filter.scss";
-import { Slider } from "antd";
+import { Slider, DatePicker } from "antd";
 import downArrow from "../../Assets/down-arrow.svg";
 import upArrow from "../../Assets/up-arrow.svg";
 import { useState } from "react";
@@ -15,31 +15,113 @@ function UserFilter({
   setDepartureTime,
   cabinClass,
   setCabinClass,
+  setFlightNumber,
+  isAdmin,
+  setDep,
+  setArr,
+  setDepDate,
 }) {
-  const [hide1, setHide1] = useState(false);
-  const [hide2, setHide2] = useState(false);
-  const [hide3, setHide3] = useState(false);
-  const [hide4, setHide4] = useState(false);
-  const [hide5, setHide5] = useState(false);
-  const [hide6, setHide6] = useState(false);
-  const [hide7, setHide7] = useState(false);
+  const [hide1, setHide1] = useState(true);
+  const [hide2, setHide2] = useState(true);
+  const [hide3, setHide3] = useState(true);
+  const [hide4, setHide4] = useState(true);
+  const [hide5, setHide5] = useState(true);
+  const [hide6, setHide6] = useState(true);
+  const [hide7, setHide7] = useState(true);
+  const [hide8, setHide8] = useState(true);
+  const [hide9, setHide9] = useState(true);
+  const [hide10, setHide10] = useState(true);
+  const [hide11, setHide11] = useState(true);
 
   return (
     <>
       <div className="filter-container">
-        <h1 className="filter">Filters</h1>
+        <h1 style={{textAlign: 'center'}}  className="filter">Filters</h1>
+
         <div>
-          <div id="id1" className='main'>
+          <div id="id" className="main">
             <div className="title">
-              <h2>Price Range</h2>
+              <h2>Flight Number</h2>
               <img
                 alt="down arrow"
                 src={hide1 ? downArrow : upArrow}
                 onClick={() => setHide1(!hide1)}
               />
             </div>
+            <section className={hide1 ? "none" : ""}>
+              <input
+                className="inp"
+                type="text"
+                onChange={(e) => setFlightNumber(e.target.value)}
+                placeholder="Enter Flight Number"
+              />
+            </section>
+          </div>
+          {isAdmin && <>
+          <div id="id" className="main">
+            <div className="title">
+              <h2>Departure</h2>
+              <img
+                alt="down arrow"
+                src={hide9 ? downArrow : upArrow}
+                onClick={() => setHide9(!hide9)}
+              />
+            </div>
+            <section className={hide9 ? "none" : ""}>
+              <input
+                className="inp"
+                type="text"
+                onChange={(e) => setDep(e.target.value)}
+                placeholder="Enter Departure Airport"
+              />
+            </section>
+          </div>
+          <div id="id" className="main">
+            <div className="title">
+              <h2>Arrival</h2>
+              <img
+                alt="down arrow"
+                src={hide10 ? downArrow : upArrow}
+                onClick={() => setHide10(!hide10)}
+              />
+            </div>
+            <section className={hide10 ? "none" : ""}>
+              <input
+                className="inp"
+                type="text"
+                onChange={(e) => setArr(e.target.value)}
+                placeholder="Enter Arrival Airport"
+              />
+            </section>
+          </div>
+          <div id="id" className="main">
+            <div className="title">
+              <h2>Departure Date</h2>
+              <img
+                alt="down arrow"
+                src={hide11 ? downArrow : upArrow}
+                onClick={() => setHide11(!hide11)}
+              />
+            </div>
+            <section className={hide11 ? "none" : ""}>
+              <DatePicker
+                placeholder="Departure Date"
+                onChange={(date, dateString) => setDepDate(dateString)}
+                className='inp'
+              />
+            </section>
+          </div></>}
+          <div id="id1" className="main">
+            <div className="title">
+              <h2>Price Range</h2>
+              <img
+                alt="down arrow"
+                src={hide2 ? downArrow : upArrow}
+                onClick={() => setHide2(!hide2)}
+              />
+            </div>
             <Slider
-              className={hide1 ? "none" : ""}
+              className={hide2 ? "none" : ""}
               range
               defaultValue={[0, 20000]}
               min={0}
@@ -49,16 +131,16 @@ function UserFilter({
             />
           </div>
 
-          <div id="id2" className='main'>
+          <div id="id2" className="main">
             <div className="title">
               <h2>Depart Time</h2>
               <img
                 alt="down arrow"
-                src={hide2 ? downArrow : upArrow}
-                onClick={() => setHide2(!hide2)}
+                src={hide3 ? downArrow : upArrow}
+                onClick={() => setHide3(!hide3)}
               />
             </div>
-            <div className={hide2 ? "none" : ""}>
+            <div className={hide3 ? "none" : ""}>
               <div className="inputGroup">
                 <input
                   id="option1"
@@ -121,16 +203,16 @@ function UserFilter({
               </div>
             </div>
           </div>
-          <div id="id3" className='main'>
+          <div id="id3" className="main">
             <div className="title">
               <h2>Available Cabin Class</h2>
               <img
                 alt="down arrow"
-                src={hide3 ? downArrow : upArrow}
-                onClick={() => setHide3(!hide3)}
+                src={hide4 ? downArrow : upArrow}
+                onClick={() => setHide4(!hide4)}
               />
             </div>
-            <div className={hide3 ? "none" : ""}>
+            <div className={hide4 ? "none" : ""}>
               <div className="inputGroup">
                 <input
                   id="option5"
@@ -175,33 +257,33 @@ function UserFilter({
               </div>
             </div>
           </div>
-          <div id="id4" className='main'>
+          <div id="id4" className="main">
             <div className="title">
               <h2>Max Trip Duration</h2>
-              <img
-                alt="down arrow"
-                src={hide4 ? downArrow : upArrow}
-                onClick={() => setHide4(!hide4)}
-              />
-            </div>
-            <Slider
-              className={hide4 ? "none" : ""}
-              defaultValue={24}
-              min={0}
-              max={24}
-              onChange={(val) => setDuration(val)}
-            />
-          </div>
-          <div id="id5" className='main'>
-            <div className="title">
-              <h2>Terminals</h2>
               <img
                 alt="down arrow"
                 src={hide5 ? downArrow : upArrow}
                 onClick={() => setHide5(!hide5)}
               />
             </div>
-            <section className={hide5 ? "none" : "sectionStyle"}>
+            <Slider
+              className={hide5 ? "none" : ""}
+              defaultValue={24}
+              min={0}
+              max={24}
+              onChange={(val) => setDuration(val)}
+            />
+          </div>
+          <div id="id5" className="main">
+            <div className="title">
+              <h2>Terminals</h2>
+              <img
+                alt="down arrow"
+                src={hide6 ? downArrow : upArrow}
+                onClick={() => setHide6(!hide6)}
+              />
+            </div>
+            <section className={hide6 ? "none" : "sectionStyle"}>
               <p>Departure Terminal:</p>
               <input
                 type="text"
@@ -216,26 +298,9 @@ function UserFilter({
               />
             </section>
           </div>
-          <div id="id6" className='main'>
+          <div id="id6" className="main">
             <div className="title">
               <h2>Max number of Children On Board</h2>
-              <img
-                alt="down arrow"
-                src={hide6 ? downArrow : upArrow}
-                onClick={() => setHide6(!hide6)}
-              />
-            </div>
-            <Slider
-              className={hide6 ? "none" : ""}
-              defaultValue={100}
-              min={0}
-              max={100}
-              onChange={(val) => setChildren(val)}
-            />
-          </div>
-          <div id="id7" className='main'>
-            <div className="title">
-              <h2>Max Number of Adults On Board</h2>
               <img
                 alt="down arrow"
                 src={hide7 ? downArrow : upArrow}
@@ -244,6 +309,23 @@ function UserFilter({
             </div>
             <Slider
               className={hide7 ? "none" : ""}
+              defaultValue={100}
+              min={0}
+              max={100}
+              onChange={(val) => setChildren(val)}
+            />
+          </div>
+          <div id="id7" className="main">
+            <div className="title">
+              <h2>Max Number of Adults On Board</h2>
+              <img
+                alt="down arrow"
+                src={hide8 ? downArrow : upArrow}
+                onClick={() => setHide8(!hide8)}
+              />
+            </div>
+            <Slider
+              className={hide8 ? "none" : ""}
               defaultValue={1000}
               min={0}
               max={1000}

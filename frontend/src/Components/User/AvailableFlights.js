@@ -30,6 +30,10 @@ function AvailableFlights(props) {
     FlightDetails = state.data;
     RDate = state.returnDate;
   }
+  const [flightNumber, setFlightNumber] = useState("");
+  const [dep, setDep] = useState("");
+  const [arr, setArr] = useState("");
+  const [depDate, setDepDate] = useState();
   const [price, setPrice] = useState([0, 100000]);
   const [children, setChildren] = useState(100);
   const [adults, setAdults] = useState(1000);
@@ -48,7 +52,26 @@ function AvailableFlights(props) {
     economy: true,
   });
 
+  const getLocation = (location) => {
+    let res = [];
+    res.push(location.substring(0, 3));
+    let str = "";
+    for (let i = 5; i < location.length; i++) {
+      if (location.charAt(i) != ",") str += location.charAt(i);
+      else {
+        res.push(str);
+        str = "";
+        i += 1;
+      }
+    }
+    res.push(str);
+    return res;
+  };
   const getFlights = (
+    flightNumber,
+    dep,
+    arr,
+    depDate,
     price,
     departureTime,
     cabinClass,
@@ -59,6 +82,21 @@ function AvailableFlights(props) {
     arrivalTerminal,
     flight
   ) => {
+    if (!flight.FlightNumber.includes(flightNumber)) return false;
+    if (
+      !flight.Departure.toLowerCase().includes(dep.toLowerCase()) &&
+      !flight.DepartureAirport.toLowerCase().includes(dep.toLowerCase()) &&
+      !flight.DepartureCountry.toLowerCase().includes(dep.toLowerCase())
+    )
+      return false;
+    if (
+      !flight.Arrival.toLowerCase().includes(arr.toLowerCase()) &&
+      !flight.ArrivalAirport.toLowerCase().includes(arr.toLowerCase()) &&
+      !flight.ArrivalCountry.toLowerCase().includes(arr.toLowerCase())
+    )
+      return false;
+    if (depDate && flight.DepartureDate.substring(0, 10) !== depDate)
+      return false;
     if (
       !(flight.EconomyPrice >= price[0] && flight.EconomyPrice < price[1]) ||
       !(flight.BusinessPrice >= price[0] && flight.BusinessPrice < price[1]) ||
@@ -111,21 +149,35 @@ function AvailableFlights(props) {
     if (cabinClass.economy && flight.EconomyAvailableSeats == 0) return false;
     else return true;
   };
-  const homeSearchFlight =(origin, destination, departureDate, flight) => {
-    if(origin){
-      if(!(flight.Departure.toLowerCase().includes(origin.toLowerCase())) && !(flight.DepartureAirport.toLowerCase().includes(origin.toLowerCase())) && !(flight.DepartureCountry.toLowerCase().includes(origin.toLowerCase()))){
+  const homeSearchFlight = (origin, destination, departureDate, flight) => {
+    if (origin) {
+      let arr = getLocation(origin);
+      if (
+        !flight.Departure.toLowerCase().includes(arr[1].toLowerCase()) &&
+        !flight.DepartureAirport.toLowerCase().includes(arr[2].toLowerCase()) &&
+        !flight.DepartureCountry.toLowerCase().includes(arr[3].toLowerCase())
+      ) {
         return false;
       }
     }
-    if(destination){
-      if(!(flight.Arrival.toLowerCase().includes(destination.toLowerCase())) && !(flight.ArrivalAirport.toLowerCase().includes(destination.toLowerCase())) && !(flight.ArrivalCountry.toLowerCase().includes(destination.toLowerCase())))
+    if (destination) {
+      let arr = getLocation(destination);
+      if (
+        !flight.Arrival.toLowerCase().includes(arr[1].toLowerCase()) &&
+        !flight.ArrivalAirport.toLowerCase().includes(arr[2].toLowerCase()) &&
+        !flight.ArrivalCountry.toLowerCase().includes(arr[3].toLowerCase())
+      )
         return false;
     }
-    if(departureDate && flight.DepartureDate.substring(0, 10) !== departureDate){
+    if (
+      departureDate &&
+      flight.DepartureDate.substring(0, 10) !== departureDate
+    ) {
       return false;
     }
     return true;
-  }
+  };
+
   useEffect(() => {
     const getFlights = async () => {
       let data = [];
@@ -150,7 +202,7 @@ function AvailableFlights(props) {
             .data;
       }
       setFlights(data);
-      setFiltered(data)
+      setFiltered(data);
       setLoading(false);
     };
     getFlights();
@@ -160,11 +212,9 @@ function AvailableFlights(props) {
     let arr = flights;
     //return filter ones coming from destintion to origin
     if (isReturn) {
-      if(RDate){
+      if (RDate) {
         setFilteredFlights(
-          arr.filter(
-            (flight) => flight.DepartureDate.substring(0, 10) == RDate
-          )
+          arr.filter((flight) => flight.DepartureDate.substring(0, 10) == RDate)
         );
       }
       if (returnDate) {
@@ -174,26 +224,32 @@ function AvailableFlights(props) {
           )
         );
       }
-
     } else {
       //All available flights
-      setFilteredFlights(flights)
+      setFilteredFlights(flights);
       if (!origin && state && state.origin) setOrigin(state.origin);
       if (!destination && state && state.destination)
         setDestination(state.destination);
       if (!departureDate && state && state.departureDate)
         setDepartureDate(state.departureDate);
-      if (state && state.returnDate){
+      if (state && state.returnDate) {
         setReturnDate(state.returnDate);
       }
-      setFilteredFlights(flights.filter((flight)=>homeSearchFlight(origin, destination, departureDate, flight)));
-     
+      setFilteredFlights(
+        flights.filter((flight) =>
+          homeSearchFlight(origin, destination, departureDate, flight)
+        )
+      );
     }
   }, [flights, origin, destination, departureDate, returnDate]);
 
   useEffect(() => {
     let common = filteredFlights.filter((flight) =>
       getFlights(
+        flightNumber,
+        dep,
+        arr,
+        depDate,
         price,
         departureTime,
         cabinClass,
@@ -208,6 +264,10 @@ function AvailableFlights(props) {
     setFiltered(common);
   }, [
     filteredFlights,
+    flightNumber,
+    dep,
+    arr,
+    depDate,
     price,
     departureTime,
     cabinClass,
@@ -251,6 +311,11 @@ function AvailableFlights(props) {
           setDepartureTime={setDepartureTime}
           cabinClass={cabinClass}
           setCabinClass={setCabinClass}
+          setFlightNumber={setFlightNumber}
+          isAdmin={false}
+          setDep={setDep}
+          setArr={setArr}
+          setDepDate={setDepDate}
         />
       </div>
       {loading ? (
@@ -263,9 +328,11 @@ function AvailableFlights(props) {
             filtered.map((flight) => {
               return (
                 <>
-                  {!isReturn && <DepartureCard flight={flight} returnDate={returnDate} />}
+                  {!isReturn && (
+                    <DepartureCard flight={flight} returnDate={returnDate} />
+                  )}
                   {isReturn && (
-                    <ReturnCard FirstBooking={FirstBooking} flight={flight}/>
+                    <ReturnCard FirstBooking={FirstBooking} flight={flight} />
                   )}
                 </>
               );

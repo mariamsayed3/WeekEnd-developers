@@ -1,9 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext , useState} from "react";
+import axios from "axios";
 import "../../../Styles/summary.scss";
-import { Badge, Button } from "antd";
+import { Badge, Button , Modal, Result} from "antd";
 import { UserContext } from "../../../Context";
-const PassengerSum = () => {
-  const {FirstName, LastName} = useContext(UserContext)
+const PassengerSum = ({FirstBooking, SecondBooking}) => {
+  const {Token, Email, FirstName, LastName} = useContext(UserContext)
+  const [visible, setVisible] = useState(false);
+  const [success, setSuccess] = useState(true);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const sendByEmail = async () =>{
+    try{
+    await axios.post(`/user/email_reservation`, {Token, Email , FirstName, LastName, FirstBooking, SecondBooking})
+    setSuccess(true);
+    setVisible(true);
+    }catch (err){
+      setSuccess(false);
+      setErrorMsg(err)
+      setVisible(true);
+    }
+  }
   return (
     <div className="small-card">
       <div className="wrapper">
@@ -14,8 +29,8 @@ const PassengerSum = () => {
           <div className="info">
             <div className="item">
               <h4>passenger</h4>
-              <p>{`${FirstName}  ${LastName}`}</p>
-              <h4>Refundable</h4>
+              <h4>{`${FirstName}  ${LastName}`}</h4>
+              <p>Refundable</p>
             </div>
           </div>
           <div
@@ -27,7 +42,7 @@ const PassengerSum = () => {
               float: "right",
             }}
           >
-            <Button type="primary">Send by Email</Button>
+            <Button onClick={sendByEmail} type="primary">Send by Email</Button>
           </div>
         </div>
         <Badge.Ribbon
@@ -36,6 +51,28 @@ const PassengerSum = () => {
           color="green"
         />
       </div>
+      <Modal
+                  visible={visible}
+                  onOk={()=>{setVisible(false)}}
+                  onCancel={() => {
+                    setVisible(false);
+                  }}
+                  footer={[<Button onClick={()=>{setVisible(false)}}>Ok</Button>]}
+                >
+                  {success ? (
+                    <Result
+                      status="success"
+                      title="Successfully Sent Email"
+                      
+                    />
+                  ) : (
+                    <Result
+                      status="error"
+                      title="Ooops. We couldn't send the email"
+                      subTitle={errorMsg}
+                    />
+                  )}
+                </Modal>
     </div>
   );
 }
