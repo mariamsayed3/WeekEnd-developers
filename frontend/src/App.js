@@ -113,11 +113,7 @@ function App() {
               exact
               component={MyReservations}
             />
-            <PrivateRouteUser
-              path="/my_summaries"
-              exact
-              component={Summaries}
-            />
+          
             <PrivateRouteUser
               path="/reserve_departure/:flight_id"
               exact
