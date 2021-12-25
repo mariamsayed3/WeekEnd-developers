@@ -57,9 +57,8 @@ The admin is able to..
 
 ## Installation
 
-Install Node.js & React.
-You can refer to these documents for installing the technologies
-https://reactjs.org/docs/getting-started.html
+Install Node.js.
+You can refer to this documents for installing Node.js
 https://nodejs.org/en/download/
 then install the dependencies and start the server.
 For starting the backend server:
