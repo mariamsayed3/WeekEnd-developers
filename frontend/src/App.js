@@ -32,6 +32,7 @@ import CreateFlightOne from "./Components/Admin/CreateFlight/CreateFlightOne";
 import CreateFlightTwo from "./Components/Admin/CreateFlight/CreateFlightTwo";
 import CreateFlightThree from "./Components/Admin/CreateFlight/CreateFlightThree";
 import CreateFlightFour from "./Components/Admin/CreateFlight/CreateFlightFour";
+import UpdateFlightadmin from "./Components/Admin/EditFlight/UpdateFlightadmin";
 dotenv.config();
 const { Header, Content } = Layout;
 
@@ -74,6 +75,7 @@ function App() {
               exact
               component={CreateFlightTwo}
             />
+            <Route path="/admin/newtry" exact component={UpdateFlightadmin} />
             <Route
               path="/admin/createFlightThree"
               exact

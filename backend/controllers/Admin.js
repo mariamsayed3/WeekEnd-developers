@@ -25,7 +25,9 @@ exports.getFlight = async (req, res) => {
 
 exports.updateFlight = async (req, res) => {
   const flightID = req.params.flightID;
+
   Flight.findByIdAndUpdate(flightID, req.body, (error, result) => {
+    console.log(req.body);
     if (error) {
       res.send(error);
     } else {
