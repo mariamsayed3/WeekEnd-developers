@@ -62,7 +62,8 @@ const DepartureCard = (props) => {
               <div className="crop depart">
                 <div className="item it-2 depart-border">
                   <label className="trip-type depart">Departure</label>
-                  <div className="take-tim">
+                  <span style={{fontSize: '13px'}} className="take-tim">Flight Number: {props.flight.FlightNumber}</span>
+                  <div style={{ marginTop: '2px'}} className="take-tim">
                     {getDate(props.flight.DepartureDate)}
                   </div>
                 </div>

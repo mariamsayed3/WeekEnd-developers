@@ -36,6 +36,7 @@ const ReturnCard = (props) => {
             <div className="container-fluid">
               <div className="crop return">
                 <div className="item it-2 return-border">
+                <span style={{fontSize: '13px'}} className="take-tim">Flight Number: {props.flight.FlightNumber}</span>
                   <div className="take-tim">
                     {getDate(props.flight.DepartureDate)}
                   </div>

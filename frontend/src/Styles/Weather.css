@@ -17,13 +17,14 @@
 
 
 .w-container {
+	margin-top: 2%;
 	border-radius: 25px;
 	-webkit-box-shadow: 0 0 70px -10px rgba(0, 0, 0, 0.2);
 	        box-shadow: 0 0 70px -10px rgba(0, 0, 0, 0.2);
 	background-color: #222831;
 	color: #ffffff;
-	height: 310px;
-	margin-left: 3%;
+	height: 240px;
+	margin-left: 2%;
 }
 
 .weather-side {
@@ -112,12 +113,12 @@
 	position: relative;
 	float: left;
 	height: 80%;
-	padding-top: 25px;
+	/* padding-top: 25px; */
 }
 
 .today-info {
-	padding: 15px;
-	margin: 0 25px 25px 25px;
+	padding: 12px;
+	margin: 0 25px 18px 25px;
 /* 	box-shadow: 0 0 50px -5px rgba(0, 0, 0, 0.25); */
 	border-radius: 10px;
 }

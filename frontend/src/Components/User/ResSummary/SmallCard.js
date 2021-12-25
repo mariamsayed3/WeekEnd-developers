@@ -6,12 +6,13 @@ import SummaryOfRes from "./SummaryOfRes";
 import PassengerSum from "./PassengerSum";
 
 class SmallCard extends Component {
+  
   render() {
     return (
       <div>
         <div id="containeroriginal">
          
-          <PassengerSum />
+          <PassengerSum FirstBooking={this.props.FirstBooking} SecondBooking={this.props.SecondBooking}/>
           <TheOriginalCard DepartureFlight={this.props.DepartureFlight}/>
           <SummaryReturn ReturnFlight={this.props.ReturnFlight}/>
           <SummaryOfRes FirstBooking={this.props.FirstBooking} SecondBooking={this.props.SecondBooking} book={this.props.book}/>

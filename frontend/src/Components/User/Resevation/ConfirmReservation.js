@@ -50,7 +50,6 @@ const ConfirmReservation = ({totalSeats, DepartureFlight, price, selectedSeats, 
     setOpen(false)
     await axios.post(`/user/reserve/${FirstBooking.flight._id}`, FirstRequest)
     await axios.post(`/user/reserve/${DepartureFlight._id}`, SecondRequest)
-    await axios.post(`/user/email_reservation`, {Token, Email , FirstName, LastName, FirstRequest, SecondRequest})
     await axios.post(`/user/summaries`,{Token,DepartureFlight: FirstBooking.flight, ReturnFlight: DepartureFlight, DepartureBooking: FirstRequest, ReturnBooking: SecondRequest})
     message.loading('Action in progress..', 2.5)
             .then(() => {

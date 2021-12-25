@@ -35,10 +35,14 @@ exports.updateFlight = async (req, res) => {
 };
 
 exports.createFlight = async (req, res) => {
-  const {FlightNumber} = req.body
-  const exist = await Flight.findOne({FlightNumber})
-  if(exist)
-    return res.status(400).json({message: 'duplicate flight number'})
+  let FlightNumber
+  while (true) {
+    FlightNumber = Math.floor(100000 + Math.random() * 900000) + '' // Random number of length 6
+    const found = await Flight.findOne({ FlightNumber })
+    if (!found)
+      break
+  }
+  req.body.FlightNumber = FlightNumber
   Flight.create(req.body, (error, result) => {
     if (error) {
       res.send(error);

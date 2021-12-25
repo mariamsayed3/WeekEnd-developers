@@ -1,6 +1,6 @@
 
 import "../../../Styles/Weather.css"
-const Sunny = ({weather}) =>{
+const WeatherGadget = ({weather}) =>{
 
     console.log(weather)
     return (
@@ -43,4 +43,4 @@ const Sunny = ({weather}) =>{
         </div>
     )
 }
-export default Sunny;
+export default WeatherGadget;

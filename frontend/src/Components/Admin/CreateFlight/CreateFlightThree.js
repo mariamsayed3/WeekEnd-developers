@@ -118,7 +118,7 @@ export default function CreateFlightThree() {
         </Form>
       </div>
       <div>
-        <img className="imageStyle3" src={thirdOne} alt="thirdOne" />
+        <img className="imageStyle3" src={thirdOne} alt="thirdOne" style={{marginTop: '-25%'}}/>
       </div>
     </div>
   );

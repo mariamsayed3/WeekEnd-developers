@@ -9,6 +9,10 @@ function DropDown({
   setSelected,
   setData,
   data,
+  setFrom,
+  from,
+  setTo,
+  to
 }) {
   const [drop, setDrop] = useState([]);
   useEffect(() => {
@@ -38,6 +42,14 @@ function DropDown({
     }
     if (component === "destination") {
       setData({ ...data, destination: e });
+      setSelected(true);
+    }
+    if (component === "from") {
+      setFrom(e);
+      setSelected(true);
+    }
+    if (component === "to") {
+      setTo(e);
       setSelected(true);
     }
   };

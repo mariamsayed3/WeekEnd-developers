@@ -177,7 +177,7 @@ export default function AdminEdits() {
         setArr={setArr}
         setDepDate={setDepDate}
       />
-      <div>
+      <div style={{marginRight: '10%'}}>
         {filteredFlights.map((flight) => {
           let id = flight._id;
           return <DepartureCard isAdmin={true} flight={flight} idKey={flight._id} />;

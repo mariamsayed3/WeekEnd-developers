@@ -75,7 +75,6 @@ export default function CreateFlightOne() {
   const Create = async () => {
     let correctInputs = true;
     const values = await form.validateFields();
-    values.FlightNumber = values.FlightNumber.toString();
     values.ArrivalDate = new Date(Date.parse(values.DepartureDate[1]._d));
     values.DepartureDate = new Date(Date.parse(values.DepartureDate[0]._d));
     let info = {};
@@ -85,7 +84,6 @@ export default function CreateFlightOne() {
     } else {
       info["AllowedBaggage"] = parseInt(values.AllowedBaggage);
     }
-    info["FlightNumber"] = values.FlightNumber.toString();
     info["DepartureDate"] = values.DepartureDate;
     info["ArrivalDate"] = values.ArrivalDate;
 
@@ -127,92 +125,74 @@ export default function CreateFlightOne() {
   return (
     <div>
       <State decide={whichone} />
-      <div id="createContainer" style={{ width: "40%" }}>
-        <Form
-          style={{ padding: '50px'}}
-          form={form}
-          onSubmit={Create}
-        >
-          <Form.Item
-            name="FlightNumber"
-            label={
-              <span style={{fontSize: "20px" }}>
-                Flight Number
-              </span>
-            }
       
-            rules={[
-              { required: true, message: "Please enter the flight number" },
-            ]}
+        <div id="createContainer" style={{ width: "40%" }}>
+          <Form
+            style={{ padding: '50px'}}
+            form={form}
+            onSubmit={Create}
           >
-            <Input
-              placeholder="Flight No."
-              style={{ "border-radius": "5px" , width: "375px" }}
-            />
-          </Form.Item>
-          <Form.Item
-            name="AllowedBaggage"
-            label={
-              <span style={{ fontSize: "20px" }}>
-                Allowed Baggage
-              </span>
-            }
-            rules={[
-              {
-                required: true,
-                message: "Please specify the allowed baggage",
-              },
-            ]}
-          >
-            <Input
-              placeholder="No. of Bags"
-              style={{ "border-radius": "5px", width: "350px" }}
-            />
-          </Form.Item>
-          <Form.Item
-            name="DepartureDate"
-            label={
-              <span style={{ fontSize: "20px" }}>
-                Departure and Arrival Dates
-              </span>
-            }
-            
-            rules={[{ required: true, message: "Please enter the date" }]}
-          >
-            <RangePicker
-             
-              disabledDate={disabledDate}
-              disabledTime={disabledRangeTime}
-              ranges={{
-                Today: [moment(), moment()],
-              }}
-              format="YYYY-MM-DD"
-             
-            />
-          </Form.Item>
-          <Form.Item
-            name="TripDuration"
-            label={<span style={{fontSize: '20px'}}>Trip Duration</span>}
-            rules={[
-              { required: true, message: "Please enter the trip duration" },
-            ]}
-          >
-            <TimePicker.RangePicker order={false} format="HH:mm" size="small" />
-          </Form.Item>
-          <GrLinkNext
-              style={{ float: "right", cursor: 'pointer' }}
-              size="40"
-              onClick={Create}
-            />
-        </Form>
+            <Form.Item
+              name="AllowedBaggage"
+              label={
+                <span style={{ fontSize: "20px" }}>
+                  Allowed Baggage
+                </span>
+              }
+              rules={[
+                {
+                  required: true,
+                  message: "Please specify the allowed baggage",
+                },
+              ]}
+            >
+              <Input
+                placeholder="No. of Bags"
+                style={{ "border-radius": "5px" }}
+              />
+            </Form.Item>
+            <Form.Item
+              name="DepartureDate"
+              label={
+                <span style={{ fontSize: "20px" }}>
+                  Departure and Arrival Dates
+                </span>
+              }
+              
+              rules={[{ required: true, message: "Please enter the date" }]}
+            >
+              <RangePicker
+              
+                disabledDate={disabledDate}
+                disabledTime={disabledRangeTime}
+                ranges={{
+                  Today: [moment(), moment()],
+                }}
+                format="YYYY-MM-DD"
+              
+              />
+            </Form.Item>
+            <Form.Item
+              name="TripDuration"
+              label={<span style={{fontSize: '20px'}}>Trip Duration</span>}
+              rules={[
+                { required: true, message: "Please enter the trip duration" },
+              ]}
+            >
+              <TimePicker.RangePicker order={false} format="HH:mm" size="small" />
+            </Form.Item>
+            <div>
+              <GrLinkNext
+                style={{ float: "right", cursor: 'pointer' }}
+                size="40"
+                onClick={Create}
+              />
+            </div>
+          </Form>
+        </div>
         <div>
-            
-          </div>
-      </div>
-    
-      <div>
-        <img className="imageStyle" src={firstOne} alt="firstOne" />
-      </div>
+          <img className="imageStyle" src={firstOne} alt="firstOne"  />
+        </div>
       
     </div>
   );
