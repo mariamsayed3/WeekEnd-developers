@@ -27,19 +27,7 @@ const Weather = ({City1, City2}) =>{
         }, []);
 
     if(weather && weather2)
-        return(
-            <>
-         
-            <Row>
-            <WeatherGadget weather={weather} /> 
-            
-            <WeatherGadget weather={weather2} />
-            </Row>
-      
-            
-         
-            </>
-        )
+        return(<WeatherGadget weather={weather} /> )
     else
          return <> </>
     
