@@ -21,6 +21,8 @@ export default function UpdateFlightadmin() {
   const location = useLocation()
   const { state } = location
   const id = state.id
+  const data = state.data
+  console.log(data)
   const baggage = state.baggage
   const getTripDuration = (from, to) => {
     const fromTime = from.split(":");
@@ -52,6 +54,11 @@ export default function UpdateFlightadmin() {
     // Can not select days before today and today
     return current && current < moment().endOf('day');
   }
+  if(data){
+    const {FlightNumber,DepartureAirport,DepartureTerminal, DepartureCountry, ArrivalAirport, ArrivalCountry, AllowedBaggage, ArrivalTerminal,EconomyAvailableSeats,EconomyPrice, BusinessAvailableSeats, BusinessPrice, FirstClassPrice }=data
+    console.log(DepartureAirport)
+    form.setFieldsValue({FlightNumber, DepartureTerminal, DepartureCountry, DepartureAirport,ArrivalAirport, ArrivalTerminal, AllowedBaggage, ArrivalCountry, EconomyAvailableSeats,EconomyPrice, BusinessAvailableSeats, BusinessPrice , FirstClassPrice });
+  }
 
   const onSubmit = async () => {
     try {
@@ -66,6 +73,7 @@ export default function UpdateFlightadmin() {
 
       if (values.FirstClassPrice)
         lastNewValues["FirstClassPrice"] = parseInt(values.FirstClassPrice);
+
       await axios.patch(`http://localhost:8000/admin/update_flight/${id}`,lastNewValues);
       message
         .loading("Action in progress..", 2.5)
@@ -194,7 +202,7 @@ export default function UpdateFlightadmin() {
                 form={form}
                 style={{ display: "inline-block", marginTop: "2em" }}
               >
-                <Form.Item name="Departure" label="Departure Airport">
+                <Form.Item name="DepartureAirport" label="Departure Airport">
                   <Input />
                 </Form.Item>
                 <Form.Item name="DepartureCountry" label="Departure Country">
@@ -220,7 +228,7 @@ export default function UpdateFlightadmin() {
                 form={form}
                 style={{ display: "inline-block", marginTop: "2em" }}
               >
-                <Form.Item name="Arrival" label="Arrival Airport">
+                <Form.Item name="ArrivalAirport" label="Arrival Airport">
                   <Input />
                 </Form.Item>
                 <Form.Item name="ArrivalCountry" label="Arrival Country">
