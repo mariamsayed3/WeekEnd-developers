@@ -35,7 +35,7 @@ export default function CreateFlightThree() {
   return (
     <div>
       <State decide={whichone} />
-      <div id="createContainer" style={{ width: "30%" }}>
+      <div id="createContainer" style={{ width: "40%" }}>
         <Form
           style={{ padding: '40px'}}
           form={form}
@@ -54,7 +54,7 @@ export default function CreateFlightThree() {
           >
             <Input
               placeholder="Arrival Country"
-              
+              style={{width: "350px"}}
             />
           </Form.Item>
           <Form.Item
@@ -118,7 +118,7 @@ export default function CreateFlightThree() {
         </Form>
       </div>
       <div>
-        <img className="imageStyle" src={thirdOne} alt="thirdOne" style={{marginTop: '-25%'}}/>
+        <img className="imageStyle3" src={thirdOne} alt="thirdOne" style={{marginTop: '-25%'}}/>
       </div>
     </div>
   );

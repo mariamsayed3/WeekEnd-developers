@@ -40,7 +40,7 @@ export default function CreateFlightTwo() {
     <State decide={whichone} />
     
       
-      <div id="createContainer" style={{ width: "30%" }}>
+      <div id="createContainer" style={{ width: "40%" }}>
         <Form
           style={{ padding: '50px'}}
           form={form}
@@ -60,7 +60,7 @@ export default function CreateFlightTwo() {
               },
             ]}
           >
-            <Input placeholder="Departure Country"/>
+            <Input style={{width: "350px"}} placeholder="Departure Country"/>
           </Form.Item>
           <Form.Item
             name="DepartureAirport"
@@ -123,7 +123,7 @@ export default function CreateFlightTwo() {
         </Form>
       </div>
       <div>
-        <img className="imageStyle" src={secondOne} alt="secondOne" style={{marginTop: '-25%'}} />
+        <img className="imageStyle2" src={secondOne} alt="secondOne" style={{marginTop: '-25%'}} />
       </div>
   
     </>
