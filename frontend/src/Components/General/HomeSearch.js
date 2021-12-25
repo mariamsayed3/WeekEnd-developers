@@ -23,6 +23,7 @@ const HomeSearch = () => {
       </span>
       <span> {Admin ? "Manage some flights?" : "Looking for a trip?"}</span>
       <TextField
+        autocomplete="off"
         onClick={(e) => setSelectedFrom(false)}
         onChange={(e) => {
           setData({ ...data, origin: e.target.value });
@@ -36,7 +37,6 @@ const HomeSearch = () => {
       <div>
         {data.origin && data.origin.length > 2 && (
           <DropDown
-            autocomplete="off"
             component="origin"
             term={data.origin}
             selected={selectedFrom}
