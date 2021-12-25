@@ -9,7 +9,7 @@ const ReservationData = ({flight ,totalSeats, price, isReturn, selectedSeats, Fi
     <div className='flight-card--details body1'>
         <div>
             <div className='bc-from'>
-                <span className='detail-code'>
+                <span  className='detail-code'>
                     {flight.DepartureAirport}
                 </span>
             </div>
@@ -17,7 +17,7 @@ const ReservationData = ({flight ,totalSeats, price, isReturn, selectedSeats, Fi
                 <img src='https://cdn.onlinewebfonts.com/svg/img_537856.svg'/>
             </div>
             <div className='bc-to'>
-                <span className='detail-code'>
+                <span  className='detail-code'>
                     {flight.ArrivalAirport}
                 </span>
             </div>
