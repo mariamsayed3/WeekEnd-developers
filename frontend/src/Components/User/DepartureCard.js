@@ -14,7 +14,7 @@ const DepartureCard = (props) => {
   const showModal = () => {
     setVisible(true)
   }
-
+  console.log(props)
   const onCancel = () => {
     setVisible(false)
   }
@@ -190,7 +190,7 @@ const DepartureCard = (props) => {
                             className="active"
                             to={{
                               pathname: "/admin/update_flight",
-                              state: { id: props.idkey },
+                              state: { id: props.idKey },
                             }}
                           >
                             Update

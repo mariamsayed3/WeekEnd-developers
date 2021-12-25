@@ -1,96 +1,70 @@
-import React, { Component } from "react";
+import React from "react";
 import { Form, Button } from "antd";
 import "../../../Styles/createFlight.scss";
 import "../../../Styles/editflightadmin.scss";
-import { useLocation } from "react-router-dom";
+
 import { message, Input, DatePicker, TimePicker } from "antd";
 import fourthOne from "../../../Styles/fourthOne.png";
-import { getTripDuration } from "../CreateFlight/CreateFlightOne";
 import axios from "axios";
+import validator from "validator";
+import moment from "moment";
 import "antd/dist/antd.css";
 
 import { Tabs } from "antd";
+import { useLocation } from "react-router-dom";
 
 const { TabPane } = Tabs;
 
 export default function UpdateFlightadmin() {
-  const location = useLocation();
-  const { state } = location;
-  const id = "61c617863193a8565543094c";
   const [form] = Form.useForm();
-
-  const getFlight = async () => {
-    const { data } = await axios.get(
-      `http://localhost:8000/admin/get_flight/${id}`
-    );
-    if (data) {
-      const {
-        FlightNumber,
-        DepartureAirport,
-        ArrivalAirport,
-        EconomyAvailableSeats,
-        EconomyPrice,
-        BusinessAvailableSeats,
-        BusinessPrice,
-        FirstClassAvailableSeats,
-        FirstClassPrice,
-        AllowedBaggage,
-        DepartureTerminal,
-        ArrivalTerminal,
-        Departure,
-        Arrival,
-        ArrivalCountry,
-        DepartureCountry,
-      } = data;
-      form.setFieldsValue({
-        FlightNumber,
-        DepartureAirport,
-        ArrivalAirport,
-        EconomyAvailableSeats,
-        EconomyPrice,
-        BusinessAvailableSeats,
-        BusinessPrice,
-        FirstClassAvailableSeats,
-        FirstClassPrice,
-        AllowedBaggage,
-        DepartureTerminal,
-        ArrivalTerminal,
-        Departure,
-        Arrival,
-        ArrivalCountry,
-        DepartureCountry,
-      });
+  const location = useLocation()
+  const { state } = location
+  const id = state.id
+  const getTripDuration = (from, to) => {
+    const fromTime = from.split(":");
+    const toTime = to.split(":");
+  
+    let fromHours = parseInt(fromTime[0]);
+    let fromMinutes = parseInt(fromTime[1]);
+  
+    let toHours = parseInt(toTime[0]);
+    let toMinutes = parseInt(toTime[1]);
+  
+    let diffHours =
+      toHours - fromHours < 0 ? toHours - fromHours + 24 : toHours - fromHours;
+    let diffMinutes = toMinutes - fromMinutes;
+    if (diffMinutes > 60) {
+      diffHours++;
+      diffMinutes -= 60;
+    } else if (diffMinutes < 0) {
+      diffHours--;
+      diffMinutes += 60;
     }
+    if (`${diffHours}`.length == 1) diffHours = "0" + diffHours;
+    if (`${diffMinutes}`.length == 1) diffMinutes = "0" + diffMinutes;
+  
+    return `${diffHours}:${diffMinutes}`;
   };
-  getFlight();
+
+  function disabledDate(current) {
+    // Can not select days before today and today
+    return current && current < moment().endOf('day');
+  }
+
   const onSubmit = async () => {
     try {
       const values = await form.validateFields();
       let lastNewValues = JSON.parse(sessionStorage.getItem("UpdatedInfo"));
-      console.log(lastNewValues);
-      if (values.EconomyAvailableSeats) {
-        lastNewValues["EconomyAvailableSeats"] = parseInt(
-          values.EconomyAvailableSeats
-        );
-      }
+      
       if (values.EconomyPrice)
         lastNewValues["EconomyPrice"] = parseInt(values.EconomyPrice);
-      if (values.BusinessAvailableSeats)
-        lastNewValues["BusinessAvailableSeats"] = parseInt(
-          values.BusinessAvailableSeats
-        );
+      
       if (values.BusinessPrice)
         lastNewValues["BusinessPrice"] = parseInt(values.BusinessPrice);
-      if (values.FirstClassAvailableSeats)
-        lastNewValues["FirstClassAvailableSeats"] = parseInt(
-          values.FirstClassAvailableSeats
-        );
+
       if (values.FirstClassPrice)
         lastNewValues["FirstClassPrice"] = parseInt(values.FirstClassPrice);
-      await axios.patch(
-        `http://localhost:8000/admin/update_flight/${id}`,
-        lastNewValues
-      );
+      await axios.patch(`http://localhost:8000/admin/update_flight/${id}`,lastNewValues);
       message
         .loading("Action in progress..", 2.5)
         .then(() => message.success("Flight Updated Succesfully", 3));
@@ -100,16 +74,14 @@ export default function UpdateFlightadmin() {
     }
   };
 
-  async function callback(key) {
+  async function callback() {
     let updatedData = {};
     const values = await form.validateFields();
     try {
       updatedData["FlightNumber"] = values.FlightNumber;
-      if (Number.isNaN(parseInt(values.AllowedBaggage)) === true) {
-        message.error("Please enter a number ", 1.5);
-      } else {
-        updatedData["AllowedBaggage"] = parseInt(values.AllowedBaggage);
-      }
+      
+      updatedData["AllowedBaggage"] = parseInt(values.AllowedBaggage);
+      
       if (values.DepartureDate) {
         values.DepartureDate = new Date(Date.parse(values.DepartureDate._d));
         updatedData["DepartureDate"] = values.DepartureDate;
@@ -187,17 +159,27 @@ export default function UpdateFlightadmin() {
                 form={form}
                 style={{ display: "inline-block", marginTop: "2em" }}
               >
-                <Form.Item name="FlightNumber" label="FlightNumber">
-                  <Input />
-                </Form.Item>
-                <Form.Item name="AllowedBaggage" label="Allowed Baggage">
+                <Form.Item name="AllowedBaggage"
+                 label="Allowed Baggage"
+                 rules={[
+                  () => ({
+                      validator(_, value) {
+                          if(value != '' && !validator.isNumeric(value)){
+
+                            return Promise.reject(new Error('Allowed Baggage must be a number!'));
+                          }
+                          return Promise.resolve();
+                      },
+                  }),
+              ]}
+                 >
                   <Input />
                 </Form.Item>
                 <Form.Item name="DepartureDate" label="Departure Time">
-                  <DatePicker />
+                  <DatePicker disabledDate={disabledDate} />
                 </Form.Item>
                 <Form.Item name="ArrivalDate" label="Arrival Time">
-                  <DatePicker />
+                  <DatePicker disabledDate={disabledDate}/>
                 </Form.Item>
                 <Form.Item name="TripDuration" label="Trip Duration">
                   <TimePicker.RangePicker
@@ -208,6 +190,9 @@ export default function UpdateFlightadmin() {
                 </Form.Item>
               </Form>
             </TabPane>
+
+
+
             <TabPane
               tab="Departure Information"
               key="2"
@@ -231,6 +216,9 @@ export default function UpdateFlightadmin() {
                 </Form.Item>
               </Form>
             </TabPane>
+
+
+
             <TabPane
               tab="Arrival Information"
               key="3"
@@ -254,6 +242,9 @@ export default function UpdateFlightadmin() {
                 </Form.Item>
               </Form>
             </TabPane>
+
+
+
             <TabPane
               tab="Seats Information"
               key="4"
@@ -263,33 +254,29 @@ export default function UpdateFlightadmin() {
                 form={form}
                 style={{ display: "inline-block", marginTop: "2em" }}
               >
-                <Form.Item
-                  name="EconomyAvailableSeats"
-                  label="Economy Class Available Seats"
+                
+                <Form.Item name="EconomyPrice" 
+                label="Economy Class Price"
+                
                 >
                   <Input />
                 </Form.Item>
-                <Form.Item name="EconomyPrice" label="Economy Class Price">
-                  <Input />
-                </Form.Item>
-                <Form.Item
-                  name="BusinessAvailableSeats"
-                  label="Business Class Available Seats"
+                
+                <Form.Item name="BusinessPrice" 
+                label="Business Class Price"
+                rules={[
+                  {type: 'number'}
+              ]}
                 >
                   <Input />
                 </Form.Item>
-                <Form.Item name="BusinessPrice" label="Business Class Price">
-                  <Input />
-                </Form.Item>
-                <Form.Item name="FirstClassPrice" label="First Class Price">
-                  <Input />
-                </Form.Item>
-                <Form.Item
-                  name="FirstClassAvailableSeats"
-                  label="First Class Available Seats"
+                <Form.Item name="FirstClassPrice" 
+                label="First Class Price"
+                
                 >
                   <Input />
                 </Form.Item>
+                
               </Form>
               <div style={{ textAlign: "center" }}>
                 <Button
