@@ -10,7 +10,6 @@ router.patch("/update_flight/:flightID", controllers.updateFlight);
 
 router.post("/create_flight", controllers.createFlight);
 
-module.exports = router
 router.delete("/delete_flight/:flightID", controllers.deleteFlight);
 
 router.get("/get_all_flights", controllers.getAllFlights);
