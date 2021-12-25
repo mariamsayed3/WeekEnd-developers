@@ -23,6 +23,7 @@ const HomeSearch = () => {
       </span>
       <span> {Admin ? "Manage some flights?" : "Looking for a trip?"}</span>
       <TextField
+        autocomplete="off"
         onClick={(e) => setSelectedFrom(false)}
         onChange={(e) => {
           setData({ ...data, origin: e.target.value });
@@ -42,10 +43,15 @@ const HomeSearch = () => {
             setSelected={setSelectedFrom}
             setData={setData}
             data={data}
+            setFrom={""}
+            from={""}
+            setTo={""}
+            to={""}
           />
         )}
       </div>
       <TextField
+        autocomplete="off"
         onClick={(e) => setSelectedTo(false)}
         onChange={(e) => setData({ ...data, destination: e.target.value })}
         value={data.destination}
@@ -63,6 +69,10 @@ const HomeSearch = () => {
             setSelected={setSelectedTo}
             setData={setData}
             data={data}
+            setFrom={""}
+            from={""}
+            setTo={""}
+            to={""}
           />
         )}
       </div>
