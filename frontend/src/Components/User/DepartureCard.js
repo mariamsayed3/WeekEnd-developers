@@ -6,7 +6,7 @@ import downArrow from "../../Assets/down-arrow.svg";
 import upArrow from "../../Assets/up-arrow.svg";
 import Modal from "antd/lib/modal/Modal";
 import axios from "axios";
-import { message } from "antd";
+import { Button, message } from "antd";
 
 const DepartureCard = (props) => {
   const [overlay, setOverlay] = useState(false);
@@ -186,6 +186,7 @@ const DepartureCard = (props) => {
                     <span className="sub-span duration-info book">
                       {props.isAdmin ? (
                         <>
+                        <Button style={{top : '-15px', marginRight: '5px'}}>
                           <Link
                             className="active"
                             to={{
@@ -195,11 +196,14 @@ const DepartureCard = (props) => {
                           >
                             Update
                           </Link>
+                          </Button>
                           
+                          <Button style={{top : '-15px'}}>
                             <a style={{color: 'red', margin:'20px'}} onClick={showModal}> Delete </a>
-                       
+                            </Button>
                         </>
                       ) : !props.flight.reserved ? (
+                        <Button style={{top : '-15px'}}>
                         <Link
                           to={{
                             pathname: `/reserve_departure/${props.flight._id}`,
@@ -213,6 +217,7 @@ const DepartureCard = (props) => {
                         >
                           Book now
                         </Link>
+                        </Button>
                       ) : (
                         <span style={{ color: "red", fontSize: "17px" }}>
                           You already booked this flight!
