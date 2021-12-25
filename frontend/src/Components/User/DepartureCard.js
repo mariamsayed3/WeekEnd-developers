@@ -190,7 +190,7 @@ const DepartureCard = (props) => {
                             className="active"
                             to={{
                               pathname: "/admin/update_flight",
-                              state: { id: props.idKey },
+                              state: { id: props.idKey, baggage: props.flight.AllowedBaggage },
                             }}
                           >
                             Update

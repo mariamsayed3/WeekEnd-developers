@@ -1,12 +1,12 @@
 import React from "react";
-import { Form, Button } from "antd";
+import { Form, Button, InputNumber } from "antd";
 import "../../../Styles/createFlight.scss";
 import "../../../Styles/editflightadmin.scss";
 
-import { message, Input, DatePicker, TimePicker } from "antd";
+import { message, Input, DatePicker, TimePicker} from "antd";
 import fourthOne from "../../../Styles/fourthOne.png";
 import axios from "axios";
-import validator from "validator";
+import { useHistory } from "react-router-dom";
 import moment from "moment";
 import "antd/dist/antd.css";
 
@@ -17,9 +17,11 @@ const { TabPane } = Tabs;
 
 export default function UpdateFlightadmin() {
   const [form] = Form.useForm();
+  const history = useHistory()
   const location = useLocation()
   const { state } = location
   const id = state.id
+  const baggage = state.baggage
   const getTripDuration = (from, to) => {
     const fromTime = from.split(":");
     const toTime = to.split(":");
@@ -67,7 +69,7 @@ export default function UpdateFlightadmin() {
       await axios.patch(`http://localhost:8000/admin/update_flight/${id}`,lastNewValues);
       message
         .loading("Action in progress..", 2.5)
-        .then(() => message.success("Flight Updated Succesfully", 3));
+        .then(() => {message.success("Flight Updated Succesfully", 3); history.push('/admin/flights')});
     } catch (e) {
       console.log(e);
       message.error("Something went wrong. please try again.", 3);
@@ -161,19 +163,9 @@ export default function UpdateFlightadmin() {
               >
                 <Form.Item name="AllowedBaggage"
                  label="Allowed Baggage"
-                 rules={[
-                  () => ({
-                      validator(_, value) {
-                          if(value != '' && !validator.isNumeric(value)){
-
-                            return Promise.reject(new Error('Allowed Baggage must be a number!'));
-                          }
-                          return Promise.resolve();
-                      },
-                  }),
-              ]}
+                 
                  >
-                  <Input />
+                  <InputNumber defaultValue={baggage}/>
                 </Form.Item>
                 <Form.Item name="DepartureDate" label="Departure Time">
                   <DatePicker disabledDate={disabledDate} />
@@ -259,22 +251,20 @@ export default function UpdateFlightadmin() {
                 label="Economy Class Price"
                 
                 >
-                  <Input />
+                 <InputNumber />
                 </Form.Item>
                 
                 <Form.Item name="BusinessPrice" 
                 label="Business Class Price"
-                rules={[
-                  {type: 'number'}
-              ]}
+                
                 >
-                  <Input />
+                  <InputNumber/>
                 </Form.Item>
                 <Form.Item name="FirstClassPrice" 
                 label="First Class Price"
                 
                 >
-                  <Input />
+                  <InputNumber/>
                 </Form.Item>
                 
               </Form>
