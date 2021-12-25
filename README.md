@@ -1,6 +1,6 @@
 # JetAway
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)]
+![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)
 
 ## Project Description
 
