@@ -63,16 +63,20 @@ https://reactjs.org/docs/getting-started.html
 https://nodejs.org/en/download/
 then install the dependencies and start the server.
 For starting the backend server:
-sh
+
+```sh
 cd backend
 npm i
 node app
+```
 
 For starting the frontend:
-sh
+
+```sh
 cd frontend
 npm i
 npm start
+```
 
 ## Tests
 
@@ -401,3 +405,9 @@ Route for finding current flights reserved by the user
 | Body                   | Type   | Description                                           |
 | :--------------------- | :----- | :---------------------------------------------------- |
 | `{Token, newPassword}` | `json` | Token for authenticating users' data and new password |
+
+## Credits
+
+antd: https://ant.design/
+Material UI: https://mui.com/
+React icons: https://react-icons.github.io/react-icons/
