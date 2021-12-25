@@ -23,7 +23,7 @@ const HomeSearch = () => {
       </span>
       <span> {Admin ? "Manage some flights?" : "Looking for a trip?"}</span>
       <TextField
-        autocomplete="off"
+        autoComplete="off"
         onClick={(e) => setSelectedFrom(false)}
         onChange={(e) => {
           setData({ ...data, origin: e.target.value });
@@ -51,7 +51,7 @@ const HomeSearch = () => {
         )}
       </div>
       <TextField
-        autocomplete="off"
+        autoComplete="off"
         onClick={(e) => setSelectedTo(false)}
         onChange={(e) => setData({ ...data, destination: e.target.value })}
         value={data.destination}
