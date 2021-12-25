@@ -78,12 +78,8 @@ export default function CreateFlightOne() {
     values.ArrivalDate = new Date(Date.parse(values.DepartureDate[1]._d));
     values.DepartureDate = new Date(Date.parse(values.DepartureDate[0]._d));
     let info = {};
-    if (Number.isNaN(parseInt(values.AllowedBaggage)) === true) {
-      message.error("Please enter a number ", 1.5);
-      correctInputs = false;
-    } else {
-      info["AllowedBaggage"] = parseInt(values.AllowedBaggage);
-    }
+    
+    info["AllowedBaggage"] = parseInt(values.AllowedBaggage);
     info["DepartureDate"] = values.DepartureDate;
     info["ArrivalDate"] = values.ArrivalDate;
 

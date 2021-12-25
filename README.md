@@ -406,6 +406,12 @@ Route for finding current flights reserved by the user
 | :--------------------- | :----- | :---------------------------------------------------- |
 | `{Token, newPassword}` | `json` | Token for authenticating users' data and new password |
 
+## Roadmap
+
+- Deployement
+
+- Logging in with Google & Facebook
+
 ## Credits
 
 antd: https://ant.design/ <br/>

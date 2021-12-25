@@ -205,9 +205,9 @@ function BoardingPass({Booking, Flight, id}) {
                 <use href="#qrcode"></use>
               </svg>
             </section>
-          </div>
-         
-        )
+          </div> 
+
+        
 
       <Modal
         visible={visible}
