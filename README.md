@@ -406,6 +406,16 @@ Route for finding current flights reserved by the user
 | :--------------------- | :----- | :---------------------------------------------------- |
 | `{Token, newPassword}` | `json` | Token for authenticating users' data and new password |
 
+## Code style
+
+- A space between parameters
+
+- Curly brace { of conditions and functions on the same line
+
+- Semicolon is not manditory
+
+- Horizontal indents is manditory
+
 ## Roadmap
 
 - Deployement
