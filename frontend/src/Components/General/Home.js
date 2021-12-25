@@ -15,7 +15,7 @@ import plane from '../../Assets/plane.png'
    let history = useHistory()
    const [modalOpen,setModalOpen] = useState(false);
    const {setEmail} = useContext(UserContext) 
-    const {Admin, Email} = useContext(UserContext);
+    const {Admin, Email, FirstName} = useContext(UserContext);
     const logout = () => {
       setEmail(null)
       sessionStorage.removeItem('user')
@@ -68,7 +68,7 @@ import plane from '../../Assets/plane.png'
                 </div>
                <div style={{display: 'flex', flexDirection: 'row'}}>
                   <div className='home-search'>
-                     <HomeSearch />
+                     {!Admin ? <HomeSearch />: null}
                   </div>
                   <div className="plane"><img src={plane}/></div> 
                </div> 
