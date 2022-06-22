@@ -21,7 +21,7 @@ JetAway uses a number of open source projects to work properly:
 
 ## Features
 
-The user is able to..
+The user is able to.
 
 - Search & Filter through a list of available flights based on his desired criteria
 
